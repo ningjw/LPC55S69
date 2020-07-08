@@ -1,0 +1,26 @@
+./objects/serial_port_uart.o: \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.c \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  RTE\_core1\RTE_Components.h \
+  RTE\Device\LPC55S69JBD100_cm33_core1\fsl_device_registers.h \
+  RTE\Device\LPC55S69JBD100_cm33_core1\LPC55S69_cm33_core1.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm33.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armclang.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  RTE\Device\LPC55S69JBD100_cm33_core1\system_LPC55S69_cm33_core1.h \
+  RTE\Device\LPC55S69JBD100_cm33_core1\LPC55S69_cm33_core1_features.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_internal.h

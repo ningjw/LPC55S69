@@ -1,696 +1,0 @@
-Dependencies for Project 'project', Target 'core0': (DO NOT MODIFY !)
-CompilerVersion: 6130001::V6.13.1::.\ARMCLANG
-F (.\Src\main.c)(0x5EF19E67)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/main.o -MD)
-I (Inc\main.h)(0x5EF19E6C)
-I (board\pin_mux.h)(0x5EF19CBE)
-I (board\peripherals.h)(0x5EF19CC1)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_ctimer.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h)(0x5E4D0482)
-I (board\clock_config.h)(0x5EF176DF)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Include\EventRecorder.h)(0x5B8F507E)
-F (.\board\clock_config.c)(0x5EF176DF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/clock_config.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_power.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (board\clock_config.h)(0x5EF176DF)
-F (.\board\clock_config.h)(0x5EF176DF)()
-F (.\board\peripherals.c)(0x5EF19CC1)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/peripherals.o -MD)
-I (board\peripherals.h)(0x5EF19CC1)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_ctimer.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h)(0x5E4D0482)
-F (.\board\peripherals.h)(0x5EF19CC1)()
-F (.\board\pin_mux.c)(0x5EF19CBE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/pin_mux.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (board\pin_mux.h)(0x5EF19CBE)
-F (.\board\pin_mux.h)(0x5EF19CBE)()
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Source\EventRecorder.c)(0x5B8F507E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/eventrecorder.o -MD)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Include\EventRecorder.h)(0x5B8F507E)
-I (RTE\Compiler\EventRecorderConf.h)(0x5B625110)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Source\retarget_io.c)(0x584E29BE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/retarget_io.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\rt_sys.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Include\EventRecorder.h)(0x5B8F507E)
-F (RTE\Compiler\EventRecorderConf.h)(0x5B625110)()
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\arm\keil_lib_power_cm33_core0.lib)(0x5E4D0474)()
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\lists\generic_list.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/generic_list.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\lists\generic_list.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/serial_manager.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_internal.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/serial_port_uart.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_internal.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\usart_adapter.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/usart_adapter.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_clock.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_power.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_common.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_ctimer.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_ctimer.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_ctimer.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_flexcomm.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_i2c.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_power.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_power.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_power.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_reset.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_spi.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_spi.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_spi.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_usart.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\debug_console\fsl_debug_console.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_debug_console.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5DB34D9E)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\debug_console\fsl_debug_console_conf.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\str\fsl_str.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\debug_console\fsl_debug_console.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\fsl_assert.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_assert.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\debug_console\fsl_debug_console.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_manager.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\serial_manager\serial_port_uart.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\components\uart\uart.h)(0x5E4D0482)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\str\fsl_str.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/fsl_str.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5DB34D9E)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\str\fsl_str.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h)(0x5E4D0482)
-I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\utilities\debug_console\fsl_debug_console_conf.h)(0x5E4D0482)
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_flash.scf)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_flash_ns.scf)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_flash_s.scf)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_ram.scf)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)()
-F (RTE\Device\LPC55S69JBD100_cm33_core0\startup_LPC55S69_cm33_core0.s)(0x5E4D0482)(-x assembler-with-cpp --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-gdwarf-3 -D__MICROLIB-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DKEIL -DDEBUG-o ./objects/startup_lpc55s69_cm33_core0.o)
-F (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.c)(0x5E4D0482)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/system_lpc55s69_cm33_core0.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\fsl_device_registers.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm33.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2590B6)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armclang.h)(0x5D2590B6)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x5A8EB578)
-I (D:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x5D8A1E5E)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv8.h)(0x5D1457CE)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)
-I (RTE\Device\LPC55S69JBD100_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5E4D0482)
-F (RTE\Device\LPC55S69JBD100_cm33_core0\system_LPC55S69_cm33_core0.h)(0x5E4D0482)()
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Source\freertos_evr.c)(0x5CAFE25C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/freertos_evr.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\semphr.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\queue.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\event_groups.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\timers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\stream_buffer.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Include\EventRecorder.h)(0x5B8F507E)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\croutine.c)(0x5CAFE262)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/croutine.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\croutine.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\event_groups.c)(0x5CAFE262)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/event_groups.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\timers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\event_groups.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\list.c)(0x5CAFE262)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/list.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\port.c)(0x5CAFE262)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/port.o -MD)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.c)(0x5CAFE262)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/portasm.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\MemMang\heap_4.c)(0x5CAFE264)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/heap_4.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\queue.c)(0x5CAFE264)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/queue.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\queue.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\stream_buffer.c)(0x5CAFE264)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/stream_buffer.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\stream_buffer.h)(0x5CAFE262)
-F (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\tasks.c)(0x5CAFE264)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Ofast -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JBD100_cm33_core0-I./RTE/RTOS-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/CMSIS/RTOS2/FreeRTOS/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/include-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.2.0/Source/portable/GCC/ARM_CM33_NTZ/non_secure-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.2/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/lists-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/serial_manager-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/components/uart-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/drivers-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/debug_console-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1/utilities/str-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DSERIAL_PORT_TYPE_UART="1"-o ./objects/tasks.o -MD)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5DB34DA0)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\FreeRTOS.h)(0x5CAFE262)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
-I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h)(0x5CAFE25C)
-I (RTE\_core0\RTE_Components.h)(0x5EF19BC5)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\projdefs.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\portable.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\deprecated_definitions.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\mpu_wrappers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\task.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\list.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\timers.h)(0x5CAFE262)
-I (C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\Source\include\stack_macros.h)(0x5CAFE262)
-F (RTE\RTOS\FreeRTOSConfig.h)(0x5EF15AF9)()
