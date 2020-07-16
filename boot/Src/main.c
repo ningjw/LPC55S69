@@ -6,7 +6,7 @@
 #include "stdio.h"
 #include "fsl_iap.h"
 
-#define APP_DATA_ADDR     0x4B000       // 300k的位置
+#define APP_DATA_ADDR     0x4F000       // 300k的位置
 #define APP_ADDR          0x4000		// APP代码起始地址
 #define APP_ADDR_INFO     0x3FF8
 #define SECTOR_SIZE       0x1000

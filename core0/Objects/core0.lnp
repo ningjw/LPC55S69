@@ -3,7 +3,6 @@
 ".\objects\clock_config.o"
 ".\objects\peripherals.o"
 ".\objects\pin_mux.o"
-".\objects\incbin.o"
 ".\objects\eventrecorder.o"
 ".\objects\retarget_io.o"
 "C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\arm\keil_lib_power_cm33_core0.lib"
@@ -27,6 +26,8 @@
 ".\objects\fsl_spi_dma.o"
 ".\objects\fsl_usart.o"
 ".\objects\fsl_usart_dma.o"
+".\objects\fsl_utick.o"
+".\objects\fsl_pint.o"
 ".\objects\startup_lpc55s69_cm33_core0.o"
 ".\objects\system_lpc55s69_cm33_core0.o"
 ".\objects\freertos_evr.o"
@@ -40,6 +41,6 @@
 ".\objects\stream_buffer.o"
 ".\objects\tasks.o"
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"
-./keil_lib_power_cm33_core0.lib --remove --keep=*(.m0code) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\core0.map" -o .\Objects\core0.out

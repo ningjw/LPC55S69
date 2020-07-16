@@ -41,14 +41,14 @@
   #define Heap_Size                    0x0400
 #endif
 
-#define  m_interrupts_start            0x00000000
+#define  m_interrupts_start            0x00004000
 #define  m_interrupts_size             0x00000200
 
-#define  m_text_start                  0x00000200
-#define  m_text_size                   0x00071E00
+#define  m_text_start                  0x00004200
+#define  m_text_size                   0x0004EC00
 
-#define  m_core1_image_start           0x00072000
-#define  m_core1_image_size            0x00026000
+;#define  m_core1_image_start           0x00072000
+;#define  m_core1_image_size            0x00026000
 
 #if (defined(__use_shmem__))
   #define  m_data_start                0x20000000
@@ -98,8 +98,8 @@ LR_m_text m_interrupts_start m_interrupts_size+m_text_size {   ; load region siz
   }
 }
 
-LR_CORE1_IMAGE m_core1_image_start {
-  CORE1_REGION m_core1_image_start m_core1_image_size {
-    * (.m0code)
-  }
-}
+;LR_CORE1_IMAGE m_core1_image_start {
+;  CORE1_REGION m_core1_image_start m_core1_image_size {
+;    * (.m0code)
+;  }
+;}

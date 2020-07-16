@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\core0.out]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\core0.out</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6130100: Last Updated: Wed Jul  8 10:54:09 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6130100: Last Updated: Thu Jul 16 11:23:06 2020
 <BR><P>
 <H3>Maximum Stack Usage =        296 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -18,7 +18,7 @@ Functions with no stack information
  <LI><a href="#[4]">BusFault_Handler</a>
  <LI><a href="#[81]">CASER_DriverIRQHandler</a>
  <LI><a href="#[8]">DebugMon_Handler</a>
- <LI><a href="#[8e]">DefaultISR</a>
+ <LI><a href="#[8c]">DefaultISR</a>
  <LI><a href="#[4c]">GINT0_DriverIRQHandler</a>
  <LI><a href="#[4d]">GINT1_DriverIRQHandler</a>
  <LI><a href="#[80]">HASHCRYPT_DriverIRQHandler</a>
@@ -26,14 +26,6 @@ Functions with no stack information
  <LI><a href="#[53]">MRT0_DriverIRQHandler</a>
  <LI><a href="#[3]">MemManage_Handler</a>
  <LI><a href="#[70]">OS_EVENT_DriverIRQHandler</a>
- <LI><a href="#[4e]">PIN_INT0_DriverIRQHandler</a>
- <LI><a href="#[4f]">PIN_INT1_DriverIRQHandler</a>
- <LI><a href="#[50]">PIN_INT2_DriverIRQHandler</a>
- <LI><a href="#[51]">PIN_INT3_DriverIRQHandler</a>
- <LI><a href="#[6a]">PIN_INT4_DriverIRQHandler</a>
- <LI><a href="#[6b]">PIN_INT5_DriverIRQHandler</a>
- <LI><a href="#[6c]">PIN_INT6_DriverIRQHandler</a>
- <LI><a href="#[6d]">PIN_INT7_DriverIRQHandler</a>
  <LI><a href="#[7e]">PLU_DriverIRQHandler</a>
  <LI><a href="#[83]">PQ_DriverIRQHandler</a>
  <LI><a href="#[82]">PUF_DriverIRQHandler</a>
@@ -50,8 +42,6 @@ Functions with no stack information
  <LI><a href="#[77]">Reserved61_DriverIRQHandler</a>
  <LI><a href="#[56]">SCT0_DriverIRQHandler</a>
  <LI><a href="#[74]">SDIO_DriverIRQHandler</a>
- <LI><a href="#[7c]">SEC_GPIO_INT0_IRQ0_DriverIRQHandler</a>
- <LI><a href="#[7d]">SEC_GPIO_INT0_IRQ1_DriverIRQHandler</a>
  <LI><a href="#[7b]">SEC_HYPERVISOR_CALL_DriverIRQHandler</a>
  <LI><a href="#[7f]">SEC_VIO_DriverIRQHandler</a>
  <LI><a href="#[6]">SecureFault_Handler</a>
@@ -60,7 +50,6 @@ Functions with no stack information
  <LI><a href="#[79]">USB1_DriverIRQHandler</a>
  <LI><a href="#[7a]">USB1_NEEDCLK_DriverIRQHandler</a>
  <LI><a href="#[78]">USB1_PHY_DriverIRQHandler</a>
- <LI><a href="#[52]">UTICK0_DriverIRQHandler</a>
  <LI><a href="#[5]">UsageFault_Handler</a>
  <LI><a href="#[4a]">WDT_BOD_DriverIRQHandler</a>
  <LI><a href="#[1]">NMI_Handler</a>
@@ -162,6 +151,7 @@ Function Pointers
  <LI><a href="#[84]">DMA1_DriverIRQHandler</a> from fsl_dma.o(.text.DMA1_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[45]">DMA1_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[8]">DebugMon_Handler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
+ <LI><a href="#[8c]">DefaultISR</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from fsl_utick.o(.data.s_utickIsr)
  <LI><a href="#[58]">FLEXCOMM0_DriverIRQHandler</a> from fsl_flexcomm.o(.text.FLEXCOMM0_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[19]">FLEXCOMM0_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[59]">FLEXCOMM1_DriverIRQHandler</a> from fsl_flexcomm.o(.text.FLEXCOMM1_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
@@ -199,21 +189,21 @@ Function Pointers
  <LI><a href="#[1]">NMI_Handler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[70]">OS_EVENT_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[31]">OS_EVENT_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[4e]">PIN_INT0_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[4e]">PIN_INT0_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT0_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[f]">PIN_INT0_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[4f]">PIN_INT1_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[4f]">PIN_INT1_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT1_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[10]">PIN_INT1_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[50]">PIN_INT2_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[50]">PIN_INT2_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT2_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[11]">PIN_INT2_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[51]">PIN_INT3_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[51]">PIN_INT3_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT3_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[12]">PIN_INT3_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[6a]">PIN_INT4_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[6a]">PIN_INT4_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT4_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[2b]">PIN_INT4_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[6b]">PIN_INT5_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[6b]">PIN_INT5_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT5_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[2c]">PIN_INT5_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[6c]">PIN_INT6_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[6c]">PIN_INT6_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT6_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[2d]">PIN_INT6_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[6d]">PIN_INT7_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[6d]">PIN_INT7_DriverIRQHandler</a> from fsl_pint.o(.text.PIN_INT7_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[2e]">PIN_INT7_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[7e]">PLU_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[3f]">PLU_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
@@ -250,9 +240,9 @@ Function Pointers
  <LI><a href="#[17]">SCT0_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[74]">SDIO_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[35]">SDIO_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[7c]">SEC_GPIO_INT0_IRQ0_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[7c]">SEC_GPIO_INT0_IRQ0_DriverIRQHandler</a> from fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[3d]">SEC_GPIO_INT0_IRQ0_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[7d]">SEC_GPIO_INT0_IRQ1_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[7d]">SEC_GPIO_INT0_IRQ1_DriverIRQHandler</a> from fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[3e]">SEC_GPIO_INT0_IRQ1_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[7b]">SEC_HYPERVISOR_CALL_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[3c]">SEC_HYPERVISOR_CALL_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
@@ -276,7 +266,7 @@ Function Pointers
  <LI><a href="#[3b]">USB1_NEEDCLK_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[78]">USB1_PHY_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[39]">USB1_PHY_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
- <LI><a href="#[52]">UTICK0_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
+ <LI><a href="#[52]">UTICK0_DriverIRQHandler</a> from fsl_utick.o(.text.UTICK0_DriverIRQHandler) referenced from startup_lpc55s69_cm33_core0.o(.text)
  <LI><a href="#[13]">UTICK0_IRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[5]">UsageFault_Handler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.isr_vector)
  <LI><a href="#[4a]">WDT_BOD_DriverIRQHandler</a> from startup_lpc55s69_cm33_core0.o(.text) referenced from startup_lpc55s69_cm33_core0.o(.text)
@@ -295,12 +285,12 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[da]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry4.o(.ARM.Collect$$$$00000003))
 
-<P><STRONG><a name="[8c]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
-<BR><BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<P><STRONG><a name="[8d]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
+<BR><BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
 <P><STRONG><a name="[95]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
-<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
 <P><STRONG><a name="[db]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
@@ -317,7 +307,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.isr_vector)
 </UL>
 <P><STRONG><a name="[62]"></a>ACMP_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR><BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DefaultISR
+<BR><BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DefaultISR
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
@@ -333,10 +323,11 @@ Global Symbols
 <P><STRONG><a name="[8]"></a>DebugMon_Handler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.isr_vector)
 </UL>
-<P><STRONG><a name="[8e]"></a>DefaultISR</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
+<P><STRONG><a name="[8c]"></a>DefaultISR</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ACMP_DriverIRQHandler
 </UL>
-
+<BR>[Address Reference Count : 1]<UL><LI> fsl_utick.o(.data.s_utickIsr)
+</UL>
 <P><STRONG><a name="[4c]"></a>GINT0_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
@@ -356,30 +347,6 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.isr_vector)
 </UL>
 <P><STRONG><a name="[70]"></a>OS_EVENT_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[4e]"></a>PIN_INT0_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[4f]"></a>PIN_INT1_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[50]"></a>PIN_INT2_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[51]"></a>PIN_INT3_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[6a]"></a>PIN_INT4_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[6b]"></a>PIN_INT5_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[6c]"></a>PIN_INT6_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[6d]"></a>PIN_INT7_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
 <P><STRONG><a name="[7e]"></a>PLU_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
@@ -430,12 +397,6 @@ Global Symbols
 <P><STRONG><a name="[74]"></a>SDIO_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
-<P><STRONG><a name="[7c]"></a>SEC_GPIO_INT0_IRQ0_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[7d]"></a>SEC_GPIO_INT0_IRQ1_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
 <P><STRONG><a name="[7b]"></a>SEC_HYPERVISOR_CALL_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
@@ -458,9 +419,6 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
 <P><STRONG><a name="[78]"></a>USB1_PHY_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
-</UL>
-<P><STRONG><a name="[52]"></a>UTICK0_DriverIRQHandler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
 </UL>
 <P><STRONG><a name="[5]"></a>UsageFault_Handler</STRONG> (Thumb, 4 bytes, Stack size unknown bytes, startup_lpc55s69_cm33_core0.o(.text))
@@ -719,10 +677,10 @@ Global Symbols
 
 <P><STRONG><a name="[e8]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
 
-<P><STRONG><a name="[8d]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
+<P><STRONG><a name="[8e]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
 <P><STRONG><a name="[e9]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
@@ -1182,6 +1140,46 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BOARD_InitPins
 </UL>
 
+<P><STRONG><a name="[4e]"></a>PIN_INT0_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT0_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT0_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[4f]"></a>PIN_INT1_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT1_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT1_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[50]"></a>PIN_INT2_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT2_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT2_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[51]"></a>PIN_INT3_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT3_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT3_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[6a]"></a>PIN_INT4_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT4_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT4_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[6b]"></a>PIN_INT5_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT5_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT5_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[6c]"></a>PIN_INT6_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT6_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT6_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[6d]"></a>PIN_INT7_DriverIRQHandler</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, fsl_pint.o(.text.PIN_INT7_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = PIN_INT7_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
 <P><STRONG><a name="[9a]"></a>POWER_SetVoltageForFreq</STRONG> (Thumb, 72 bytes, Stack size unknown bytes, fsl_power_lib.o(.text.POWER_SetVoltageForFreq))
 <BR><BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lowpower_set_voltage_for_process
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lowpower_set_dcdc_power_profile
@@ -1234,6 +1232,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLOCK_SetPLL0Freq
 </UL>
 
+<P><STRONG><a name="[7c]"></a>SEC_GPIO_INT0_IRQ0_DriverIRQHandler</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SEC_GPIO_INT0_IRQ0_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
+<P><STRONG><a name="[7d]"></a>SEC_GPIO_INT0_IRQ1_DriverIRQHandler</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SEC_GPIO_INT0_IRQ1_DriverIRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
 <P><STRONG><a name="[a8]"></a>SPI_MasterInit</STRONG> (Thumb, 816 bytes, Stack size 24 bytes, fsl_spi.o(.text.SPI_MasterInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = SPI_MasterInit &rArr; FLEXCOMM_Init &rArr; RESET_PeripheralReset &rArr; __aeabi_assert &rArr; fputs &rArr; fputc &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
@@ -1299,6 +1307,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BOARD_InitPeripherals
 </UL>
 
+<P><STRONG><a name="[52]"></a>UTICK0_DriverIRQHandler</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, fsl_utick.o(.text.UTICK0_DriverIRQHandler))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc55s69_cm33_core0.o(.text)
+</UL>
 <P><STRONG><a name="[af]"></a>__aeabi_assert</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, retarget_io.o(.text.__aeabi_assert))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = __aeabi_assert &rArr; fputs &rArr; fputc &rArr; EventRecordData &rArr; EventRecordItem
 </UL>

@@ -928,12 +928,101 @@ Section Cross References
     fsl_usart_dma.o(.text.USART_TransferGetReceiveCountDMA) refers to fsl_usart_dma.o(.rodata.str1.1) for .L.str.3
     fsl_usart_dma.o(.text.USART_TransferGetReceiveCountDMA) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
     fsl_usart_dma.o(.ARM.exidx.text.USART_TransferGetReceiveCountDMA) refers to fsl_usart_dma.o(.text.USART_TransferGetReceiveCountDMA) for [Anonymous Symbol]
+    fsl_utick.o(.text.UTICK_SetTick) refers to fsl_utick.o(.bss.s_utickHandle.0) for s_utickHandle.0
+    fsl_utick.o(.text.UTICK_SetTick) refers to fsl_utick.o(.rodata.str1.1) for .L.str
+    fsl_utick.o(.text.UTICK_SetTick) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_utick.o(.ARM.exidx.text.UTICK_SetTick) refers to fsl_utick.o(.text.UTICK_SetTick) for [Anonymous Symbol]
+    fsl_utick.o(.text.UTICK_Init) refers to fsl_reset.o(.text.RESET_PeripheralReset) for RESET_PeripheralReset
+    fsl_utick.o(.text.UTICK_Init) refers to fsl_utick.o(.data.s_utickIsr) for s_utickIsr
+    fsl_utick.o(.text.UTICK_Init) refers to fsl_utick.o(.text.UTICK_HandleIRQ) for UTICK_HandleIRQ
+    fsl_utick.o(.text.UTICK_Init) refers to fsl_utick.o(.rodata.str1.1) for .L.str
+    fsl_utick.o(.text.UTICK_Init) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_utick.o(.ARM.exidx.text.UTICK_Init) refers to fsl_utick.o(.text.UTICK_Init) for [Anonymous Symbol]
+    fsl_utick.o(.ARM.exidx.text.UTICK_HandleIRQ) refers to fsl_utick.o(.text.UTICK_HandleIRQ) for [Anonymous Symbol]
+    fsl_utick.o(.text.UTICK_Deinit) refers to fsl_utick.o(.rodata.str1.1) for .L.str
+    fsl_utick.o(.text.UTICK_Deinit) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_utick.o(.ARM.exidx.text.UTICK_Deinit) refers to fsl_utick.o(.text.UTICK_Deinit) for [Anonymous Symbol]
+    fsl_utick.o(.ARM.exidx.text.UTICK_GetStatusFlags) refers to fsl_utick.o(.text.UTICK_GetStatusFlags) for [Anonymous Symbol]
+    fsl_utick.o(.ARM.exidx.text.UTICK_ClearStatusFlags) refers to fsl_utick.o(.text.UTICK_ClearStatusFlags) for [Anonymous Symbol]
+    fsl_utick.o(.text.UTICK0_DriverIRQHandler) refers to fsl_utick.o(.data.s_utickIsr) for s_utickIsr
+    fsl_utick.o(.text.UTICK0_DriverIRQHandler) refers to fsl_utick.o(.bss.s_utickHandle.0) for s_utickHandle.0
+    fsl_utick.o(.ARM.exidx.text.UTICK0_DriverIRQHandler) refers to fsl_utick.o(.text.UTICK0_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_utick.o(.data.s_utickIsr) refers to startup_lpc55s69_cm33_core0.o(.text) for DefaultISR
+    fsl_pint.o(.text.PINT_Init) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_Init) refers to fsl_reset.o(.text.RESET_PeripheralReset) for RESET_PeripheralReset
+    fsl_pint.o(.text.PINT_Init) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_Init) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_Init) refers to fsl_pint.o(.text.PINT_Init) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_PinInterruptConfig) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_PinInterruptConfig) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_PinInterruptConfig) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptConfig) refers to fsl_pint.o(.text.PINT_PinInterruptConfig) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_PinInterruptGetConfig) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_PinInterruptGetConfig) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_PinInterruptGetConfig) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptGetConfig) refers to fsl_pint.o(.text.PINT_PinInterruptGetConfig) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_PatternMatchConfig) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_PatternMatchConfig) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_PatternMatchConfig) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchConfig) refers to fsl_pint.o(.text.PINT_PatternMatchConfig) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_PatternMatchGetConfig) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_PatternMatchGetConfig) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_PatternMatchGetConfig) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchGetConfig) refers to fsl_pint.o(.text.PINT_PatternMatchGetConfig) for [Anonymous Symbol]
+    fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchResetDetectLogic) refers to fsl_pint.o(.text.PINT_PatternMatchResetDetectLogic) for [Anonymous Symbol]
+    fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptClrStatus) refers to fsl_pint.o(.text.PINT_PinInterruptClrStatus) for [Anonymous Symbol]
+    fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptClrStatusAll) refers to fsl_pint.o(.text.PINT_PinInterruptClrStatusAll) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_EnableCallback) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_EnableCallback) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_EnableCallback) refers to fsl_pint.o(.text.PINT_EnableCallback) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_EnableCallbackByIndex) refers to fsl_pint.o(.rodata.s_pintIRQ) for s_pintIRQ
+    fsl_pint.o(.text.PINT_EnableCallbackByIndex) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_EnableCallbackByIndex) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_EnableCallbackByIndex) refers to fsl_pint.o(.text.PINT_EnableCallbackByIndex) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_DisableCallback) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_DisableCallback) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_DisableCallback) refers to fsl_pint.o(.text.PINT_DisableCallback) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_DisableCallbackByIndex) refers to fsl_pint.o(.rodata.s_pintIRQ) for s_pintIRQ
+    fsl_pint.o(.text.PINT_DisableCallbackByIndex) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_DisableCallbackByIndex) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_DisableCallbackByIndex) refers to fsl_pint.o(.text.PINT_DisableCallbackByIndex) for [Anonymous Symbol]
+    fsl_pint.o(.text.PINT_Deinit) refers to fsl_pint.o(.text.PINT_DisableCallback) for PINT_DisableCallback
+    fsl_pint.o(.text.PINT_Deinit) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.text.PINT_Deinit) refers to fsl_reset.o(.text.RESET_PeripheralReset) for RESET_PeripheralReset
+    fsl_pint.o(.text.PINT_Deinit) refers to fsl_pint.o(.rodata.str1.1) for .L.str
+    fsl_pint.o(.text.PINT_Deinit) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_pint.o(.ARM.exidx.text.PINT_Deinit) refers to fsl_pint.o(.text.PINT_Deinit) for [Anonymous Symbol]
+    fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler) refers to fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler) refers to fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT0_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT0_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT0_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT1_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT1_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT1_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT2_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT2_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT2_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT3_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT3_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT3_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT4_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT4_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT4_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT5_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT5_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT5_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT6_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT6_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT6_DriverIRQHandler) for [Anonymous Symbol]
+    fsl_pint.o(.text.PIN_INT7_DriverIRQHandler) refers to fsl_pint.o(.bss.s_pintCallback) for s_pintCallback
+    fsl_pint.o(.ARM.exidx.text.PIN_INT7_DriverIRQHandler) refers to fsl_pint.o(.text.PIN_INT7_DriverIRQHandler) for [Anonymous Symbol]
     startup_lpc55s69_cm33_core0.o(.text) refers to system_lpc55s69_cm33_core0.o(.text.SystemInit) for SystemInit
     startup_lpc55s69_cm33_core0.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
     startup_lpc55s69_cm33_core0.o(.text) refers to portasm.o(.text.SVC_Handler) for SVC_Handler
     startup_lpc55s69_cm33_core0.o(.text) refers to portasm.o(.text.PendSV_Handler) for PendSV_Handler
     startup_lpc55s69_cm33_core0.o(.text) refers to port.o(.text.SysTick_Handler) for SysTick_Handler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_dma.o(.text.DMA0_DriverIRQHandler) for DMA0_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT0_DriverIRQHandler) for PIN_INT0_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT1_DriverIRQHandler) for PIN_INT1_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT2_DriverIRQHandler) for PIN_INT2_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT3_DriverIRQHandler) for PIN_INT3_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_utick.o(.text.UTICK0_DriverIRQHandler) for UTICK0_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_ctimer.o(.text.CTIMER0_DriverIRQHandler) for CTIMER0_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_ctimer.o(.text.CTIMER1_DriverIRQHandler) for CTIMER1_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_ctimer.o(.text.CTIMER3_DriverIRQHandler) for CTIMER3_DriverIRQHandler
@@ -945,8 +1034,14 @@ Section Cross References
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_flexcomm.o(.text.FLEXCOMM5_DriverIRQHandler) for FLEXCOMM5_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_flexcomm.o(.text.FLEXCOMM6_DriverIRQHandler) for FLEXCOMM6_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_flexcomm.o(.text.FLEXCOMM7_DriverIRQHandler) for FLEXCOMM7_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT4_DriverIRQHandler) for PIN_INT4_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT5_DriverIRQHandler) for PIN_INT5_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT6_DriverIRQHandler) for PIN_INT6_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.PIN_INT7_DriverIRQHandler) for PIN_INT7_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_ctimer.o(.text.CTIMER2_DriverIRQHandler) for CTIMER2_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_ctimer.o(.text.CTIMER4_DriverIRQHandler) for CTIMER4_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler) for SEC_GPIO_INT0_IRQ0_DriverIRQHandler
+    startup_lpc55s69_cm33_core0.o(.text) refers to fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler) for SEC_GPIO_INT0_IRQ1_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_dma.o(.text.DMA1_DriverIRQHandler) for DMA1_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.text) refers to fsl_flexcomm.o(.text.FLEXCOMM8_DriverIRQHandler) for FLEXCOMM8_DriverIRQHandler
     startup_lpc55s69_cm33_core0.o(.isr_vector) refers to startup_lpc55s69_cm33_core0.o(.text) for Reset_Handler
@@ -2157,7 +2252,6 @@ Removing Unused input sections from the image.
     Removing pin_mux.o(.text.BOARD_InitBootPins), (236 bytes).
     Removing pin_mux.o(.ARM.exidx.text.BOARD_InitBootPins), (8 bytes).
     Removing pin_mux.o(.ARM.exidx.text.BOARD_InitPins), (8 bytes).
-    Removing incbin.o(.text), (0 bytes).
     Removing eventrecorder.o(.text), (0 bytes).
     Removing eventrecorder.o(.ARM.exidx.text.EventRecorderTimerSetup), (8 bytes).
     Removing eventrecorder.o(.text.EventRecorderTimerGetFreq), (12 bytes).
@@ -2656,6 +2750,60 @@ Removing Unused input sections from the image.
     Removing fsl_usart_dma.o(.ARM.exidx.text.USART_TransferAbortReceiveDMA), (8 bytes).
     Removing fsl_usart_dma.o(.text.USART_TransferGetReceiveCountDMA), (116 bytes).
     Removing fsl_usart_dma.o(.ARM.exidx.text.USART_TransferGetReceiveCountDMA), (8 bytes).
+    Removing fsl_utick.o(.text), (0 bytes).
+    Removing fsl_utick.o(.text.UTICK_SetTick), (68 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_SetTick), (8 bytes).
+    Removing fsl_utick.o(.text.UTICK_Init), (80 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_Init), (8 bytes).
+    Removing fsl_utick.o(.text.UTICK_HandleIRQ), (12 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_HandleIRQ), (8 bytes).
+    Removing fsl_utick.o(.text.UTICK_Deinit), (56 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_Deinit), (8 bytes).
+    Removing fsl_utick.o(.text.UTICK_GetStatusFlags), (4 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_GetStatusFlags), (8 bytes).
+    Removing fsl_utick.o(.text.UTICK_ClearStatusFlags), (6 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK_ClearStatusFlags), (8 bytes).
+    Removing fsl_utick.o(.ARM.exidx.text.UTICK0_DriverIRQHandler), (8 bytes).
+    Removing fsl_utick.o(.rodata.str1.1), (120 bytes).
+    Removing fsl_pint.o(.text), (0 bytes).
+    Removing fsl_pint.o(.text.PINT_Init), (150 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_Init), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PinInterruptConfig), (104 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptConfig), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PinInterruptGetConfig), (108 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptGetConfig), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PatternMatchConfig), (122 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchConfig), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PatternMatchGetConfig), (110 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchGetConfig), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PatternMatchResetDetectLogic), (20 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PatternMatchResetDetectLogic), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PinInterruptClrStatus), (24 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptClrStatus), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_PinInterruptClrStatusAll), (184 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_PinInterruptClrStatusAll), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_EnableCallback), (246 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_EnableCallback), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_EnableCallbackByIndex), (96 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_EnableCallbackByIndex), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_DisableCallback), (344 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_DisableCallback), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_DisableCallbackByIndex), (104 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_DisableCallbackByIndex), (8 bytes).
+    Removing fsl_pint.o(.text.PINT_Deinit), (122 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PINT_Deinit), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT0_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT1_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT2_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT3_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT4_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT5_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT6_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.ARM.exidx.text.PIN_INT7_DriverIRQHandler), (8 bytes).
+    Removing fsl_pint.o(.rodata.str1.1), (96 bytes).
+    Removing fsl_pint.o(.rodata.s_pintIRQ), (10 bytes).
     Removing system_lpc55s69_cm33_core0.o(.text), (0 bytes).
     Removing system_lpc55s69_cm33_core0.o(.ARM.exidx.text.SystemInit), (8 bytes).
     Removing system_lpc55s69_cm33_core0.o(.ARM.exidx.text.SystemInitHook), (8 bytes).
@@ -3154,7 +3302,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (48 bytes).
     Removing depilogue.o(.text), (186 bytes).
 
-1025 unused section(s) (total 63368 bytes) removed from the image.
+1078 unused section(s) (total 65794 bytes) removed from the image.
 
 ==============================================================================
 
@@ -3232,6 +3380,7 @@ Image Symbol Table
     fsl_i2c_dma.c                            0x00000000   Number         0  fsl_i2c_dma.o ABSOLUTE
     fsl_iap.c                                0x00000000   Number         0  fsl_iap.o ABSOLUTE
     fsl_inputmux.c                           0x00000000   Number         0  fsl_inputmux.o ABSOLUTE
+    fsl_pint.c                               0x00000000   Number         0  fsl_pint.o ABSOLUTE
     fsl_power.c                              0x00000000   Number         0  fsl_power.o ABSOLUTE
     fsl_power_lib.c                          0x00000000   Number         0  fsl_power_lib.o ABSOLUTE
     fsl_reset.c                              0x00000000   Number         0  fsl_reset.o ABSOLUTE
@@ -3240,6 +3389,7 @@ Image Symbol Table
     fsl_spi_dma.c                            0x00000000   Number         0  fsl_spi_dma.o ABSOLUTE
     fsl_usart.c                              0x00000000   Number         0  fsl_usart.o ABSOLUTE
     fsl_usart_dma.c                          0x00000000   Number         0  fsl_usart_dma.o ABSOLUTE
+    fsl_utick.c                              0x00000000   Number         0  fsl_utick.o ABSOLUTE
     generic_list.c                           0x00000000   Number         0  generic_list.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
     heap_4.c                                 0x00000000   Number         0  heap_4.o ABSOLUTE
@@ -3257,242 +3407,255 @@ Image Symbol Table
     system_LPC55S69_cm33_core0.c             0x00000000   Number         0  system_lpc55s69_cm33_core0.o ABSOLUTE
     tasks.c                                  0x00000000   Number         0  tasks.o ABSOLUTE
     usart_adapter.c                          0x00000000   Number         0  usart_adapter.o ABSOLUTE
-    [Anonymous Symbol]                       0x00000000   Section        0  startup_lpc55s69_cm33_core0.o(.isr_vector)
-    .ARM.Collect$$$$00000000                 0x00000200   Section        0  entry.o(.ARM.Collect$$$$00000000)
-    .ARM.Collect$$$$00000003                 0x00000200   Section        4  entry4.o(.ARM.Collect$$$$00000003)
-    .ARM.Collect$$$$00000004                 0x00000204   Section        4  entry5.o(.ARM.Collect$$$$00000004)
-    .ARM.Collect$$$$00000008                 0x00000208   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
-    .ARM.Collect$$$$0000000A                 0x00000208   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
-    .ARM.Collect$$$$0000000B                 0x00000208   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
-    __lit__00000000                          0x00000210   Data           4  entry4.o(.ARM.Collect$$$$00002714)
-    .ARM.Collect$$$$0000000D                 0x00000210   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
-    .ARM.Collect$$$$0000000F                 0x00000210   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
-    .ARM.Collect$$$$00002714                 0x00000210   Section        4  entry4.o(.ARM.Collect$$$$00002714)
-    [Anonymous Symbol]                       0x00000214   Section        0  startup_lpc55s69_cm33_core0.o(.text)
-    .text                                    0x00000440   Section        0  uldiv.o(.text)
-    .text                                    0x000004a2   Section        0  memcpy.o(.text)
-    .text                                    0x000004ca   Section        0  memseta.o(.text)
-    .text                                    0x000004ee   Section        0  llshl.o(.text)
-    .text                                    0x0000050c   Section        0  llushr.o(.text)
-    .text                                    0x0000052c   Section       36  init.o(.text)
-    [Anonymous Symbol]                       0x00000550   Section        0  clock_config.o(.text.BOARD_BootClockRUN)
-    [Anonymous Symbol]                       0x000006dc   Section        0  peripherals.o(.text.BOARD_InitPeripherals)
-    [Anonymous Symbol]                       0x00000898   Section        0  pin_mux.o(.text.BOARD_InitPins)
-    [Anonymous Symbol]                       0x00000984   Section        0  fsl_clock.o(.text.CLOCK_AttachClk)
-    [Anonymous Symbol]                       0x00000a18   Section        0  fsl_clock.o(.text.CLOCK_SetClkDiv)
-    [Anonymous Symbol]                       0x00000a3c   Section        0  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
-    [Anonymous Symbol]                       0x00000b60   Section        0  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
-    [Anonymous Symbol]                       0x00000ce8   Section        0  fsl_clock.o(.text.CLOCK_SetupExtClocking)
-    [Anonymous Symbol]                       0x00000d28   Section        0  fsl_clock.o(.text.CLOCK_SetupFROClocking)
-    [Anonymous Symbol]                       0x00000d90   Section        0  fsl_ctimer.o(.text.CTIMER0_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00000d98   Section        0  fsl_ctimer.o(.text.CTIMER1_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00000da0   Section        0  fsl_ctimer.o(.text.CTIMER2_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00000da8   Section        0  fsl_ctimer.o(.text.CTIMER3_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00000db0   Section        0  fsl_ctimer.o(.text.CTIMER4_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00000db8   Section        0  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
-    s_ctimerBases                            0x00000e94   Number         0  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
-    [Anonymous Symbol]                       0x00000ea8   Section        0  fsl_ctimer.o(.text.CTIMER_Init)
-    s_ctimerResets                           0x00000f9c   Number         0  fsl_ctimer.o(.text.CTIMER_Init)
-    [Anonymous Symbol]                       0x00000fb0   Section        0  fsl_ctimer.o(.text.CTIMER_SetupPwmPeriod)
-    [Anonymous Symbol]                       0x000010dc   Section        0  fsl_dma.o(.text.DMA0_DriverIRQHandler)
-    [Anonymous Symbol]                       0x000010e8   Section        0  fsl_dma.o(.text.DMA1_DriverIRQHandler)
-    [Anonymous Symbol]                       0x000010f4   Section        0  fsl_dma.o(.text.DMA_AbortTransfer)
-    [Anonymous Symbol]                       0x00001180   Section        0  fsl_dma.o(.text.DMA_CreateDescriptor)
-    [Anonymous Symbol]                       0x00001398   Section        0  fsl_dma.o(.text.DMA_CreateHandle)
-    s_dmaIRQNumber                           0x0000145c   Number         0  fsl_dma.o(.text.DMA_CreateHandle)
-    [Anonymous Symbol]                       0x00001460   Section        0  fsl_dma.o(.text.DMA_IRQHandle)
-    [Anonymous Symbol]                       0x0000153c   Section        0  fsl_dma.o(.text.DMA_Init)
-    s_dmaResets                              0x000015b0   Number         0  fsl_dma.o(.text.DMA_Init)
-    [Anonymous Symbol]                       0x000015b8   Section        0  fsl_dma.o(.text.DMA_PrepareTransfer)
-    [Anonymous Symbol]                       0x00001728   Section        0  fsl_dma.o(.text.DMA_SetCallback)
-    [Anonymous Symbol]                       0x00001754   Section        0  fsl_dma.o(.text.DMA_StartTransfer)
-    [Anonymous Symbol]                       0x000017c8   Section        0  fsl_dma.o(.text.DMA_SubmitTransfer)
-    [Anonymous Symbol]                       0x000018ac   Section        0  eventrecorder.o(.text.EventRecord2)
-    [Anonymous Symbol]                       0x0000193c   Section        0  eventrecorder.o(.text.EventRecordData)
-    EventRecordItem                          0x00001ad1   Thumb Code   692  eventrecorder.o(.text.EventRecordItem)
-    [Anonymous Symbol]                       0x00001ad0   Section        0  eventrecorder.o(.text.EventRecordItem)
-    [Anonymous Symbol]                       0x00001d84   Section        0  eventrecorder.o(.text.EventRecorderEnable)
-    [Anonymous Symbol]                       0x00001e94   Section        0  eventrecorder.o(.text.EventRecorderInitialize)
-    [Anonymous Symbol]                       0x000022ec   Section        0  eventrecorder.o(.text.EventRecorderStart)
-    [Anonymous Symbol]                       0x0000234c   Section        0  eventrecorder.o(.text.EventRecorderTimerGetCount)
-    [Anonymous Symbol]                       0x00002358   Section        0  eventrecorder.o(.text.EventRecorderTimerSetup)
-    [Anonymous Symbol]                       0x0000237c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_MovedTaskToReadyState)
-    [Anonymous Symbol]                       0x0000238c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_PostMovedTaskToReadyState)
-    [Anonymous Symbol]                       0x0000239c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskIncrementTick)
-    [Anonymous Symbol]                       0x000023ac   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedIn)
-    [Anonymous Symbol]                       0x000023bc   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedOut)
-    [Anonymous Symbol]                       0x000023cc   Section        0  fsl_flexcomm.o(.text.FLEXCOMM0_DriverIRQHandler)
-    [Anonymous Symbol]                       0x0000240c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM1_DriverIRQHandler)
-    [Anonymous Symbol]                       0x0000244c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM2_DriverIRQHandler)
-    [Anonymous Symbol]                       0x0000248c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM3_DriverIRQHandler)
-    [Anonymous Symbol]                       0x000024cc   Section        0  fsl_flexcomm.o(.text.FLEXCOMM4_DriverIRQHandler)
-    [Anonymous Symbol]                       0x0000250c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM5_DriverIRQHandler)
-    [Anonymous Symbol]                       0x0000254c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM6_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00002590   Section        0  fsl_flexcomm.o(.text.FLEXCOMM7_DriverIRQHandler)
-    [Anonymous Symbol]                       0x000025d4   Section        0  fsl_flexcomm.o(.text.FLEXCOMM8_DriverIRQHandler)
-    [Anonymous Symbol]                       0x00002618   Section        0  fsl_flexcomm.o(.text.FLEXCOMM_Init)
-    s_flexcommResets                         0x00002758   Number         0  fsl_flexcomm.o(.text.FLEXCOMM_Init)
-    [Anonymous Symbol]                       0x0000277c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM_SetIRQHandler)
-    [Anonymous Symbol]                       0x0000286c   Section        0  fsl_i2c.o(.text.I2C_GetInstance)
-    [Anonymous Symbol]                       0x000028ac   Section        0  fsl_i2c.o(.text.I2C_MasterInit)
-    [Anonymous Symbol]                       0x000028d8   Section        0  fsl_i2c.o(.text.I2C_MasterSetBaudRate)
-    I2C_MasterTransferCallbackDMA            0x00002af9   Thumb Code    14  fsl_i2c_dma.o(.text.I2C_MasterTransferCallbackDMA)
-    [Anonymous Symbol]                       0x00002af8   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferCallbackDMA)
-    [Anonymous Symbol]                       0x00002b08   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
-    s_i2cIRQ                                 0x00002bb8   Number         0  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
-    [Anonymous Symbol]                       0x00002bcc   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferDMAHandleIRQ)
-    I2C_RunDMATransfer                       0x00002db9   Thumb Code   172  fsl_i2c_dma.o(.text.I2C_RunDMATransfer)
-    [Anonymous Symbol]                       0x00002db8   Section        0  fsl_i2c_dma.o(.text.I2C_RunDMATransfer)
-    [Anonymous Symbol]                       0x00002e64   Section        0  fsl_inputmux.o(.text.INPUTMUX_AttachSignal)
-    [Anonymous Symbol]                       0x00002e74   Section        0  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    __arm_cp.8_0                             0x00002eb4   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    __arm_cp.8_1                             0x00002eb8   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    [Anonymous Symbol]                       0x00002ec0   Section        0  portasm.o(.text.PendSV_Handler)
-    pxCurrentTCBConst                        0x00002f10   Number         0  portasm.o(.text.PendSV_Handler)
-    xMAIR0Const                              0x00002f14   Number         0  portasm.o(.text.PendSV_Handler)
-    xRNRConst                                0x00002f18   Number         0  portasm.o(.text.PendSV_Handler)
-    xRBARConst                               0x00002f1c   Number         0  portasm.o(.text.PendSV_Handler)
-    [Anonymous Symbol]                       0x00002f20   Section        0  fsl_reset.o(.text.RESET_PeripheralReset)
-    [Anonymous Symbol]                       0x00002fac   Section        0  fsl_rtc.o(.text.RTC_Init)
-    [Anonymous Symbol]                       0x00002fd8   Section        0  fsl_rtc.o(.text.RTC_SetDatetime)
-    [Anonymous Symbol]                       0x0000310c   Section        0  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    loop                                     0x00003130   Number         0  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    [Anonymous Symbol]                       0x0000317c   Section        0  fsl_spi.o(.text.SPI_MasterInit)
-    [Anonymous Symbol]                       0x000034b0   Section        0  portasm.o(.text.SVC_Handler)
-    svchandler_address_const                 0x000034d0   Number         0  portasm.o(.text.SVC_Handler)
-    [Anonymous Symbol]                       0x000034d4   Section        0  port.o(.text.SysTick_Handler)
-    [Anonymous Symbol]                       0x000034fc   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x00003540   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
-    [Anonymous Symbol]                       0x00003544   Section        0  fsl_usart.o(.text.USART_GetInstance)
-    [Anonymous Symbol]                       0x00003584   Section        0  fsl_usart.o(.text.USART_Init)
-    [Anonymous Symbol]                       0x000036d0   Section        0  fsl_usart.o(.text.USART_SetBaudRate)
-    [Anonymous Symbol]                       0x00003924   Section        0  fsl_usart_dma.o(.text.USART_TransferCreateHandleDMA)
-    USART_TransferReceiveDMACallback         0x000039ed   Thumb Code    88  fsl_usart_dma.o(.text.USART_TransferReceiveDMACallback)
-    [Anonymous Symbol]                       0x000039ec   Section        0  fsl_usart_dma.o(.text.USART_TransferReceiveDMACallback)
-    USART_TransferSendDMACallback            0x00003a45   Thumb Code   114  fsl_usart_dma.o(.text.USART_TransferSendDMACallback)
-    [Anonymous Symbol]                       0x00003a44   Section        0  fsl_usart_dma.o(.text.USART_TransferSendDMACallback)
-    [Anonymous Symbol]                       0x00003ab8   Section        0  retarget_io.o(.text.__aeabi_assert)
-    [Anonymous Symbol]                       0x00003b5c   Section        0  retarget_io.o(.text.abort)
-    [Anonymous Symbol]                       0x00003b60   Section        0  retarget_io.o(.text.fputc)
-    lowpower_set_dcdc_power_profile          0x00003bad   Thumb Code    72  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    [Anonymous Symbol]                       0x00003bac   Section        0  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_0                             0x00003be8   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_2                             0x00003bec   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_3                             0x00003bf0   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    lowpower_set_system_voltage              0x00003bf5   Thumb Code   212  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    [Anonymous Symbol]                       0x00003bf4   Section        0  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    __arm_cp.15_0                            0x00003cc4   Number         4  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    lowpower_set_voltage_for_process         0x00003cc9   Thumb Code   152  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    [Anonymous Symbol]                       0x00003cc8   Section        0  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_0                            0x00003d54   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_1                            0x00003d58   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_2                            0x00003d5c   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    [Anonymous Symbol]                       0x00003d60   Section        0  main.o(.text.main)
-    [Anonymous Symbol]                       0x00003d8c   Section        0  portasm.o(.text.ulSetInterruptMaskFromISR)
-    [Anonymous Symbol]                       0x00003d94   Section        0  list.o(.text.uxListRemove)
-    [Anonymous Symbol]                       0x00003db8   Section        0  portasm.o(.text.vClearInterruptMaskFromISR)
-    [Anonymous Symbol]                       0x00003dc0   Section        0  list.o(.text.vListInsertEnd)
-    [Anonymous Symbol]                       0x00003ddc   Section        0  port.o(.text.vPortSVCHandler_C)
-    [Anonymous Symbol]                       0x00003e10   Section        0  portasm.o(.text.vRestoreContextOfFirstTask)
-    pxCurrentTCBConst2                       0x00003e30   Number         0  portasm.o(.text.vRestoreContextOfFirstTask)
-    [Anonymous Symbol]                       0x00003e34   Section        0  tasks.o(.text.vTaskSwitchContext)
-    [Anonymous Symbol]                       0x00003ed8   Section        0  tasks.o(.text.xTaskIncrementTick)
-    i.__0printf$bare                         0x00003fd4   Section        0  printfb.o(i.__0printf$bare)
-    i.__scatterload_copy                     0x00003fe4   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00003ff2   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00003ff4   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _printf_core                             0x00004003   Thumb Code    34  printfb.o(i._printf_core)
-    i._printf_core                           0x00004002   Section        0  printfb.o(i._printf_core)
-    i.fputs                                  0x00004024   Section        0  fputs.o(i.fputs)
-    .L__const.RTC_ConvertDatetimeToSeconds.monthDays 0x0000403c   Data          26  fsl_rtc.o(.rodata..L__const.RTC_ConvertDatetimeToSeconds.monthDays)
-    .Lswitch.table.I2C_SlaveTransferCreateHandle 0x00004058   Data          76  fsl_i2c.o(.rodata..Lswitch.table.I2C_SlaveTransferCreateHandle)
-    .Lswitch.table.USART_TransferCreateHandle 0x000040a4   Data          76  fsl_usart.o(.rodata..Lswitch.table.USART_TransferCreateHandle)
-    __tagsym$$used.0                         0x00004100   Number         0  eventrecorder.o(.rodata.EventRecorderInfo)
-    .L__const.BOARD_BootClockRUN.pll0Setup   0x0000414c   Data          32  clock_config.o(.rodata.cst32)
-    s_ctimerIRQ                              0x0000416c   Data           5  fsl_ctimer.o(.rodata.s_ctimerIRQ)
-    [Anonymous Symbol]                       0x0000416c   Section        0  fsl_ctimer.o(.rodata.s_ctimerIRQ)
-    s_dma_descriptor_table                   0x00004174   Data           8  fsl_dma.o(.rodata.s_dma_descriptor_table)
-    [Anonymous Symbol]                       0x00004174   Section        0  fsl_dma.o(.rodata.s_dma_descriptor_table)
-    s_flexcommClocks                         0x0000417c   Data          18  fsl_flexcomm.o(.rodata.s_flexcommClocks)
-    [Anonymous Symbol]                       0x0000417c   Section        0  fsl_flexcomm.o(.rodata.s_flexcommClocks)
-    .L.str.1                                 0x0000418e   Data          85  fsl_common.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x0000418e   Section        0  fsl_common.o(.rodata.str1.1)
-    .L.str                                   0x000041e3   Data          15  fsl_ctimer.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000041e3   Section        0  fsl_ctimer.o(.rodata.str1.1)
-    .L.str.1                                 0x000041f2   Data          85  fsl_ctimer.o(.rodata.str1.1)
-    .L.str.3                                 0x00004247   Data          28  fsl_ctimer.o(.rodata.str1.1)
-    .L.str                                   0x00004263   Data          85  fsl_dma.o(.rodata.str1.1)
-    .L.str.7                                 0x00004263   Data          84  fsl_dma.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00004263   Section        0  fsl_dma.o(.rodata.str1.1)
-    .L.str.2                                 0x000042b7   Data          62  fsl_dma.o(.rodata.str1.1)
-    .L.str.21                                0x000042f5   Data          78  fsl_dma.o(.rodata.str1.1)
-    .L.str.22                                0x000042fd   Data          70  fsl_dma.o(.rodata.str1.1)
-    .L.str.20                                0x00004343   Data          37  fsl_dma.o(.rodata.str1.1)
-    .L.str.11                                0x00004368   Data          77  fsl_dma.o(.rodata.str1.1)
-    .L.str.4                                 0x000043b5   Data          83  fsl_dma.o(.rodata.str1.1)
-    .L.str.5                                 0x00004408   Data          83  fsl_dma.o(.rodata.str1.1)
-    .L.str.26                                0x0000445b   Data         123  fsl_dma.o(.rodata.str1.1)
-    .L.str.23                                0x000044d6   Data          34  fsl_dma.o(.rodata.str1.1)
-    .L.str.3                                 0x000044f8   Data         105  fsl_dma.o(.rodata.str1.1)
-    .L.str.13                                0x00004507   Data          69  fsl_dma.o(.rodata.str1.1)
-    .L.str.16                                0x0000454c   Data          95  fsl_dma.o(.rodata.str1.1)
-    .L.str.1                                 0x00004561   Data          82  fsl_dma.o(.rodata.str1.1)
-    .L.str.18                                0x000045ab   Data          77  fsl_dma.o(.rodata.str1.1)
-    .L.str.6                                 0x000045b3   Data          15  fsl_dma.o(.rodata.str1.1)
-    .L.str                                   0x000045bb   Data           7  fsl_dma.o(.rodata.str1.1)
-    .L.str.3                                 0x000045bb   Data           7  fsl_dma.o(.rodata.str1.1)
-    .L.str.24                                0x000045c2   Data          82  fsl_dma.o(.rodata.str1.1)
-    .L.str                                   0x00004614   Data          35  fsl_flexcomm.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00004614   Section        0  fsl_flexcomm.o(.rodata.str1.1)
-    .L.str.1                                 0x00004637   Data          87  fsl_flexcomm.o(.rodata.str1.1)
-    .L.str                                   0x0000468e   Data          30  fsl_i2c.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x0000468e   Section        0  fsl_i2c.o(.rodata.str1.1)
-    .L.str.1                                 0x000046ac   Data          82  fsl_i2c.o(.rodata.str1.1)
-    .L.str.1                                 0x000046fe   Data          86  fsl_i2c_dma.o(.rodata.str1.1)
-    .L.str.2                                 0x000046fe   Data           7  fsl_i2c.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000046fe   Section        0  fsl_i2c_dma.o(.rodata.str1.1)
-    .L.str.4                                 0x00004705   Data           5  fsl_i2c.o(.rodata.str1.1)
-    .L.str.5                                 0x0000470a   Data           7  fsl_i2c.o(.rodata.str1.1)
-    .L.str.1                                 0x00004754   Data          84  fsl_reset.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00004754   Section        0  fsl_reset.o(.rodata.str1.1)
-    .L.str                                   0x000047a8   Data          13  fsl_reset.o(.rodata.str1.1)
-    .L.str.1                                 0x000047b5   Data          82  fsl_rtc.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000047b5   Section        0  fsl_rtc.o(.rodata.str1.1)
-    .L.str                                   0x00004807   Data           9  fsl_rtc.o(.rodata.str1.1)
-    .L.str.6                                 0x00004810   Data          65  fsl_spi.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00004810   Section        0  fsl_spi.o(.rodata.str1.1)
-    .L.str                                   0x00004851   Data          30  fsl_spi.o(.rodata.str1.1)
-    .L.str.1                                 0x0000486f   Data          82  fsl_spi.o(.rodata.str1.1)
-    .L.str.2                                 0x00004880   Data          15  fsl_spi.o(.rodata.str1.1)
-    .L.str.5                                 0x0000488f   Data          13  fsl_spi.o(.rodata.str1.1)
-    .L.str                                   0x000048c1   Data          32  fsl_usart.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x000048c1   Section        0  fsl_usart.o(.rodata.str1.1)
-    .L.str.8                                 0x000048dd   Data          15  fsl_spi.o(.rodata.str1.1)
-    .L.str.1                                 0x000048e1   Data          84  fsl_usart.o(.rodata.str1.1)
-    .L.str.9                                 0x000048ec   Data          90  fsl_spi.o(.rodata.str1.1)
-    .L.str.1                                 0x00004935   Data          88  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.2                                 0x00004935   Data          15  fsl_usart.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00004935   Section        0  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.3                                 0x00004944   Data          13  fsl_usart.o(.rodata.str1.1)
-    .L.str.10                                0x00004946   Data          67  fsl_spi.o(.rodata.str1.1)
-    .L.str.8                                 0x00004951   Data          36  fsl_usart.o(.rodata.str1.1)
-    .L.str.10                                0x00004975   Data          56  fsl_usart.o(.rodata.str1.1)
-    .L.str.11                                0x00004989   Data         110  fsl_spi.o(.rodata.str1.1)
-    .L.str.13                                0x0000498d   Data           6  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.5                                 0x00004994   Data           5  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.6                                 0x00004999   Data          11  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.7                                 0x000049a4   Data          15  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.11                                0x000049ad   Data          49  fsl_usart.o(.rodata.str1.1)
-    .L.str.8                                 0x000049b3   Data          20  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.9                                 0x000049c7   Data          15  fsl_usart_dma.o(.rodata.str1.1)
-    .L.str.12                                0x000049de   Data          14  fsl_usart.o(.rodata.str1.1)
-    .L.str.12                                0x000049f7   Data          84  fsl_spi.o(.rodata.str1.1)
-    .L.str.13                                0x00004a4b   Data           5  fsl_spi.o(.rodata.str1.1)
-    .L.str.17                                0x00004a50   Data          93  fsl_spi.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00004000   Section        0  startup_lpc55s69_cm33_core0.o(.isr_vector)
+    .ARM.Collect$$$$00000000                 0x00004200   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000003                 0x00004200   Section        4  entry4.o(.ARM.Collect$$$$00000003)
+    .ARM.Collect$$$$00000004                 0x00004204   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x00004208   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x00004208   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x00004208   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    __lit__00000000                          0x00004210   Data           4  entry4.o(.ARM.Collect$$$$00002714)
+    .ARM.Collect$$$$0000000D                 0x00004210   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x00004210   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002714                 0x00004210   Section        4  entry4.o(.ARM.Collect$$$$00002714)
+    [Anonymous Symbol]                       0x00004214   Section        0  startup_lpc55s69_cm33_core0.o(.text)
+    .text                                    0x00004440   Section        0  uldiv.o(.text)
+    .text                                    0x000044a2   Section        0  memcpy.o(.text)
+    .text                                    0x000044ca   Section        0  memseta.o(.text)
+    .text                                    0x000044ee   Section        0  llshl.o(.text)
+    .text                                    0x0000450c   Section        0  llushr.o(.text)
+    .text                                    0x0000452c   Section       36  init.o(.text)
+    [Anonymous Symbol]                       0x00004550   Section        0  clock_config.o(.text.BOARD_BootClockRUN)
+    [Anonymous Symbol]                       0x000046dc   Section        0  peripherals.o(.text.BOARD_InitPeripherals)
+    [Anonymous Symbol]                       0x00004898   Section        0  pin_mux.o(.text.BOARD_InitPins)
+    [Anonymous Symbol]                       0x00004984   Section        0  fsl_clock.o(.text.CLOCK_AttachClk)
+    [Anonymous Symbol]                       0x00004a18   Section        0  fsl_clock.o(.text.CLOCK_SetClkDiv)
+    [Anonymous Symbol]                       0x00004a3c   Section        0  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
+    [Anonymous Symbol]                       0x00004b60   Section        0  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
+    [Anonymous Symbol]                       0x00004ce8   Section        0  fsl_clock.o(.text.CLOCK_SetupExtClocking)
+    [Anonymous Symbol]                       0x00004d28   Section        0  fsl_clock.o(.text.CLOCK_SetupFROClocking)
+    [Anonymous Symbol]                       0x00004d90   Section        0  fsl_ctimer.o(.text.CTIMER0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00004d98   Section        0  fsl_ctimer.o(.text.CTIMER1_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00004da0   Section        0  fsl_ctimer.o(.text.CTIMER2_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00004da8   Section        0  fsl_ctimer.o(.text.CTIMER3_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00004db0   Section        0  fsl_ctimer.o(.text.CTIMER4_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00004db8   Section        0  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
+    s_ctimerBases                            0x00004e94   Number         0  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
+    [Anonymous Symbol]                       0x00004ea8   Section        0  fsl_ctimer.o(.text.CTIMER_Init)
+    s_ctimerResets                           0x00004f9c   Number         0  fsl_ctimer.o(.text.CTIMER_Init)
+    [Anonymous Symbol]                       0x00004fb0   Section        0  fsl_ctimer.o(.text.CTIMER_SetupPwmPeriod)
+    [Anonymous Symbol]                       0x000050dc   Section        0  fsl_dma.o(.text.DMA0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x000050e8   Section        0  fsl_dma.o(.text.DMA1_DriverIRQHandler)
+    [Anonymous Symbol]                       0x000050f4   Section        0  fsl_dma.o(.text.DMA_AbortTransfer)
+    [Anonymous Symbol]                       0x00005180   Section        0  fsl_dma.o(.text.DMA_CreateDescriptor)
+    [Anonymous Symbol]                       0x00005398   Section        0  fsl_dma.o(.text.DMA_CreateHandle)
+    s_dmaIRQNumber                           0x0000545c   Number         0  fsl_dma.o(.text.DMA_CreateHandle)
+    [Anonymous Symbol]                       0x00005460   Section        0  fsl_dma.o(.text.DMA_IRQHandle)
+    [Anonymous Symbol]                       0x0000553c   Section        0  fsl_dma.o(.text.DMA_Init)
+    s_dmaResets                              0x000055b0   Number         0  fsl_dma.o(.text.DMA_Init)
+    [Anonymous Symbol]                       0x000055b8   Section        0  fsl_dma.o(.text.DMA_PrepareTransfer)
+    [Anonymous Symbol]                       0x00005728   Section        0  fsl_dma.o(.text.DMA_SetCallback)
+    [Anonymous Symbol]                       0x00005754   Section        0  fsl_dma.o(.text.DMA_StartTransfer)
+    [Anonymous Symbol]                       0x000057c8   Section        0  fsl_dma.o(.text.DMA_SubmitTransfer)
+    [Anonymous Symbol]                       0x000058ac   Section        0  eventrecorder.o(.text.EventRecord2)
+    [Anonymous Symbol]                       0x0000593c   Section        0  eventrecorder.o(.text.EventRecordData)
+    EventRecordItem                          0x00005ad1   Thumb Code   692  eventrecorder.o(.text.EventRecordItem)
+    [Anonymous Symbol]                       0x00005ad0   Section        0  eventrecorder.o(.text.EventRecordItem)
+    [Anonymous Symbol]                       0x00005d84   Section        0  eventrecorder.o(.text.EventRecorderEnable)
+    [Anonymous Symbol]                       0x00005e94   Section        0  eventrecorder.o(.text.EventRecorderInitialize)
+    [Anonymous Symbol]                       0x000062ec   Section        0  eventrecorder.o(.text.EventRecorderStart)
+    [Anonymous Symbol]                       0x0000634c   Section        0  eventrecorder.o(.text.EventRecorderTimerGetCount)
+    [Anonymous Symbol]                       0x00006358   Section        0  eventrecorder.o(.text.EventRecorderTimerSetup)
+    [Anonymous Symbol]                       0x0000637c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_MovedTaskToReadyState)
+    [Anonymous Symbol]                       0x0000638c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_PostMovedTaskToReadyState)
+    [Anonymous Symbol]                       0x0000639c   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskIncrementTick)
+    [Anonymous Symbol]                       0x000063ac   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedIn)
+    [Anonymous Symbol]                       0x000063bc   Section        0  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedOut)
+    [Anonymous Symbol]                       0x000063cc   Section        0  fsl_flexcomm.o(.text.FLEXCOMM0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000640c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM1_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000644c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM2_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000648c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM3_DriverIRQHandler)
+    [Anonymous Symbol]                       0x000064cc   Section        0  fsl_flexcomm.o(.text.FLEXCOMM4_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000650c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM5_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000654c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM6_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006590   Section        0  fsl_flexcomm.o(.text.FLEXCOMM7_DriverIRQHandler)
+    [Anonymous Symbol]                       0x000065d4   Section        0  fsl_flexcomm.o(.text.FLEXCOMM8_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006618   Section        0  fsl_flexcomm.o(.text.FLEXCOMM_Init)
+    s_flexcommResets                         0x00006758   Number         0  fsl_flexcomm.o(.text.FLEXCOMM_Init)
+    [Anonymous Symbol]                       0x0000677c   Section        0  fsl_flexcomm.o(.text.FLEXCOMM_SetIRQHandler)
+    [Anonymous Symbol]                       0x0000686c   Section        0  fsl_i2c.o(.text.I2C_GetInstance)
+    [Anonymous Symbol]                       0x000068ac   Section        0  fsl_i2c.o(.text.I2C_MasterInit)
+    [Anonymous Symbol]                       0x000068d8   Section        0  fsl_i2c.o(.text.I2C_MasterSetBaudRate)
+    I2C_MasterTransferCallbackDMA            0x00006af9   Thumb Code    14  fsl_i2c_dma.o(.text.I2C_MasterTransferCallbackDMA)
+    [Anonymous Symbol]                       0x00006af8   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferCallbackDMA)
+    [Anonymous Symbol]                       0x00006b08   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
+    s_i2cIRQ                                 0x00006bb8   Number         0  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
+    [Anonymous Symbol]                       0x00006bcc   Section        0  fsl_i2c_dma.o(.text.I2C_MasterTransferDMAHandleIRQ)
+    I2C_RunDMATransfer                       0x00006db9   Thumb Code   172  fsl_i2c_dma.o(.text.I2C_RunDMATransfer)
+    [Anonymous Symbol]                       0x00006db8   Section        0  fsl_i2c_dma.o(.text.I2C_RunDMATransfer)
+    [Anonymous Symbol]                       0x00006e64   Section        0  fsl_inputmux.o(.text.INPUTMUX_AttachSignal)
+    [Anonymous Symbol]                       0x00006e74   Section        0  fsl_pint.o(.text.PIN_INT0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006ec0   Section        0  fsl_pint.o(.text.PIN_INT1_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006f0c   Section        0  fsl_pint.o(.text.PIN_INT2_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006f58   Section        0  fsl_pint.o(.text.PIN_INT3_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006fa4   Section        0  fsl_pint.o(.text.PIN_INT4_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00006ff0   Section        0  fsl_pint.o(.text.PIN_INT5_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000703c   Section        0  fsl_pint.o(.text.PIN_INT6_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00007088   Section        0  fsl_pint.o(.text.PIN_INT7_DriverIRQHandler)
+    [Anonymous Symbol]                       0x000070d4   Section        0  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    __arm_cp.8_0                             0x00007114   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    __arm_cp.8_1                             0x00007118   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    [Anonymous Symbol]                       0x00007120   Section        0  portasm.o(.text.PendSV_Handler)
+    pxCurrentTCBConst                        0x00007170   Number         0  portasm.o(.text.PendSV_Handler)
+    xMAIR0Const                              0x00007174   Number         0  portasm.o(.text.PendSV_Handler)
+    xRNRConst                                0x00007178   Number         0  portasm.o(.text.PendSV_Handler)
+    xRBARConst                               0x0000717c   Number         0  portasm.o(.text.PendSV_Handler)
+    [Anonymous Symbol]                       0x00007180   Section        0  fsl_reset.o(.text.RESET_PeripheralReset)
+    [Anonymous Symbol]                       0x0000720c   Section        0  fsl_rtc.o(.text.RTC_Init)
+    [Anonymous Symbol]                       0x00007238   Section        0  fsl_rtc.o(.text.RTC_SetDatetime)
+    [Anonymous Symbol]                       0x0000736c   Section        0  fsl_common.o(.text.SDK_DelayAtLeastUs)
+    loop                                     0x00007390   Number         0  fsl_common.o(.text.SDK_DelayAtLeastUs)
+    [Anonymous Symbol]                       0x000073dc   Section        0  fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00007424   Section        0  fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler)
+    [Anonymous Symbol]                       0x0000746c   Section        0  fsl_spi.o(.text.SPI_MasterInit)
+    [Anonymous Symbol]                       0x000077a0   Section        0  portasm.o(.text.SVC_Handler)
+    svchandler_address_const                 0x000077c0   Number         0  portasm.o(.text.SVC_Handler)
+    [Anonymous Symbol]                       0x000077c4   Section        0  port.o(.text.SysTick_Handler)
+    [Anonymous Symbol]                       0x000077ec   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x00007830   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
+    [Anonymous Symbol]                       0x00007834   Section        0  fsl_usart.o(.text.USART_GetInstance)
+    [Anonymous Symbol]                       0x00007874   Section        0  fsl_usart.o(.text.USART_Init)
+    [Anonymous Symbol]                       0x000079c0   Section        0  fsl_usart.o(.text.USART_SetBaudRate)
+    [Anonymous Symbol]                       0x00007c14   Section        0  fsl_usart_dma.o(.text.USART_TransferCreateHandleDMA)
+    USART_TransferReceiveDMACallback         0x00007cdd   Thumb Code    88  fsl_usart_dma.o(.text.USART_TransferReceiveDMACallback)
+    [Anonymous Symbol]                       0x00007cdc   Section        0  fsl_usart_dma.o(.text.USART_TransferReceiveDMACallback)
+    USART_TransferSendDMACallback            0x00007d35   Thumb Code   114  fsl_usart_dma.o(.text.USART_TransferSendDMACallback)
+    [Anonymous Symbol]                       0x00007d34   Section        0  fsl_usart_dma.o(.text.USART_TransferSendDMACallback)
+    [Anonymous Symbol]                       0x00007da8   Section        0  fsl_utick.o(.text.UTICK0_DriverIRQHandler)
+    [Anonymous Symbol]                       0x00007dc8   Section        0  retarget_io.o(.text.__aeabi_assert)
+    [Anonymous Symbol]                       0x00007e6c   Section        0  retarget_io.o(.text.abort)
+    [Anonymous Symbol]                       0x00007e70   Section        0  retarget_io.o(.text.fputc)
+    lowpower_set_dcdc_power_profile          0x00007ebd   Thumb Code    72  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    [Anonymous Symbol]                       0x00007ebc   Section        0  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_0                             0x00007ef8   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_2                             0x00007efc   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_3                             0x00007f00   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    lowpower_set_system_voltage              0x00007f05   Thumb Code   212  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    [Anonymous Symbol]                       0x00007f04   Section        0  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    __arm_cp.15_0                            0x00007fd4   Number         4  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    lowpower_set_voltage_for_process         0x00007fd9   Thumb Code   152  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    [Anonymous Symbol]                       0x00007fd8   Section        0  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_0                            0x00008064   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_1                            0x00008068   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_2                            0x0000806c   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    [Anonymous Symbol]                       0x00008070   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x0000809c   Section        0  portasm.o(.text.ulSetInterruptMaskFromISR)
+    [Anonymous Symbol]                       0x000080a4   Section        0  list.o(.text.uxListRemove)
+    [Anonymous Symbol]                       0x000080c8   Section        0  portasm.o(.text.vClearInterruptMaskFromISR)
+    [Anonymous Symbol]                       0x000080d0   Section        0  list.o(.text.vListInsertEnd)
+    [Anonymous Symbol]                       0x000080ec   Section        0  port.o(.text.vPortSVCHandler_C)
+    [Anonymous Symbol]                       0x00008120   Section        0  portasm.o(.text.vRestoreContextOfFirstTask)
+    pxCurrentTCBConst2                       0x00008140   Number         0  portasm.o(.text.vRestoreContextOfFirstTask)
+    [Anonymous Symbol]                       0x00008144   Section        0  tasks.o(.text.vTaskSwitchContext)
+    [Anonymous Symbol]                       0x000081e8   Section        0  tasks.o(.text.xTaskIncrementTick)
+    i.__0printf$bare                         0x000082e4   Section        0  printfb.o(i.__0printf$bare)
+    i.__scatterload_copy                     0x000082f4   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00008302   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00008304   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _printf_core                             0x00008313   Thumb Code    34  printfb.o(i._printf_core)
+    i._printf_core                           0x00008312   Section        0  printfb.o(i._printf_core)
+    i.fputs                                  0x00008334   Section        0  fputs.o(i.fputs)
+    .L__const.RTC_ConvertDatetimeToSeconds.monthDays 0x0000834c   Data          26  fsl_rtc.o(.rodata..L__const.RTC_ConvertDatetimeToSeconds.monthDays)
+    .Lswitch.table.I2C_SlaveTransferCreateHandle 0x00008368   Data          76  fsl_i2c.o(.rodata..Lswitch.table.I2C_SlaveTransferCreateHandle)
+    .Lswitch.table.USART_TransferCreateHandle 0x000083b4   Data          76  fsl_usart.o(.rodata..Lswitch.table.USART_TransferCreateHandle)
+    __tagsym$$used.0                         0x00008410   Number         0  eventrecorder.o(.rodata.EventRecorderInfo)
+    .L__const.BOARD_BootClockRUN.pll0Setup   0x0000845c   Data          32  clock_config.o(.rodata.cst32)
+    s_ctimerIRQ                              0x0000847c   Data           5  fsl_ctimer.o(.rodata.s_ctimerIRQ)
+    [Anonymous Symbol]                       0x0000847c   Section        0  fsl_ctimer.o(.rodata.s_ctimerIRQ)
+    s_dma_descriptor_table                   0x00008484   Data           8  fsl_dma.o(.rodata.s_dma_descriptor_table)
+    [Anonymous Symbol]                       0x00008484   Section        0  fsl_dma.o(.rodata.s_dma_descriptor_table)
+    s_flexcommClocks                         0x0000848c   Data          18  fsl_flexcomm.o(.rodata.s_flexcommClocks)
+    [Anonymous Symbol]                       0x0000848c   Section        0  fsl_flexcomm.o(.rodata.s_flexcommClocks)
+    .L.str.1                                 0x0000849e   Data          85  fsl_common.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0000849e   Section        0  fsl_common.o(.rodata.str1.1)
+    .L.str                                   0x000084f3   Data          15  fsl_ctimer.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x000084f3   Section        0  fsl_ctimer.o(.rodata.str1.1)
+    .L.str.1                                 0x00008502   Data          85  fsl_ctimer.o(.rodata.str1.1)
+    .L.str.3                                 0x00008557   Data          28  fsl_ctimer.o(.rodata.str1.1)
+    .L.str                                   0x00008573   Data          85  fsl_dma.o(.rodata.str1.1)
+    .L.str.7                                 0x00008573   Data          84  fsl_dma.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008573   Section        0  fsl_dma.o(.rodata.str1.1)
+    .L.str.2                                 0x000085c7   Data          62  fsl_dma.o(.rodata.str1.1)
+    .L.str.21                                0x00008605   Data          78  fsl_dma.o(.rodata.str1.1)
+    .L.str.22                                0x0000860d   Data          70  fsl_dma.o(.rodata.str1.1)
+    .L.str.20                                0x00008653   Data          37  fsl_dma.o(.rodata.str1.1)
+    .L.str.11                                0x00008678   Data          77  fsl_dma.o(.rodata.str1.1)
+    .L.str.4                                 0x000086c5   Data          83  fsl_dma.o(.rodata.str1.1)
+    .L.str.5                                 0x00008718   Data          83  fsl_dma.o(.rodata.str1.1)
+    .L.str.26                                0x0000876b   Data         123  fsl_dma.o(.rodata.str1.1)
+    .L.str.23                                0x000087e6   Data          34  fsl_dma.o(.rodata.str1.1)
+    .L.str.3                                 0x00008808   Data         105  fsl_dma.o(.rodata.str1.1)
+    .L.str.13                                0x00008817   Data          69  fsl_dma.o(.rodata.str1.1)
+    .L.str.16                                0x0000885c   Data          95  fsl_dma.o(.rodata.str1.1)
+    .L.str.1                                 0x00008871   Data          82  fsl_dma.o(.rodata.str1.1)
+    .L.str.18                                0x000088bb   Data          77  fsl_dma.o(.rodata.str1.1)
+    .L.str.6                                 0x000088c3   Data          15  fsl_dma.o(.rodata.str1.1)
+    .L.str                                   0x000088cb   Data           7  fsl_dma.o(.rodata.str1.1)
+    .L.str.3                                 0x000088cb   Data           7  fsl_dma.o(.rodata.str1.1)
+    .L.str.24                                0x000088d2   Data          82  fsl_dma.o(.rodata.str1.1)
+    .L.str                                   0x00008924   Data          35  fsl_flexcomm.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008924   Section        0  fsl_flexcomm.o(.rodata.str1.1)
+    .L.str.1                                 0x00008947   Data          87  fsl_flexcomm.o(.rodata.str1.1)
+    .L.str                                   0x0000899e   Data          30  fsl_i2c.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0000899e   Section        0  fsl_i2c.o(.rodata.str1.1)
+    .L.str.1                                 0x000089bc   Data          82  fsl_i2c.o(.rodata.str1.1)
+    .L.str.1                                 0x00008a0e   Data          86  fsl_i2c_dma.o(.rodata.str1.1)
+    .L.str.2                                 0x00008a0e   Data           7  fsl_i2c.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008a0e   Section        0  fsl_i2c_dma.o(.rodata.str1.1)
+    .L.str.4                                 0x00008a15   Data           5  fsl_i2c.o(.rodata.str1.1)
+    .L.str.5                                 0x00008a1a   Data           7  fsl_i2c.o(.rodata.str1.1)
+    .L.str.1                                 0x00008a64   Data          84  fsl_reset.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008a64   Section        0  fsl_reset.o(.rodata.str1.1)
+    .L.str                                   0x00008ab8   Data          13  fsl_reset.o(.rodata.str1.1)
+    .L.str.1                                 0x00008ac5   Data          82  fsl_rtc.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008ac5   Section        0  fsl_rtc.o(.rodata.str1.1)
+    .L.str                                   0x00008b17   Data           9  fsl_rtc.o(.rodata.str1.1)
+    .L.str.6                                 0x00008b20   Data          65  fsl_spi.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008b20   Section        0  fsl_spi.o(.rodata.str1.1)
+    .L.str                                   0x00008b61   Data          30  fsl_spi.o(.rodata.str1.1)
+    .L.str.1                                 0x00008b7f   Data          82  fsl_spi.o(.rodata.str1.1)
+    .L.str.2                                 0x00008b90   Data          15  fsl_spi.o(.rodata.str1.1)
+    .L.str.5                                 0x00008b9f   Data          13  fsl_spi.o(.rodata.str1.1)
+    .L.str                                   0x00008bd1   Data          32  fsl_usart.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008bd1   Section        0  fsl_usart.o(.rodata.str1.1)
+    .L.str.8                                 0x00008bed   Data          15  fsl_spi.o(.rodata.str1.1)
+    .L.str.1                                 0x00008bf1   Data          84  fsl_usart.o(.rodata.str1.1)
+    .L.str.9                                 0x00008bfc   Data          90  fsl_spi.o(.rodata.str1.1)
+    .L.str.1                                 0x00008c45   Data          88  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.2                                 0x00008c45   Data          15  fsl_usart.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x00008c45   Section        0  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.3                                 0x00008c54   Data          13  fsl_usart.o(.rodata.str1.1)
+    .L.str.10                                0x00008c56   Data          67  fsl_spi.o(.rodata.str1.1)
+    .L.str.8                                 0x00008c61   Data          36  fsl_usart.o(.rodata.str1.1)
+    .L.str.10                                0x00008c85   Data          56  fsl_usart.o(.rodata.str1.1)
+    .L.str.11                                0x00008c99   Data         110  fsl_spi.o(.rodata.str1.1)
+    .L.str.13                                0x00008c9d   Data           6  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.5                                 0x00008ca4   Data           5  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.6                                 0x00008ca9   Data          11  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.7                                 0x00008cb4   Data          15  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.11                                0x00008cbd   Data          49  fsl_usart.o(.rodata.str1.1)
+    .L.str.8                                 0x00008cc3   Data          20  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.9                                 0x00008cd7   Data          15  fsl_usart_dma.o(.rodata.str1.1)
+    .L.str.12                                0x00008cee   Data          14  fsl_usart.o(.rodata.str1.1)
+    .L.str.12                                0x00008d07   Data          84  fsl_spi.o(.rodata.str1.1)
+    .L.str.13                                0x00008d5b   Data           5  fsl_spi.o(.rodata.str1.1)
+    .L.str.17                                0x00008d60   Data          93  fsl_spi.o(.rodata.str1.1)
     .data                                    0x20000000   Section        4  stdout.o(.data)
     .data                                    0x20000004   Section        4  stderr.o(.data)
     s_Ext_Clk_Freq                           0x20000014   Data           4  fsl_clock.o(.data.s_Ext_Clk_Freq)
     [Anonymous Symbol]                       0x20000014   Section        0  fsl_clock.o(.data.s_Ext_Clk_Freq)
+    s_utickIsr                               0x20000018   Data           4  fsl_utick.o(.data.s_utickIsr)
+    [Anonymous Symbol]                       0x20000018   Section        0  fsl_utick.o(.data.s_utickIsr)
     .L_MergedGlobals                         0x20000200   Data          96  peripherals.o(.bss..L_MergedGlobals)
     [Anonymous Symbol]                       0x20000200   Section        0  peripherals.o(.bss..L_MergedGlobals)
     .L_MergedGlobals                         0x20000260   Data          12  retarget_io.o(.bss..L_MergedGlobals)
@@ -3550,260 +3713,261 @@ Image Symbol Table
     [Anonymous Symbol]                       0x200009c0   Section        0  fsl_i2c_dma.o(.bss.s_dmaPrivateHandle)
     s_dmaPrivateHandle                       0x20000a00   Data          64  fsl_usart_dma.o(.bss.s_dmaPrivateHandle)
     [Anonymous Symbol]                       0x20000a00   Section        0  fsl_usart_dma.o(.bss.s_dmaPrivateHandle)
+    s_pintCallback                           0x20000f70   Data          40  fsl_pint.o(.bss.s_pintCallback)
+    [Anonymous Symbol]                       0x20000f70   Section        0  fsl_pint.o(.bss.s_pintCallback)
+    s_utickHandle.0                          0x20000f98   Data           4  fsl_utick.o(.bss.s_utickHandle.0)
+    [Anonymous Symbol]                       0x20000f98   Section        0  fsl_utick.o(.bss.s_utickHandle.0)
 
     Global Symbols
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$8M$VFPi5$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$ROPI$EBA8$MICROLIB$REQ8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
-    __Vectors                                0x00000000   Number       304  startup_lpc55s69_cm33_core0.o(.isr_vector)
+    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$8M$VFPi5$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$ROPI$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
     __cpp_initialize__aeabi_                  - Undefined Weak Reference
     __cxa_finalize                            - Undefined Weak Reference
     __decompress                              - Undefined Weak Reference
     _clock_init                               - Undefined Weak Reference
     _microlib_exit                            - Undefined Weak Reference
-    __main                                   0x00000201   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
-    _main_stk                                0x00000201   Thumb Code     0  entry4.o(.ARM.Collect$$$$00000003)
-    _main_scatterload                        0x00000205   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
-    __main_after_scatterload                 0x00000209   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
-    _main_clock                              0x00000209   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
-    _main_cpp_init                           0x00000209   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
-    _main_init                               0x00000209   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
-    __rt_final_cpp                           0x00000211   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
-    __rt_final_exit                          0x00000211   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
-    Reset_Handler                            0x00000215   Thumb Code    32  startup_lpc55s69_cm33_core0.o(.text)
-    ACMP_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    ADC0_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    BusFault_Handler                         0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CASER_DriverIRQHandler                   0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    DebugMon_Handler                         0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    DefaultISR                               0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    GINT0_DriverIRQHandler                   0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    GINT1_DriverIRQHandler                   0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    HASHCRYPT_DriverIRQHandler               0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    MAILBOX_DriverIRQHandler                 0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    MRT0_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    MemManage_Handler                        0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    OS_EVENT_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT0_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT1_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT2_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT3_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT4_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT5_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT6_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT7_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PLU_DriverIRQHandler                     0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PQ_DriverIRQHandler                      0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PUF_DriverIRQHandler                     0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    RTC_DriverIRQHandler                     0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved39_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved41_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved42_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved46_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved55_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved56_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved57_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved59_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved60_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved61_DriverIRQHandler              0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SCT0_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SDIO_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_GPIO_INT0_IRQ0_DriverIRQHandler      0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_GPIO_INT0_IRQ1_DriverIRQHandler      0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_HYPERVISOR_CALL_DriverIRQHandler     0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_VIO_DriverIRQHandler                 0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SecureFault_Handler                      0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB0_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB0_NEEDCLK_DriverIRQHandler            0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_DriverIRQHandler                    0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_NEEDCLK_DriverIRQHandler            0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_PHY_DriverIRQHandler                0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    UTICK0_DriverIRQHandler                  0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    UsageFault_Handler                       0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    WDT_BOD_DriverIRQHandler                 0x00000235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    NMI_Handler                              0x00000239   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    HardFault_Handler                        0x0000023d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    WDT_BOD_IRQHandler                       0x0000024d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    DMA0_IRQHandler                          0x00000251   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    GINT0_IRQHandler                         0x00000255   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    GINT1_IRQHandler                         0x00000259   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT0_IRQHandler                      0x0000025d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT1_IRQHandler                      0x00000261   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT2_IRQHandler                      0x00000265   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT3_IRQHandler                      0x00000269   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    UTICK0_IRQHandler                        0x0000026d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    MRT0_IRQHandler                          0x00000271   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CTIMER0_IRQHandler                       0x00000275   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CTIMER1_IRQHandler                       0x00000279   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SCT0_IRQHandler                          0x0000027d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CTIMER3_IRQHandler                       0x00000281   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM0_IRQHandler                     0x00000285   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM1_IRQHandler                     0x00000289   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM2_IRQHandler                     0x0000028d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM3_IRQHandler                     0x00000291   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM4_IRQHandler                     0x00000295   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM5_IRQHandler                     0x00000299   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM6_IRQHandler                     0x0000029d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM7_IRQHandler                     0x000002a1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    ADC0_IRQHandler                          0x000002a5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved39_IRQHandler                    0x000002a9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    ACMP_IRQHandler                          0x000002ad   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved41_IRQHandler                    0x000002b1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved42_IRQHandler                    0x000002b5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB0_NEEDCLK_IRQHandler                  0x000002b9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB0_IRQHandler                          0x000002bd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    RTC_IRQHandler                           0x000002c1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved46_IRQHandler                    0x000002c5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    MAILBOX_IRQHandler                       0x000002c9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT4_IRQHandler                      0x000002cd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT5_IRQHandler                      0x000002d1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT6_IRQHandler                      0x000002d5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PIN_INT7_IRQHandler                      0x000002d9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CTIMER2_IRQHandler                       0x000002dd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CTIMER4_IRQHandler                       0x000002e1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    OS_EVENT_IRQHandler                      0x000002e5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved55_IRQHandler                    0x000002e9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved56_IRQHandler                    0x000002ed   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved57_IRQHandler                    0x000002f1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SDIO_IRQHandler                          0x000002f5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved59_IRQHandler                    0x000002f9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved60_IRQHandler                    0x000002fd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    Reserved61_IRQHandler                    0x00000301   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_PHY_IRQHandler                      0x00000305   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_IRQHandler                          0x00000309   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    USB1_NEEDCLK_IRQHandler                  0x0000030d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_HYPERVISOR_CALL_IRQHandler           0x00000311   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_GPIO_INT0_IRQ0_IRQHandler            0x00000315   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_GPIO_INT0_IRQ1_IRQHandler            0x00000319   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PLU_IRQHandler                           0x0000031d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    SEC_VIO_IRQHandler                       0x00000321   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    HASHCRYPT_IRQHandler                     0x00000325   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    CASER_IRQHandler                         0x00000329   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PUF_IRQHandler                           0x0000032d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    PQ_IRQHandler                            0x00000331   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    DMA1_IRQHandler                          0x00000335   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    FLEXCOMM8_IRQHandler                     0x00000339   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    __aeabi_uldivmod                         0x00000441   Thumb Code    98  uldiv.o(.text)
-    ___aeabi_memcpy4$ret                     0x000004a3   Thumb Code     0  memcpy.o(.text)
-    ___aeabi_memcpy8$ret                     0x000004a3   Thumb Code     0  memcpy.o(.text)
-    __aeabi_memcpy                           0x000004a3   Thumb Code    40  memcpy.o(.text)
-    memcpy                                   0x000004a3   Thumb Code     0  memcpy.o(.text)
-    __aeabi_memset                           0x000004cb   Thumb Code    14  memseta.o(.text)
-    __aeabi_memset4                          0x000004cb   Thumb Code     0  memseta.o(.text)
-    __aeabi_memset8                          0x000004cb   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr                           0x000004d9   Thumb Code     4  memseta.o(.text)
-    __aeabi_memclr4                          0x000004d9   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr8                          0x000004d9   Thumb Code     0  memseta.o(.text)
-    memset                                   0x000004dd   Thumb Code    18  memseta.o(.text)
-    __aeabi_llsl                             0x000004ef   Thumb Code    30  llshl.o(.text)
-    _ll_shift_l                              0x000004ef   Thumb Code     0  llshl.o(.text)
-    __aeabi_llsr                             0x0000050d   Thumb Code    32  llushr.o(.text)
-    _ll_ushift_r                             0x0000050d   Thumb Code     0  llushr.o(.text)
-    __scatterload                            0x0000052d   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x0000052d   Thumb Code     0  init.o(.text)
-    BOARD_BootClockRUN                       0x00000551   Thumb Code   396  clock_config.o(.text.BOARD_BootClockRUN)
-    BOARD_InitPeripherals                    0x000006dd   Thumb Code   444  peripherals.o(.text.BOARD_InitPeripherals)
-    BOARD_InitPins                           0x00000899   Thumb Code   236  pin_mux.o(.text.BOARD_InitPins)
-    CLOCK_AttachClk                          0x00000985   Thumb Code   146  fsl_clock.o(.text.CLOCK_AttachClk)
-    CLOCK_SetClkDiv                          0x00000a19   Thumb Code    36  fsl_clock.o(.text.CLOCK_SetClkDiv)
-    CLOCK_SetFLASHAccessCyclesForFreq        0x00000a3d   Thumb Code   290  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
-    CLOCK_SetPLL0Freq                        0x00000b61   Thumb Code   390  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
-    CLOCK_SetupExtClocking                   0x00000ce9   Thumb Code    64  fsl_clock.o(.text.CLOCK_SetupExtClocking)
-    CLOCK_SetupFROClocking                   0x00000d29   Thumb Code   102  fsl_clock.o(.text.CLOCK_SetupFROClocking)
-    CTIMER0_DriverIRQHandler                 0x00000d91   Thumb Code     6  fsl_ctimer.o(.text.CTIMER0_DriverIRQHandler)
-    CTIMER1_DriverIRQHandler                 0x00000d99   Thumb Code     6  fsl_ctimer.o(.text.CTIMER1_DriverIRQHandler)
-    CTIMER2_DriverIRQHandler                 0x00000da1   Thumb Code     6  fsl_ctimer.o(.text.CTIMER2_DriverIRQHandler)
-    CTIMER3_DriverIRQHandler                 0x00000da9   Thumb Code     6  fsl_ctimer.o(.text.CTIMER3_DriverIRQHandler)
-    CTIMER4_DriverIRQHandler                 0x00000db1   Thumb Code     6  fsl_ctimer.o(.text.CTIMER4_DriverIRQHandler)
-    CTIMER_GenericIRQHandler                 0x00000db9   Thumb Code   240  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
-    CTIMER_Init                              0x00000ea9   Thumb Code   264  fsl_ctimer.o(.text.CTIMER_Init)
-    CTIMER_SetupPwmPeriod                    0x00000fb1   Thumb Code   298  fsl_ctimer.o(.text.CTIMER_SetupPwmPeriod)
-    DMA0_DriverIRQHandler                    0x000010dd   Thumb Code    12  fsl_dma.o(.text.DMA0_DriverIRQHandler)
-    DMA1_DriverIRQHandler                    0x000010e9   Thumb Code    12  fsl_dma.o(.text.DMA1_DriverIRQHandler)
-    DMA_AbortTransfer                        0x000010f5   Thumb Code   138  fsl_dma.o(.text.DMA_AbortTransfer)
-    DMA_CreateDescriptor                     0x00001181   Thumb Code   536  fsl_dma.o(.text.DMA_CreateDescriptor)
-    DMA_CreateHandle                         0x00001399   Thumb Code   200  fsl_dma.o(.text.DMA_CreateHandle)
-    DMA_IRQHandle                            0x00001461   Thumb Code   220  fsl_dma.o(.text.DMA_IRQHandle)
-    DMA_Init                                 0x0000153d   Thumb Code   124  fsl_dma.o(.text.DMA_Init)
-    DMA_PrepareTransfer                      0x000015b9   Thumb Code   368  fsl_dma.o(.text.DMA_PrepareTransfer)
-    DMA_SetCallback                          0x00001729   Thumb Code    44  fsl_dma.o(.text.DMA_SetCallback)
-    DMA_StartTransfer                        0x00001755   Thumb Code   114  fsl_dma.o(.text.DMA_StartTransfer)
-    DMA_SubmitTransfer                       0x000017c9   Thumb Code   228  fsl_dma.o(.text.DMA_SubmitTransfer)
-    EventRecord2                             0x000018ad   Thumb Code   144  eventrecorder.o(.text.EventRecord2)
-    EventRecordData                          0x0000193d   Thumb Code   402  eventrecorder.o(.text.EventRecordData)
-    EventRecorderEnable                      0x00001d85   Thumb Code   270  eventrecorder.o(.text.EventRecorderEnable)
-    EventRecorderInitialize                  0x00001e95   Thumb Code  1112  eventrecorder.o(.text.EventRecorderInitialize)
-    EventRecorderStart                       0x000022ed   Thumb Code    94  eventrecorder.o(.text.EventRecorderStart)
-    EventRecorderTimerGetCount               0x0000234d   Thumb Code    12  eventrecorder.o(.text.EventRecorderTimerGetCount)
-    EventRecorderTimerSetup                  0x00002359   Thumb Code    36  eventrecorder.o(.text.EventRecorderTimerSetup)
-    EvrFreeRTOSTasks_MovedTaskToReadyState   0x0000237d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_MovedTaskToReadyState)
-    EvrFreeRTOSTasks_PostMovedTaskToReadyState 0x0000238d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_PostMovedTaskToReadyState)
-    EvrFreeRTOSTasks_TaskIncrementTick       0x0000239d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskIncrementTick)
-    EvrFreeRTOSTasks_TaskSwitchedIn          0x000023ad   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedIn)
-    EvrFreeRTOSTasks_TaskSwitchedOut         0x000023bd   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedOut)
-    FLEXCOMM0_DriverIRQHandler               0x000023cd   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM0_DriverIRQHandler)
-    FLEXCOMM1_DriverIRQHandler               0x0000240d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM1_DriverIRQHandler)
-    FLEXCOMM2_DriverIRQHandler               0x0000244d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM2_DriverIRQHandler)
-    FLEXCOMM3_DriverIRQHandler               0x0000248d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM3_DriverIRQHandler)
-    FLEXCOMM4_DriverIRQHandler               0x000024cd   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM4_DriverIRQHandler)
-    FLEXCOMM5_DriverIRQHandler               0x0000250d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM5_DriverIRQHandler)
-    FLEXCOMM6_DriverIRQHandler               0x0000254d   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM6_DriverIRQHandler)
-    FLEXCOMM7_DriverIRQHandler               0x00002591   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM7_DriverIRQHandler)
-    FLEXCOMM8_DriverIRQHandler               0x000025d5   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM8_DriverIRQHandler)
-    FLEXCOMM_Init                            0x00002619   Thumb Code   356  fsl_flexcomm.o(.text.FLEXCOMM_Init)
-    FLEXCOMM_SetIRQHandler                   0x0000277d   Thumb Code   238  fsl_flexcomm.o(.text.FLEXCOMM_SetIRQHandler)
-    I2C_GetInstance                          0x0000286d   Thumb Code    64  fsl_i2c.o(.text.I2C_GetInstance)
-    I2C_MasterInit                           0x000028ad   Thumb Code    44  fsl_i2c.o(.text.I2C_MasterInit)
-    I2C_MasterSetBaudRate                    0x000028d9   Thumb Code   544  fsl_i2c.o(.text.I2C_MasterSetBaudRate)
-    I2C_MasterTransferCreateHandleDMA        0x00002b09   Thumb Code   196  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
-    I2C_MasterTransferDMAHandleIRQ           0x00002bcd   Thumb Code   492  fsl_i2c_dma.o(.text.I2C_MasterTransferDMAHandleIRQ)
-    INPUTMUX_AttachSignal                    0x00002e65   Thumb Code    14  fsl_inputmux.o(.text.INPUTMUX_AttachSignal)
-    POWER_SetVoltageForFreq                  0x00002e75   Thumb Code    72  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    PendSV_Handler                           0x00002ec1   Thumb Code    96  portasm.o(.text.PendSV_Handler)
-    RESET_PeripheralReset                    0x00002f21   Thumb Code   138  fsl_reset.o(.text.RESET_PeripheralReset)
-    RTC_Init                                 0x00002fad   Thumb Code    42  fsl_rtc.o(.text.RTC_Init)
-    RTC_SetDatetime                          0x00002fd9   Thumb Code   308  fsl_rtc.o(.text.RTC_SetDatetime)
-    SDK_DelayAtLeastUs                       0x0000310d   Thumb Code   112  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    SPI_MasterInit                           0x0000317d   Thumb Code   816  fsl_spi.o(.text.SPI_MasterInit)
-    SVC_Handler                              0x000034b1   Thumb Code    36  portasm.o(.text.SVC_Handler)
-    SysTick_Handler                          0x000034d5   Thumb Code    38  port.o(.text.SysTick_Handler)
-    SystemInit                               0x000034fd   Thumb Code    68  system_lpc55s69_cm33_core0.o(.text.SystemInit)
-    SystemInitHook                           0x00003541   Thumb Code     2  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
-    USART_GetInstance                        0x00003545   Thumb Code    64  fsl_usart.o(.text.USART_GetInstance)
-    USART_Init                               0x00003585   Thumb Code   332  fsl_usart.o(.text.USART_Init)
-    USART_SetBaudRate                        0x000036d1   Thumb Code   596  fsl_usart.o(.text.USART_SetBaudRate)
-    USART_TransferCreateHandleDMA            0x00003925   Thumb Code   200  fsl_usart_dma.o(.text.USART_TransferCreateHandleDMA)
-    __aeabi_assert                           0x00003ab9   Thumb Code   164  retarget_io.o(.text.__aeabi_assert)
-    abort                                    0x00003b5d   Thumb Code     2  retarget_io.o(.text.abort)
-    fputc                                    0x00003b61   Thumb Code    76  retarget_io.o(.text.fputc)
-    main                                     0x00003d61   Thumb Code    44  main.o(.text.main)
-    ulSetInterruptMaskFromISR                0x00003d8d   Thumb Code     8  portasm.o(.text.ulSetInterruptMaskFromISR)
-    uxListRemove                             0x00003d95   Thumb Code    36  list.o(.text.uxListRemove)
-    vClearInterruptMaskFromISR               0x00003db9   Thumb Code     6  portasm.o(.text.vClearInterruptMaskFromISR)
-    vListInsertEnd                           0x00003dc1   Thumb Code    28  list.o(.text.vListInsertEnd)
-    vPortSVCHandler_C                        0x00003ddd   Thumb Code    46  port.o(.text.vPortSVCHandler_C)
-    vRestoreContextOfFirstTask               0x00003e11   Thumb Code    36  portasm.o(.text.vRestoreContextOfFirstTask)
-    vTaskSwitchContext                       0x00003e35   Thumb Code   162  tasks.o(.text.vTaskSwitchContext)
-    xTaskIncrementTick                       0x00003ed9   Thumb Code   252  tasks.o(.text.xTaskIncrementTick)
-    __0printf$bare                           0x00003fd5   Thumb Code     8  printfb.o(i.__0printf$bare)
-    __1printf$bare                           0x00003fd5   Thumb Code     0  printfb.o(i.__0printf$bare)
-    __2printf                                0x00003fd5   Thumb Code     0  printfb.o(i.__0printf$bare)
-    __scatterload_copy                       0x00003fe5   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00003ff3   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00003ff5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    fputs                                    0x00004025   Thumb Code    24  fputs.o(i.fputs)
-    CTIMER0_config                           0x000040f0   Data           8  peripherals.o(.rodata.CTIMER0_config)
-    CTIMER1_config                           0x000040f8   Data           8  peripherals.o(.rodata.CTIMER1_config)
-    EventRecorderInfo                        0x00004100   Data          24  eventrecorder.o(.rodata.EventRecorderInfo)
-    FLEXCOMM0_config                         0x00004118   Data          16  peripherals.o(.rodata.FLEXCOMM0_config)
-    FLEXCOMM1_config                         0x00004128   Data          12  peripherals.o(.rodata.FLEXCOMM1_config)
-    FLEXCOMM2_config                         0x00004134   Data          24  peripherals.o(.rodata.FLEXCOMM2_config)
-    Region$$Table$$Base                      0x00004994   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000049b4   Number         0  anon$$obj.o(Region$$Table)
-    m0_image_start                           0x00072000   Data           0  incbin.o(.m0code)
-    m0_image_end                             0x00073a80   Data           0  incbin.o(.m0code)
-    m0_image_size                            0x00073a80   Data           0  incbin.o(.m0code)
+    __Vectors                                0x00004000   Number       304  startup_lpc55s69_cm33_core0.o(.isr_vector)
+    __main                                   0x00004201   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x00004201   Thumb Code     0  entry4.o(.ARM.Collect$$$$00000003)
+    _main_scatterload                        0x00004205   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x00004209   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x00004209   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x00004209   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x00004209   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x00004211   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x00004211   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    Reset_Handler                            0x00004215   Thumb Code    32  startup_lpc55s69_cm33_core0.o(.text)
+    ACMP_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    ADC0_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    BusFault_Handler                         0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CASER_DriverIRQHandler                   0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    DebugMon_Handler                         0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    DefaultISR                               0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    GINT0_DriverIRQHandler                   0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    GINT1_DriverIRQHandler                   0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    HASHCRYPT_DriverIRQHandler               0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    MAILBOX_DriverIRQHandler                 0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    MRT0_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    MemManage_Handler                        0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    OS_EVENT_DriverIRQHandler                0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PLU_DriverIRQHandler                     0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PQ_DriverIRQHandler                      0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PUF_DriverIRQHandler                     0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    RTC_DriverIRQHandler                     0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved39_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved41_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved42_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved46_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved55_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved56_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved57_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved59_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved60_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved61_DriverIRQHandler              0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SCT0_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SDIO_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_HYPERVISOR_CALL_DriverIRQHandler     0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_VIO_DriverIRQHandler                 0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SecureFault_Handler                      0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB0_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB0_NEEDCLK_DriverIRQHandler            0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_DriverIRQHandler                    0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_NEEDCLK_DriverIRQHandler            0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_PHY_DriverIRQHandler                0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    UsageFault_Handler                       0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    WDT_BOD_DriverIRQHandler                 0x00004235   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    NMI_Handler                              0x00004239   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    HardFault_Handler                        0x0000423d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    WDT_BOD_IRQHandler                       0x0000424d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    DMA0_IRQHandler                          0x00004251   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    GINT0_IRQHandler                         0x00004255   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    GINT1_IRQHandler                         0x00004259   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT0_IRQHandler                      0x0000425d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT1_IRQHandler                      0x00004261   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT2_IRQHandler                      0x00004265   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT3_IRQHandler                      0x00004269   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    UTICK0_IRQHandler                        0x0000426d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    MRT0_IRQHandler                          0x00004271   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CTIMER0_IRQHandler                       0x00004275   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CTIMER1_IRQHandler                       0x00004279   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SCT0_IRQHandler                          0x0000427d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CTIMER3_IRQHandler                       0x00004281   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM0_IRQHandler                     0x00004285   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM1_IRQHandler                     0x00004289   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM2_IRQHandler                     0x0000428d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM3_IRQHandler                     0x00004291   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM4_IRQHandler                     0x00004295   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM5_IRQHandler                     0x00004299   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM6_IRQHandler                     0x0000429d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM7_IRQHandler                     0x000042a1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    ADC0_IRQHandler                          0x000042a5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved39_IRQHandler                    0x000042a9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    ACMP_IRQHandler                          0x000042ad   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved41_IRQHandler                    0x000042b1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved42_IRQHandler                    0x000042b5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB0_NEEDCLK_IRQHandler                  0x000042b9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB0_IRQHandler                          0x000042bd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    RTC_IRQHandler                           0x000042c1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved46_IRQHandler                    0x000042c5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    MAILBOX_IRQHandler                       0x000042c9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT4_IRQHandler                      0x000042cd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT5_IRQHandler                      0x000042d1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT6_IRQHandler                      0x000042d5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PIN_INT7_IRQHandler                      0x000042d9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CTIMER2_IRQHandler                       0x000042dd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CTIMER4_IRQHandler                       0x000042e1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    OS_EVENT_IRQHandler                      0x000042e5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved55_IRQHandler                    0x000042e9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved56_IRQHandler                    0x000042ed   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved57_IRQHandler                    0x000042f1   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SDIO_IRQHandler                          0x000042f5   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved59_IRQHandler                    0x000042f9   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved60_IRQHandler                    0x000042fd   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    Reserved61_IRQHandler                    0x00004301   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_PHY_IRQHandler                      0x00004305   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_IRQHandler                          0x00004309   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    USB1_NEEDCLK_IRQHandler                  0x0000430d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_HYPERVISOR_CALL_IRQHandler           0x00004311   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_GPIO_INT0_IRQ0_IRQHandler            0x00004315   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_GPIO_INT0_IRQ1_IRQHandler            0x00004319   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PLU_IRQHandler                           0x0000431d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    SEC_VIO_IRQHandler                       0x00004321   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    HASHCRYPT_IRQHandler                     0x00004325   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    CASER_IRQHandler                         0x00004329   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PUF_IRQHandler                           0x0000432d   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    PQ_IRQHandler                            0x00004331   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    DMA1_IRQHandler                          0x00004335   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    FLEXCOMM8_IRQHandler                     0x00004339   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
+    __aeabi_uldivmod                         0x00004441   Thumb Code    98  uldiv.o(.text)
+    ___aeabi_memcpy4$ret                     0x000044a3   Thumb Code     0  memcpy.o(.text)
+    ___aeabi_memcpy8$ret                     0x000044a3   Thumb Code     0  memcpy.o(.text)
+    __aeabi_memcpy                           0x000044a3   Thumb Code    40  memcpy.o(.text)
+    memcpy                                   0x000044a3   Thumb Code     0  memcpy.o(.text)
+    __aeabi_memset                           0x000044cb   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x000044cb   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x000044cb   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x000044d9   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x000044d9   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x000044d9   Thumb Code     0  memseta.o(.text)
+    memset                                   0x000044dd   Thumb Code    18  memseta.o(.text)
+    __aeabi_llsl                             0x000044ef   Thumb Code    30  llshl.o(.text)
+    _ll_shift_l                              0x000044ef   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x0000450d   Thumb Code    32  llushr.o(.text)
+    _ll_ushift_r                             0x0000450d   Thumb Code     0  llushr.o(.text)
+    __scatterload                            0x0000452d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0000452d   Thumb Code     0  init.o(.text)
+    BOARD_BootClockRUN                       0x00004551   Thumb Code   396  clock_config.o(.text.BOARD_BootClockRUN)
+    BOARD_InitPeripherals                    0x000046dd   Thumb Code   444  peripherals.o(.text.BOARD_InitPeripherals)
+    BOARD_InitPins                           0x00004899   Thumb Code   236  pin_mux.o(.text.BOARD_InitPins)
+    CLOCK_AttachClk                          0x00004985   Thumb Code   146  fsl_clock.o(.text.CLOCK_AttachClk)
+    CLOCK_SetClkDiv                          0x00004a19   Thumb Code    36  fsl_clock.o(.text.CLOCK_SetClkDiv)
+    CLOCK_SetFLASHAccessCyclesForFreq        0x00004a3d   Thumb Code   290  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
+    CLOCK_SetPLL0Freq                        0x00004b61   Thumb Code   390  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
+    CLOCK_SetupExtClocking                   0x00004ce9   Thumb Code    64  fsl_clock.o(.text.CLOCK_SetupExtClocking)
+    CLOCK_SetupFROClocking                   0x00004d29   Thumb Code   102  fsl_clock.o(.text.CLOCK_SetupFROClocking)
+    CTIMER0_DriverIRQHandler                 0x00004d91   Thumb Code     6  fsl_ctimer.o(.text.CTIMER0_DriverIRQHandler)
+    CTIMER1_DriverIRQHandler                 0x00004d99   Thumb Code     6  fsl_ctimer.o(.text.CTIMER1_DriverIRQHandler)
+    CTIMER2_DriverIRQHandler                 0x00004da1   Thumb Code     6  fsl_ctimer.o(.text.CTIMER2_DriverIRQHandler)
+    CTIMER3_DriverIRQHandler                 0x00004da9   Thumb Code     6  fsl_ctimer.o(.text.CTIMER3_DriverIRQHandler)
+    CTIMER4_DriverIRQHandler                 0x00004db1   Thumb Code     6  fsl_ctimer.o(.text.CTIMER4_DriverIRQHandler)
+    CTIMER_GenericIRQHandler                 0x00004db9   Thumb Code   240  fsl_ctimer.o(.text.CTIMER_GenericIRQHandler)
+    CTIMER_Init                              0x00004ea9   Thumb Code   264  fsl_ctimer.o(.text.CTIMER_Init)
+    CTIMER_SetupPwmPeriod                    0x00004fb1   Thumb Code   298  fsl_ctimer.o(.text.CTIMER_SetupPwmPeriod)
+    DMA0_DriverIRQHandler                    0x000050dd   Thumb Code    12  fsl_dma.o(.text.DMA0_DriverIRQHandler)
+    DMA1_DriverIRQHandler                    0x000050e9   Thumb Code    12  fsl_dma.o(.text.DMA1_DriverIRQHandler)
+    DMA_AbortTransfer                        0x000050f5   Thumb Code   138  fsl_dma.o(.text.DMA_AbortTransfer)
+    DMA_CreateDescriptor                     0x00005181   Thumb Code   536  fsl_dma.o(.text.DMA_CreateDescriptor)
+    DMA_CreateHandle                         0x00005399   Thumb Code   200  fsl_dma.o(.text.DMA_CreateHandle)
+    DMA_IRQHandle                            0x00005461   Thumb Code   220  fsl_dma.o(.text.DMA_IRQHandle)
+    DMA_Init                                 0x0000553d   Thumb Code   124  fsl_dma.o(.text.DMA_Init)
+    DMA_PrepareTransfer                      0x000055b9   Thumb Code   368  fsl_dma.o(.text.DMA_PrepareTransfer)
+    DMA_SetCallback                          0x00005729   Thumb Code    44  fsl_dma.o(.text.DMA_SetCallback)
+    DMA_StartTransfer                        0x00005755   Thumb Code   114  fsl_dma.o(.text.DMA_StartTransfer)
+    DMA_SubmitTransfer                       0x000057c9   Thumb Code   228  fsl_dma.o(.text.DMA_SubmitTransfer)
+    EventRecord2                             0x000058ad   Thumb Code   144  eventrecorder.o(.text.EventRecord2)
+    EventRecordData                          0x0000593d   Thumb Code   402  eventrecorder.o(.text.EventRecordData)
+    EventRecorderEnable                      0x00005d85   Thumb Code   270  eventrecorder.o(.text.EventRecorderEnable)
+    EventRecorderInitialize                  0x00005e95   Thumb Code  1112  eventrecorder.o(.text.EventRecorderInitialize)
+    EventRecorderStart                       0x000062ed   Thumb Code    94  eventrecorder.o(.text.EventRecorderStart)
+    EventRecorderTimerGetCount               0x0000634d   Thumb Code    12  eventrecorder.o(.text.EventRecorderTimerGetCount)
+    EventRecorderTimerSetup                  0x00006359   Thumb Code    36  eventrecorder.o(.text.EventRecorderTimerSetup)
+    EvrFreeRTOSTasks_MovedTaskToReadyState   0x0000637d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_MovedTaskToReadyState)
+    EvrFreeRTOSTasks_PostMovedTaskToReadyState 0x0000638d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_PostMovedTaskToReadyState)
+    EvrFreeRTOSTasks_TaskIncrementTick       0x0000639d   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskIncrementTick)
+    EvrFreeRTOSTasks_TaskSwitchedIn          0x000063ad   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedIn)
+    EvrFreeRTOSTasks_TaskSwitchedOut         0x000063bd   Thumb Code    16  freertos_evr.o(.text.EvrFreeRTOSTasks_TaskSwitchedOut)
+    FLEXCOMM0_DriverIRQHandler               0x000063cd   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM0_DriverIRQHandler)
+    FLEXCOMM1_DriverIRQHandler               0x0000640d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM1_DriverIRQHandler)
+    FLEXCOMM2_DriverIRQHandler               0x0000644d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM2_DriverIRQHandler)
+    FLEXCOMM3_DriverIRQHandler               0x0000648d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM3_DriverIRQHandler)
+    FLEXCOMM4_DriverIRQHandler               0x000064cd   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM4_DriverIRQHandler)
+    FLEXCOMM5_DriverIRQHandler               0x0000650d   Thumb Code    64  fsl_flexcomm.o(.text.FLEXCOMM5_DriverIRQHandler)
+    FLEXCOMM6_DriverIRQHandler               0x0000654d   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM6_DriverIRQHandler)
+    FLEXCOMM7_DriverIRQHandler               0x00006591   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM7_DriverIRQHandler)
+    FLEXCOMM8_DriverIRQHandler               0x000065d5   Thumb Code    68  fsl_flexcomm.o(.text.FLEXCOMM8_DriverIRQHandler)
+    FLEXCOMM_Init                            0x00006619   Thumb Code   356  fsl_flexcomm.o(.text.FLEXCOMM_Init)
+    FLEXCOMM_SetIRQHandler                   0x0000677d   Thumb Code   238  fsl_flexcomm.o(.text.FLEXCOMM_SetIRQHandler)
+    I2C_GetInstance                          0x0000686d   Thumb Code    64  fsl_i2c.o(.text.I2C_GetInstance)
+    I2C_MasterInit                           0x000068ad   Thumb Code    44  fsl_i2c.o(.text.I2C_MasterInit)
+    I2C_MasterSetBaudRate                    0x000068d9   Thumb Code   544  fsl_i2c.o(.text.I2C_MasterSetBaudRate)
+    I2C_MasterTransferCreateHandleDMA        0x00006b09   Thumb Code   196  fsl_i2c_dma.o(.text.I2C_MasterTransferCreateHandleDMA)
+    I2C_MasterTransferDMAHandleIRQ           0x00006bcd   Thumb Code   492  fsl_i2c_dma.o(.text.I2C_MasterTransferDMAHandleIRQ)
+    INPUTMUX_AttachSignal                    0x00006e65   Thumb Code    14  fsl_inputmux.o(.text.INPUTMUX_AttachSignal)
+    PIN_INT0_DriverIRQHandler                0x00006e75   Thumb Code    74  fsl_pint.o(.text.PIN_INT0_DriverIRQHandler)
+    PIN_INT1_DriverIRQHandler                0x00006ec1   Thumb Code    74  fsl_pint.o(.text.PIN_INT1_DriverIRQHandler)
+    PIN_INT2_DriverIRQHandler                0x00006f0d   Thumb Code    74  fsl_pint.o(.text.PIN_INT2_DriverIRQHandler)
+    PIN_INT3_DriverIRQHandler                0x00006f59   Thumb Code    74  fsl_pint.o(.text.PIN_INT3_DriverIRQHandler)
+    PIN_INT4_DriverIRQHandler                0x00006fa5   Thumb Code    74  fsl_pint.o(.text.PIN_INT4_DriverIRQHandler)
+    PIN_INT5_DriverIRQHandler                0x00006ff1   Thumb Code    74  fsl_pint.o(.text.PIN_INT5_DriverIRQHandler)
+    PIN_INT6_DriverIRQHandler                0x0000703d   Thumb Code    74  fsl_pint.o(.text.PIN_INT6_DriverIRQHandler)
+    PIN_INT7_DriverIRQHandler                0x00007089   Thumb Code    74  fsl_pint.o(.text.PIN_INT7_DriverIRQHandler)
+    POWER_SetVoltageForFreq                  0x000070d5   Thumb Code    72  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    PendSV_Handler                           0x00007121   Thumb Code    96  portasm.o(.text.PendSV_Handler)
+    RESET_PeripheralReset                    0x00007181   Thumb Code   138  fsl_reset.o(.text.RESET_PeripheralReset)
+    RTC_Init                                 0x0000720d   Thumb Code    42  fsl_rtc.o(.text.RTC_Init)
+    RTC_SetDatetime                          0x00007239   Thumb Code   308  fsl_rtc.o(.text.RTC_SetDatetime)
+    SDK_DelayAtLeastUs                       0x0000736d   Thumb Code   112  fsl_common.o(.text.SDK_DelayAtLeastUs)
+    SEC_GPIO_INT0_IRQ0_DriverIRQHandler      0x000073dd   Thumb Code    70  fsl_pint.o(.text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler)
+    SEC_GPIO_INT0_IRQ1_DriverIRQHandler      0x00007425   Thumb Code    70  fsl_pint.o(.text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler)
+    SPI_MasterInit                           0x0000746d   Thumb Code   816  fsl_spi.o(.text.SPI_MasterInit)
+    SVC_Handler                              0x000077a1   Thumb Code    36  portasm.o(.text.SVC_Handler)
+    SysTick_Handler                          0x000077c5   Thumb Code    38  port.o(.text.SysTick_Handler)
+    SystemInit                               0x000077ed   Thumb Code    68  system_lpc55s69_cm33_core0.o(.text.SystemInit)
+    SystemInitHook                           0x00007831   Thumb Code     2  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
+    USART_GetInstance                        0x00007835   Thumb Code    64  fsl_usart.o(.text.USART_GetInstance)
+    USART_Init                               0x00007875   Thumb Code   332  fsl_usart.o(.text.USART_Init)
+    USART_SetBaudRate                        0x000079c1   Thumb Code   596  fsl_usart.o(.text.USART_SetBaudRate)
+    USART_TransferCreateHandleDMA            0x00007c15   Thumb Code   200  fsl_usart_dma.o(.text.USART_TransferCreateHandleDMA)
+    UTICK0_DriverIRQHandler                  0x00007da9   Thumb Code    30  fsl_utick.o(.text.UTICK0_DriverIRQHandler)
+    __aeabi_assert                           0x00007dc9   Thumb Code   164  retarget_io.o(.text.__aeabi_assert)
+    abort                                    0x00007e6d   Thumb Code     2  retarget_io.o(.text.abort)
+    fputc                                    0x00007e71   Thumb Code    76  retarget_io.o(.text.fputc)
+    main                                     0x00008071   Thumb Code    44  main.o(.text.main)
+    ulSetInterruptMaskFromISR                0x0000809d   Thumb Code     8  portasm.o(.text.ulSetInterruptMaskFromISR)
+    uxListRemove                             0x000080a5   Thumb Code    36  list.o(.text.uxListRemove)
+    vClearInterruptMaskFromISR               0x000080c9   Thumb Code     6  portasm.o(.text.vClearInterruptMaskFromISR)
+    vListInsertEnd                           0x000080d1   Thumb Code    28  list.o(.text.vListInsertEnd)
+    vPortSVCHandler_C                        0x000080ed   Thumb Code    46  port.o(.text.vPortSVCHandler_C)
+    vRestoreContextOfFirstTask               0x00008121   Thumb Code    36  portasm.o(.text.vRestoreContextOfFirstTask)
+    vTaskSwitchContext                       0x00008145   Thumb Code   162  tasks.o(.text.vTaskSwitchContext)
+    xTaskIncrementTick                       0x000081e9   Thumb Code   252  tasks.o(.text.xTaskIncrementTick)
+    __0printf$bare                           0x000082e5   Thumb Code     8  printfb.o(i.__0printf$bare)
+    __1printf$bare                           0x000082e5   Thumb Code     0  printfb.o(i.__0printf$bare)
+    __2printf                                0x000082e5   Thumb Code     0  printfb.o(i.__0printf$bare)
+    __scatterload_copy                       0x000082f5   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00008303   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00008305   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    fputs                                    0x00008335   Thumb Code    24  fputs.o(i.fputs)
+    CTIMER0_config                           0x00008400   Data           8  peripherals.o(.rodata.CTIMER0_config)
+    CTIMER1_config                           0x00008408   Data           8  peripherals.o(.rodata.CTIMER1_config)
+    EventRecorderInfo                        0x00008410   Data          24  eventrecorder.o(.rodata.EventRecorderInfo)
+    FLEXCOMM0_config                         0x00008428   Data          16  peripherals.o(.rodata.FLEXCOMM0_config)
+    FLEXCOMM1_config                         0x00008438   Data          12  peripherals.o(.rodata.FLEXCOMM1_config)
+    FLEXCOMM2_config                         0x00008444   Data          24  peripherals.o(.rodata.FLEXCOMM2_config)
+    Region$$Table$$Base                      0x00008ca4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00008cc4   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x20000000   Data           4  stdout.o(.data)
     __stderr                                 0x20000004   Data           4  stderr.o(.data)
     RTC_dateTimeStruct                       0x20000008   Data           8  peripherals.o(.data.RTC_dateTimeStruct)
@@ -3818,8 +3982,8 @@ Image Symbol Table
     FLEXCOMM1_DMA_Handle                     0x200003c4   Data          60  peripherals.o(.bss.FLEXCOMM1_DMA_Handle)
     s_dma_descriptor_table0                  0x20000c00   Data         368  fsl_dma.o(.bss.s_dma_descriptor_table0)
     s_dma_descriptor_table1                  0x20000e00   Data         368  fsl_dma.o(.bss.s_dma_descriptor_table1)
-    Image$$ARM_LIB_HEAP$$ZI$$Base            0x20000f70   Number         0  anon$$obj.o ABSOLUTE
-    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x20001370   Number         0  anon$$obj.o ABSOLUTE
+    Image$$ARM_LIB_HEAP$$ZI$$Base            0x20000f9c   Number         0  anon$$obj.o ABSOLUTE
+    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x2000139c   Number         0  anon$$obj.o ABSOLUTE
     Image$$ARM_LIB_STACK$$ZI$$Base           0x20032c00   Number         0  anon$$obj.o ABSOLUTE
     Image$$ARM_LIB_STACK$$ZI$$Limit          0x20033000   Number         0  anon$$obj.o ABSOLUTE
 
@@ -3829,256 +3993,271 @@ Image Symbol Table
 
 Memory Map of the image
 
-  Image Entry point : 0x00000201
+  Image Entry point : 0x00004201
 
-  Load Region LR_m_text (Base: 0x00000000, Size: 0x00004c00, Max: 0x00072000, ABSOLUTE)
+  Load Region LR_m_text (Base: 0x00004000, Size: 0x00005000, Max: 0x0004ee00, ABSOLUTE)
 
-    Execution Region VECTOR_ROM (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000130, Max: 0x00000200, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00000000   0x00000000   0x00000130   Data   RO          841    .isr_vector         startup_lpc55s69_cm33_core0.o
-
-
-    Execution Region ER_m_text (Exec base: 0x00000200, Load base: 0x00000200, Size: 0x000047b4, Max: 0x00071e00, ABSOLUTE, FIXED)
+    Execution Region VECTOR_ROM (Exec base: 0x00004000, Load base: 0x00004000, Size: 0x00000130, Max: 0x00000200, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000200   0x00000200   0x00000000   Code   RO         1441  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x00000200   0x00000200   0x00000004   Code   RO         1750    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
-    0x00000204   0x00000204   0x00000004   Code   RO         1753    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000208   0x00000208   0x00000000   Code   RO         1755    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000208   0x00000208   0x00000000   Code   RO         1757    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000208   0x00000208   0x00000008   Code   RO         1758    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO         1760    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO         1762    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x00000210   0x00000210   0x00000004   Code   RO         1751    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
-    0x00000214   0x00000214   0x0000022c   Code   RO          840    .text               startup_lpc55s69_cm33_core0.o
-    0x00000440   0x00000440   0x00000062   Code   RO         1450    .text               mc_w.l(uldiv.o)
-    0x000004a2   0x000004a2   0x00000028   Code   RO         1452    .text               mc_w.l(memcpy.o)
-    0x000004ca   0x000004ca   0x00000024   Code   RO         1456    .text               mc_w.l(memseta.o)
-    0x000004ee   0x000004ee   0x0000001e   Code   RO         1766    .text               mc_w.l(llshl.o)
-    0x0000050c   0x0000050c   0x00000020   Code   RO         1768    .text               mc_w.l(llushr.o)
-    0x0000052c   0x0000052c   0x00000024   Code   RO         1787    .text               mc_w.l(init.o)
-    0x00000550   0x00000550   0x0000018c   Code   RO           16    .text.BOARD_BootClockRUN  clock_config.o
-    0x000006dc   0x000006dc   0x000001bc   Code   RO           42    .text.BOARD_InitPeripherals  peripherals.o
-    0x00000898   0x00000898   0x000000ec   Code   RO           65    .text.BOARD_InitPins  pin_mux.o
-    0x00000984   0x00000984   0x00000092   Code   RO          211    .text.CLOCK_AttachClk  fsl_clock.o
-    0x00000a16   0x00000a16   0x00000002   PAD
-    0x00000a18   0x00000a18   0x00000024   Code   RO          215    .text.CLOCK_SetClkDiv  fsl_clock.o
-    0x00000a3c   0x00000a3c   0x00000122   Code   RO          223    .text.CLOCK_SetFLASHAccessCyclesForFreq  fsl_clock.o
-    0x00000b5e   0x00000b5e   0x00000002   PAD
-    0x00000b60   0x00000b60   0x00000186   Code   RO          295    .text.CLOCK_SetPLL0Freq  fsl_clock.o
-    0x00000ce6   0x00000ce6   0x00000002   PAD
-    0x00000ce8   0x00000ce8   0x00000040   Code   RO          225    .text.CLOCK_SetupExtClocking  fsl_clock.o
-    0x00000d28   0x00000d28   0x00000066   Code   RO          221    .text.CLOCK_SetupFROClocking  fsl_clock.o
-    0x00000d8e   0x00000d8e   0x00000002   PAD
-    0x00000d90   0x00000d90   0x00000006   Code   RO          361    .text.CTIMER0_DriverIRQHandler  fsl_ctimer.o
-    0x00000d96   0x00000d96   0x00000002   PAD
-    0x00000d98   0x00000d98   0x00000006   Code   RO          363    .text.CTIMER1_DriverIRQHandler  fsl_ctimer.o
-    0x00000d9e   0x00000d9e   0x00000002   PAD
-    0x00000da0   0x00000da0   0x00000006   Code   RO          365    .text.CTIMER2_DriverIRQHandler  fsl_ctimer.o
-    0x00000da6   0x00000da6   0x00000002   PAD
-    0x00000da8   0x00000da8   0x00000006   Code   RO          367    .text.CTIMER3_DriverIRQHandler  fsl_ctimer.o
-    0x00000dae   0x00000dae   0x00000002   PAD
-    0x00000db0   0x00000db0   0x00000006   Code   RO          369    .text.CTIMER4_DriverIRQHandler  fsl_ctimer.o
-    0x00000db6   0x00000db6   0x00000002   PAD
-    0x00000db8   0x00000db8   0x000000f0   Code   RO          359    .text.CTIMER_GenericIRQHandler  fsl_ctimer.o
-    0x00000ea8   0x00000ea8   0x00000108   Code   RO          341    .text.CTIMER_Init   fsl_ctimer.o
-    0x00000fb0   0x00000fb0   0x0000012a   Code   RO          349    .text.CTIMER_SetupPwmPeriod  fsl_ctimer.o
-    0x000010da   0x000010da   0x00000002   PAD
-    0x000010dc   0x000010dc   0x0000000c   Code   RO          426    .text.DMA0_DriverIRQHandler  fsl_dma.o
-    0x000010e8   0x000010e8   0x0000000c   Code   RO          428    .text.DMA1_DriverIRQHandler  fsl_dma.o
-    0x000010f4   0x000010f4   0x0000008a   Code   RO          398    .text.DMA_AbortTransfer  fsl_dma.o
-    0x0000117e   0x0000117e   0x00000002   PAD
-    0x00001180   0x00001180   0x00000218   Code   RO          396    .text.DMA_CreateDescriptor  fsl_dma.o
-    0x00001398   0x00001398   0x000000c8   Code   RO          400    .text.DMA_CreateHandle  fsl_dma.o
-    0x00001460   0x00001460   0x000000dc   Code   RO          424    .text.DMA_IRQHandle  fsl_dma.o
-    0x0000153c   0x0000153c   0x0000007c   Code   RO          384    .text.DMA_Init      fsl_dma.o
-    0x000015b8   0x000015b8   0x00000170   Code   RO          404    .text.DMA_PrepareTransfer  fsl_dma.o
-    0x00001728   0x00001728   0x0000002c   Code   RO          402    .text.DMA_SetCallback  fsl_dma.o
-    0x00001754   0x00001754   0x00000072   Code   RO          422    .text.DMA_StartTransfer  fsl_dma.o
-    0x000017c6   0x000017c6   0x00000002   PAD
-    0x000017c8   0x000017c8   0x000000e4   Code   RO          420    .text.DMA_SubmitTransfer  fsl_dma.o
-    0x000018ac   0x000018ac   0x00000090   Code   RO          101    .text.EventRecord2  eventrecorder.o
-    0x0000193c   0x0000193c   0x00000192   Code   RO           99    .text.EventRecordData  eventrecorder.o
-    0x00001ace   0x00001ace   0x00000002   PAD
-    0x00001ad0   0x00001ad0   0x000002b4   Code   RO           89    .text.EventRecordItem  eventrecorder.o
-    0x00001d84   0x00001d84   0x0000010e   Code   RO           87    .text.EventRecorderEnable  eventrecorder.o
-    0x00001e92   0x00001e92   0x00000002   PAD
-    0x00001e94   0x00001e94   0x00000458   Code   RO           85    .text.EventRecorderInitialize  eventrecorder.o
-    0x000022ec   0x000022ec   0x0000005e   Code   RO           91    .text.EventRecorderStart  eventrecorder.o
-    0x0000234a   0x0000234a   0x00000002   PAD
-    0x0000234c   0x0000234c   0x0000000c   Code   RO           83    .text.EventRecorderTimerGetCount  eventrecorder.o
-    0x00002358   0x00002358   0x00000024   Code   RO           79    .text.EventRecorderTimerSetup  eventrecorder.o
-    0x0000237c   0x0000237c   0x00000010   Code   RO          895    .text.EvrFreeRTOSTasks_MovedTaskToReadyState  freertos_evr.o
-    0x0000238c   0x0000238c   0x00000010   Code   RO          897    .text.EvrFreeRTOSTasks_PostMovedTaskToReadyState  freertos_evr.o
-    0x0000239c   0x0000239c   0x00000010   Code   RO          883    .text.EvrFreeRTOSTasks_TaskIncrementTick  freertos_evr.o
-    0x000023ac   0x000023ac   0x00000010   Code   RO          889    .text.EvrFreeRTOSTasks_TaskSwitchedIn  freertos_evr.o
-    0x000023bc   0x000023bc   0x00000010   Code   RO          887    .text.EvrFreeRTOSTasks_TaskSwitchedOut  freertos_evr.o
-    0x000023cc   0x000023cc   0x00000040   Code   RO          450    .text.FLEXCOMM0_DriverIRQHandler  fsl_flexcomm.o
-    0x0000240c   0x0000240c   0x00000040   Code   RO          452    .text.FLEXCOMM1_DriverIRQHandler  fsl_flexcomm.o
-    0x0000244c   0x0000244c   0x00000040   Code   RO          454    .text.FLEXCOMM2_DriverIRQHandler  fsl_flexcomm.o
-    0x0000248c   0x0000248c   0x00000040   Code   RO          456    .text.FLEXCOMM3_DriverIRQHandler  fsl_flexcomm.o
-    0x000024cc   0x000024cc   0x00000040   Code   RO          458    .text.FLEXCOMM4_DriverIRQHandler  fsl_flexcomm.o
-    0x0000250c   0x0000250c   0x00000040   Code   RO          460    .text.FLEXCOMM5_DriverIRQHandler  fsl_flexcomm.o
-    0x0000254c   0x0000254c   0x00000044   Code   RO          462    .text.FLEXCOMM6_DriverIRQHandler  fsl_flexcomm.o
-    0x00002590   0x00002590   0x00000044   Code   RO          464    .text.FLEXCOMM7_DriverIRQHandler  fsl_flexcomm.o
-    0x000025d4   0x000025d4   0x00000044   Code   RO          466    .text.FLEXCOMM8_DriverIRQHandler  fsl_flexcomm.o
-    0x00002618   0x00002618   0x00000164   Code   RO          446    .text.FLEXCOMM_Init  fsl_flexcomm.o
-    0x0000277c   0x0000277c   0x000000ee   Code   RO          448    .text.FLEXCOMM_SetIRQHandler  fsl_flexcomm.o
-    0x0000286a   0x0000286a   0x00000002   PAD
-    0x0000286c   0x0000286c   0x00000040   Code   RO          495    .text.I2C_GetInstance  fsl_i2c.o
-    0x000028ac   0x000028ac   0x0000002c   Code   RO          499    .text.I2C_MasterInit  fsl_i2c.o
-    0x000028d8   0x000028d8   0x00000220   Code   RO          501    .text.I2C_MasterSetBaudRate  fsl_i2c.o
-    0x00002af8   0x00002af8   0x0000000e   Code   RO          567    .text.I2C_MasterTransferCallbackDMA  fsl_i2c_dma.o
-    0x00002b06   0x00002b06   0x00000002   PAD
-    0x00002b08   0x00002b08   0x000000c4   Code   RO          565    .text.I2C_MasterTransferCreateHandleDMA  fsl_i2c_dma.o
-    0x00002bcc   0x00002bcc   0x000001ec   Code   RO          563    .text.I2C_MasterTransferDMAHandleIRQ  fsl_i2c_dma.o
-    0x00002db8   0x00002db8   0x000000ac   Code   RO          575    .text.I2C_RunDMATransfer  fsl_i2c_dma.o
-    0x00002e64   0x00002e64   0x0000000e   Code   RO          633    .text.INPUTMUX_AttachSignal  fsl_inputmux.o
-    0x00002e72   0x00002e72   0x00000002   PAD
-    0x00002e74   0x00002e74   0x00000048   Code   RO         1425    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x00002ebc   0x00002ebc   0x00000004   PAD
-    0x00002ec0   0x00002ec0   0x00000060   Code   RO         1138    .text.PendSV_Handler  portasm.o
-    0x00002f20   0x00002f20   0x0000008a   Code   RO          651    .text.RESET_PeripheralReset  fsl_reset.o
-    0x00002faa   0x00002faa   0x00000002   PAD
-    0x00002fac   0x00002fac   0x0000002a   Code   RO          663    .text.RTC_Init      fsl_rtc.o
-    0x00002fd6   0x00002fd6   0x00000002   PAD
-    0x00002fd8   0x00002fd8   0x00000134   Code   RO          665    .text.RTC_SetDatetime  fsl_rtc.o
-    0x0000310c   0x0000310c   0x00000070   Code   RO          329    .text.SDK_DelayAtLeastUs  fsl_common.o
-    0x0000317c   0x0000317c   0x00000330   Code   RO          695    .text.SPI_MasterInit  fsl_spi.o
-    0x000034ac   0x000034ac   0x00000004   PAD
-    0x000034b0   0x000034b0   0x00000024   Code   RO         1140    .text.SVC_Handler   portasm.o
-    0x000034d4   0x000034d4   0x00000026   Code   RO         1102    .text.SysTick_Handler  port.o
-    0x000034fa   0x000034fa   0x00000002   PAD
-    0x000034fc   0x000034fc   0x00000044   Code   RO          847    .text.SystemInit    system_lpc55s69_cm33_core0.o
-    0x00003540   0x00003540   0x00000002   Code   RO          849    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
-    0x00003542   0x00003542   0x00000002   PAD
-    0x00003544   0x00003544   0x00000040   Code   RO          767    .text.USART_GetInstance  fsl_usart.o
-    0x00003584   0x00003584   0x0000014c   Code   RO          775    .text.USART_Init    fsl_usart.o
-    0x000036d0   0x000036d0   0x00000254   Code   RO          777    .text.USART_SetBaudRate  fsl_usart.o
-    0x00003924   0x00003924   0x000000c8   Code   RO          814    .text.USART_TransferCreateHandleDMA  fsl_usart_dma.o
-    0x000039ec   0x000039ec   0x00000058   Code   RO          818    .text.USART_TransferReceiveDMACallback  fsl_usart_dma.o
-    0x00003a44   0x00003a44   0x00000072   Code   RO          816    .text.USART_TransferSendDMACallback  fsl_usart_dma.o
-    0x00003ab6   0x00003ab6   0x00000002   PAD
-    0x00003ab8   0x00003ab8   0x000000a4   Code   RO          122    .text.__aeabi_assert  retarget_io.o
-    0x00003b5c   0x00003b5c   0x00000002   Code   RO          124    .text.abort         retarget_io.o
-    0x00003b5e   0x00003b5e   0x00000002   PAD
-    0x00003b60   0x00003b60   0x0000004c   Code   RO          116    .text.fputc         retarget_io.o
-    0x00003bac   0x00003bac   0x00000048   Code   RO         1427    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x00003bf4   0x00003bf4   0x000000d4   Code   RO         1439    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x00003cc8   0x00003cc8   0x00000098   Code   RO         1429    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x00003d60   0x00003d60   0x0000002c   Code   RO            4    .text.main          main.o
-    0x00003d8c   0x00003d8c   0x00000008   Code   RO         1134    .text.ulSetInterruptMaskFromISR  portasm.o
-    0x00003d94   0x00003d94   0x00000024   Code   RO         1085    .text.uxListRemove  list.o
-    0x00003db8   0x00003db8   0x00000006   Code   RO         1136    .text.vClearInterruptMaskFromISR  portasm.o
-    0x00003dbe   0x00003dbe   0x00000002   PAD
-    0x00003dc0   0x00003dc0   0x0000001c   Code   RO         1081    .text.vListInsertEnd  list.o
-    0x00003ddc   0x00003ddc   0x0000002e   Code   RO         1104    .text.vPortSVCHandler_C  port.o
-    0x00003e0a   0x00003e0a   0x00000006   PAD
-    0x00003e10   0x00003e10   0x00000024   Code   RO         1124    .text.vRestoreContextOfFirstTask  portasm.o
-    0x00003e34   0x00003e34   0x000000a2   Code   RO         1311    .text.vTaskSwitchContext  tasks.o
-    0x00003ed6   0x00003ed6   0x00000002   PAD
-    0x00003ed8   0x00003ed8   0x000000fc   Code   RO         1323    .text.xTaskIncrementTick  tasks.o
-    0x00003fd4   0x00003fd4   0x00000010   Code   RO         1463    i.__0printf$bare    mc_w.l(printfb.o)
-    0x00003fe4   0x00003fe4   0x0000000e   Code   RO         1795    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00003ff2   0x00003ff2   0x00000002   Code   RO         1796    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00003ff4   0x00003ff4   0x0000000e   Code   RO         1797    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00004002   0x00004002   0x00000022   Code   RO         1470    i._printf_core      mc_w.l(printfb.o)
-    0x00004024   0x00004024   0x00000018   Code   RO         1444    i.fputs             mc_w.l(fputs.o)
-    0x0000403c   0x0000403c   0x0000001a   Data   RO          676    .rodata..L__const.RTC_ConvertDatetimeToSeconds.monthDays  fsl_rtc.o
-    0x00004056   0x00004056   0x00000002   PAD
-    0x00004058   0x00004058   0x0000004c   Data   RO          553    .rodata..Lswitch.table.I2C_SlaveTransferCreateHandle  fsl_i2c.o
-    0x000040a4   0x000040a4   0x0000004c   Data   RO          804    .rodata..Lswitch.table.USART_TransferCreateHandle  fsl_usart.o
-    0x000040f0   0x000040f0   0x00000008   Data   RO           46    .rodata.CTIMER0_config  peripherals.o
-    0x000040f8   0x000040f8   0x00000008   Data   RO           52    .rodata.CTIMER1_config  peripherals.o
-    0x00004100   0x00004100   0x00000018   Data   RO          106    .rodata.EventRecorderInfo  eventrecorder.o
-    0x00004118   0x00004118   0x00000010   Data   RO           47    .rodata.FLEXCOMM0_config  peripherals.o
-    0x00004128   0x00004128   0x0000000c   Data   RO           48    .rodata.FLEXCOMM1_config  peripherals.o
-    0x00004134   0x00004134   0x00000018   Data   RO           50    .rodata.FLEXCOMM2_config  peripherals.o
-    0x0000414c   0x0000414c   0x00000020   Data   RO           18    .rodata.cst32       clock_config.o
-    0x0000416c   0x0000416c   0x00000005   Data   RO          373    .rodata.s_ctimerIRQ  fsl_ctimer.o
-    0x00004171   0x00004171   0x00000003   PAD
-    0x00004174   0x00004174   0x00000008   Data   RO          430    .rodata.s_dma_descriptor_table  fsl_dma.o
-    0x0000417c   0x0000417c   0x00000012   Data   RO          470    .rodata.s_flexcommClocks  fsl_flexcomm.o
-    0x0000418e   0x0000418e   0x00000055   Data   RO          331    .rodata.str1.1      fsl_common.o
-    0x000041e3   0x000041e3   0x00000080   Data   RO          371    .rodata.str1.1      fsl_ctimer.o
-    0x00004263   0x00004263   0x000003b1   Data   RO          431    .rodata.str1.1      fsl_dma.o
-    0x00004614   0x00004614   0x0000007a   Data   RO          469    .rodata.str1.1      fsl_flexcomm.o
-    0x0000468e   0x0000468e   0x00000070   Data   RO          551    .rodata.str1.1      fsl_i2c.o
-    0x000046fe   0x000046fe   0x00000056   Data   RO          577    .rodata.str1.1      fsl_i2c_dma.o
-    0x00004754   0x00004754   0x00000061   Data   RO          653    .rodata.str1.1      fsl_reset.o
-    0x000047b5   0x000047b5   0x0000005b   Data   RO          675    .rodata.str1.1      fsl_rtc.o
-    0x00004810   0x00004810   0x000000b1   Data   RO          729    .rodata.str1.1      fsl_spi.o
-    0x000048c1   0x000048c1   0x00000074   Data   RO          803    .rodata.str1.1      fsl_usart.o
-    0x00004935   0x00004935   0x0000005e   Data   RO          830    .rodata.str1.1      fsl_usart_dma.o
-    0x00004993   0x00004993   0x00000001   PAD
-    0x00004994   0x00004994   0x00000020   Data   RO         1794    Region$$Table       anon$$obj.o
+    0x00004000   0x00004000   0x00000130   Data   RO          922    .isr_vector         startup_lpc55s69_cm33_core0.o
 
 
-    Execution Region RW_m_data (Exec base: 0x20000000, Load base: 0x00004a00, Size: 0x00000f70, Max: 0x00032800, ABSOLUTE)
+    Execution Region ER_m_text (Exec base: 0x00004200, Load base: 0x00004200, Size: 0x00004ac4, Max: 0x0004ec00, ABSOLUTE, FIXED)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00004a00   0x00000004   Data   RW         1448    .data               mc_w.l(stdout.o)
-    0x20000004   0x00004a04   0x00000004   Data   RW         1449    .data               mc_w.l(stderr.o)
-    0x20000008   0x00004a08   0x00000008   Data   RW           51    .data.RTC_dateTimeStruct  peripherals.o
-    0x20000010   0x00004a10   0x00000004   Data   RW          853    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
-    0x20000014   0x00004a14   0x00000004   Data   RW          311    .data.s_Ext_Clk_Freq  fsl_clock.o
-    0x20000018   0x00004a18   0x000001e8   PAD
+    0x00004200   0x00004200   0x00000000   Code   RO         1522  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x00004200   0x00004200   0x00000004   Code   RO         1831    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
+    0x00004204   0x00004204   0x00000004   Code   RO         1834    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00004208   0x00004208   0x00000000   Code   RO         1836    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00004208   0x00004208   0x00000000   Code   RO         1838    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00004208   0x00004208   0x00000008   Code   RO         1839    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x00004210   0x00004210   0x00000000   Code   RO         1841    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x00004210   0x00004210   0x00000000   Code   RO         1843    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x00004210   0x00004210   0x00000004   Code   RO         1832    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
+    0x00004214   0x00004214   0x0000022c   Code   RO          921    .text               startup_lpc55s69_cm33_core0.o
+    0x00004440   0x00004440   0x00000062   Code   RO         1531    .text               mc_w.l(uldiv.o)
+    0x000044a2   0x000044a2   0x00000028   Code   RO         1533    .text               mc_w.l(memcpy.o)
+    0x000044ca   0x000044ca   0x00000024   Code   RO         1537    .text               mc_w.l(memseta.o)
+    0x000044ee   0x000044ee   0x0000001e   Code   RO         1847    .text               mc_w.l(llshl.o)
+    0x0000450c   0x0000450c   0x00000020   Code   RO         1849    .text               mc_w.l(llushr.o)
+    0x0000452c   0x0000452c   0x00000024   Code   RO         1868    .text               mc_w.l(init.o)
+    0x00004550   0x00004550   0x0000018c   Code   RO           16    .text.BOARD_BootClockRUN  clock_config.o
+    0x000046dc   0x000046dc   0x000001bc   Code   RO           42    .text.BOARD_InitPeripherals  peripherals.o
+    0x00004898   0x00004898   0x000000ec   Code   RO           65    .text.BOARD_InitPins  pin_mux.o
+    0x00004984   0x00004984   0x00000092   Code   RO          208    .text.CLOCK_AttachClk  fsl_clock.o
+    0x00004a16   0x00004a16   0x00000002   PAD
+    0x00004a18   0x00004a18   0x00000024   Code   RO          212    .text.CLOCK_SetClkDiv  fsl_clock.o
+    0x00004a3c   0x00004a3c   0x00000122   Code   RO          220    .text.CLOCK_SetFLASHAccessCyclesForFreq  fsl_clock.o
+    0x00004b5e   0x00004b5e   0x00000002   PAD
+    0x00004b60   0x00004b60   0x00000186   Code   RO          292    .text.CLOCK_SetPLL0Freq  fsl_clock.o
+    0x00004ce6   0x00004ce6   0x00000002   PAD
+    0x00004ce8   0x00004ce8   0x00000040   Code   RO          222    .text.CLOCK_SetupExtClocking  fsl_clock.o
+    0x00004d28   0x00004d28   0x00000066   Code   RO          218    .text.CLOCK_SetupFROClocking  fsl_clock.o
+    0x00004d8e   0x00004d8e   0x00000002   PAD
+    0x00004d90   0x00004d90   0x00000006   Code   RO          358    .text.CTIMER0_DriverIRQHandler  fsl_ctimer.o
+    0x00004d96   0x00004d96   0x00000002   PAD
+    0x00004d98   0x00004d98   0x00000006   Code   RO          360    .text.CTIMER1_DriverIRQHandler  fsl_ctimer.o
+    0x00004d9e   0x00004d9e   0x00000002   PAD
+    0x00004da0   0x00004da0   0x00000006   Code   RO          362    .text.CTIMER2_DriverIRQHandler  fsl_ctimer.o
+    0x00004da6   0x00004da6   0x00000002   PAD
+    0x00004da8   0x00004da8   0x00000006   Code   RO          364    .text.CTIMER3_DriverIRQHandler  fsl_ctimer.o
+    0x00004dae   0x00004dae   0x00000002   PAD
+    0x00004db0   0x00004db0   0x00000006   Code   RO          366    .text.CTIMER4_DriverIRQHandler  fsl_ctimer.o
+    0x00004db6   0x00004db6   0x00000002   PAD
+    0x00004db8   0x00004db8   0x000000f0   Code   RO          356    .text.CTIMER_GenericIRQHandler  fsl_ctimer.o
+    0x00004ea8   0x00004ea8   0x00000108   Code   RO          338    .text.CTIMER_Init   fsl_ctimer.o
+    0x00004fb0   0x00004fb0   0x0000012a   Code   RO          346    .text.CTIMER_SetupPwmPeriod  fsl_ctimer.o
+    0x000050da   0x000050da   0x00000002   PAD
+    0x000050dc   0x000050dc   0x0000000c   Code   RO          423    .text.DMA0_DriverIRQHandler  fsl_dma.o
+    0x000050e8   0x000050e8   0x0000000c   Code   RO          425    .text.DMA1_DriverIRQHandler  fsl_dma.o
+    0x000050f4   0x000050f4   0x0000008a   Code   RO          395    .text.DMA_AbortTransfer  fsl_dma.o
+    0x0000517e   0x0000517e   0x00000002   PAD
+    0x00005180   0x00005180   0x00000218   Code   RO          393    .text.DMA_CreateDescriptor  fsl_dma.o
+    0x00005398   0x00005398   0x000000c8   Code   RO          397    .text.DMA_CreateHandle  fsl_dma.o
+    0x00005460   0x00005460   0x000000dc   Code   RO          421    .text.DMA_IRQHandle  fsl_dma.o
+    0x0000553c   0x0000553c   0x0000007c   Code   RO          381    .text.DMA_Init      fsl_dma.o
+    0x000055b8   0x000055b8   0x00000170   Code   RO          401    .text.DMA_PrepareTransfer  fsl_dma.o
+    0x00005728   0x00005728   0x0000002c   Code   RO          399    .text.DMA_SetCallback  fsl_dma.o
+    0x00005754   0x00005754   0x00000072   Code   RO          419    .text.DMA_StartTransfer  fsl_dma.o
+    0x000057c6   0x000057c6   0x00000002   PAD
+    0x000057c8   0x000057c8   0x000000e4   Code   RO          417    .text.DMA_SubmitTransfer  fsl_dma.o
+    0x000058ac   0x000058ac   0x00000090   Code   RO           98    .text.EventRecord2  eventrecorder.o
+    0x0000593c   0x0000593c   0x00000192   Code   RO           96    .text.EventRecordData  eventrecorder.o
+    0x00005ace   0x00005ace   0x00000002   PAD
+    0x00005ad0   0x00005ad0   0x000002b4   Code   RO           86    .text.EventRecordItem  eventrecorder.o
+    0x00005d84   0x00005d84   0x0000010e   Code   RO           84    .text.EventRecorderEnable  eventrecorder.o
+    0x00005e92   0x00005e92   0x00000002   PAD
+    0x00005e94   0x00005e94   0x00000458   Code   RO           82    .text.EventRecorderInitialize  eventrecorder.o
+    0x000062ec   0x000062ec   0x0000005e   Code   RO           88    .text.EventRecorderStart  eventrecorder.o
+    0x0000634a   0x0000634a   0x00000002   PAD
+    0x0000634c   0x0000634c   0x0000000c   Code   RO           80    .text.EventRecorderTimerGetCount  eventrecorder.o
+    0x00006358   0x00006358   0x00000024   Code   RO           76    .text.EventRecorderTimerSetup  eventrecorder.o
+    0x0000637c   0x0000637c   0x00000010   Code   RO          976    .text.EvrFreeRTOSTasks_MovedTaskToReadyState  freertos_evr.o
+    0x0000638c   0x0000638c   0x00000010   Code   RO          978    .text.EvrFreeRTOSTasks_PostMovedTaskToReadyState  freertos_evr.o
+    0x0000639c   0x0000639c   0x00000010   Code   RO          964    .text.EvrFreeRTOSTasks_TaskIncrementTick  freertos_evr.o
+    0x000063ac   0x000063ac   0x00000010   Code   RO          970    .text.EvrFreeRTOSTasks_TaskSwitchedIn  freertos_evr.o
+    0x000063bc   0x000063bc   0x00000010   Code   RO          968    .text.EvrFreeRTOSTasks_TaskSwitchedOut  freertos_evr.o
+    0x000063cc   0x000063cc   0x00000040   Code   RO          447    .text.FLEXCOMM0_DriverIRQHandler  fsl_flexcomm.o
+    0x0000640c   0x0000640c   0x00000040   Code   RO          449    .text.FLEXCOMM1_DriverIRQHandler  fsl_flexcomm.o
+    0x0000644c   0x0000644c   0x00000040   Code   RO          451    .text.FLEXCOMM2_DriverIRQHandler  fsl_flexcomm.o
+    0x0000648c   0x0000648c   0x00000040   Code   RO          453    .text.FLEXCOMM3_DriverIRQHandler  fsl_flexcomm.o
+    0x000064cc   0x000064cc   0x00000040   Code   RO          455    .text.FLEXCOMM4_DriverIRQHandler  fsl_flexcomm.o
+    0x0000650c   0x0000650c   0x00000040   Code   RO          457    .text.FLEXCOMM5_DriverIRQHandler  fsl_flexcomm.o
+    0x0000654c   0x0000654c   0x00000044   Code   RO          459    .text.FLEXCOMM6_DriverIRQHandler  fsl_flexcomm.o
+    0x00006590   0x00006590   0x00000044   Code   RO          461    .text.FLEXCOMM7_DriverIRQHandler  fsl_flexcomm.o
+    0x000065d4   0x000065d4   0x00000044   Code   RO          463    .text.FLEXCOMM8_DriverIRQHandler  fsl_flexcomm.o
+    0x00006618   0x00006618   0x00000164   Code   RO          443    .text.FLEXCOMM_Init  fsl_flexcomm.o
+    0x0000677c   0x0000677c   0x000000ee   Code   RO          445    .text.FLEXCOMM_SetIRQHandler  fsl_flexcomm.o
+    0x0000686a   0x0000686a   0x00000002   PAD
+    0x0000686c   0x0000686c   0x00000040   Code   RO          492    .text.I2C_GetInstance  fsl_i2c.o
+    0x000068ac   0x000068ac   0x0000002c   Code   RO          496    .text.I2C_MasterInit  fsl_i2c.o
+    0x000068d8   0x000068d8   0x00000220   Code   RO          498    .text.I2C_MasterSetBaudRate  fsl_i2c.o
+    0x00006af8   0x00006af8   0x0000000e   Code   RO          564    .text.I2C_MasterTransferCallbackDMA  fsl_i2c_dma.o
+    0x00006b06   0x00006b06   0x00000002   PAD
+    0x00006b08   0x00006b08   0x000000c4   Code   RO          562    .text.I2C_MasterTransferCreateHandleDMA  fsl_i2c_dma.o
+    0x00006bcc   0x00006bcc   0x000001ec   Code   RO          560    .text.I2C_MasterTransferDMAHandleIRQ  fsl_i2c_dma.o
+    0x00006db8   0x00006db8   0x000000ac   Code   RO          572    .text.I2C_RunDMATransfer  fsl_i2c_dma.o
+    0x00006e64   0x00006e64   0x0000000e   Code   RO          630    .text.INPUTMUX_AttachSignal  fsl_inputmux.o
+    0x00006e72   0x00006e72   0x00000002   PAD
+    0x00006e74   0x00006e74   0x0000004a   Code   RO          894    .text.PIN_INT0_DriverIRQHandler  fsl_pint.o
+    0x00006ebe   0x00006ebe   0x00000002   PAD
+    0x00006ec0   0x00006ec0   0x0000004a   Code   RO          896    .text.PIN_INT1_DriverIRQHandler  fsl_pint.o
+    0x00006f0a   0x00006f0a   0x00000002   PAD
+    0x00006f0c   0x00006f0c   0x0000004a   Code   RO          898    .text.PIN_INT2_DriverIRQHandler  fsl_pint.o
+    0x00006f56   0x00006f56   0x00000002   PAD
+    0x00006f58   0x00006f58   0x0000004a   Code   RO          900    .text.PIN_INT3_DriverIRQHandler  fsl_pint.o
+    0x00006fa2   0x00006fa2   0x00000002   PAD
+    0x00006fa4   0x00006fa4   0x0000004a   Code   RO          902    .text.PIN_INT4_DriverIRQHandler  fsl_pint.o
+    0x00006fee   0x00006fee   0x00000002   PAD
+    0x00006ff0   0x00006ff0   0x0000004a   Code   RO          904    .text.PIN_INT5_DriverIRQHandler  fsl_pint.o
+    0x0000703a   0x0000703a   0x00000002   PAD
+    0x0000703c   0x0000703c   0x0000004a   Code   RO          906    .text.PIN_INT6_DriverIRQHandler  fsl_pint.o
+    0x00007086   0x00007086   0x00000002   PAD
+    0x00007088   0x00007088   0x0000004a   Code   RO          908    .text.PIN_INT7_DriverIRQHandler  fsl_pint.o
+    0x000070d2   0x000070d2   0x00000002   PAD
+    0x000070d4   0x000070d4   0x00000048   Code   RO         1506    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x0000711c   0x0000711c   0x00000004   PAD
+    0x00007120   0x00007120   0x00000060   Code   RO         1219    .text.PendSV_Handler  portasm.o
+    0x00007180   0x00007180   0x0000008a   Code   RO          648    .text.RESET_PeripheralReset  fsl_reset.o
+    0x0000720a   0x0000720a   0x00000002   PAD
+    0x0000720c   0x0000720c   0x0000002a   Code   RO          660    .text.RTC_Init      fsl_rtc.o
+    0x00007236   0x00007236   0x00000002   PAD
+    0x00007238   0x00007238   0x00000134   Code   RO          662    .text.RTC_SetDatetime  fsl_rtc.o
+    0x0000736c   0x0000736c   0x00000070   Code   RO          326    .text.SDK_DelayAtLeastUs  fsl_common.o
+    0x000073dc   0x000073dc   0x00000046   Code   RO          890    .text.SEC_GPIO_INT0_IRQ0_DriverIRQHandler  fsl_pint.o
+    0x00007422   0x00007422   0x00000002   PAD
+    0x00007424   0x00007424   0x00000046   Code   RO          892    .text.SEC_GPIO_INT0_IRQ1_DriverIRQHandler  fsl_pint.o
+    0x0000746a   0x0000746a   0x00000002   PAD
+    0x0000746c   0x0000746c   0x00000330   Code   RO          692    .text.SPI_MasterInit  fsl_spi.o
+    0x0000779c   0x0000779c   0x00000004   PAD
+    0x000077a0   0x000077a0   0x00000024   Code   RO         1221    .text.SVC_Handler   portasm.o
+    0x000077c4   0x000077c4   0x00000026   Code   RO         1183    .text.SysTick_Handler  port.o
+    0x000077ea   0x000077ea   0x00000002   PAD
+    0x000077ec   0x000077ec   0x00000044   Code   RO          928    .text.SystemInit    system_lpc55s69_cm33_core0.o
+    0x00007830   0x00007830   0x00000002   Code   RO          930    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
+    0x00007832   0x00007832   0x00000002   PAD
+    0x00007834   0x00007834   0x00000040   Code   RO          764    .text.USART_GetInstance  fsl_usart.o
+    0x00007874   0x00007874   0x0000014c   Code   RO          772    .text.USART_Init    fsl_usart.o
+    0x000079c0   0x000079c0   0x00000254   Code   RO          774    .text.USART_SetBaudRate  fsl_usart.o
+    0x00007c14   0x00007c14   0x000000c8   Code   RO          811    .text.USART_TransferCreateHandleDMA  fsl_usart_dma.o
+    0x00007cdc   0x00007cdc   0x00000058   Code   RO          815    .text.USART_TransferReceiveDMACallback  fsl_usart_dma.o
+    0x00007d34   0x00007d34   0x00000072   Code   RO          813    .text.USART_TransferSendDMACallback  fsl_usart_dma.o
+    0x00007da6   0x00007da6   0x00000002   PAD
+    0x00007da8   0x00007da8   0x0000001e   Code   RO          850    .text.UTICK0_DriverIRQHandler  fsl_utick.o
+    0x00007dc6   0x00007dc6   0x00000002   PAD
+    0x00007dc8   0x00007dc8   0x000000a4   Code   RO          119    .text.__aeabi_assert  retarget_io.o
+    0x00007e6c   0x00007e6c   0x00000002   Code   RO          121    .text.abort         retarget_io.o
+    0x00007e6e   0x00007e6e   0x00000002   PAD
+    0x00007e70   0x00007e70   0x0000004c   Code   RO          113    .text.fputc         retarget_io.o
+    0x00007ebc   0x00007ebc   0x00000048   Code   RO         1508    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00007f04   0x00007f04   0x000000d4   Code   RO         1520    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00007fd8   0x00007fd8   0x00000098   Code   RO         1510    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00008070   0x00008070   0x0000002c   Code   RO            4    .text.main          main.o
+    0x0000809c   0x0000809c   0x00000008   Code   RO         1215    .text.ulSetInterruptMaskFromISR  portasm.o
+    0x000080a4   0x000080a4   0x00000024   Code   RO         1166    .text.uxListRemove  list.o
+    0x000080c8   0x000080c8   0x00000006   Code   RO         1217    .text.vClearInterruptMaskFromISR  portasm.o
+    0x000080ce   0x000080ce   0x00000002   PAD
+    0x000080d0   0x000080d0   0x0000001c   Code   RO         1162    .text.vListInsertEnd  list.o
+    0x000080ec   0x000080ec   0x0000002e   Code   RO         1185    .text.vPortSVCHandler_C  port.o
+    0x0000811a   0x0000811a   0x00000006   PAD
+    0x00008120   0x00008120   0x00000024   Code   RO         1205    .text.vRestoreContextOfFirstTask  portasm.o
+    0x00008144   0x00008144   0x000000a2   Code   RO         1392    .text.vTaskSwitchContext  tasks.o
+    0x000081e6   0x000081e6   0x00000002   PAD
+    0x000081e8   0x000081e8   0x000000fc   Code   RO         1404    .text.xTaskIncrementTick  tasks.o
+    0x000082e4   0x000082e4   0x00000010   Code   RO         1544    i.__0printf$bare    mc_w.l(printfb.o)
+    0x000082f4   0x000082f4   0x0000000e   Code   RO         1876    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00008302   0x00008302   0x00000002   Code   RO         1877    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00008304   0x00008304   0x0000000e   Code   RO         1878    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00008312   0x00008312   0x00000022   Code   RO         1551    i._printf_core      mc_w.l(printfb.o)
+    0x00008334   0x00008334   0x00000018   Code   RO         1525    i.fputs             mc_w.l(fputs.o)
+    0x0000834c   0x0000834c   0x0000001a   Data   RO          673    .rodata..L__const.RTC_ConvertDatetimeToSeconds.monthDays  fsl_rtc.o
+    0x00008366   0x00008366   0x00000002   PAD
+    0x00008368   0x00008368   0x0000004c   Data   RO          550    .rodata..Lswitch.table.I2C_SlaveTransferCreateHandle  fsl_i2c.o
+    0x000083b4   0x000083b4   0x0000004c   Data   RO          801    .rodata..Lswitch.table.USART_TransferCreateHandle  fsl_usart.o
+    0x00008400   0x00008400   0x00000008   Data   RO           46    .rodata.CTIMER0_config  peripherals.o
+    0x00008408   0x00008408   0x00000008   Data   RO           52    .rodata.CTIMER1_config  peripherals.o
+    0x00008410   0x00008410   0x00000018   Data   RO          103    .rodata.EventRecorderInfo  eventrecorder.o
+    0x00008428   0x00008428   0x00000010   Data   RO           47    .rodata.FLEXCOMM0_config  peripherals.o
+    0x00008438   0x00008438   0x0000000c   Data   RO           48    .rodata.FLEXCOMM1_config  peripherals.o
+    0x00008444   0x00008444   0x00000018   Data   RO           50    .rodata.FLEXCOMM2_config  peripherals.o
+    0x0000845c   0x0000845c   0x00000020   Data   RO           18    .rodata.cst32       clock_config.o
+    0x0000847c   0x0000847c   0x00000005   Data   RO          370    .rodata.s_ctimerIRQ  fsl_ctimer.o
+    0x00008481   0x00008481   0x00000003   PAD
+    0x00008484   0x00008484   0x00000008   Data   RO          427    .rodata.s_dma_descriptor_table  fsl_dma.o
+    0x0000848c   0x0000848c   0x00000012   Data   RO          467    .rodata.s_flexcommClocks  fsl_flexcomm.o
+    0x0000849e   0x0000849e   0x00000055   Data   RO          328    .rodata.str1.1      fsl_common.o
+    0x000084f3   0x000084f3   0x00000080   Data   RO          368    .rodata.str1.1      fsl_ctimer.o
+    0x00008573   0x00008573   0x000003b1   Data   RO          428    .rodata.str1.1      fsl_dma.o
+    0x00008924   0x00008924   0x0000007a   Data   RO          466    .rodata.str1.1      fsl_flexcomm.o
+    0x0000899e   0x0000899e   0x00000070   Data   RO          548    .rodata.str1.1      fsl_i2c.o
+    0x00008a0e   0x00008a0e   0x00000056   Data   RO          574    .rodata.str1.1      fsl_i2c_dma.o
+    0x00008a64   0x00008a64   0x00000061   Data   RO          650    .rodata.str1.1      fsl_reset.o
+    0x00008ac5   0x00008ac5   0x0000005b   Data   RO          672    .rodata.str1.1      fsl_rtc.o
+    0x00008b20   0x00008b20   0x000000b1   Data   RO          726    .rodata.str1.1      fsl_spi.o
+    0x00008bd1   0x00008bd1   0x00000074   Data   RO          800    .rodata.str1.1      fsl_usart.o
+    0x00008c45   0x00008c45   0x0000005e   Data   RO          827    .rodata.str1.1      fsl_usart_dma.o
+    0x00008ca3   0x00008ca3   0x00000001   PAD
+    0x00008ca4   0x00008ca4   0x00000020   Data   RO         1875    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_m_data (Exec base: 0x20000000, Load base: 0x00008e00, Size: 0x00000f9c, Max: 0x00032800, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00008e00   0x00000004   Data   RW         1529    .data               mc_w.l(stdout.o)
+    0x20000004   0x00008e04   0x00000004   Data   RW         1530    .data               mc_w.l(stderr.o)
+    0x20000008   0x00008e08   0x00000008   Data   RW           51    .data.RTC_dateTimeStruct  peripherals.o
+    0x20000010   0x00008e10   0x00000004   Data   RW          934    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
+    0x20000014   0x00008e14   0x00000004   Data   RW          308    .data.s_Ext_Clk_Freq  fsl_clock.o
+    0x20000018   0x00008e18   0x00000004   Data   RW          852    .data.s_utickIsr    fsl_utick.o
+    0x2000001c   0x00008e1c   0x000001e4   PAD
     0x20000200        -       0x00000060   Zero   RW           53    .bss..L_MergedGlobals  peripherals.o
-    0x20000260        -       0x0000000c   Zero   RW          126    .bss..L_MergedGlobals  retarget_io.o
-    0x2000026c        -       0x00000060   Zero   RW          315    .bss..L_MergedGlobals  fsl_clock.o
-    0x200002cc        -       0x0000001c   Zero   RW          374    .bss..L_MergedGlobals  fsl_ctimer.o
-    0x200002e8        -       0x00000048   Zero   RW          471    .bss..L_MergedGlobals  fsl_flexcomm.o
-    0x20000330        -       0x0000001b   Zero   RW          730    .bss..L_MergedGlobals  fsl_spi.o
-    0x2000034b   0x00004a18   0x00000001   PAD
-    0x2000034c        -       0x00000078   Zero   RW         1398    .bss..L_MergedGlobals  tasks.o
+    0x20000260        -       0x0000000c   Zero   RW          123    .bss..L_MergedGlobals  retarget_io.o
+    0x2000026c        -       0x00000060   Zero   RW          312    .bss..L_MergedGlobals  fsl_clock.o
+    0x200002cc        -       0x0000001c   Zero   RW          371    .bss..L_MergedGlobals  fsl_ctimer.o
+    0x200002e8        -       0x00000048   Zero   RW          468    .bss..L_MergedGlobals  fsl_flexcomm.o
+    0x20000330        -       0x0000001b   Zero   RW          727    .bss..L_MergedGlobals  fsl_spi.o
+    0x2000034b   0x00008e1c   0x00000001   PAD
+    0x2000034c        -       0x00000078   Zero   RW         1479    .bss..L_MergedGlobals  tasks.o
     0x200003c4        -       0x0000003c   Zero   RW           49    .bss.FLEXCOMM1_DMA_Handle  peripherals.o
-    0x20000400        -       0x000004a4   Zero   RW          105    .bss.noinit         eventrecorder.o
-    0x200008a4        -       0x00000064   Zero   RW         1397    .bss.pxReadyTasksLists  tasks.o
-    0x20000908        -       0x000000b8   Zero   RW          432    .bss.s_DMAHandle    fsl_dma.o
-    0x200009c0        -       0x00000040   Zero   RW          578    .bss.s_dmaPrivateHandle  fsl_i2c_dma.o
-    0x20000a00        -       0x00000040   Zero   RW          831    .bss.s_dmaPrivateHandle  fsl_usart_dma.o
-    0x20000a40   0x00004a18   0x000001c0   PAD
-    0x20000c00        -       0x00000170   Zero   RW          433    .bss.s_dma_descriptor_table0  fsl_dma.o
-    0x20000d70   0x00004a18   0x00000090   PAD
-    0x20000e00        -       0x00000170   Zero   RW          434    .bss.s_dma_descriptor_table1  fsl_dma.o
+    0x20000400        -       0x000004a4   Zero   RW          102    .bss.noinit         eventrecorder.o
+    0x200008a4        -       0x00000064   Zero   RW         1478    .bss.pxReadyTasksLists  tasks.o
+    0x20000908        -       0x000000b8   Zero   RW          429    .bss.s_DMAHandle    fsl_dma.o
+    0x200009c0        -       0x00000040   Zero   RW          575    .bss.s_dmaPrivateHandle  fsl_i2c_dma.o
+    0x20000a00        -       0x00000040   Zero   RW          828    .bss.s_dmaPrivateHandle  fsl_usart_dma.o
+    0x20000a40   0x00008e1c   0x000001c0   PAD
+    0x20000c00        -       0x00000170   Zero   RW          430    .bss.s_dma_descriptor_table0  fsl_dma.o
+    0x20000d70   0x00008e1c   0x00000090   PAD
+    0x20000e00        -       0x00000170   Zero   RW          431    .bss.s_dma_descriptor_table1  fsl_dma.o
+    0x20000f70        -       0x00000028   Zero   RW          911    .bss.s_pintCallback  fsl_pint.o
+    0x20000f98        -       0x00000004   Zero   RW          854    .bss.s_utickHandle.0  fsl_utick.o
 
 
-    Execution Region ARM_LIB_HEAP (Exec base: 0x20000f70, Load base: 0x00004c00, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region ARM_LIB_HEAP (Exec base: 0x20000f9c, Load base: 0x00009000, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000f70        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
+    0x20000f9c        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
 
 
-    Execution Region ARM_LIB_STACK (Exec base: 0x20032c00, Load base: 0x00004c00, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region ARM_LIB_STACK (Exec base: 0x20032c00, Load base: 0x00009000, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20032c00        -       0x00000400   Zero   RW            2    ARM_LIB_STACK.bss   anon$$obj.o
 
 
-    Execution Region RW_m_usb_bdt (Exec base: 0x40100000, Load base: 0x00004c00, Size: 0x00000000, Max: 0x00000000, ABSOLUTE, UNINIT)
+    Execution Region RW_m_usb_bdt (Exec base: 0x40100000, Load base: 0x00009000, Size: 0x00000000, Max: 0x00000000, ABSOLUTE, UNINIT)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_m_usb_ram (Exec base: 0x40100000, Load base: 0x00004c00, Size: 0x00000000, Max: 0x00004000, ABSOLUTE, UNINIT)
+    Execution Region RW_m_usb_ram (Exec base: 0x40100000, Load base: 0x00009000, Size: 0x00000000, Max: 0x00004000, ABSOLUTE, UNINIT)
 
     **** No section assigned to this execution region ****
-
-
-
-  Load Region LR_CORE1_IMAGE (Base: 0x00072000, Size: 0x00001a84, Max: 0xffffffff, ABSOLUTE)
-
-    Execution Region CORE1_REGION (Exec base: 0x00072000, Load base: 0x00072000, Size: 0x00001a84, Max: 0x00026000, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00072000   0x00072000   0x00001a84   Code   RO           76    .m0code             incbin.o
 
 
 ==============================================================================
@@ -4088,38 +4267,39 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       396          0         32          0          0      12756   clock_config.o
+       396          0         32          0          0      12761   clock_config.o
       2762          0         24          0       1188      16668   eventrecorder.o
-        80          0          0          0          0      16096   freertos_evr.o
-      1028          4          0          4         96      49904   fsl_clock.o
-       112         36         85          0          0       1991   fsl_common.o
-       832         40        133          0         28      23334   fsl_ctimer.o
-      1996        260        953          0        920      30370   fsl_dma.o
-      1182        252        140          0         72      15682   fsl_flexcomm.o
-       652          0        188          0          0      35943   fsl_i2c.o
-       874         44         86          0         64      13905   fsl_i2c_dma.o
-        14          0          0          0          0      23891   fsl_inputmux.o
-       138          0         97          0          0       8676   fsl_reset.o
-       350          0        117          0          0      13937   fsl_rtc.o
-       816         64        177          0         27      22650   fsl_spi.o
-       992        128        192          0          0      18383   fsl_usart.o
-       402         36         94          0         64       8555   fsl_usart_dma.o
-      6788       6788          0          0          0          0   incbin.o
-        64          0          0          0          0       2396   list.o
-        44          8          0          0          0        314   main.o
-       444          0         68          8        156      14510   peripherals.o
-       236          0          0          0          0      24387   pin_mux.o
-        84          0          0          0          0       2827   port.o
-       182         24          0          0          0       1422   portasm.o
-       242         40          0          0         12       2257   retarget_io.o
+        80          0          0          0          0      16102   freertos_evr.o
+      1028          4          0          4         96      49909   fsl_clock.o
+       112         36         85          0          0       1997   fsl_common.o
+       832         40        133          0         28      23339   fsl_ctimer.o
+      1996        260        953          0        920      30375   fsl_dma.o
+      1182        252        140          0         72      15687   fsl_flexcomm.o
+       652          0        188          0          0      35948   fsl_i2c.o
+       874         44         86          0         64      13910   fsl_i2c_dma.o
+        14          0          0          0          0      23896   fsl_inputmux.o
+       732          0          0          0         40      26765   fsl_pint.o
+       138          0         97          0          0       8681   fsl_reset.o
+       350          0        117          0          0      13942   fsl_rtc.o
+       816         64        177          0         27      22655   fsl_spi.o
+       992        128        192          0          0      18388   fsl_usart.o
+       402         36         94          0         64       8560   fsl_usart_dma.o
+        30          0          0          4          4      14593   fsl_utick.o
+        64          0          0          0          0       2402   list.o
+        44          8          0          0          0        320   main.o
+       444          0         68          8        156      14515   peripherals.o
+       236          0          0          0          0      24392   pin_mux.o
+        84          0          0          0          0       2833   port.o
+       182         24          0          0          0       1428   portasm.o
+       242         40          0          0         12       2263   retarget_io.o
        556        272        304          0          0       2900   startup_lpc55s69_cm33_core0.o
-        70          0          0          4          0      10367   system_lpc55s69_cm33_core0.o
-       414          0          0          0        220      35897   tasks.o
+        70          0          0          4          0      10370   system_lpc55s69_cm33_core0.o
+       414          0          0          0        220      35903   tasks.o
 
     ----------------------------------------------------------------------
-     21812       8000       2728         16       5976     410018   Object Totals
+     15808       1212       2728         20       6016     451502   Object Totals
          0          0         32          0       2048          0   (incl. Generated)
-        62          4          6          0       1081          0   (incl. Padding)
+        84          4          6          0       1077          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -4167,15 +4347,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     22720       8064       2728         24       5976     410238   Grand Totals
-     22720       8064       2728         24       5976     410238   ELF Image Totals
-     22720       8064       2728         24          0          0   ROM Totals
+     16716       1276       2728         28       6016     451690   Grand Totals
+     16716       1276       2728         28       6016     451690   ELF Image Totals
+     16716       1276       2728         28          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                25448 (  24.85kB)
-    Total RW  Size (RW Data + ZI Data)              6000 (   5.86kB)
-    Total ROM Size (Code + RO Data + RW Data)      25472 (  24.88kB)
+    Total RO  Size (Code + RO Data)                19444 (  18.99kB)
+    Total RW  Size (RW Data + ZI Data)              6044 (   5.90kB)
+    Total ROM Size (Code + RO Data + RW Data)      19472 (  19.02kB)
 
 ==============================================================================
 

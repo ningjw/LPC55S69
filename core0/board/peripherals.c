@@ -8,7 +8,7 @@
 !!GlobalInfo
 product: Peripherals v7.0
 processor: LPC55S69
-package_id: LPC55S69JBD100
+package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
 processor_version: 7.0.1
 functionalGroups:
@@ -58,9 +58,6 @@ instance:
   - fsl_dma:
     - dma_table:
       - 0: []
-      - 1: []
-      - 2: []
-      - 3: []
     - dma_channels:
       - 0:
         - apiMode: 'trans'
@@ -104,270 +101,44 @@ void DMA0_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER0 initialization code
+ * CTIMER1 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'CTIMER0'
+- name: 'CTIMER1'
 - type: 'ctimer'
-- mode: 'PWM'
+- mode: 'Capture_Match'
 - custom_name_enabled: 'false'
 - type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER0'
+- peripheral: 'CTIMER1'
 - config_sets:
   - fsl_ctimer:
     - ctimerConfig:
       - mode: 'kCTIMER_TimerMode'
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '15'
+      - timerPrescaler: '1'
     - EnableTimerInInit: 'false'
-    - pwmConfig:
-      - pwmPeriodValueStr: '10000000'
-      - enableInterrupt: 'false'
-      - pwmChannels:
-        - 0:
-          - pwmChannelPrefixId: 'PWM0'
-          - pwmChannel: 'kCTIMER_Match_0'
-          - pwmDutyValueStr: '1'
-          - enableInterrupt: 'false'
-        - 1:
-          - pwmChannelPrefixId: 'PWM1'
-          - pwmChannel: 'kCTIMER_Match_1'
-          - pwmDutyValueStr: '1000'
-          - enableInterrupt: 'false'
+    - matchChannels: []
     - interruptCallbackConfig:
       - interrupt:
-        - IRQn: 'CTIMER0_IRQn'
+        - IRQn: 'CTIMER1_IRQn'
         - enable_priority: 'false'
         - priority: '0'
       - callback: 'kCTIMER_NoCallback'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ctimer_config_t CTIMER0_config = {
+const ctimer_config_t CTIMER1_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
-  .prescale = 14
+  .prescale = 0
 };
 
-void CTIMER0_init(void) {
-  /* CTIMER0 peripheral initialization */
-  CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
-  /* PWM channel 0 of CTIMER0 peripheral initialization */
-  CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM0_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM0_DUTY, false);
-  /* PWM channel 1 of CTIMER0 peripheral initialization */
-  CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM1_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM1_DUTY, false);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM0 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM0'
-- type: 'flexcomm_usart'
-- mode: 'dma'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM0'
-- config_sets:
-  - dmaCfg:
-    - dma_channels:
-      - enable_rx_dma_channel: 'true'
-      - dma_rx_channel:
-        - DMA_source: 'kDma0RequestFlexcomm0Rx'
-        - init_channel_priority: 'false'
-        - dma_priority: 'kDMA_ChannelPriority0'
-        - enable_custom_name: 'false'
-      - enable_tx_dma_channel: 'true'
-      - dma_tx_channel:
-        - DMA_source: 'kDma0RequestFlexcomm0Tx'
-        - init_channel_priority: 'false'
-        - dma_priority: 'kDMA_ChannelPriority0'
-        - enable_custom_name: 'false'
-    - usart_dma_handle:
-      - enable_custom_name: 'false'
-      - init_callback: 'false'
-      - callback_fcn: ''
-      - user_data: ''
-    - quick_selection: 'QuickSelection1'
-  - usartConfig_t:
-    - usartConfig:
-      - clockSource: 'FXCOMFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - baudRate_Bps: '115200'
-      - syncMode: 'kUSART_SyncModeDisabled'
-      - parityMode: 'kUSART_ParityDisabled'
-      - stopBitCount: 'kUSART_OneStopBit'
-      - bitCountPerChar: 'kUSART_8BitsPerChar'
-      - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
-      - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'true'
-      - enableTx: 'true'
-      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
-      - enableContinuousSCLK: 'false'
-    - quick_selection: 'QuickSelection1'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const usart_config_t FLEXCOMM0_config = {
-  .baudRate_Bps = 115200,
-  .syncMode = kUSART_SyncModeDisabled,
-  .parityMode = kUSART_ParityDisabled,
-  .stopBitCount = kUSART_OneStopBit,
-  .bitCountPerChar = kUSART_8BitsPerChar,
-  .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
-  .rxWatermark = kUSART_RxFifo1,
-  .enableRx = true,
-  .enableTx = true,
-  .clockPolarity = kUSART_RxSampleOnFallingEdge,
-  .enableContinuousSCLK = false
-};
-dma_handle_t FLEXCOMM0_RX_Handle;
-dma_handle_t FLEXCOMM0_TX_Handle;
-usart_dma_handle_t FLEXCOMM0_USART_DMA_Handle;
-
-void FLEXCOMM0_init(void) {
-  /* Reset FLEXCOMM device */
-  RESET_PeripheralReset(kFC0_RST_SHIFT_RSTn);
-  USART_Init(FLEXCOMM0_PERIPHERAL, &FLEXCOMM0_config, FLEXCOMM0_CLOCK_SOURCE);
-  /* Enable the DMA 4channel in the DMA */
-  DMA_EnableChannel(FLEXCOMM0_RX_DMA_BASEADDR, FLEXCOMM0_RX_DMA_CHANNEL);
-  /* Create the DMA FLEXCOMM0_RX_Handlehandle */
-  DMA_CreateHandle(&FLEXCOMM0_RX_Handle, FLEXCOMM0_RX_DMA_BASEADDR, FLEXCOMM0_RX_DMA_CHANNEL);
-  /* Enable the DMA 5channel in the DMA */
-  DMA_EnableChannel(FLEXCOMM0_TX_DMA_BASEADDR, FLEXCOMM0_TX_DMA_CHANNEL);
-  /* Create the DMA FLEXCOMM0_TX_Handlehandle */
-  DMA_CreateHandle(&FLEXCOMM0_TX_Handle, FLEXCOMM0_TX_DMA_BASEADDR, FLEXCOMM0_TX_DMA_CHANNEL);
-  /* Create the USART DMA handle */
-  USART_TransferCreateHandleDMA(FLEXCOMM0_PERIPHERAL, &FLEXCOMM0_USART_DMA_Handle, NULL, NULL, &FLEXCOMM0_TX_Handle, &FLEXCOMM0_RX_Handle);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM1 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM1'
-- type: 'flexcomm_i2c'
-- mode: 'dma'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_i2c_567d1a9d97c12e5d39b00259c3436dc4'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM1'
-- config_sets:
-  - fsl_i2c:
-    - i2c_mode: 'kI2C_Master'
-    - clockSource: 'FXCOMFunctionClock'
-    - clockSourceFreq: 'BOARD_BootClockRUN'
-    - i2c_master_config:
-      - enableMaster: 'true'
-      - baudRate_Bps: '100000'
-      - enableTimeout: 'false'
-    - quick_selection: 'QS_I2C_Master'
-  - dmaCfg:
-    - dma_channel:
-      - enable_dma_channel: 'true'
-      - dma_channel:
-        - DMA_source: 'kDma0RequestFlexcomm1Tx'
-        - init_channel_priority: 'false'
-        - dma_priority: 'kDMA_ChannelPriority0'
-        - enable_custom_name: 'false'
-    - i2c_dma_handle:
-      - enable_custom_name: 'false'
-      - init_callback: 'false'
-      - callback_fcn: ''
-      - user_data: ''
-    - quick_selection: 'QuickSelection1'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const i2c_master_config_t FLEXCOMM1_config = {
-  .enableMaster = true,
-  .baudRate_Bps = 100000,
-  .enableTimeout = false
-};
-dma_handle_t FLEXCOMM1_I2CMaster_Handle;
-i2c_master_dma_handle_t FLEXCOMM1_DMA_Handle;
-
-void FLEXCOMM1_init(void) {
-  RESET_PeripheralReset( kFC1_RST_SHIFT_RSTn);
-  /* Initialization function */
-  I2C_MasterInit(FLEXCOMM1_PERIPHERAL, &FLEXCOMM1_config, FLEXCOMM1_CLOCK_SOURCE);
-  /* Enable the DMA 7channel in the DMA */
-  DMA_EnableChannel(FLEXCOMM1_I2CMASTER_DMA_BASEADDR, FLEXCOMM1_I2CMASTER_DMA_CHANNEL);
-  /* Create the DMA FLEXCOMM1_I2CMaster_Handlehandle */
-  DMA_CreateHandle(&FLEXCOMM1_I2CMaster_Handle, FLEXCOMM1_I2CMASTER_DMA_BASEADDR, FLEXCOMM1_I2CMASTER_DMA_CHANNEL);
-  /* Create the I2C DMA handle */
-  I2C_MasterTransferCreateHandleDMA(FLEXCOMM1_PERIPHERAL, &FLEXCOMM1_DMA_Handle, NULL, NULL, &FLEXCOMM1_I2CMaster_Handle);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM2 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM2'
-- type: 'flexcomm_spi'
-- mode: 'SPI_Polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_spi_481dadba00035f986f31ed9ac95af181'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM2'
-- config_sets:
-  - fsl_spi:
-    - spi_mode: 'kSPI_Master'
-    - clockSource: 'FXCOMFunctionClock'
-    - clockSourceFreq: 'BOARD_BootClockRUN'
-    - spi_master_config:
-      - enableLoopback: 'false'
-      - enableMaster: 'true'
-      - polarity: 'kSPI_ClockPolarityActiveHigh'
-      - phase: 'kSPI_ClockPhaseFirstEdge'
-      - direction: 'kSPI_MsbFirst'
-      - baudRate_Bps: '12000000'
-      - dataWidth: 'kSPI_Data8Bits'
-      - sselNum: 'kSPI_Ssel0'
-      - sselPol_set: ''
-      - txWatermark: 'kSPI_TxFifo0'
-      - rxWatermark: 'kSPI_RxFifo1'
-      - delayConfig:
-        - preDelay: '0'
-        - postDelay: '0'
-        - frameDelay: '0'
-        - transferDelay: '0'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const spi_master_config_t FLEXCOMM2_config = {
-  .enableLoopback = false,
-  .enableMaster = true,
-  .polarity = kSPI_ClockPolarityActiveHigh,
-  .phase = kSPI_ClockPhaseFirstEdge,
-  .direction = kSPI_MsbFirst,
-  .baudRate_Bps = 12000000,
-  .dataWidth = kSPI_Data8Bits,
-  .sselNum = kSPI_Ssel0,
-  .sselPol = kSPI_SpolActiveAllLow,
-  .txWatermark = kSPI_TxFifo0,
-  .rxWatermark = kSPI_RxFifo1,
-  .delayConfig = {
-    .preDelay = 0,
-    .postDelay = 0,
-    .frameDelay = 0,
-    .transferDelay = 0
-  }
-};
-
-void FLEXCOMM2_init(void) {
-  RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
-  /* Initialization function */
-  SPI_MasterInit(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+void CTIMER1_init(void) {
+  /* CTIMER1 peripheral initialization */
+  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
 }
 
 /***********************************************************************************************************************
@@ -436,18 +207,262 @@ void RTC_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER1 initialization code
+ * UTICK0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'CTIMER1'
+- name: 'UTICK0'
+- type: 'utick'
+- mode: 'general_config'
+- custom_name_enabled: 'false'
+- type_id: 'utick_58a3a3f691b03a130cd9419552f8327d'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'UTICK0'
+- config_sets:
+  - fsl_utick:
+    - clockSettingUTICK:
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+    - timerSettingUTICK:
+      - utick_mode_t: 'kUTICK_Onetime'
+      - startTimer: 'false'
+      - timerValueStr: ''
+      - callbackEnable: 'false'
+    - interrupt:
+      - IRQn: 'UTICK0_IRQn'
+      - enable_priority: 'false'
+      - priority: '0'
+    - quick_selection: 'default'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+void UTICK0_init(void) {
+  /* UTICK0 peripheral initialization */
+  UTICK_Init(UTICK0_PERIPHERAL);
+  /* Configuration of UTICK0 peripheral initialization */
+  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, NULL);
+}
+
+/***********************************************************************************************************************
+ * PINT initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'PINT'
+- type: 'pint'
+- mode: 'interrupt_mode'
+- custom_name_enabled: 'false'
+- type_id: 'pint_cf4a806bb2a6c1ffced58ae2ed7b43af'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'PINT'
+- config_sets:
+  - general:
+    - interrupt_array:
+      - 0:
+        - interrupt_id: 'INT_0'
+        - interrupt_selection: 'PINT.0'
+        - interrupt_type: 'kPINT_PinIntEnableNone'
+        - callback_function: 'PINT0_CallBack'
+        - enable_callback: 'false'
+        - interrupt:
+          - IRQn: 'PIN_INT0_IRQn'
+          - enable_priority: 'false'
+          - priority: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+void PINT_init(void) {
+  /* PINT initiation  */
+  PINT_Init(PINT_PERIPHERAL);
+  /* PINT PINT.0 configuration */
+  PINT_PinInterruptConfig(PINT_PERIPHERAL, PINT_INT_0, kPINT_PinIntEnableNone, PINT0_CallBack);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM3 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM3'
+- type: 'flexcomm_usart'
+- mode: 'polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM3'
+- config_sets:
+  - usartConfig_t:
+    - usartConfig:
+      - clockSource: 'FXCOMFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - baudRate_Bps: '115200'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - txWatermark: 'kUSART_TxFifo0'
+      - rxWatermark: 'kUSART_RxFifo1'
+      - enableRx: 'true'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t FLEXCOMM3_config = {
+  .baudRate_Bps = 115200,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .txWatermark = kUSART_TxFifo0,
+  .rxWatermark = kUSART_RxFifo1,
+  .enableRx = true,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false
+};
+
+void FLEXCOMM3_init(void) {
+  /* Reset FLEXCOMM device */
+  RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
+  USART_Init(FLEXCOMM3_PERIPHERAL, &FLEXCOMM3_config, FLEXCOMM3_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM2 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM2'
+- type: 'flexcomm_usart'
+- mode: 'polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM2'
+- config_sets:
+  - usartConfig_t:
+    - usartConfig:
+      - clockSource: 'FXCOMFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - baudRate_Bps: '115200'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - txWatermark: 'kUSART_TxFifo0'
+      - rxWatermark: 'kUSART_RxFifo1'
+      - enableRx: 'true'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+    - quick_selection: 'QuickSelection1'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t FLEXCOMM2_config = {
+  .baudRate_Bps = 115200,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .txWatermark = kUSART_TxFifo0,
+  .rxWatermark = kUSART_RxFifo1,
+  .enableRx = true,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false
+};
+
+void FLEXCOMM2_init(void) {
+  /* Reset FLEXCOMM device */
+  RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
+  USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM0'
+- type: 'flexcomm_spi'
+- mode: 'SPI_Polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_spi_481dadba00035f986f31ed9ac95af181'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM0'
+- config_sets:
+  - fsl_spi:
+    - spi_mode: 'kSPI_Master'
+    - clockSource: 'FXCOMFunctionClock'
+    - clockSourceFreq: 'BOARD_BootClockRUN'
+    - spi_master_config:
+      - enableLoopback: 'false'
+      - enableMaster: 'true'
+      - polarity: 'kSPI_ClockPolarityActiveHigh'
+      - phase: 'kSPI_ClockPhaseFirstEdge'
+      - direction: 'kSPI_MsbFirst'
+      - baudRate_Bps: '12000000'
+      - dataWidth: 'kSPI_Data8Bits'
+      - sselNum: 'kSPI_Ssel0'
+      - sselPol_set: ''
+      - txWatermark: 'kSPI_TxFifo0'
+      - rxWatermark: 'kSPI_RxFifo1'
+      - delayConfig:
+        - preDelay: '0'
+        - postDelay: '0'
+        - frameDelay: '0'
+        - transferDelay: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const spi_master_config_t FLEXCOMM0_config = {
+  .enableLoopback = false,
+  .enableMaster = true,
+  .polarity = kSPI_ClockPolarityActiveHigh,
+  .phase = kSPI_ClockPhaseFirstEdge,
+  .direction = kSPI_MsbFirst,
+  .baudRate_Bps = 12000000,
+  .dataWidth = kSPI_Data8Bits,
+  .sselNum = kSPI_Ssel0,
+  .sselPol = kSPI_SpolActiveAllLow,
+  .txWatermark = kSPI_TxFifo0,
+  .rxWatermark = kSPI_RxFifo1,
+  .delayConfig = {
+    .preDelay = 0,
+    .postDelay = 0,
+    .frameDelay = 0,
+    .transferDelay = 0
+  }
+};
+
+void FLEXCOMM0_init(void) {
+  RESET_PeripheralReset(kFC0_RST_SHIFT_RSTn);
+  /* Initialization function */
+  SPI_MasterInit(FLEXCOMM0_PERIPHERAL, &FLEXCOMM0_config, FLEXCOMM0_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * CTIMER0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'CTIMER0'
 - type: 'ctimer'
 - mode: 'Capture_Match'
 - custom_name_enabled: 'false'
 - type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER1'
+- peripheral: 'CTIMER0'
 - config_sets:
   - fsl_ctimer:
     - ctimerConfig:
@@ -459,21 +474,95 @@ instance:
     - matchChannels: []
     - interruptCallbackConfig:
       - interrupt:
-        - IRQn: 'CTIMER1_IRQn'
+        - IRQn: 'CTIMER0_IRQn'
         - enable_priority: 'false'
         - priority: '0'
       - callback: 'kCTIMER_NoCallback'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ctimer_config_t CTIMER1_config = {
+const ctimer_config_t CTIMER0_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
   .prescale = 0
 };
 
-void CTIMER1_init(void) {
-  /* CTIMER1 peripheral initialization */
-  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
+void CTIMER0_init(void) {
+  /* CTIMER0 peripheral initialization */
+  CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM1 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM1'
+- type: 'flexcomm_i2c'
+- mode: 'I2C_Polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_i2c_567d1a9d97c12e5d39b00259c3436dc4'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM1'
+- config_sets:
+  - fsl_i2c:
+    - i2c_mode: 'kI2C_Master'
+    - clockSource: 'FXCOMFunctionClock'
+    - clockSourceFreq: 'BOARD_BootClockRUN'
+    - i2c_master_config:
+      - enableMaster: 'true'
+      - baudRate_Bps: '100000'
+      - enableTimeout: 'false'
+    - quick_selection: 'QS_I2C_Master'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const i2c_master_config_t FLEXCOMM1_config = {
+  .enableMaster = true,
+  .baudRate_Bps = 100000,
+  .enableTimeout = false
+};
+
+void FLEXCOMM1_init(void) {
+  RESET_PeripheralReset( kFC1_RST_SHIFT_RSTn);
+  /* Initialization function */
+  I2C_MasterInit(FLEXCOMM1_PERIPHERAL, &FLEXCOMM1_config, FLEXCOMM1_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM4 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM4'
+- type: 'flexcomm_i2c'
+- mode: 'I2C_Polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_i2c_567d1a9d97c12e5d39b00259c3436dc4'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM4'
+- config_sets:
+  - fsl_i2c:
+    - i2c_mode: 'kI2C_Master'
+    - clockSource: 'FXCOMFunctionClock'
+    - clockSourceFreq: 'BOARD_BootClockRUN'
+    - i2c_master_config:
+      - enableMaster: 'true'
+      - baudRate_Bps: '100000'
+      - enableTimeout: 'false'
+    - quick_selection: 'QS_I2C_Master'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const i2c_master_config_t FLEXCOMM4_config = {
+  .enableMaster = true,
+  .baudRate_Bps = 100000,
+  .enableTimeout = false
+};
+
+void FLEXCOMM4_init(void) {
+  RESET_PeripheralReset( kFC4_RST_SHIFT_RSTn);
+  /* Initialization function */
+  I2C_MasterInit(FLEXCOMM4_PERIPHERAL, &FLEXCOMM4_config, FLEXCOMM4_CLOCK_SOURCE);
 }
 
 /***********************************************************************************************************************
@@ -486,12 +575,16 @@ void BOARD_InitPeripherals(void)
 
   /* Initialize components */
   DMA0_init();
-  CTIMER0_init();
-  FLEXCOMM0_init();
-  FLEXCOMM1_init();
-  FLEXCOMM2_init();
-  RTC_init();
   CTIMER1_init();
+  RTC_init();
+  UTICK0_init();
+  PINT_init();
+  FLEXCOMM3_init();
+  FLEXCOMM2_init();
+  FLEXCOMM0_init();
+  CTIMER0_init();
+  FLEXCOMM1_init();
+  FLEXCOMM4_init();
 }
 
 /***********************************************************************************************************************

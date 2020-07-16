@@ -19,7 +19,7 @@
 !!GlobalInfo
 product: Clocks v7.0
 processor: LPC55S69
-package_id: LPC55S69JBD100
+package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
 processor_version: 7.0.1
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -61,6 +61,8 @@ outputs:
 - {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
+- {id: FXCOM3_clock.outFreq, value: 12 MHz}
+- {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
 - {id: System_clock.outFreq, value: 150 MHz, locked: true, accuracy: '0.001'}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
@@ -74,6 +76,8 @@ settings:
 - {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
+- {id: SYSCON.FCCLKSEL3.sel, value: ANACTRL.fro_12m_clk}
+- {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
 - {id: SYSCON.MAINCLKSELA.sel, value: SYSCON.CLK_IN_EN}
 - {id: SYSCON.MAINCLKSELB.sel, value: SYSCON.PLL0_BYPASS}
@@ -142,6 +146,10 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 256U, false);         /*!< Set FRGCTRL1_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 0U, true);               /*!< Reset FRGCTRL2_DIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 256U, false);         /*!< Set FRGCTRL2_DIV divider to value 256 */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg3, 0U, true);               /*!< Reset FRGCTRL3_DIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg3, 256U, false);         /*!< Set FRGCTRL3_DIV divider to value 256 */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 0U, true);               /*!< Reset FRGCTRL4_DIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 256U, false);         /*!< Set FRGCTRL4_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false);         /*!< Set AHBCLKDIV divider to value 1 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
@@ -151,6 +159,8 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
+    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM3);                 /*!< Switch FLEXCOMM3 to FRO12M */
+    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
     CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */

@@ -17,19 +17,57 @@ Library Manager: ArmAr.exe V6.13.1
 Hex Converter:   FromElf.exe V6.13.1
 CPU DLL:         
 Dialog DLL:      
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Target DLL:      UL2V8M.DLL V1.6.0.0
 Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69Ñ§Ï°×ÊÁÏ\LPC55S69\core0\project.uvprojx
-Project File Date:  06/29/2020
+Project File Date:  07/16/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'core0'
+compiling retarget_io.c...
+compiling clock_config.c...
+compiling pin_mux.c...
+compiling main.c...
+compiling mem_manager.c...
+compiling peripherals.c...
+compiling generic_list.c...
 compiling EventRecorder.c...
+compiling usart_adapter.c...
+compiling fsl_common.c...
+compiling fsl_ctimer.c...
+compiling fsl_gpio.c...
+compiling fsl_flexcomm.c...
+compiling fsl_dma.c...
+compiling fsl_clock.c...
+compiling fsl_iap.c...
+compiling fsl_i2c_dma.c...
+compiling fsl_i2c.c...
+compiling fsl_inputmux.c...
+compiling fsl_power.c...
+compiling fsl_reset.c...
+compiling fsl_rtc.c...
+compiling fsl_utick.c...
+compiling fsl_usart_dma.c...
+compiling fsl_spi_dma.c...
+compiling fsl_spi.c...
+compiling system_LPC55S69_cm33_core0.c...
+compiling fsl_pint.c...
+compiling fsl_usart.c...
+compiling freertos_evr.c...
+compiling croutine.c...
+compiling list.c...
+compiling portasm.c...
+compiling port.c...
+compiling event_groups.c...
+compiling heap_4.c...
+compiling queue.c...
+compiling stream_buffer.c...
+compiling tasks.c...
 linking...
-Program Size: Code=22720 RO-data=2728 RW-data=24 ZI-data=5976  
+Program Size: Code=16716 RO-data=2728 RW-data=28 ZI-data=6016  
 ".\Objects\core0.out" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -71,6 +109,7 @@ Package Vendor: NXP
    * Component: lpc_rtc Version: 2.1.1
    * Component: mailbox Version: 2.0.0
    * Component: mem_manager Version: 1.0.0
+   * Component: pint Version: 2.1.6
    * Component: power Version: 2.0.0
    * Component: reset Version: 2.0.1
    * Component: spi Version: 2.1.0
@@ -78,6 +117,7 @@ Package Vendor: NXP
    * Component: usart Version: 2.1.1
    * Component: usart_adapter Version: 1.0.0
    * Component: usart_dma Version: 2.1.1
+   * Component: utick Version: 2.0.3
    * Component: Startup Version: 1.0.0
 
 Package Vendor: Keil
@@ -89,7 +129,7 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\Compiler
-  .\RTE\Device\LPC55S69JBD100_cm33_core0
+  .\RTE\Device\LPC55S69JEV98_cm33_core0
   .\RTE\RTOS
   .\RTE\_core0
   C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.2.0\CMSIS\RTOS2\FreeRTOS\Include
@@ -109,23 +149,23 @@ Package Vendor: Keil
 
    * Component: ARM.FreeRTOS::RTOS:Core:Cortex-M:10.2.0
       Source file:   Source\queue.c
-      Source file:   Source\tasks.c
-      Include file:  Source\include\task.h
       Include file:  Source\include\semphr.h
-      Source file:   Source\list.c
+      Include file:  Source\include\task.h
       Include file:  Source\include\FreeRTOS.h
       Include file:  Source\include\queue.h
+      Source file:   Source\tasks.c
+      Source file:   Source\list.c
       Source file:   Source\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.c
       Source file:   Source\portable\GCC\ARM_CM33_NTZ\non_secure\port.c
       Source file:   CMSIS\RTOS2\FreeRTOS\Source\freertos_evr.c
 
    * Component: ARM.FreeRTOS::RTOS:Coroutines:10.2.0
-      Source file:   Source\croutine.c
       Include file:  Source\include\croutine.h
+      Source file:   Source\croutine.c
 
    * Component: ARM.FreeRTOS::RTOS:Event Groups:10.2.0
-      Source file:   Source\event_groups.c
       Include file:  Source\include\event_groups.h
+      Source file:   Source\event_groups.c
 
    * Component: ARM.FreeRTOS::RTOS:Heap:Heap_4:10.2.0
       Source file:   Source\portable\MemMang\heap_4.c
@@ -135,8 +175,8 @@ Package Vendor: Keil
       Source file:   Source\stream_buffer.c
 
    * Component: ARM.FreeRTOS::RTOS:Stream Buffer:10.2.0
-      Source file:   Source\stream_buffer.c
       Include file:  Source\include\stream_buffer.h
+      Source file:   Source\stream_buffer.c
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
@@ -162,33 +202,33 @@ Package Vendor: Keil
       Include file:  drivers\fsl_ctimer.h
 
    * Component: NXP::Device:SDK Drivers:dma:2.4.0
-      Include file:  drivers\fsl_dma.h
       Source file:   drivers\fsl_dma.c
+      Include file:  drivers\fsl_dma.h
 
    * Component: NXP::Device:SDK Drivers:flexcomm:2.0.2
-      Include file:  drivers\fsl_flexcomm.h
       Source file:   drivers\fsl_flexcomm.c
+      Include file:  drivers\fsl_flexcomm.h
 
    * Component: NXP::Device:SDK Drivers:gpio:2.1.5
       Include file:  drivers\fsl_gpio.h
       Source file:   drivers\fsl_gpio.c
 
    * Component: NXP::Device:SDK Drivers:i2c:2.0.6
-      Source file:   drivers\fsl_i2c.c
       Include file:  drivers\fsl_i2c.h
+      Source file:   drivers\fsl_i2c.c
 
    * Component: NXP::Device:SDK Drivers:i2c_dma:2.0.6
       Source file:   drivers\fsl_i2c_dma.c
       Include file:  drivers\fsl_i2c_dma.h
 
    * Component: NXP::Device:SDK Drivers:iap1:2.0.1
-      Include file:  drivers\fsl_iap.h
       Include file:  drivers\fsl_iap_ffr.h
       Source file:   drivers\fsl_iap.c
+      Include file:  drivers\fsl_iap.h
 
    * Component: NXP::Device:SDK Drivers:inputmux:2.0.2
-      Source file:   drivers\fsl_inputmux.c
       Include file:  drivers\fsl_inputmux.h
+      Source file:   drivers\fsl_inputmux.c
 
    * Component: NXP::Device:SDK Drivers:inputmux_connections:2.0.1
       Include file:  drivers\fsl_inputmux_connections.h
@@ -205,21 +245,25 @@ Package Vendor: Keil
       Include file:  drivers\fsl_mailbox.h
 
    * Component: NXP::Device:SDK Drivers:mem_manager:1.0.0
-      Include file:  components\mem_manager\mem_manager.h
       Source file:   components\mem_manager\mem_manager.c
+      Include file:  components\mem_manager\mem_manager.h
+
+   * Component: NXP::Device:SDK Drivers:pint:2.1.6
+      Source file:   drivers\fsl_pint.c
+      Include file:  drivers\fsl_pint.h
 
    * Component: NXP::Device:SDK Drivers:power:2.0.0
       Library file:  arm\keil_lib_power_cm33_core0.lib
-      Source file:   drivers\fsl_power.c
       Include file:  drivers\fsl_power.h
+      Source file:   drivers\fsl_power.c
 
    * Component: NXP::Device:SDK Drivers:reset:2.0.1
       Include file:  drivers\fsl_reset.h
       Source file:   drivers\fsl_reset.c
 
    * Component: NXP::Device:SDK Drivers:spi:2.1.0
-      Source file:   drivers\fsl_spi.c
       Include file:  drivers\fsl_spi.h
+      Source file:   drivers\fsl_spi.c
 
    * Component: NXP::Device:SDK Drivers:spi_dma:2.1.0
       Include file:  drivers\fsl_spi_dma.h
@@ -230,21 +274,25 @@ Package Vendor: Keil
       Include file:  drivers\fsl_usart.h
 
    * Component: NXP::Device:SDK Drivers:usart_adapter:1.0.0
-      Source file:   components\uart\usart_adapter.c
       Include file:  components\uart\uart.h
+      Source file:   components\uart\usart_adapter.c
 
    * Component: NXP::Device:SDK Drivers:usart_dma:2.1.1
-      Include file:  drivers\fsl_usart_dma.h
       Source file:   drivers\fsl_usart_dma.c
+      Include file:  drivers\fsl_usart_dma.h
+
+   * Component: NXP::Device:SDK Drivers:utick:2.0.3
+      Include file:  drivers\fsl_utick.h
+      Source file:   drivers\fsl_utick.c
 
    * Component: NXP::Device:Startup:1.0.0
+      Source file:   system_LPC55S69_cm33_core0.c
       Source file:   arm\startup_LPC55S69_cm33_core0.s
       Include file:  fsl_device_registers.h
       Include file:  LPC55S69_cm33_core0.h
-      Source file:   system_LPC55S69_cm33_core0.c
-      Include file:  system_LPC55S69_cm33_core0.h
       Include file:  LPC55S69_cm33_core0_features.h
-Build Time Elapsed:  00:00:02
+      Include file:  system_LPC55S69_cm33_core0.h
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

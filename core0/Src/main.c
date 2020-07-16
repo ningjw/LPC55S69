@@ -12,3 +12,4 @@ void main(void)
 	EventRecorderStart();
 	printf("hello\r\n");
 }
+

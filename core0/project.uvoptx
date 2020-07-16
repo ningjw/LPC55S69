@@ -103,7 +103,7 @@
         <bEvRecOn>1</bEvRecOn>
         <bSchkAxf>0</bSchkAxf>
         <bTchkAxf>0</bTchkAxf>
-        <nTsel>6</nTsel>
+        <nTsel>13</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -114,18 +114,18 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile></tIfile>
-        <pMon>STLink\ST-LINKIII-KEIL_SWO.dll</pMon>
+        <pMon>BIN\UL2V8M.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>ST-LINKIII-KEIL_SWO</Key>
-          <Name>-U-O206 -O206 -SF5000 -C0 -A0 -I0 -HNlocalhost -HP7184 -P1 -N00("") -D00(00000000) -L00(0) -TO196627 -TC150000000 -TT10000000 -TP21 -TDS800C -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN2 -FF0LPC55XX_640.FLM -FS00 -FL098000 -FP0($$Device:LPC55S69JBD100$arm\LPC55XX_640.FLM) -FF1LPC55XX_S_640.FLM -FS110000000 -FL198000 -FP1($$Device:LPC55S69JBD100$arm\LPC55XX_S_640.FLM)</Name>
+          <Key>UL2V8M</Key>
+          <Name>-U-O206 -O206 -S9 -C0 -P00 -N00("") -D00(00000000) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIE1 -TIP0 -FO15  -FN2 -FC1000 -FD20000000 -FF0LPC55XX_640 -FF1LPC55XX_S_640 -FL098000 -FL198000 -FS00 -FS110000000 -FP0($$Device:LPC55S69JEV98$arm\LPC55XX_640.FLM) -FP1($$Device:LPC55S69JEV98$arm\LPC55XX_S_640.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>UL2V8M</Key>
-          <Name>-U-O206 -O206 -S9 -C0 -P00 -N00("") -D00(00000000) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIE1 -TIP0 -FO15 -FD20000000 -FC1000 -FN2 -FF0LPC55XX_640.FLM -FS00 -FL098000 -FP0($$Device:LPC55S69JBD100$arm\LPC55XX_640.FLM) -FF1LPC55XX_S_640.FLM -FS110000000 -FL198000 -FP1($$Device:LPC55S69JBD100$arm\LPC55XX_S_640.FLM)</Name>
+          <Key>ST-LINKIII-KEIL_SWO</Key>
+          <Name>-U-O206 -O206 -S9 -C0 -P00 -N00("") -D00(00000000) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIE1 -TIP0 -FO15  -FN2 -FC1000 -FD20000000 -FF0LPC55XX_640 -FF1LPC55XX_S_640 -FL098000 -FL198000 -FS00 -FS110000000 -FP0($$Device:LPC55S69JEV98$arm\LPC55XX_640.FLM) -FP1($$Device:LPC55S69JEV98$arm\LPC55XX_S_640.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
@@ -193,7 +193,7 @@
 
   <Group>
     <GroupName>User</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -213,7 +213,7 @@
 
   <Group>
     <GroupName>Board</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -313,7 +313,7 @@
 
   <Group>
     <GroupName>::Compiler</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>
