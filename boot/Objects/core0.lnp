@@ -11,6 +11,7 @@
 ".\objects\fsl_iap.o"
 ".\objects\fsl_power.o"
 ".\objects\fsl_reset.o"
+".\objects\fsl_inputmux.o"
 ".\objects\startup_lpc55s69_cm33_core0.o"
 ".\objects\system_lpc55s69_cm33_core0.o"
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"

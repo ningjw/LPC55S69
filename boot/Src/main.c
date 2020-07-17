@@ -8,7 +8,7 @@
 
 #define APP_DATA_ADDR     0x4F000       // 300k的位置
 #define APP_ADDR          0x4000		// APP代码起始地址
-#define APP_ADDR_INFO     0x3FF8
+#define APP_ADDR_INFO     0x3E00
 #define SECTOR_SIZE       0x1000
 #define PAGE_SIZE         0x200
 
@@ -38,25 +38,29 @@ void MSR_MSP(uint32_t addr)
 
 void main(void)
 {
-	BOARD_BootClockRUN();
+	static uint32_t status;
+//	BOARD_BootClockRUN();
+	BOARD_BootClockFROHF96M();
 	BOARD_InitPins();
 	BOARD_InitPeripherals();
 	
 	/* 初始化EventRecorder并开启*/
 	EventRecorderInitialize(EventRecordAll, 1U);
 	EventRecorderStart();
-	
+
 	FLASH_Init(&flashInstance);
-	/* Get flash properties kFLASH_ApiEraseKey */
-    FLASH_GetProperty(&flashInstance, kFLASH_PropertyPflashBlockBaseAddr, &pflashBlockBase);//块
-    FLASH_GetProperty(&flashInstance, kFLASH_PropertyPflashSectorSize, &pflashSectorSize);//扇区大小
-    FLASH_GetProperty(&flashInstance, kFLASH_PropertyPflashTotalSize, &pflashTotalSize);//flash总大小
-    FLASH_GetProperty(&flashInstance, kFLASH_PropertyPflashPageSize, &PflashPageSize);//page大小
+
+	status = FLASH_Erase(&flashInstance, APP_ADDR_INFO, PflashPageSize, kFLASH_ApiEraseKey);
+
+
+    status = FLASH_VerifyErase(&flashInstance, APP_ADDR_INFO, PflashPageSize);
+
 	
 	//读取升级参数
-	memcpy(&UpdatePara.firmUpdate, (void*)(APP_ADDR_INFO), 8);
+	UpdatePara.firmUpdate = *(volatile uint32_t *)(APP_ADDR_INFO);
+	UpdatePara.firmSizeTotal = *(volatile uint32_t *)(APP_ADDR_INFO+4);
 	if (UpdatePara.firmUpdate == true){//需要更新系统
-			
+	
 		for(int i=0; i<=UpdatePara.firmSizeTotal/SECTOR_SIZE; i++){
 			FLASH_Erase(&flashInstance, APP_ADDR+i*SECTOR_SIZE,SECTOR_SIZE, kFLASH_ApiEraseKey);
 			FLASH_Program(&flashInstance,APP_ADDR+i*SECTOR_SIZE, (void *)(APP_DATA_ADDR+i*SECTOR_SIZE) ,SECTOR_SIZE);

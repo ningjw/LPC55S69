@@ -5,34 +5,66 @@ Component: ARM Compiler 6.13.1 Tool: armlink [5d895400]
 Section Cross References
 
     main.o(.ARM.exidx.text.MSR_MSP) refers to main.o(.text.MSR_MSP) for [Anonymous Symbol]
-    main.o(.text.main) refers to clock_config.o(.text.BOARD_BootClockRUN) for BOARD_BootClockRUN
+    main.o(.text.main) refers to clock_config.o(.text.BOARD_BootClockFROHF96M) for BOARD_BootClockFROHF96M
     main.o(.text.main) refers to pin_mux.o(.text.BOARD_InitPins) for BOARD_InitPins
     main.o(.text.main) refers to peripherals.o(.text.BOARD_InitPeripherals) for BOARD_InitPeripherals
     main.o(.text.main) refers to eventrecorder.o(.text.EventRecorderInitialize) for EventRecorderInitialize
     main.o(.text.main) refers to eventrecorder.o(.text.EventRecorderStart) for EventRecorderStart
     main.o(.text.main) refers to main.o(.bss..L_MergedGlobals) for .L_MergedGlobals
     main.o(.text.main) refers to fsl_iap.o(.text.FLASH_Init) for FLASH_Init
-    main.o(.text.main) refers to fsl_iap.o(.text.FLASH_GetProperty) for FLASH_GetProperty
-    main.o(.text.main) refers to memcpy.o(.text) for memcpy
     main.o(.text.main) refers to fsl_iap.o(.text.FLASH_Erase) for FLASH_Erase
+    main.o(.text.main) refers to fsl_iap.o(.text.FLASH_VerifyErase) for FLASH_VerifyErase
     main.o(.text.main) refers to fsl_iap.o(.text.FLASH_Program) for FLASH_Program
     main.o(.text.main) refers to main.o(.bss.page_buf) for page_buf
+    main.o(.text.main) refers to memcpy.o(.text) for memcpy
     main.o(.text.main) refers to memseta.o(.text) for memset
     main.o(.text.main) refers to main.o(.bss.sector_buf) for sector_buf
     main.o(.text.main) refers to printfb.o(i.__0printf$bare) for __2printf
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
-    clock_config.o(.text.BOARD_InitBootClocks) refers to clock_config.o(.text.BOARD_BootClockRUN) for BOARD_BootClockRUN
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_SetupExtClocking) for CLOCK_SetupExtClocking
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
+    clock_config.o(.text.BOARD_InitBootClocks) refers to clock_config.o(.rodata.cst32) for .L__const.BOARD_BootClockPLL150M.pll0Setup
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_SetPLL0Freq) for CLOCK_SetPLL0Freq
+    clock_config.o(.text.BOARD_InitBootClocks) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
+    clock_config.o(.text.BOARD_InitBootClocks) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
     clock_config.o(.ARM.exidx.text.BOARD_InitBootClocks) refers to clock_config.o(.text.BOARD_InitBootClocks) for [Anonymous Symbol]
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_SetupExtClocking) for CLOCK_SetupExtClocking
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
-    clock_config.o(.text.BOARD_BootClockRUN) refers to clock_config.o(.rodata.cst32) for .L__const.BOARD_BootClockRUN.pll0Setup
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_SetPLL0Freq) for CLOCK_SetPLL0Freq
-    clock_config.o(.text.BOARD_BootClockRUN) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
-    clock_config.o(.text.BOARD_BootClockRUN) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
-    clock_config.o(.ARM.exidx.text.BOARD_BootClockRUN) refers to clock_config.o(.text.BOARD_BootClockRUN) for [Anonymous Symbol]
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_SetupExtClocking) for CLOCK_SetupExtClocking
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to clock_config.o(.rodata.cst32) for .L__const.BOARD_BootClockPLL150M.pll0Setup
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_SetPLL0Freq) for CLOCK_SetPLL0Freq
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
+    clock_config.o(.text.BOARD_BootClockPLL150M) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
+    clock_config.o(.ARM.exidx.text.BOARD_BootClockPLL150M) refers to clock_config.o(.text.BOARD_BootClockPLL150M) for [Anonymous Symbol]
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
+    clock_config.o(.text.BOARD_BootClockFRO12M) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
+    clock_config.o(.ARM.exidx.text.BOARD_BootClockFRO12M) refers to clock_config.o(.text.BOARD_BootClockFRO12M) for [Anonymous Symbol]
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
+    clock_config.o(.text.BOARD_BootClockFROHF96M) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
+    clock_config.o(.ARM.exidx.text.BOARD_BootClockFROHF96M) refers to clock_config.o(.text.BOARD_BootClockFROHF96M) for [Anonymous Symbol]
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_SetupFROClocking) for CLOCK_SetupFROClocking
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_AttachClk) for CLOCK_AttachClk
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_SetupExtClocking) for CLOCK_SetupExtClocking
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_power_lib.o(.text.POWER_SetVoltageForFreq) for POWER_SetVoltageForFreq
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq) for CLOCK_SetFLASHAccessCyclesForFreq
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to clock_config.o(.rodata.cst32) for .L__const.BOARD_BootClockPLL100M.pll0Setup
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_SetPLL0Freq) for CLOCK_SetPLL0Freq
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to fsl_clock.o(.text.CLOCK_SetClkDiv) for CLOCK_SetClkDiv
+    clock_config.o(.text.BOARD_BootClockPLL100M) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
+    clock_config.o(.ARM.exidx.text.BOARD_BootClockPLL100M) refers to clock_config.o(.text.BOARD_BootClockPLL100M) for [Anonymous Symbol]
     peripherals.o(.ARM.exidx.text.BOARD_InitPeripherals) refers to peripherals.o(.text.BOARD_InitPeripherals) for [Anonymous Symbol]
     peripherals.o(.ARM.exidx.text.BOARD_InitBootPeripherals) refers to peripherals.o(.text.BOARD_InitBootPeripherals) for [Anonymous Symbol]
     pin_mux.o(.ARM.exidx.text.BOARD_InitBootPins) refers to pin_mux.o(.text.BOARD_InitBootPins) for [Anonymous Symbol]
@@ -305,6 +337,9 @@ Section Cross References
     fsl_reset.o(.text.RESET_PeripheralReset) refers to fsl_reset.o(.rodata.str1.1) for .L.str
     fsl_reset.o(.text.RESET_PeripheralReset) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
     fsl_reset.o(.ARM.exidx.text.RESET_PeripheralReset) refers to fsl_reset.o(.text.RESET_PeripheralReset) for [Anonymous Symbol]
+    fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_Init) refers to fsl_inputmux.o(.text.INPUTMUX_Init) for [Anonymous Symbol]
+    fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_AttachSignal) refers to fsl_inputmux.o(.text.INPUTMUX_AttachSignal) for [Anonymous Symbol]
+    fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_Deinit) refers to fsl_inputmux.o(.text.INPUTMUX_Deinit) for [Anonymous Symbol]
     startup_lpc55s69_cm33_core0.o(.text) refers to system_lpc55s69_cm33_core0.o(.text.SystemInit) for SystemInit
     startup_lpc55s69_cm33_core0.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
     startup_lpc55s69_cm33_core0.o(.isr_vector) refers to startup_lpc55s69_cm33_core0.o(.text) for Reset_Handler
@@ -652,11 +687,21 @@ Removing Unused input sections from the image.
     Removing main.o(.text.MSR_MSP), (8 bytes).
     Removing main.o(.ARM.exidx.text.MSR_MSP), (8 bytes).
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.bss.pflashBlockBase), (4 bytes).
+    Removing main.o(.bss.pflashTotalSize), (4 bytes).
+    Removing main.o(.bss.pflashSectorSize), (4 bytes).
     Removing main.o(.ARM.use_no_argv), (4 bytes).
     Removing clock_config.o(.text), (0 bytes).
-    Removing clock_config.o(.text.BOARD_InitBootClocks), (4 bytes).
+    Removing clock_config.o(.text.BOARD_InitBootClocks), (216 bytes).
     Removing clock_config.o(.ARM.exidx.text.BOARD_InitBootClocks), (8 bytes).
-    Removing clock_config.o(.ARM.exidx.text.BOARD_BootClockRUN), (8 bytes).
+    Removing clock_config.o(.text.BOARD_BootClockPLL150M), (216 bytes).
+    Removing clock_config.o(.ARM.exidx.text.BOARD_BootClockPLL150M), (8 bytes).
+    Removing clock_config.o(.text.BOARD_BootClockFRO12M), (92 bytes).
+    Removing clock_config.o(.ARM.exidx.text.BOARD_BootClockFRO12M), (8 bytes).
+    Removing clock_config.o(.ARM.exidx.text.BOARD_BootClockFROHF96M), (8 bytes).
+    Removing clock_config.o(.text.BOARD_BootClockPLL100M), (228 bytes).
+    Removing clock_config.o(.ARM.exidx.text.BOARD_BootClockPLL100M), (8 bytes).
+    Removing clock_config.o(.rodata.cst32), (64 bytes).
     Removing peripherals.o(.text), (0 bytes).
     Removing peripherals.o(.ARM.exidx.text.BOARD_InitPeripherals), (8 bytes).
     Removing peripherals.o(.text.BOARD_InitBootPeripherals), (2 bytes).
@@ -704,6 +749,7 @@ Removing Unused input sections from the image.
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetRtc1hzClkDiv), (8 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetupFROClocking), (8 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetFLASHAccessCyclesForFreq), (8 bytes).
+    Removing fsl_clock.o(.text.CLOCK_SetupExtClocking), (64 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetupExtClocking), (8 bytes).
     Removing fsl_clock.o(.text.CLOCK_SetupI2SMClkClocking), (16 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetupI2SMClkClocking), (8 bytes).
@@ -773,6 +819,7 @@ Removing Unused input sections from the image.
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetupPLL0Data), (8 bytes).
     Removing fsl_clock.o(.text.CLOCK_SetupPLL0Prec), (384 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetupPLL0Prec), (8 bytes).
+    Removing fsl_clock.o(.text.CLOCK_SetPLL0Freq), (390 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetPLL0Freq), (8 bytes).
     Removing fsl_clock.o(.text.CLOCK_SetPLL1Freq), (342 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_SetPLL1Freq), (8 bytes).
@@ -788,23 +835,27 @@ Removing Unused input sections from the image.
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_EnableUsbhs0DeviceClock), (8 bytes).
     Removing fsl_clock.o(.text.CLOCK_EnableUsbhs0HostClock), (48 bytes).
     Removing fsl_clock.o(.ARM.exidx.text.CLOCK_EnableUsbhs0HostClock), (8 bytes).
+    Removing fsl_clock.o(.data.s_Ext_Clk_Freq), (4 bytes).
     Removing fsl_clock.o(.bss.s_PLU_ClkIn_Freq), (4 bytes).
     Removing fsl_clock.o(.rodata.str1.1), (90 bytes).
     Removing fsl_clock.o(.rodata.cst32), (32 bytes).
+    Removing fsl_clock.o(.bss..L_MergedGlobals), (96 bytes).
     Removing fsl_common.o(.text), (0 bytes).
     Removing fsl_common.o(.text.SDK_Malloc), (52 bytes).
     Removing fsl_common.o(.ARM.exidx.text.SDK_Malloc), (8 bytes).
     Removing fsl_common.o(.text.SDK_Free), (24 bytes).
     Removing fsl_common.o(.ARM.exidx.text.SDK_Free), (8 bytes).
+    Removing fsl_common.o(.text.SDK_DelayAtLeastUs), (112 bytes).
     Removing fsl_common.o(.ARM.exidx.text.SDK_DelayAtLeastUs), (8 bytes).
+    Removing fsl_common.o(.rodata.str1.1), (85 bytes).
     Removing fsl_iap.o(.text), (0 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_Init), (8 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_Erase), (8 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_Program), (8 bytes).
-    Removing fsl_iap.o(.text.FLASH_VerifyErase), (38 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_VerifyErase), (8 bytes).
     Removing fsl_iap.o(.text.FLASH_VerifyProgram), (90 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_VerifyProgram), (8 bytes).
+    Removing fsl_iap.o(.text.FLASH_GetProperty), (38 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FLASH_GetProperty), (8 bytes).
     Removing fsl_iap.o(.text.FFR_Init), (82 bytes).
     Removing fsl_iap.o(.ARM.exidx.text.FFR_Init), (8 bytes).
@@ -835,6 +886,13 @@ Removing Unused input sections from the image.
     Removing fsl_reset.o(.text.RESET_PeripheralReset), (138 bytes).
     Removing fsl_reset.o(.ARM.exidx.text.RESET_PeripheralReset), (8 bytes).
     Removing fsl_reset.o(.rodata.str1.1), (97 bytes).
+    Removing fsl_inputmux.o(.text), (0 bytes).
+    Removing fsl_inputmux.o(.text.INPUTMUX_Init), (16 bytes).
+    Removing fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_Init), (8 bytes).
+    Removing fsl_inputmux.o(.text.INPUTMUX_AttachSignal), (14 bytes).
+    Removing fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_AttachSignal), (8 bytes).
+    Removing fsl_inputmux.o(.text.INPUTMUX_Deinit), (16 bytes).
+    Removing fsl_inputmux.o(.ARM.exidx.text.INPUTMUX_Deinit), (8 bytes).
     Removing system_lpc55s69_cm33_core0.o(.text), (0 bytes).
     Removing system_lpc55s69_cm33_core0.o(.ARM.exidx.text.SystemInit), (8 bytes).
     Removing system_lpc55s69_cm33_core0.o(.ARM.exidx.text.SystemInitHook), (8 bytes).
@@ -876,7 +934,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (48 bytes).
     Removing depilogue.o(.text), (186 bytes).
 
-227 unused section(s) (total 14701 bytes) removed from the image.
+250 unused section(s) (total 16370 bytes) removed from the image.
 
 ==============================================================================
 
@@ -943,6 +1001,7 @@ Image Symbol Table
     fsl_clock.c                              0x00000000   Number         0  fsl_clock.o ABSOLUTE
     fsl_common.c                             0x00000000   Number         0  fsl_common.o ABSOLUTE
     fsl_iap.c                                0x00000000   Number         0  fsl_iap.o ABSOLUTE
+    fsl_inputmux.c                           0x00000000   Number         0  fsl_inputmux.o ABSOLUTE
     fsl_power.c                              0x00000000   Number         0  fsl_power.o ABSOLUTE
     fsl_power_lib.c                          0x00000000   Number         0  fsl_power_lib.o ABSOLUTE
     fsl_reset.c                              0x00000000   Number         0  fsl_reset.o ABSOLUTE
@@ -965,98 +1024,77 @@ Image Symbol Table
     .ARM.Collect$$$$0000000F                 0x00000210   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
     .ARM.Collect$$$$00002714                 0x00000210   Section        4  entry4.o(.ARM.Collect$$$$00002714)
     [Anonymous Symbol]                       0x00000214   Section        0  startup_lpc55s69_cm33_core0.o(.text)
-    .text                                    0x00000440   Section        0  uldiv.o(.text)
-    .text                                    0x000004a2   Section        0  memcpy.o(.text)
-    .text                                    0x000004ca   Section        0  memseta.o(.text)
-    .text                                    0x000004ee   Section        0  llshl.o(.text)
-    .text                                    0x0000050c   Section        0  llushr.o(.text)
-    .text                                    0x0000052c   Section       36  init.o(.text)
-    [Anonymous Symbol]                       0x00000550   Section        0  clock_config.o(.text.BOARD_BootClockRUN)
-    [Anonymous Symbol]                       0x000006dc   Section        0  peripherals.o(.text.BOARD_InitPeripherals)
-    [Anonymous Symbol]                       0x000006e0   Section        0  pin_mux.o(.text.BOARD_InitPins)
-    [Anonymous Symbol]                       0x00000714   Section        0  fsl_clock.o(.text.CLOCK_AttachClk)
-    [Anonymous Symbol]                       0x000007a8   Section        0  fsl_clock.o(.text.CLOCK_SetClkDiv)
-    [Anonymous Symbol]                       0x000007cc   Section        0  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
-    [Anonymous Symbol]                       0x000008f0   Section        0  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
-    [Anonymous Symbol]                       0x00000a78   Section        0  fsl_clock.o(.text.CLOCK_SetupExtClocking)
-    [Anonymous Symbol]                       0x00000ab8   Section        0  fsl_clock.o(.text.CLOCK_SetupFROClocking)
-    [Anonymous Symbol]                       0x00000b20   Section        0  eventrecorder.o(.text.EventRecordData)
-    EventRecordItem                          0x00000cb5   Thumb Code   692  eventrecorder.o(.text.EventRecordItem)
-    [Anonymous Symbol]                       0x00000cb4   Section        0  eventrecorder.o(.text.EventRecordItem)
-    [Anonymous Symbol]                       0x00000f68   Section        0  eventrecorder.o(.text.EventRecorderEnable)
-    [Anonymous Symbol]                       0x00001078   Section        0  eventrecorder.o(.text.EventRecorderInitialize)
-    [Anonymous Symbol]                       0x000014d0   Section        0  eventrecorder.o(.text.EventRecorderStart)
-    [Anonymous Symbol]                       0x00001530   Section        0  eventrecorder.o(.text.EventRecorderTimerGetCount)
-    [Anonymous Symbol]                       0x0000153c   Section        0  eventrecorder.o(.text.EventRecorderTimerSetup)
-    [Anonymous Symbol]                       0x00001560   Section        0  fsl_iap.o(.text.FLASH_Erase)
-    [Anonymous Symbol]                       0x000015bc   Section        0  fsl_iap.o(.text.FLASH_GetProperty)
-    [Anonymous Symbol]                       0x000015e4   Section        0  fsl_iap.o(.text.FLASH_Init)
-    [Anonymous Symbol]                       0x00001620   Section        0  fsl_iap.o(.text.FLASH_Program)
-    [Anonymous Symbol]                       0x0000167c   Section        0  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    __arm_cp.8_0                             0x000016bc   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    __arm_cp.8_1                             0x000016c0   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    [Anonymous Symbol]                       0x000016c4   Section        0  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    loop                                     0x000016e8   Number         0  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    [Anonymous Symbol]                       0x00001734   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInit)
-    [Anonymous Symbol]                       0x00001778   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
-    [Anonymous Symbol]                       0x0000177c   Section        0  retarget_io.o(.text.__aeabi_assert)
-    [Anonymous Symbol]                       0x00001820   Section        0  retarget_io.o(.text.abort)
-    [Anonymous Symbol]                       0x00001824   Section        0  retarget_io.o(.text.fputc)
-    lowpower_set_dcdc_power_profile          0x00001871   Thumb Code    72  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    [Anonymous Symbol]                       0x00001870   Section        0  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_0                             0x000018ac   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_2                             0x000018b0   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    __arm_cp.9_3                             0x000018b4   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
-    lowpower_set_system_voltage              0x000018b9   Thumb Code   212  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    [Anonymous Symbol]                       0x000018b8   Section        0  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    __arm_cp.15_0                            0x00001988   Number         4  fsl_power_lib.o(.text.lowpower_set_system_voltage)
-    lowpower_set_voltage_for_process         0x0000198d   Thumb Code   152  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    [Anonymous Symbol]                       0x0000198c   Section        0  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_0                            0x00001a18   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_1                            0x00001a1c   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    __arm_cp.10_2                            0x00001a20   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
-    [Anonymous Symbol]                       0x00001a24   Section        0  main.o(.text.main)
-    i.__0printf$bare                         0x00001b54   Section        0  printfb.o(i.__0printf$bare)
-    i.__scatterload_copy                     0x00001b64   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00001b72   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00001b74   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _printf_core                             0x00001b83   Thumb Code    34  printfb.o(i._printf_core)
-    i._printf_core                           0x00001b82   Section        0  printfb.o(i._printf_core)
-    i.fputs                                  0x00001ba4   Section        0  fputs.o(i.fputs)
-    __tagsym$$used.0                         0x00001bbc   Number         0  eventrecorder.o(.rodata.EventRecorderInfo)
-    .L__const.BOARD_BootClockRUN.pll0Setup   0x00001bd4   Data          32  clock_config.o(.rodata.cst32)
-    .L.str.1                                 0x00001bf4   Data          85  fsl_common.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00001bf4   Section        0  fsl_common.o(.rodata.str1.1)
-    .L.str                                   0x00001c49   Data          24  fsl_iap.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x00001c49   Section        0  fsl_iap.o(.rodata.str1.1)
-    .L.str.1                                 0x00001c61   Data          82  fsl_iap.o(.rodata.str1.1)
-    .L.str.2                                 0x00001cb3   Data          24  fsl_iap.o(.rodata.str1.1)
+    .text                                    0x00000440   Section        0  memcpy.o(.text)
+    .text                                    0x00000468   Section        0  memseta.o(.text)
+    .text                                    0x0000048c   Section       36  init.o(.text)
+    [Anonymous Symbol]                       0x000004b0   Section        0  clock_config.o(.text.BOARD_BootClockFROHF96M)
+    [Anonymous Symbol]                       0x00000510   Section        0  peripherals.o(.text.BOARD_InitPeripherals)
+    [Anonymous Symbol]                       0x00000514   Section        0  pin_mux.o(.text.BOARD_InitPins)
+    [Anonymous Symbol]                       0x00000548   Section        0  fsl_clock.o(.text.CLOCK_AttachClk)
+    [Anonymous Symbol]                       0x000005dc   Section        0  fsl_clock.o(.text.CLOCK_SetClkDiv)
+    [Anonymous Symbol]                       0x00000600   Section        0  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
+    [Anonymous Symbol]                       0x00000724   Section        0  fsl_clock.o(.text.CLOCK_SetupFROClocking)
+    [Anonymous Symbol]                       0x0000078c   Section        0  eventrecorder.o(.text.EventRecordData)
+    EventRecordItem                          0x00000921   Thumb Code   692  eventrecorder.o(.text.EventRecordItem)
+    [Anonymous Symbol]                       0x00000920   Section        0  eventrecorder.o(.text.EventRecordItem)
+    [Anonymous Symbol]                       0x00000bd4   Section        0  eventrecorder.o(.text.EventRecorderEnable)
+    [Anonymous Symbol]                       0x00000ce4   Section        0  eventrecorder.o(.text.EventRecorderInitialize)
+    [Anonymous Symbol]                       0x0000113c   Section        0  eventrecorder.o(.text.EventRecorderStart)
+    [Anonymous Symbol]                       0x0000119c   Section        0  eventrecorder.o(.text.EventRecorderTimerGetCount)
+    [Anonymous Symbol]                       0x000011a8   Section        0  eventrecorder.o(.text.EventRecorderTimerSetup)
+    [Anonymous Symbol]                       0x000011cc   Section        0  fsl_iap.o(.text.FLASH_Erase)
+    [Anonymous Symbol]                       0x00001228   Section        0  fsl_iap.o(.text.FLASH_Init)
+    [Anonymous Symbol]                       0x00001264   Section        0  fsl_iap.o(.text.FLASH_Program)
+    [Anonymous Symbol]                       0x000012c0   Section        0  fsl_iap.o(.text.FLASH_VerifyErase)
+    [Anonymous Symbol]                       0x000012e8   Section        0  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    __arm_cp.8_0                             0x00001328   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    __arm_cp.8_1                             0x0000132c   Number         4  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    [Anonymous Symbol]                       0x00001330   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x00001374   Section        0  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
+    [Anonymous Symbol]                       0x00001378   Section        0  retarget_io.o(.text.__aeabi_assert)
+    [Anonymous Symbol]                       0x0000141c   Section        0  retarget_io.o(.text.abort)
+    [Anonymous Symbol]                       0x00001420   Section        0  retarget_io.o(.text.fputc)
+    lowpower_set_dcdc_power_profile          0x0000146d   Thumb Code    72  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    [Anonymous Symbol]                       0x0000146c   Section        0  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_0                             0x000014a8   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_2                             0x000014ac   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    __arm_cp.9_3                             0x000014b0   Number         4  fsl_power_lib.o(.text.lowpower_set_dcdc_power_profile)
+    lowpower_set_system_voltage              0x000014b5   Thumb Code   212  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    [Anonymous Symbol]                       0x000014b4   Section        0  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    __arm_cp.15_0                            0x00001584   Number         4  fsl_power_lib.o(.text.lowpower_set_system_voltage)
+    lowpower_set_voltage_for_process         0x00001589   Thumb Code   152  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    [Anonymous Symbol]                       0x00001588   Section        0  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_0                            0x00001614   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_1                            0x00001618   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    __arm_cp.10_2                            0x0000161c   Number         4  fsl_power_lib.o(.text.lowpower_set_voltage_for_process)
+    [Anonymous Symbol]                       0x00001620   Section        0  main.o(.text.main)
+    i.__0printf$bare                         0x00001744   Section        0  printfb.o(i.__0printf$bare)
+    i.__scatterload_copy                     0x00001754   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001762   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001764   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _printf_core                             0x00001773   Thumb Code    34  printfb.o(i._printf_core)
+    i._printf_core                           0x00001772   Section        0  printfb.o(i._printf_core)
+    i.fputs                                  0x00001794   Section        0  fputs.o(i.fputs)
+    __tagsym$$used.0                         0x000017ac   Number         0  eventrecorder.o(.rodata.EventRecorderInfo)
+    .L.str                                   0x000017c4   Data          24  fsl_iap.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x000017c4   Section        0  fsl_iap.o(.rodata.str1.1)
+    .L.str.1                                 0x000017dc   Data          82  fsl_iap.o(.rodata.str1.1)
+    .L.str.2                                 0x0000182e   Data          24  fsl_iap.o(.rodata.str1.1)
     .data                                    0x20000000   Section        4  stdout.o(.data)
     .data                                    0x20000004   Section        4  stderr.o(.data)
-    s_Ext_Clk_Freq                           0x2000000c   Data           4  fsl_clock.o(.data.s_Ext_Clk_Freq)
-    [Anonymous Symbol]                       0x2000000c   Section        0  fsl_clock.o(.data.s_Ext_Clk_Freq)
-    .L_MergedGlobals                         0x20000040   Data          88  main.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x20000040   Data          76  main.o(.bss..L_MergedGlobals)
     [Anonymous Symbol]                       0x20000040   Section        0  main.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x20000098   Data          12  retarget_io.o(.bss..L_MergedGlobals)
-    stdout_putchar.index                     0x20000098   Data           4  retarget_io.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000098   Section        0  retarget_io.o(.bss..L_MergedGlobals)
-    stdout_putchar.buffer                    0x2000009c   Data           8  retarget_io.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x200000a4   Data          96  fsl_clock.o(.bss..L_MergedGlobals)
-    s_UseSSCache                             0x200000a4   Data           2  fsl_clock.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200000a4   Section        0  fsl_clock.o(.bss..L_MergedGlobals)
-    s_I2S_Mclk_Freq                          0x200000a8   Data           4  fsl_clock.o(.bss..L_MergedGlobals)
-    s_Pll0_Freq                              0x200000ac   Data           4  fsl_clock.o(.bss..L_MergedGlobals)
-    s_PllSetupCacheIdx                       0x200000b0   Data           4  fsl_clock.o(.bss..L_MergedGlobals)
-    s_FinHzCache                             0x200000b4   Data           8  fsl_clock.o(.bss..L_MergedGlobals)
-    s_FoutHzCache                            0x200000bc   Data           8  fsl_clock.o(.bss..L_MergedGlobals)
-    s_PllSetupCacheStruct                    0x200000c4   Data          64  fsl_clock.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x20000104   Data           8  fsl_iap.o(.bss..L_MergedGlobals)
-    versionMajor                             0x20000104   Data           4  fsl_iap.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000104   Section        0  fsl_iap.o(.bss..L_MergedGlobals)
-    EventBuffer                              0x20000140   Data        1024  eventrecorder.o(.bss.noinit)
-    [Anonymous Symbol]                       0x20000140   Section        0  eventrecorder.o(.bss.noinit)
-    EventFilter                              0x20000540   Data         128  eventrecorder.o(.bss.noinit)
-    EventStatus                              0x200005c0   Data          36  eventrecorder.o(.bss.noinit)
+    .L_MergedGlobals                         0x2000008c   Data          12  retarget_io.o(.bss..L_MergedGlobals)
+    stdout_putchar.index                     0x2000008c   Data           4  retarget_io.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x2000008c   Section        0  retarget_io.o(.bss..L_MergedGlobals)
+    stdout_putchar.buffer                    0x20000090   Data           8  retarget_io.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x20000098   Data           8  fsl_iap.o(.bss..L_MergedGlobals)
+    versionMajor                             0x20000098   Data           4  fsl_iap.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x20000098   Section        0  fsl_iap.o(.bss..L_MergedGlobals)
+    EventBuffer                              0x200000c0   Data        1024  eventrecorder.o(.bss.noinit)
+    [Anonymous Symbol]                       0x200000c0   Section        0  eventrecorder.o(.bss.noinit)
+    EventFilter                              0x200004c0   Data         128  eventrecorder.o(.bss.noinit)
+    EventStatus                              0x20000540   Data          36  eventrecorder.o(.bss.noinit)
 
     Global Symbols
 
@@ -1210,76 +1248,65 @@ Image Symbol Table
     PQ_IRQHandler                            0x00000331   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
     DMA1_IRQHandler                          0x00000335   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
     FLEXCOMM8_IRQHandler                     0x00000339   Thumb Code     4  startup_lpc55s69_cm33_core0.o(.text)
-    __aeabi_uldivmod                         0x00000441   Thumb Code    98  uldiv.o(.text)
-    ___aeabi_memcpy4$ret                     0x000004a3   Thumb Code     0  memcpy.o(.text)
-    ___aeabi_memcpy8$ret                     0x000004a3   Thumb Code     0  memcpy.o(.text)
-    __aeabi_memcpy                           0x000004a3   Thumb Code    40  memcpy.o(.text)
-    memcpy                                   0x000004a3   Thumb Code     0  memcpy.o(.text)
-    __aeabi_memset                           0x000004cb   Thumb Code    14  memseta.o(.text)
-    __aeabi_memset4                          0x000004cb   Thumb Code     0  memseta.o(.text)
-    __aeabi_memset8                          0x000004cb   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr                           0x000004d9   Thumb Code     4  memseta.o(.text)
-    __aeabi_memclr4                          0x000004d9   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr8                          0x000004d9   Thumb Code     0  memseta.o(.text)
-    memset                                   0x000004dd   Thumb Code    18  memseta.o(.text)
-    __aeabi_llsl                             0x000004ef   Thumb Code    30  llshl.o(.text)
-    _ll_shift_l                              0x000004ef   Thumb Code     0  llshl.o(.text)
-    __aeabi_llsr                             0x0000050d   Thumb Code    32  llushr.o(.text)
-    _ll_ushift_r                             0x0000050d   Thumb Code     0  llushr.o(.text)
-    __scatterload                            0x0000052d   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x0000052d   Thumb Code     0  init.o(.text)
-    BOARD_BootClockRUN                       0x00000551   Thumb Code   396  clock_config.o(.text.BOARD_BootClockRUN)
-    BOARD_InitPeripherals                    0x000006dd   Thumb Code     2  peripherals.o(.text.BOARD_InitPeripherals)
-    BOARD_InitPins                           0x000006e1   Thumb Code    52  pin_mux.o(.text.BOARD_InitPins)
-    CLOCK_AttachClk                          0x00000715   Thumb Code   146  fsl_clock.o(.text.CLOCK_AttachClk)
-    CLOCK_SetClkDiv                          0x000007a9   Thumb Code    36  fsl_clock.o(.text.CLOCK_SetClkDiv)
-    CLOCK_SetFLASHAccessCyclesForFreq        0x000007cd   Thumb Code   290  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
-    CLOCK_SetPLL0Freq                        0x000008f1   Thumb Code   390  fsl_clock.o(.text.CLOCK_SetPLL0Freq)
-    CLOCK_SetupExtClocking                   0x00000a79   Thumb Code    64  fsl_clock.o(.text.CLOCK_SetupExtClocking)
-    CLOCK_SetupFROClocking                   0x00000ab9   Thumb Code   102  fsl_clock.o(.text.CLOCK_SetupFROClocking)
-    EventRecordData                          0x00000b21   Thumb Code   402  eventrecorder.o(.text.EventRecordData)
-    EventRecorderEnable                      0x00000f69   Thumb Code   270  eventrecorder.o(.text.EventRecorderEnable)
-    EventRecorderInitialize                  0x00001079   Thumb Code  1112  eventrecorder.o(.text.EventRecorderInitialize)
-    EventRecorderStart                       0x000014d1   Thumb Code    94  eventrecorder.o(.text.EventRecorderStart)
-    EventRecorderTimerGetCount               0x00001531   Thumb Code    12  eventrecorder.o(.text.EventRecorderTimerGetCount)
-    EventRecorderTimerSetup                  0x0000153d   Thumb Code    36  eventrecorder.o(.text.EventRecorderTimerSetup)
-    FLASH_Erase                              0x00001561   Thumb Code    90  fsl_iap.o(.text.FLASH_Erase)
-    FLASH_GetProperty                        0x000015bd   Thumb Code    38  fsl_iap.o(.text.FLASH_GetProperty)
-    FLASH_Init                               0x000015e5   Thumb Code    58  fsl_iap.o(.text.FLASH_Init)
-    FLASH_Program                            0x00001621   Thumb Code    90  fsl_iap.o(.text.FLASH_Program)
-    POWER_SetVoltageForFreq                  0x0000167d   Thumb Code    72  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
-    SDK_DelayAtLeastUs                       0x000016c5   Thumb Code   112  fsl_common.o(.text.SDK_DelayAtLeastUs)
-    SystemInit                               0x00001735   Thumb Code    68  system_lpc55s69_cm33_core0.o(.text.SystemInit)
-    SystemInitHook                           0x00001779   Thumb Code     2  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
-    __aeabi_assert                           0x0000177d   Thumb Code   164  retarget_io.o(.text.__aeabi_assert)
-    abort                                    0x00001821   Thumb Code     2  retarget_io.o(.text.abort)
-    fputc                                    0x00001825   Thumb Code    76  retarget_io.o(.text.fputc)
-    main                                     0x00001a25   Thumb Code   304  main.o(.text.main)
-    __0printf$bare                           0x00001b55   Thumb Code     8  printfb.o(i.__0printf$bare)
-    __1printf$bare                           0x00001b55   Thumb Code     0  printfb.o(i.__0printf$bare)
-    __2printf                                0x00001b55   Thumb Code     0  printfb.o(i.__0printf$bare)
-    __scatterload_copy                       0x00001b65   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00001b73   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00001b75   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    fputs                                    0x00001ba5   Thumb Code    24  fputs.o(i.fputs)
-    EventRecorderInfo                        0x00001bbc   Data          24  eventrecorder.o(.rodata.EventRecorderInfo)
-    Region$$Table$$Base                      0x00001cb4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00001cd4   Number         0  anon$$obj.o(Region$$Table)
+    ___aeabi_memcpy4$ret                     0x00000441   Thumb Code     0  memcpy.o(.text)
+    ___aeabi_memcpy8$ret                     0x00000441   Thumb Code     0  memcpy.o(.text)
+    __aeabi_memcpy                           0x00000441   Thumb Code    40  memcpy.o(.text)
+    memcpy                                   0x00000441   Thumb Code     0  memcpy.o(.text)
+    __aeabi_memset                           0x00000469   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x00000469   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x00000469   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x00000477   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x00000477   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x00000477   Thumb Code     0  memseta.o(.text)
+    memset                                   0x0000047b   Thumb Code    18  memseta.o(.text)
+    __scatterload                            0x0000048d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0000048d   Thumb Code     0  init.o(.text)
+    BOARD_BootClockFROHF96M                  0x000004b1   Thumb Code    94  clock_config.o(.text.BOARD_BootClockFROHF96M)
+    BOARD_InitPeripherals                    0x00000511   Thumb Code     2  peripherals.o(.text.BOARD_InitPeripherals)
+    BOARD_InitPins                           0x00000515   Thumb Code    52  pin_mux.o(.text.BOARD_InitPins)
+    CLOCK_AttachClk                          0x00000549   Thumb Code   146  fsl_clock.o(.text.CLOCK_AttachClk)
+    CLOCK_SetClkDiv                          0x000005dd   Thumb Code    36  fsl_clock.o(.text.CLOCK_SetClkDiv)
+    CLOCK_SetFLASHAccessCyclesForFreq        0x00000601   Thumb Code   290  fsl_clock.o(.text.CLOCK_SetFLASHAccessCyclesForFreq)
+    CLOCK_SetupFROClocking                   0x00000725   Thumb Code   102  fsl_clock.o(.text.CLOCK_SetupFROClocking)
+    EventRecordData                          0x0000078d   Thumb Code   402  eventrecorder.o(.text.EventRecordData)
+    EventRecorderEnable                      0x00000bd5   Thumb Code   270  eventrecorder.o(.text.EventRecorderEnable)
+    EventRecorderInitialize                  0x00000ce5   Thumb Code  1112  eventrecorder.o(.text.EventRecorderInitialize)
+    EventRecorderStart                       0x0000113d   Thumb Code    94  eventrecorder.o(.text.EventRecorderStart)
+    EventRecorderTimerGetCount               0x0000119d   Thumb Code    12  eventrecorder.o(.text.EventRecorderTimerGetCount)
+    EventRecorderTimerSetup                  0x000011a9   Thumb Code    36  eventrecorder.o(.text.EventRecorderTimerSetup)
+    FLASH_Erase                              0x000011cd   Thumb Code    90  fsl_iap.o(.text.FLASH_Erase)
+    FLASH_Init                               0x00001229   Thumb Code    58  fsl_iap.o(.text.FLASH_Init)
+    FLASH_Program                            0x00001265   Thumb Code    90  fsl_iap.o(.text.FLASH_Program)
+    FLASH_VerifyErase                        0x000012c1   Thumb Code    38  fsl_iap.o(.text.FLASH_VerifyErase)
+    POWER_SetVoltageForFreq                  0x000012e9   Thumb Code    72  fsl_power_lib.o(.text.POWER_SetVoltageForFreq)
+    SystemInit                               0x00001331   Thumb Code    68  system_lpc55s69_cm33_core0.o(.text.SystemInit)
+    SystemInitHook                           0x00001375   Thumb Code     2  system_lpc55s69_cm33_core0.o(.text.SystemInitHook)
+    __aeabi_assert                           0x00001379   Thumb Code   164  retarget_io.o(.text.__aeabi_assert)
+    abort                                    0x0000141d   Thumb Code     2  retarget_io.o(.text.abort)
+    fputc                                    0x00001421   Thumb Code    76  retarget_io.o(.text.fputc)
+    main                                     0x00001621   Thumb Code   292  main.o(.text.main)
+    __0printf$bare                           0x00001745   Thumb Code     8  printfb.o(i.__0printf$bare)
+    __1printf$bare                           0x00001745   Thumb Code     0  printfb.o(i.__0printf$bare)
+    __2printf                                0x00001745   Thumb Code     0  printfb.o(i.__0printf$bare)
+    __scatterload_copy                       0x00001755   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001763   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001765   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    fputs                                    0x00001795   Thumb Code    24  fputs.o(i.fputs)
+    EventRecorderInfo                        0x000017ac   Data          24  eventrecorder.o(.rodata.EventRecorderInfo)
+    Region$$Table$$Base                      0x00001830   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001850   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x20000000   Data           4  stdout.o(.data)
     __stderr                                 0x20000004   Data           4  stderr.o(.data)
     SystemCoreClock                          0x20000008   Data           4  system_lpc55s69_cm33_core0.o(.data.SystemCoreClock)
-    pflashBlockBase                          0x20000040   Data           4  main.o(.bss..L_MergedGlobals)
-    pflashTotalSize                          0x20000044   Data           4  main.o(.bss..L_MergedGlobals)
-    pflashSectorSize                         0x20000048   Data           4  main.o(.bss..L_MergedGlobals)
-    PflashPageSize                           0x2000004c   Data           4  main.o(.bss..L_MergedGlobals)
-    appMain                                  0x20000050   Data           4  main.o(.bss..L_MergedGlobals)
-    UpdatePara                               0x20000054   Data           8  main.o(.bss..L_MergedGlobals)
-    flashInstance                            0x2000005c   Data          60  main.o(.bss..L_MergedGlobals)
-    runCmdFuncOption                         0x20000108   Data           4  fsl_iap.o(.bss..L_MergedGlobals)
-    page_buf                                 0x200005e4   Data         512  main.o(.bss.page_buf)
-    sector_buf                               0x200007e4   Data        4096  main.o(.bss.sector_buf)
-    Image$$ARM_LIB_HEAP$$ZI$$Base            0x200017e4   Number         0  anon$$obj.o ABSOLUTE
-    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x20001be4   Number         0  anon$$obj.o ABSOLUTE
+    PflashPageSize                           0x20000040   Data           4  main.o(.bss..L_MergedGlobals)
+    appMain                                  0x20000044   Data           4  main.o(.bss..L_MergedGlobals)
+    UpdatePara                               0x20000048   Data           8  main.o(.bss..L_MergedGlobals)
+    flashInstance                            0x20000050   Data          60  main.o(.bss..L_MergedGlobals)
+    runCmdFuncOption                         0x2000009c   Data           4  fsl_iap.o(.bss..L_MergedGlobals)
+    page_buf                                 0x20000564   Data         512  main.o(.bss.page_buf)
+    sector_buf                               0x20000764   Data        4096  main.o(.bss.sector_buf)
+    Image$$ARM_LIB_HEAP$$ZI$$Base            0x20001764   Number         0  anon$$obj.o ABSOLUTE
+    Image$$ARM_LIB_HEAP$$ZI$$Limit           0x20001b64   Number         0  anon$$obj.o ABSOLUTE
     Image$$ARM_LIB_STACK$$ZI$$Base           0x20032c00   Number         0  anon$$obj.o ABSOLUTE
     Image$$ARM_LIB_STACK$$ZI$$Limit          0x20033000   Number         0  anon$$obj.o ABSOLUTE
 
@@ -1291,133 +1318,123 @@ Memory Map of the image
 
   Image Entry point : 0x00000201
 
-  Load Region LR_m_text (Base: 0x00000000, Size: 0x00001d40, Max: 0x00002000, ABSOLUTE)
+  Load Region LR_m_text (Base: 0x00000000, Size: 0x000018c0, Max: 0x00002000, ABSOLUTE)
 
     Execution Region VECTOR_ROM (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000130, Max: 0x00000200, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x00000130   Data   RO          305    .isr_vector         startup_lpc55s69_cm33_core0.o
+    0x00000000   0x00000000   0x00000130   Data   RO          329    .isr_vector         startup_lpc55s69_cm33_core0.o
 
 
-    Execution Region ER_m_text (Exec base: 0x00000200, Load base: 0x00000200, Size: 0x00001ad4, Max: 0x00001e00, ABSOLUTE, FIXED)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00000200   0x00000200   0x00000000   Code   RO          359  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x00000200   0x00000200   0x00000004   Code   RO          666    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
-    0x00000204   0x00000204   0x00000004   Code   RO          669    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000208   0x00000208   0x00000000   Code   RO          671    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000208   0x00000208   0x00000000   Code   RO          673    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000208   0x00000208   0x00000008   Code   RO          674    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO          676    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO          678    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x00000210   0x00000210   0x00000004   Code   RO          667    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
-    0x00000214   0x00000214   0x0000022c   Code   RO          304    .text               startup_lpc55s69_cm33_core0.o
-    0x00000440   0x00000440   0x00000062   Code   RO          368    .text               mc_w.l(uldiv.o)
-    0x000004a2   0x000004a2   0x00000028   Code   RO          370    .text               mc_w.l(memcpy.o)
-    0x000004ca   0x000004ca   0x00000024   Code   RO          374    .text               mc_w.l(memseta.o)
-    0x000004ee   0x000004ee   0x0000001e   Code   RO          682    .text               mc_w.l(llshl.o)
-    0x0000050c   0x0000050c   0x00000020   Code   RO          684    .text               mc_w.l(llushr.o)
-    0x0000052c   0x0000052c   0x00000024   Code   RO          703    .text               mc_w.l(init.o)
-    0x00000550   0x00000550   0x0000018c   Code   RO           22    .text.BOARD_BootClockRUN  clock_config.o
-    0x000006dc   0x000006dc   0x00000002   Code   RO           34    .text.BOARD_InitPeripherals  peripherals.o
-    0x000006de   0x000006de   0x00000002   PAD
-    0x000006e0   0x000006e0   0x00000034   Code   RO           48    .text.BOARD_InitPins  pin_mux.o
-    0x00000714   0x00000714   0x00000092   Code   RO          115    .text.CLOCK_AttachClk  fsl_clock.o
-    0x000007a6   0x000007a6   0x00000002   PAD
-    0x000007a8   0x000007a8   0x00000024   Code   RO          119    .text.CLOCK_SetClkDiv  fsl_clock.o
-    0x000007cc   0x000007cc   0x00000122   Code   RO          127    .text.CLOCK_SetFLASHAccessCyclesForFreq  fsl_clock.o
-    0x000008ee   0x000008ee   0x00000002   PAD
-    0x000008f0   0x000008f0   0x00000186   Code   RO          199    .text.CLOCK_SetPLL0Freq  fsl_clock.o
-    0x00000a76   0x00000a76   0x00000002   PAD
-    0x00000a78   0x00000a78   0x00000040   Code   RO          129    .text.CLOCK_SetupExtClocking  fsl_clock.o
-    0x00000ab8   0x00000ab8   0x00000066   Code   RO          125    .text.CLOCK_SetupFROClocking  fsl_clock.o
-    0x00000b1e   0x00000b1e   0x00000002   PAD
-    0x00000b20   0x00000b20   0x00000192   Code   RO           78    .text.EventRecordData  eventrecorder.o
-    0x00000cb2   0x00000cb2   0x00000002   PAD
-    0x00000cb4   0x00000cb4   0x000002b4   Code   RO           68    .text.EventRecordItem  eventrecorder.o
-    0x00000f68   0x00000f68   0x0000010e   Code   RO           66    .text.EventRecorderEnable  eventrecorder.o
-    0x00001076   0x00001076   0x00000002   PAD
-    0x00001078   0x00001078   0x00000458   Code   RO           64    .text.EventRecorderInitialize  eventrecorder.o
-    0x000014d0   0x000014d0   0x0000005e   Code   RO           70    .text.EventRecorderStart  eventrecorder.o
-    0x0000152e   0x0000152e   0x00000002   PAD
-    0x00001530   0x00001530   0x0000000c   Code   RO           62    .text.EventRecorderTimerGetCount  eventrecorder.o
-    0x0000153c   0x0000153c   0x00000024   Code   RO           58    .text.EventRecorderTimerSetup  eventrecorder.o
-    0x00001560   0x00001560   0x0000005a   Code   RO          247    .text.FLASH_Erase   fsl_iap.o
-    0x000015ba   0x000015ba   0x00000002   PAD
-    0x000015bc   0x000015bc   0x00000026   Code   RO          255    .text.FLASH_GetProperty  fsl_iap.o
-    0x000015e2   0x000015e2   0x00000002   PAD
-    0x000015e4   0x000015e4   0x0000003a   Code   RO          245    .text.FLASH_Init    fsl_iap.o
-    0x0000161e   0x0000161e   0x00000002   PAD
-    0x00001620   0x00001620   0x0000005a   Code   RO          249    .text.FLASH_Program  fsl_iap.o
-    0x0000167a   0x0000167a   0x00000002   PAD
-    0x0000167c   0x0000167c   0x00000048   Code   RO          343    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x000016c4   0x000016c4   0x00000070   Code   RO          233    .text.SDK_DelayAtLeastUs  fsl_common.o
-    0x00001734   0x00001734   0x00000044   Code   RO          311    .text.SystemInit    system_lpc55s69_cm33_core0.o
-    0x00001778   0x00001778   0x00000002   Code   RO          313    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
-    0x0000177a   0x0000177a   0x00000002   PAD
-    0x0000177c   0x0000177c   0x000000a4   Code   RO          101    .text.__aeabi_assert  retarget_io.o
-    0x00001820   0x00001820   0x00000002   Code   RO          103    .text.abort         retarget_io.o
-    0x00001822   0x00001822   0x00000002   PAD
-    0x00001824   0x00001824   0x0000004c   Code   RO           95    .text.fputc         retarget_io.o
-    0x00001870   0x00001870   0x00000048   Code   RO          345    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x000018b8   0x000018b8   0x000000d4   Code   RO          357    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x0000198c   0x0000198c   0x00000098   Code   RO          347    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x00001a24   0x00001a24   0x00000130   Code   RO            6    .text.main          main.o
-    0x00001b54   0x00001b54   0x00000010   Code   RO          379    i.__0printf$bare    mc_w.l(printfb.o)
-    0x00001b64   0x00001b64   0x0000000e   Code   RO          711    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00001b72   0x00001b72   0x00000002   Code   RO          712    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00001b74   0x00001b74   0x0000000e   Code   RO          713    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00001b82   0x00001b82   0x00000022   Code   RO          386    i._printf_core      mc_w.l(printfb.o)
-    0x00001ba4   0x00001ba4   0x00000018   Code   RO          362    i.fputs             mc_w.l(fputs.o)
-    0x00001bbc   0x00001bbc   0x00000018   Data   RO           85    .rodata.EventRecorderInfo  eventrecorder.o
-    0x00001bd4   0x00001bd4   0x00000020   Data   RO           24    .rodata.cst32       clock_config.o
-    0x00001bf4   0x00001bf4   0x00000055   Data   RO          235    .rodata.str1.1      fsl_common.o
-    0x00001c49   0x00001c49   0x0000006a   Data   RO          277    .rodata.str1.1      fsl_iap.o
-    0x00001cb3   0x00001cb3   0x00000001   PAD
-    0x00001cb4   0x00001cb4   0x00000020   Data   RO          710    Region$$Table       anon$$obj.o
-
-
-    Execution Region RW_m_data (Exec base: 0x20000000, Load base: 0x00001d00, Size: 0x000017e4, Max: 0x00032800, ABSOLUTE)
+    Execution Region ER_m_text (Exec base: 0x00000200, Load base: 0x00000200, Size: 0x00001650, Max: 0x00001e00, ABSOLUTE, FIXED)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00001d00   0x00000004   Data   RW          366    .data               mc_w.l(stdout.o)
-    0x20000004   0x00001d04   0x00000004   Data   RW          367    .data               mc_w.l(stderr.o)
-    0x20000008   0x00001d08   0x00000004   Data   RW          317    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
-    0x2000000c   0x00001d0c   0x00000004   Data   RW          215    .data.s_Ext_Clk_Freq  fsl_clock.o
-    0x20000010   0x00001d10   0x00000030   PAD
-    0x20000040        -       0x00000058   Zero   RW           11    .bss..L_MergedGlobals  main.o
-    0x20000098        -       0x0000000c   Zero   RW          105    .bss..L_MergedGlobals  retarget_io.o
-    0x200000a4        -       0x00000060   Zero   RW          219    .bss..L_MergedGlobals  fsl_clock.o
-    0x20000104        -       0x00000008   Zero   RW          278    .bss..L_MergedGlobals  fsl_iap.o
-    0x2000010c   0x00001d10   0x00000034   PAD
-    0x20000140        -       0x000004a4   Zero   RW           84    .bss.noinit         eventrecorder.o
-    0x200005e4        -       0x00000200   Zero   RW            9    .bss.page_buf       main.o
-    0x200007e4        -       0x00001000   Zero   RW            8    .bss.sector_buf     main.o
+    0x00000200   0x00000200   0x00000000   Code   RO          383  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x00000200   0x00000200   0x00000004   Code   RO          690    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
+    0x00000204   0x00000204   0x00000004   Code   RO          693    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000208   0x00000208   0x00000000   Code   RO          695    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000208   0x00000208   0x00000000   Code   RO          697    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000208   0x00000208   0x00000008   Code   RO          698    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x00000210   0x00000210   0x00000000   Code   RO          700    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x00000210   0x00000210   0x00000000   Code   RO          702    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x00000210   0x00000210   0x00000004   Code   RO          691    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
+    0x00000214   0x00000214   0x0000022c   Code   RO          328    .text               startup_lpc55s69_cm33_core0.o
+    0x00000440   0x00000440   0x00000028   Code   RO          394    .text               mc_w.l(memcpy.o)
+    0x00000468   0x00000468   0x00000024   Code   RO          398    .text               mc_w.l(memseta.o)
+    0x0000048c   0x0000048c   0x00000024   Code   RO          727    .text               mc_w.l(init.o)
+    0x000004b0   0x000004b0   0x0000005e   Code   RO           29    .text.BOARD_BootClockFROHF96M  clock_config.o
+    0x0000050e   0x0000050e   0x00000002   PAD
+    0x00000510   0x00000510   0x00000002   Code   RO           43    .text.BOARD_InitPeripherals  peripherals.o
+    0x00000512   0x00000512   0x00000002   PAD
+    0x00000514   0x00000514   0x00000034   Code   RO           57    .text.BOARD_InitPins  pin_mux.o
+    0x00000548   0x00000548   0x00000092   Code   RO          124    .text.CLOCK_AttachClk  fsl_clock.o
+    0x000005da   0x000005da   0x00000002   PAD
+    0x000005dc   0x000005dc   0x00000024   Code   RO          128    .text.CLOCK_SetClkDiv  fsl_clock.o
+    0x00000600   0x00000600   0x00000122   Code   RO          136    .text.CLOCK_SetFLASHAccessCyclesForFreq  fsl_clock.o
+    0x00000722   0x00000722   0x00000002   PAD
+    0x00000724   0x00000724   0x00000066   Code   RO          134    .text.CLOCK_SetupFROClocking  fsl_clock.o
+    0x0000078a   0x0000078a   0x00000002   PAD
+    0x0000078c   0x0000078c   0x00000192   Code   RO           87    .text.EventRecordData  eventrecorder.o
+    0x0000091e   0x0000091e   0x00000002   PAD
+    0x00000920   0x00000920   0x000002b4   Code   RO           77    .text.EventRecordItem  eventrecorder.o
+    0x00000bd4   0x00000bd4   0x0000010e   Code   RO           75    .text.EventRecorderEnable  eventrecorder.o
+    0x00000ce2   0x00000ce2   0x00000002   PAD
+    0x00000ce4   0x00000ce4   0x00000458   Code   RO           73    .text.EventRecorderInitialize  eventrecorder.o
+    0x0000113c   0x0000113c   0x0000005e   Code   RO           79    .text.EventRecorderStart  eventrecorder.o
+    0x0000119a   0x0000119a   0x00000002   PAD
+    0x0000119c   0x0000119c   0x0000000c   Code   RO           71    .text.EventRecorderTimerGetCount  eventrecorder.o
+    0x000011a8   0x000011a8   0x00000024   Code   RO           67    .text.EventRecorderTimerSetup  eventrecorder.o
+    0x000011cc   0x000011cc   0x0000005a   Code   RO          256    .text.FLASH_Erase   fsl_iap.o
+    0x00001226   0x00001226   0x00000002   PAD
+    0x00001228   0x00001228   0x0000003a   Code   RO          254    .text.FLASH_Init    fsl_iap.o
+    0x00001262   0x00001262   0x00000002   PAD
+    0x00001264   0x00001264   0x0000005a   Code   RO          258    .text.FLASH_Program  fsl_iap.o
+    0x000012be   0x000012be   0x00000002   PAD
+    0x000012c0   0x000012c0   0x00000026   Code   RO          260    .text.FLASH_VerifyErase  fsl_iap.o
+    0x000012e6   0x000012e6   0x00000002   PAD
+    0x000012e8   0x000012e8   0x00000048   Code   RO          367    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00001330   0x00001330   0x00000044   Code   RO          335    .text.SystemInit    system_lpc55s69_cm33_core0.o
+    0x00001374   0x00001374   0x00000002   Code   RO          337    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
+    0x00001376   0x00001376   0x00000002   PAD
+    0x00001378   0x00001378   0x000000a4   Code   RO          110    .text.__aeabi_assert  retarget_io.o
+    0x0000141c   0x0000141c   0x00000002   Code   RO          112    .text.abort         retarget_io.o
+    0x0000141e   0x0000141e   0x00000002   PAD
+    0x00001420   0x00001420   0x0000004c   Code   RO          104    .text.fputc         retarget_io.o
+    0x0000146c   0x0000146c   0x00000048   Code   RO          369    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x000014b4   0x000014b4   0x000000d4   Code   RO          381    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00001588   0x00001588   0x00000098   Code   RO          371    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00001620   0x00001620   0x00000124   Code   RO            6    .text.main          main.o
+    0x00001744   0x00001744   0x00000010   Code   RO          403    i.__0printf$bare    mc_w.l(printfb.o)
+    0x00001754   0x00001754   0x0000000e   Code   RO          735    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00001762   0x00001762   0x00000002   Code   RO          736    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00001764   0x00001764   0x0000000e   Code   RO          737    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00001772   0x00001772   0x00000022   Code   RO          410    i._printf_core      mc_w.l(printfb.o)
+    0x00001794   0x00001794   0x00000018   Code   RO          386    i.fputs             mc_w.l(fputs.o)
+    0x000017ac   0x000017ac   0x00000018   Data   RO           94    .rodata.EventRecorderInfo  eventrecorder.o
+    0x000017c4   0x000017c4   0x0000006a   Data   RO          286    .rodata.str1.1      fsl_iap.o
+    0x0000182e   0x0000182e   0x00000002   PAD
+    0x00001830   0x00001830   0x00000020   Data   RO          734    Region$$Table       anon$$obj.o
 
 
-    Execution Region ARM_LIB_HEAP (Exec base: 0x200017e4, Load base: 0x00001d40, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region RW_m_data (Exec base: 0x20000000, Load base: 0x00001880, Size: 0x00001764, Max: 0x00032800, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x200017e4        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
+    0x20000000   0x00001880   0x00000004   Data   RW          390    .data               mc_w.l(stdout.o)
+    0x20000004   0x00001884   0x00000004   Data   RW          391    .data               mc_w.l(stderr.o)
+    0x20000008   0x00001888   0x00000004   Data   RW          341    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
+    0x2000000c   0x0000188c   0x00000034   PAD
+    0x20000040        -       0x0000004c   Zero   RW           14    .bss..L_MergedGlobals  main.o
+    0x2000008c        -       0x0000000c   Zero   RW          114    .bss..L_MergedGlobals  retarget_io.o
+    0x20000098        -       0x00000008   Zero   RW          287    .bss..L_MergedGlobals  fsl_iap.o
+    0x200000a0   0x0000188c   0x00000020   PAD
+    0x200000c0        -       0x000004a4   Zero   RW           93    .bss.noinit         eventrecorder.o
+    0x20000564        -       0x00000200   Zero   RW           12    .bss.page_buf       main.o
+    0x20000764        -       0x00001000   Zero   RW           11    .bss.sector_buf     main.o
 
 
-    Execution Region ARM_LIB_STACK (Exec base: 0x20032c00, Load base: 0x00001d40, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+    Execution Region ARM_LIB_HEAP (Exec base: 0x20001764, Load base: 0x000018c0, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20001764        -       0x00000400   Zero   RW            1    ARM_LIB_HEAP.bss    anon$$obj.o
+
+
+    Execution Region ARM_LIB_STACK (Exec base: 0x20032c00, Load base: 0x000018c0, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20032c00        -       0x00000400   Zero   RW            2    ARM_LIB_STACK.bss   anon$$obj.o
 
 
-    Execution Region RW_m_usb_bdt (Exec base: 0x40100000, Load base: 0x00001d40, Size: 0x00000000, Max: 0x00000000, ABSOLUTE, UNINIT)
+    Execution Region RW_m_usb_bdt (Exec base: 0x40100000, Load base: 0x000018c0, Size: 0x00000000, Max: 0x00000000, ABSOLUTE, UNINIT)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_m_usb_ram (Exec base: 0x40100000, Load base: 0x00001d40, Size: 0x00000000, Max: 0x00004000, ABSOLUTE, UNINIT)
+    Execution Region RW_m_usb_ram (Exec base: 0x40100000, Load base: 0x000018c0, Size: 0x00000000, Max: 0x00004000, ABSOLUTE, UNINIT)
 
     **** No section assigned to this execution region ****
 
@@ -1429,22 +1446,21 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       396          0         32          0          0      12760   clock_config.o
+        94          0          0          0          0      13841   clock_config.o
       2618          0         24          0       1188      16667   eventrecorder.o
-      1028          4          0          4         96      49908   fsl_clock.o
-       112         36         85          0          0       1996   fsl_common.o
+       574          0          0          0          0      49909   fsl_clock.o
        276          0        106          0          8       8957   fsl_iap.o
-       304         16          0          0       4696       4210   main.o
+       292         16          0          0       4684       3819   main.o
          2          0          0          0          0        445   peripherals.o
-        52          0          0          0          0       7946   pin_mux.o
+        52          0          0          0          0       7947   pin_mux.o
        242         40          0          0         12       2262   retarget_io.o
        556        272        304          0          0       2905   startup_lpc55s69_cm33_core0.o
-        70          0          0          4          0      10369   system_lpc55s69_cm33_core0.o
+        70          0          0          4          0      10372   system_lpc55s69_cm33_core0.o
 
     ----------------------------------------------------------------------
-      5684        368        584          8       8148     118425   Object Totals
+      4804        328        468          4       8024     117124   Object Totals
          0          0         32          0       2048          0   (incl. Generated)
-        28          0          1          0        100          0   (incl. Padding)
+        28          0          2          0         84          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1462,17 +1478,14 @@ Image component sizes
         24          0          0          0          0         80   fputs.o
         30          0          0          0          0          0   handlers.o
         36          8          0          0          0         68   init.o
-        30          0          0          0          0         68   llshl.o
-        32          0          0          0          0         68   llushr.o
         40          0          0          0          0         76   memcpy.o
         36          0          0          0          0        108   memseta.o
         50          8          0          0          0        152   printfb.o
          0          0          0          4          0          0   stderr.o
          0          0          0          4          0          0   stdout.o
-        98          0          0          0          0         92   uldiv.o
 
     ----------------------------------------------------------------------
-       904         60          0          8          0        712   Library Totals
+       744         60          0          8          0        484   Library Totals
          0          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
@@ -1480,10 +1493,10 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
        508         36          0          0          0          0   keil_lib_power_cm33_core0.lib
-       396         24          0          8          0        712   mc_w.l
+       236         24          0          8          0        484   mc_w.l
 
     ----------------------------------------------------------------------
-       904         60          0          8          0        712   Library Totals
+       744         60          0          8          0        484   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1492,15 +1505,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6588        428        584         16       8148     118885   Grand Totals
-      6588        428        584         16       8148     118885   ELF Image Totals
-      6588        428        584         16          0          0   ROM Totals
+      5548        388        468         12       8024     117528   Grand Totals
+      5548        388        468         12       8024     117528   ELF Image Totals
+      5548        388        468         12          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 7172 (   7.00kB)
-    Total RW  Size (RW Data + ZI Data)              8164 (   7.97kB)
-    Total ROM Size (Code + RO Data + RW Data)       7188 (   7.02kB)
+    Total RO  Size (Code + RO Data)                 6016 (   5.88kB)
+    Total RW  Size (RW Data + ZI Data)              8036 (   7.85kB)
+    Total ROM Size (Code + RO Data + RW Data)       6028 (   5.89kB)
 
 ==============================================================================
 

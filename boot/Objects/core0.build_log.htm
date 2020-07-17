@@ -17,30 +17,19 @@ Library Manager: ArmAr.exe V6.13.1
 Hex Converter:   FromElf.exe V6.13.1
 CPU DLL:         
 Dialog DLL:      
-Target DLL:      UL2V8M.DLL V1.6.0.0
+Target DLL:      CMSIS_AGDI_V8M.DLL V1.6.0.0
 Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69Ñ§Ï°×ÊÁÏ\LPC55S69\boot\project.uvprojx
-Project File Date:  07/12/2020
+Project File Date:  07/16/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'core0'
-compiling pin_mux.c...
-compiling peripherals.c...
-compiling retarget_io.c...
-compiling clock_config.c...
-compiling fsl_common.c...
 compiling main.c...
-compiling EventRecorder.c...
-compiling fsl_power.c...
-compiling system_LPC55S69_cm33_core0.c...
-compiling fsl_reset.c...
-compiling fsl_clock.c...
-compiling fsl_iap.c...
 linking...
-Program Size: Code=6588 RO-data=584 RW-data=16 ZI-data=8148  
+Program Size: Code=5548 RO-data=468 RW-data=12 ZI-data=8024  
 ".\Objects\core0.out" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -58,6 +47,8 @@ Package Vendor: NXP
    * Component: clock Version: 2.1.0
    * Component: common Version: 2.2.2
    * Component: iap1 Version: 2.0.1
+   * Component: inputmux Version: 2.0.2
+   * Component: inputmux_connections Version: 2.0.1
    * Component: power Version: 2.0.0
    * Component: reset Version: 2.0.1
    * Component: Startup Version: 1.0.0
@@ -71,7 +62,7 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\Compiler
-  .\RTE\Device\LPC55S69JEV98_cm33_core0
+  .\RTE\Device\LPC55S69JBD100_cm33_core0
   .\RTE\_core0
   C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
   C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include
@@ -84,29 +75,36 @@ Package Vendor: Keil
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
       Include file:  Config\EventRecorderConf.h
-      Include file:  Include\EventRecorder.h
       Source file:   Source\EventRecorder.c
+      Include file:  Include\EventRecorder.h
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:SDK Drivers:clock:2.1.0
-      Include file:  drivers\fsl_clock.h
       Source file:   drivers\fsl_clock.c
+      Include file:  drivers\fsl_clock.h
 
    * Component: NXP::Device:SDK Drivers:common:2.2.2
-      Include file:  drivers\fsl_common.h
       Source file:   drivers\fsl_common.c
+      Include file:  drivers\fsl_common.h
 
    * Component: NXP::Device:SDK Drivers:iap1:2.0.1
-      Source file:   drivers\fsl_iap.c
       Include file:  drivers\fsl_iap.h
+      Source file:   drivers\fsl_iap.c
       Include file:  drivers\fsl_iap_ffr.h
 
+   * Component: NXP::Device:SDK Drivers:inputmux:2.0.2
+      Source file:   drivers\fsl_inputmux.c
+      Include file:  drivers\fsl_inputmux.h
+
+   * Component: NXP::Device:SDK Drivers:inputmux_connections:2.0.1
+      Include file:  drivers\fsl_inputmux_connections.h
+
    * Component: NXP::Device:SDK Drivers:power:2.0.0
+      Source file:   drivers\fsl_power.c
       Library file:  arm\keil_lib_power_cm33_core0.lib
       Include file:  drivers\fsl_power.h
-      Source file:   drivers\fsl_power.c
 
    * Component: NXP::Device:SDK Drivers:reset:2.0.1
       Source file:   drivers\fsl_reset.c
@@ -114,12 +112,12 @@ Package Vendor: Keil
 
    * Component: NXP::Device:Startup:1.0.0
       Source file:   arm\startup_LPC55S69_cm33_core0.s
-      Include file:  system_LPC55S69_cm33_core0.h
       Include file:  LPC55S69_cm33_core0_features.h
       Include file:  LPC55S69_cm33_core0.h
+      Include file:  system_LPC55S69_cm33_core0.h
       Include file:  fsl_device_registers.h
       Source file:   system_LPC55S69_cm33_core0.c
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
