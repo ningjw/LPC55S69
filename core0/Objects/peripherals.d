@@ -23,15 +23,12 @@
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_ctimer.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_rtc.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_utick.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_pint.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart_dma.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_dma.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_usart.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c_dma.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_spi.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_rtc.h
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h

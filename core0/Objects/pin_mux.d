@@ -20,6 +20,7 @@
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h \
+  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_gpio.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_inputmux.h \
   C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_inputmux_connections.h \
   board\pin_mux.h

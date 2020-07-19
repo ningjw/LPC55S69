@@ -283,12 +283,12 @@
                 <Size>0x0</Size>
               </OCR_RVCT5>
               <OCR_RVCT6>
-                <Type>1</Type>
+                <Type>0</Type>
                 <StartAddress>0x4000000</StartAddress>
                 <Size>0x8000</Size>
               </OCR_RVCT6>
               <OCR_RVCT7>
-                <Type>1</Type>
+                <Type>0</Type>
                 <StartAddress>0x40100000</StartAddress>
                 <Size>0x4000</Size>
               </OCR_RVCT7>

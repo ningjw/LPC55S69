@@ -1,6 +1,4 @@
+boot/debug/*
 boot/Listings/*
-boot/Objects/*
 core0/Listings/*
 core0/Objects/*
-core1/Listings/*
-core1/Objects/*
