@@ -56,23 +56,24 @@ void BOARD_InitBootClocks(void)
 name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
-- {id: CTIMER0_clock.outFreq, value: 150 MHz}
-- {id: CTIMER1_clock.outFreq, value: 1 MHz}
+- {id: CTIMER0_clock.outFreq, value: 96 MHz}
+- {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
 - {id: FXCOM3_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
-- {id: System_clock.outFreq, value: 150 MHz, locked: true, accuracy: '0.001'}
+- {id: System_clock.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
 - {id: WDT_clock.outFreq, value: 1 MHz}
 settings:
 - {id: PLL0_Mode, value: Normal}
+- {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
-- {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
@@ -83,13 +84,12 @@ settings:
 - {id: SYSCON.MAINCLKSELB.sel, value: SYSCON.PLL0_BYPASS}
 - {id: SYSCON.PLL0CLKSEL.sel, value: SYSCON.CLK_IN_EN}
 - {id: SYSCON.PLL0DIV.scale, value: '7'}
-- {id: SYSCON.PLL0M_MULT.scale, value: '75'}
-- {id: SYSCON.PLL0N_DIV.scale, value: '4'}
-- {id: SYSCON.PLL0_PDEC.scale, value: '2'}
+- {id: SYSCON.PLL0M_MULT.scale, value: '24'}
 - {id: SYSCON.SYSTICKCLKSEL0.sel, value: SYSCON.fro_1m}
 - {id: SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG, value: Enabled}
 - {id: UTICK_EN_CFG, value: Enable}
 sources:
+- {id: ANACTRL.fro_hf.outFreq, value: 96 MHz}
 - {id: SYSCON.XTAL32M.outFreq, value: 16 MHz, enabled: true}
 - {id: SYSCON.fro_1m.outFreq, value: 1 MHz}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -113,6 +113,8 @@ void BOARD_BootClockRUN(void)
     /*!< Configure fro_1m */
     SYSCON->CLOCK_CTRL |=  SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_MASK;                 /*!< Ensure fro_1m is on */
 
+    CLOCK_SetupFROClocking(96000000U);                   /* Enable FRO HF(96MHz) output */
+
     /*!< Configure XTAL32M */
     POWER_DisablePD(kPDRUNCFG_PD_XTAL32M);                        /* Ensure XTAL32M is powered */
     POWER_DisablePD(kPDRUNCFG_PD_LDOXO32M);                       /* Ensure XTAL32M is powered */
@@ -122,19 +124,19 @@ void BOARD_BootClockRUN(void)
 
     SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_FRO1MHZ_UTICK_ENA_MASK;               /* The FRO 1 MHz clock to UTICK is enabled. */
 
-    POWER_SetVoltageForFreq(150000000U);                  /*!< Set voltage for the one of the fastest clock outputs: System clock output */
-    CLOCK_SetFLASHAccessCyclesForFreq(150000000U);          /*!< Set FLASH wait states for core */
+    POWER_SetVoltageForFreq(96000000U);                  /*!< Set voltage for the one of the fastest clock outputs: System clock output */
+    CLOCK_SetFLASHAccessCyclesForFreq(96000000U);          /*!< Set FLASH wait states for core */
 
     /*!< Set up PLL */
     CLOCK_AttachClk(kEXT_CLK_to_PLL0);                    /*!< Switch PLL0CLKSEL to EXT_CLK */
     POWER_DisablePD(kPDRUNCFG_PD_PLL0);                  /* Ensure PLL is on  */
     POWER_DisablePD(kPDRUNCFG_PD_PLL0_SSCG);
     const pll_setup_t pll0Setup = {
-        .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(39U) | SYSCON_PLL0CTRL_SELP(19U),
-        .pllndec = SYSCON_PLL0NDEC_NDIV(4U),
-        .pllpdec = SYSCON_PLL0PDEC_PDIV(1U),
-        .pllsscg = {0x0U,(SYSCON_PLL0SSCG1_MDIV_EXT(75U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},
-        .pllRate = 150000000U,
+        .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(15U) | SYSCON_PLL0CTRL_SELP(7U),
+        .pllndec = SYSCON_PLL0NDEC_NDIV(1U),
+        .pllpdec = SYSCON_PLL0PDEC_PDIV(2U),
+        .pllsscg = {0x0U,(SYSCON_PLL0SSCG1_MDIV_EXT(24U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},
+        .pllRate = 96000000U,
         .flags =  PLL_SETUPFLAG_WAITLOCK
     };
     CLOCK_SetPLL0Freq(&pll0Setup);                       /*!< Configure PLL0 to the desired values */
@@ -163,7 +165,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
-    CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */
+    CLOCK_AttachClk(kFRO_HF_to_CTIMER2);                 /*!< Switch CTIMER2 to FRO_HF */
     SYSCON->MAINCLKSELA = ((SYSCON->MAINCLKSELA & ~SYSCON_MAINCLKSELA_SEL_MASK) | SYSCON_MAINCLKSELA_SEL(1U));    /*!< Switch MAINCLKSELA to EXT_CLK even it is not used for MAINCLKSELB */
 
     /*< Set SystemCoreClock variable. */

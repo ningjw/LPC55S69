@@ -5,9 +5,10 @@
 #include "pin_mux.h"
 #include "EventRecorder.h"
 #include "memory.h"
-#define APP_DATA_ADDR     0x4F000       // 300k的位置
-#define APP_ADDR          0x8000		// APP代码起始地址
-#define APP_ADDR_INFO     0x3E00
+#define APP_DATA_ADDR     0x28000       // 32k+128k的位置
+#define APP_START_ADDR    0x8000		// APP代码起始地址
+#define APP_ADDR_INFO     0x7E00
+
 #define SECTOR_SIZE       0x1000
 #define PAGE_SIZE         0x200
 
@@ -76,29 +77,29 @@ int main()
 	if (UpdatePara.firmUpdate == true){//需要更新系统
 	
 //		for(int i=0; i<=UpdatePara.firmSizeTotal/SECTOR_SIZE; i++){
-//			FLASH_Erase(&flashInstance, APP_ADDR+i*SECTOR_SIZE,SECTOR_SIZE, kFLASH_ApiEraseKey);
-//			FLASH_Program(&flashInstance,APP_ADDR+i*SECTOR_SIZE, (void *)(APP_DATA_ADDR+i*SECTOR_SIZE) ,SECTOR_SIZE);
+//			FLASH_Erase(&flashInstance, APP_START_ADDR+i*SECTOR_SIZE,SECTOR_SIZE, kFLASH_ApiEraseKey);
+//			FLASH_Program(&flashInstance,APP_START_ADDR+i*SECTOR_SIZE, (void *)(APP_DATA_ADDR+i*SECTOR_SIZE) ,SECTOR_SIZE);
 //		}
 		
 //		//将擦除flash中的标识位
-//		memcpy(page_buf, (void*)(APP_ADDR-PAGE_SIZE), PAGE_SIZE);
+//		memcpy(page_buf, (void*)(APP_START_ADDR-PAGE_SIZE), PAGE_SIZE);
 //		memset(page_buf+PAGE_SIZE-8, 0, 8);
-//		FLASH_Program(&flashInstance, APP_ADDR-PAGE_SIZE, sector_buf, sizeof(sector_buf));
+//		FLASH_Program(&flashInstance, APP_START_ADDR-PAGE_SIZE, sector_buf, sizeof(sector_buf));
 	}
     printf("Jump to app\n");
 	
 	//在flash执行一次写操作后,才能以指针的方式操作flash
 	memset((uint8_t *)s_buffer_rbc, 0xFF, PAGE_SIZE);
-	memory_read(APP_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
-	status = FLASH_Program(&flashInstance, APP_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
+	memory_read(APP_START_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
+	status = FLASH_Program(&flashInstance, APP_START_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
     verify_status(status);
 	
-	SCB->VTOR = APP_ADDR;
+	SCB->VTOR = APP_START_ADDR;
 	
-//	MSR_MSP(*(volatile uint32_t*)APP_ADDR);
-	__set_MSP(*(volatile uint32_t*)(APP_ADDR));
+//	MSR_MSP(*(volatile uint32_t*)APP_START_ADDR);
+	__set_MSP(*(volatile uint32_t*)(APP_START_ADDR));
 	
-	appMain = (iapFun)*(volatile uint32_t*)(APP_ADDR+4);
+	appMain = (iapFun)*(volatile uint32_t*)(APP_START_ADDR+4);
 	
 	__ASM volatile ("cpsie i" : : : "memory");
 	

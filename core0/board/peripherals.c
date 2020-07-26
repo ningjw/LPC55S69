@@ -101,18 +101,18 @@ void DMA0_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER1 initialization code
+ * CTIMER0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'CTIMER1'
+- name: 'CTIMER0'
 - type: 'ctimer'
-- mode: 'Capture_Match'
+- mode: 'PWM'
 - custom_name_enabled: 'false'
 - type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER1'
+- peripheral: 'CTIMER0'
 - config_sets:
   - fsl_ctimer:
     - ctimerConfig:
@@ -120,271 +120,37 @@ instance:
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
       - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
-    - matchChannels: []
+    - EnableTimerInInit: 'true'
+    - pwmConfig:
+      - pwmPeriodValueStr: '2'
+      - enableInterrupt: 'false'
+      - pwmChannels:
+        - 0:
+          - pwmChannelPrefixId: 'PWM_0'
+          - pwmChannel: 'kCTIMER_Match_0'
+          - pwmDutyValueStr: '1'
+          - enableInterrupt: 'false'
     - interruptCallbackConfig:
       - interrupt:
-        - IRQn: 'CTIMER1_IRQn'
+        - IRQn: 'CTIMER0_IRQn'
         - enable_priority: 'false'
         - priority: '0'
       - callback: 'kCTIMER_NoCallback'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ctimer_config_t CTIMER1_config = {
+const ctimer_config_t CTIMER0_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
   .prescale = 0
 };
 
-void CTIMER1_init(void) {
-  /* CTIMER1 peripheral initialization */
-  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
-}
-
-/***********************************************************************************************************************
- * RTC initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'RTC'
-- type: 'lpc_rtc'
-- mode: 'general'
-- custom_name_enabled: 'false'
-- type_id: 'lpc_rtc_607bd7331c2c81c0037fe4624be881b6'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'RTC'
-- config_sets:
-  - fsl_rtc:
-    - rtc_config:
-      - setDateTime: 'true'
-      - rtc_datetime:
-        - year: '2020'
-        - month: '1'
-        - day: '1'
-        - hour: '0'
-        - minute: '0'
-        - second: '0'
-      - setAlarmTime: 'false'
-      - setWakeup: 'true'
-      - wakeuptimer:
-        - wake_up_time: '10'
-      - alarm_wake_up_enable: 'false'
-      - wake_up_enable: 'true'
-      - start: 'true'
-    - rtc_interrupt:
-      - interrupt_vectors:
-        - enable_irq: 'false'
-        - interrupt:
-          - IRQn: 'RTC_IRQn'
-          - enable_priority: 'false'
-          - priority: '0'
-          - enable_custom_name: 'false'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-rtc_datetime_t RTC_dateTimeStruct = {
-  .year = 2020,
-  .month = 1,
-  .day = 1,
-  .hour = 0,
-  .minute = 0,
-  .second = 0
-};
-
-void RTC_init(void) {
-  /* RTC initialization */
-  RTC_Init(RTC_PERIPHERAL);
-  /* Stop RTC timer */
-  RTC_StopTimer(RTC_PERIPHERAL);
-  /* Date and time initialization */
-  RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
-  /* Wake-up initialization */
-  RTC_SetWakeupCount(RTC_PERIPHERAL, RTC_WAKE_UP_TIME);
-  /* Enable interrupts for deep power-down */
-  RTC_EnableInterrupts(RTC_PERIPHERAL, kRTC_WakeupInterruptEnable);
-  /* Start RTC timer */
-  RTC_StartTimer(RTC_PERIPHERAL);
-}
-
-/***********************************************************************************************************************
- * UTICK0 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'UTICK0'
-- type: 'utick'
-- mode: 'general_config'
-- custom_name_enabled: 'false'
-- type_id: 'utick_58a3a3f691b03a130cd9419552f8327d'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'UTICK0'
-- config_sets:
-  - fsl_utick:
-    - clockSettingUTICK:
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-    - timerSettingUTICK:
-      - utick_mode_t: 'kUTICK_Onetime'
-      - startTimer: 'false'
-      - timerValueStr: ''
-      - callbackEnable: 'false'
-    - interrupt:
-      - IRQn: 'UTICK0_IRQn'
-      - enable_priority: 'false'
-      - priority: '0'
-    - quick_selection: 'default'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-
-void UTICK0_init(void) {
-  /* UTICK0 peripheral initialization */
-  UTICK_Init(UTICK0_PERIPHERAL);
-  /* Configuration of UTICK0 peripheral initialization */
-  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, NULL);
-}
-
-/***********************************************************************************************************************
- * PINT initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'PINT'
-- type: 'pint'
-- mode: 'interrupt_mode'
-- custom_name_enabled: 'false'
-- type_id: 'pint_cf4a806bb2a6c1ffced58ae2ed7b43af'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'PINT'
-- config_sets:
-  - general:
-    - interrupt_array:
-      - 0:
-        - interrupt_id: 'INT_0'
-        - interrupt_selection: 'PINT.0'
-        - interrupt_type: 'kPINT_PinIntEnableNone'
-        - callback_function: 'PINT0_CallBack'
-        - enable_callback: 'false'
-        - interrupt:
-          - IRQn: 'PIN_INT0_IRQn'
-          - enable_priority: 'false'
-          - priority: '0'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-
-void PINT_init(void) {
-  /* PINT initiation  */
-  PINT_Init(PINT_PERIPHERAL);
-  /* PINT PINT.0 configuration */
-  PINT_PinInterruptConfig(PINT_PERIPHERAL, PINT_INT_0, kPINT_PinIntEnableNone, PINT0_CallBack);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM3 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM3'
-- type: 'flexcomm_usart'
-- mode: 'polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM3'
-- config_sets:
-  - usartConfig_t:
-    - usartConfig:
-      - clockSource: 'FXCOMFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - baudRate_Bps: '115200'
-      - syncMode: 'kUSART_SyncModeDisabled'
-      - parityMode: 'kUSART_ParityDisabled'
-      - stopBitCount: 'kUSART_OneStopBit'
-      - bitCountPerChar: 'kUSART_8BitsPerChar'
-      - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
-      - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'true'
-      - enableTx: 'true'
-      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
-      - enableContinuousSCLK: 'false'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const usart_config_t FLEXCOMM3_config = {
-  .baudRate_Bps = 115200,
-  .syncMode = kUSART_SyncModeDisabled,
-  .parityMode = kUSART_ParityDisabled,
-  .stopBitCount = kUSART_OneStopBit,
-  .bitCountPerChar = kUSART_8BitsPerChar,
-  .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
-  .rxWatermark = kUSART_RxFifo1,
-  .enableRx = true,
-  .enableTx = true,
-  .clockPolarity = kUSART_RxSampleOnFallingEdge,
-  .enableContinuousSCLK = false
-};
-
-void FLEXCOMM3_init(void) {
-  /* Reset FLEXCOMM device */
-  RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
-  USART_Init(FLEXCOMM3_PERIPHERAL, &FLEXCOMM3_config, FLEXCOMM3_CLOCK_SOURCE);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM2 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM2'
-- type: 'flexcomm_usart'
-- mode: 'polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM2'
-- config_sets:
-  - usartConfig_t:
-    - usartConfig:
-      - clockSource: 'FXCOMFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - baudRate_Bps: '115200'
-      - syncMode: 'kUSART_SyncModeDisabled'
-      - parityMode: 'kUSART_ParityDisabled'
-      - stopBitCount: 'kUSART_OneStopBit'
-      - bitCountPerChar: 'kUSART_8BitsPerChar'
-      - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
-      - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'true'
-      - enableTx: 'true'
-      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
-      - enableContinuousSCLK: 'false'
-    - quick_selection: 'QuickSelection1'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const usart_config_t FLEXCOMM2_config = {
-  .baudRate_Bps = 115200,
-  .syncMode = kUSART_SyncModeDisabled,
-  .parityMode = kUSART_ParityDisabled,
-  .stopBitCount = kUSART_OneStopBit,
-  .bitCountPerChar = kUSART_8BitsPerChar,
-  .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
-  .rxWatermark = kUSART_RxFifo1,
-  .enableRx = true,
-  .enableTx = true,
-  .clockPolarity = kUSART_RxSampleOnFallingEdge,
-  .enableContinuousSCLK = false
-};
-
-void FLEXCOMM2_init(void) {
-  /* Reset FLEXCOMM device */
-  RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
-  USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+void CTIMER0_init(void) {
+  /* CTIMER0 peripheral initialization */
+  CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
+  /* PWM channel 0 of CTIMER0 peripheral initialization */
+  CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM_0_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM_0_DUTY, false);
+  /* Start the timer */
+  CTIMER_StartTimer(CTIMER0_PERIPHERAL);
 }
 
 /***********************************************************************************************************************
@@ -451,47 +217,6 @@ void FLEXCOMM0_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER0 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'CTIMER0'
-- type: 'ctimer'
-- mode: 'Capture_Match'
-- custom_name_enabled: 'false'
-- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER0'
-- config_sets:
-  - fsl_ctimer:
-    - ctimerConfig:
-      - mode: 'kCTIMER_TimerMode'
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
-    - matchChannels: []
-    - interruptCallbackConfig:
-      - interrupt:
-        - IRQn: 'CTIMER0_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-      - callback: 'kCTIMER_NoCallback'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const ctimer_config_t CTIMER0_config = {
-  .mode = kCTIMER_TimerMode,
-  .input = kCTIMER_Capture_0,
-  .prescale = 0
-};
-
-void CTIMER0_init(void) {
-  /* CTIMER0 peripheral initialization */
-  CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
-}
-
-/***********************************************************************************************************************
  * FLEXCOMM1 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -526,6 +251,125 @@ void FLEXCOMM1_init(void) {
   RESET_PeripheralReset( kFC1_RST_SHIFT_RSTn);
   /* Initialization function */
   I2C_MasterInit(FLEXCOMM1_PERIPHERAL, &FLEXCOMM1_config, FLEXCOMM1_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM2 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM2'
+- type: 'flexcomm_usart'
+- mode: 'polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM2'
+- config_sets:
+  - usartConfig_t:
+    - usartConfig:
+      - clockSource: 'FXCOMFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - baudRate_Bps: '115200'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - txWatermark: 'kUSART_TxFifo0'
+      - rxWatermark: 'kUSART_RxFifo1'
+      - enableRx: 'true'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+    - quick_selection: 'QuickSelection1'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t FLEXCOMM2_config = {
+  .baudRate_Bps = 115200,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .txWatermark = kUSART_TxFifo0,
+  .rxWatermark = kUSART_RxFifo1,
+  .enableRx = true,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false
+};
+
+void FLEXCOMM2_init(void) {
+  /* Reset FLEXCOMM device */
+  RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
+  USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM3 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM3'
+- type: 'flexcomm_usart'
+- mode: 'interrupts'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM3'
+- config_sets:
+  - interruptsCfg:
+    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_TxLevelInterruptEnable kUSART_RxLevelInterruptEnable'
+    - interrupt_vectors:
+      - enable_rx_tx_irq: 'true'
+      - interrupt_rx_tx:
+        - IRQn: 'FLEXCOMM3_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+        - enable_custom_name: 'false'
+  - usartConfig_t:
+    - usartConfig:
+      - clockSource: 'FXCOMFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - baudRate_Bps: '115200'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - txWatermark: 'kUSART_TxFifo0'
+      - rxWatermark: 'kUSART_RxFifo1'
+      - enableRx: 'true'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t FLEXCOMM3_config = {
+  .baudRate_Bps = 115200,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .txWatermark = kUSART_TxFifo0,
+  .rxWatermark = kUSART_RxFifo1,
+  .enableRx = true,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false
+};
+
+void FLEXCOMM3_init(void) {
+  /* Reset FLEXCOMM device */
+  RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
+  USART_Init(FLEXCOMM3_PERIPHERAL, &FLEXCOMM3_config, FLEXCOMM3_CLOCK_SOURCE);
+  USART_EnableInterrupts(FLEXCOMM3_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_TxLevelInterruptEnable | kUSART_RxLevelInterruptEnable);
+  /* Enable interrupt FLEXCOMM3_IRQn request in the NVIC */
+  EnableIRQ(FLEXCOMM3_FLEXCOMM_IRQN);
 }
 
 /***********************************************************************************************************************
@@ -566,6 +410,195 @@ void FLEXCOMM4_init(void) {
 }
 
 /***********************************************************************************************************************
+ * PINT initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'PINT'
+- type: 'pint'
+- mode: 'interrupt_mode'
+- custom_name_enabled: 'false'
+- type_id: 'pint_cf4a806bb2a6c1ffced58ae2ed7b43af'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'PINT'
+- config_sets:
+  - general:
+    - interrupt_array:
+      - 0:
+        - interrupt_id: 'INT_0'
+        - interrupt_selection: 'PINT.0'
+        - interrupt_type: 'kPINT_PinIntEnableNone'
+        - callback_function: 'PINT0_CallBack'
+        - enable_callback: 'false'
+        - interrupt:
+          - IRQn: 'PIN_INT0_IRQn'
+          - enable_priority: 'false'
+          - priority: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+void PINT_init(void) {
+  /* PINT initiation  */
+  PINT_Init(PINT_PERIPHERAL);
+  /* PINT PINT.0 configuration */
+  PINT_PinInterruptConfig(PINT_PERIPHERAL, PINT_INT_0, kPINT_PinIntEnableNone, PINT0_CallBack);
+}
+
+/***********************************************************************************************************************
+ * RTC initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'RTC'
+- type: 'lpc_rtc'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'lpc_rtc_607bd7331c2c81c0037fe4624be881b6'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'RTC'
+- config_sets:
+  - fsl_rtc:
+    - rtc_config:
+      - setDateTime: 'true'
+      - rtc_datetime:
+        - year: '2020'
+        - month: '1'
+        - day: '1'
+        - hour: '0'
+        - minute: '0'
+        - second: '0'
+      - setAlarmTime: 'false'
+      - setWakeup: 'true'
+      - wakeuptimer:
+        - wake_up_time: '10'
+      - alarm_wake_up_enable: 'false'
+      - wake_up_enable: 'false'
+      - start: 'true'
+    - rtc_interrupt:
+      - interrupt_vectors:
+        - enable_irq: 'false'
+        - interrupt:
+          - IRQn: 'RTC_IRQn'
+          - enable_priority: 'false'
+          - priority: '0'
+          - enable_custom_name: 'false'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+rtc_datetime_t RTC_dateTimeStruct = {
+  .year = 2020,
+  .month = 1,
+  .day = 1,
+  .hour = 0,
+  .minute = 0,
+  .second = 0
+};
+
+void RTC_init(void) {
+  /* RTC initialization */
+  RTC_Init(RTC_PERIPHERAL);
+  /* Stop RTC timer */
+  RTC_StopTimer(RTC_PERIPHERAL);
+  /* Date and time initialization */
+  RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
+  /* Wake-up initialization */
+  RTC_SetWakeupCount(RTC_PERIPHERAL, RTC_WAKE_UP_TIME);
+  /* Start RTC timer */
+  RTC_StartTimer(RTC_PERIPHERAL);
+}
+
+/***********************************************************************************************************************
+ * UTICK0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'UTICK0'
+- type: 'utick'
+- mode: 'general_config'
+- custom_name_enabled: 'false'
+- type_id: 'utick_58a3a3f691b03a130cd9419552f8327d'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'UTICK0'
+- config_sets:
+  - fsl_utick:
+    - clockSettingUTICK:
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+    - timerSettingUTICK:
+      - utick_mode_t: 'kUTICK_Repeat'
+      - startTimer: 'true'
+      - timerValueStr: '10000'
+      - callbackEnable: 'false'
+    - interrupt:
+      - IRQn: 'UTICK0_IRQn'
+      - enable_priority: 'false'
+      - priority: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+void UTICK0_init(void) {
+  /* UTICK0 peripheral initialization */
+  UTICK_Init(UTICK0_PERIPHERAL);
+  /* Configuration of UTICK0 peripheral initialization */
+  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, NULL);
+}
+
+/***********************************************************************************************************************
+ * CTIMER2 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'CTIMER2'
+- type: 'ctimer'
+- mode: 'PWM'
+- custom_name_enabled: 'false'
+- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'CTIMER2'
+- config_sets:
+  - fsl_ctimer:
+    - ctimerConfig:
+      - mode: 'kCTIMER_TimerMode'
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - timerPrescaler: '1'
+    - EnableTimerInInit: 'true'
+    - pwmConfig:
+      - pwmPeriodValueStr: '2'
+      - enableInterrupt: 'false'
+      - pwmChannels:
+        - 0:
+          - pwmChannelPrefixId: 'PWM_1'
+          - pwmChannel: 'kCTIMER_Match_1'
+          - pwmDutyValueStr: '1'
+          - enableInterrupt: 'false'
+    - interruptCallbackConfig:
+      - interrupt:
+        - IRQn: 'CTIMER1_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+      - callback: 'kCTIMER_NoCallback'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const ctimer_config_t CTIMER2_config = {
+  .mode = kCTIMER_TimerMode,
+  .input = kCTIMER_Capture_0,
+  .prescale = 0
+};
+
+void CTIMER2_init(void) {
+  /* CTIMER2 peripheral initialization */
+  CTIMER_Init(CTIMER2_PERIPHERAL, &CTIMER2_config);
+  /* PWM channel 1 of CTIMER2 peripheral initialization */
+  CTIMER_SetupPwmPeriod(CTIMER2_PERIPHERAL, CTIMER2_PWM_1_CHANNEL, CTIMER2_PWM_PERIOD, CTIMER2_PWM_1_DUTY, false);
+  /* Start the timer */
+  CTIMER_StartTimer(CTIMER2_PERIPHERAL);
+}
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
@@ -575,16 +608,16 @@ void BOARD_InitPeripherals(void)
 
   /* Initialize components */
   DMA0_init();
-  CTIMER1_init();
+  CTIMER0_init();
+  FLEXCOMM0_init();
+  FLEXCOMM1_init();
+  FLEXCOMM2_init();
+  FLEXCOMM3_init();
+  FLEXCOMM4_init();
+  PINT_init();
   RTC_init();
   UTICK0_init();
-  PINT_init();
-  FLEXCOMM3_init();
-  FLEXCOMM2_init();
-  FLEXCOMM0_init();
-  CTIMER0_init();
-  FLEXCOMM1_init();
-  FLEXCOMM4_init();
+  CTIMER2_init();
 }
 
 /***********************************************************************************************************************

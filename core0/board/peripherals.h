@@ -13,13 +13,13 @@
 #include "fsl_common.h"
 #include "fsl_ctimer.h"
 #include "fsl_clock.h"
-#include "fsl_rtc.h"
-#include "fsl_utick.h"
-#include "fsl_pint.h"
-#include "fsl_reset.h"
-#include "fsl_usart.h"
 #include "fsl_spi.h"
 #include "fsl_i2c.h"
+#include "fsl_reset.h"
+#include "fsl_usart.h"
+#include "fsl_pint.h"
+#include "fsl_rtc.h"
+#include "fsl_utick.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -38,11 +38,49 @@ extern "C" {
 /* Selected DMA channel number. */
 #define DMA0_CH0_DMA_CHANNEL 0
 /* Definition of peripheral ID */
-#define CTIMER1_PERIPHERAL CTIMER1
+#define CTIMER0_PERIPHERAL CTIMER0
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER1_TICK_FREQ 1000000UL
+#define CTIMER0_TICK_FREQ 96000000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER1_TICK_PERIOD 1000UL
+#define CTIMER0_TICK_PERIOD 10UL
+/* Definition of PWM period */
+#define CTIMER0_PWM_PERIOD 2
+/* Definition of channel 0 ID */
+#define CTIMER0_PWM_0_CHANNEL kCTIMER_Match_0
+/* Definition of channel 0 duty */
+#define CTIMER0_PWM_0_DUTY 1
+/* BOARD_InitPeripherals defines for FLEXCOMM0 */
+/* Definition of peripheral ID */
+#define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
+/* Definition of the clock source frequency */
+#define FLEXCOMM0_CLOCK_SOURCE 12000000UL
+/* BOARD_InitPeripherals defines for FLEXCOMM1 */
+/* Definition of peripheral ID */
+#define FLEXCOMM1_PERIPHERAL ((I2C_Type *)FLEXCOMM1)
+/* Definition of the clock source frequency */
+#define FLEXCOMM1_CLOCK_SOURCE 12000000UL
+/* Definition of peripheral ID */
+#define FLEXCOMM2_PERIPHERAL ((USART_Type *)FLEXCOMM2)
+/* Definition of the clock source frequency */
+#define FLEXCOMM2_CLOCK_SOURCE 12000000UL
+/* Definition of peripheral ID */
+#define FLEXCOMM3_PERIPHERAL ((USART_Type *)FLEXCOMM3)
+/* Definition of the clock source frequency */
+#define FLEXCOMM3_CLOCK_SOURCE 12000000UL
+/* FLEXCOMM3 interrupt vector ID (number). */
+#define FLEXCOMM3_FLEXCOMM_IRQN FLEXCOMM3_IRQn
+/* FLEXCOMM3 interrupt handler identifier. */
+#define FLEXCOMM3_FLEXCOMM_IRQHANDLER FLEXCOMM3_IRQHandler
+/* BOARD_InitPeripherals defines for FLEXCOMM4 */
+/* Definition of peripheral ID */
+#define FLEXCOMM4_PERIPHERAL ((I2C_Type *)FLEXCOMM4)
+/* Definition of the clock source frequency */
+#define FLEXCOMM4_CLOCK_SOURCE 12000000UL
+/* BOARD_InitPeripherals defines for PINT */
+/* Definition of peripheral ID */
+#define PINT_PERIPHERAL ((PINT_Type *) PINT_BASE)
+/* Definition of PINT interrupt ID for interrupt 0  */
+#define PINT_INT_0 kPINT_PinInt0
 /* Definition of peripheral ID */
 #define RTC_PERIPHERAL RTC
 /* Real input time for Wake-up timer. */
@@ -50,64 +88,42 @@ extern "C" {
 /* BOARD_InitPeripherals defines for UTICK0 */
 /* Definition of peripheral ID */
 #define UTICK0_PERIPHERAL UTICK0
-/* Definition of kUTICK_Onetime operational mode */
-#define UTICK0_MODE kUTICK_Onetime
+/* Definition of kUTICK_Repeat operational mode */
+#define UTICK0_MODE kUTICK_Repeat
 /* Timer tick frequency in Hz (input frequency of the timer) */
 #define UTICK0_TICK_FREQ 1000000UL
 /* Timer tick period in ns (input period of the timer) */
 #define UTICK0_TICK_PERIOD 1000UL
 /* Definition of timer value in ticks */
-#define UTICK0_TICKS 0UL
+#define UTICK0_TICKS 9999UL
 /* UTICK0 interrupt vector ID (number). */
 #define UTICK0_IRQN UTICK0_IRQn
-/* BOARD_InitPeripherals defines for PINT */
 /* Definition of peripheral ID */
-#define PINT_PERIPHERAL ((PINT_Type *) PINT_BASE)
-/* Definition of PINT interrupt ID for interrupt 0  */
-#define PINT_INT_0 kPINT_PinInt0
-/* Definition of peripheral ID */
-#define FLEXCOMM3_PERIPHERAL ((USART_Type *)FLEXCOMM3)
-/* Definition of the clock source frequency */
-#define FLEXCOMM3_CLOCK_SOURCE 12000000UL
-/* Definition of peripheral ID */
-#define FLEXCOMM2_PERIPHERAL ((USART_Type *)FLEXCOMM2)
-/* Definition of the clock source frequency */
-#define FLEXCOMM2_CLOCK_SOURCE 12000000UL
-/* BOARD_InitPeripherals defines for FLEXCOMM0 */
-/* Definition of peripheral ID */
-#define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
-/* Definition of the clock source frequency */
-#define FLEXCOMM0_CLOCK_SOURCE 12000000UL
-/* Definition of peripheral ID */
-#define CTIMER0_PERIPHERAL CTIMER0
+#define CTIMER2_PERIPHERAL CTIMER2
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER0_TICK_FREQ 150000000UL
+#define CTIMER2_TICK_FREQ 96000000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER0_TICK_PERIOD 7UL
-/* BOARD_InitPeripherals defines for FLEXCOMM1 */
-/* Definition of peripheral ID */
-#define FLEXCOMM1_PERIPHERAL ((I2C_Type *)FLEXCOMM1)
-/* Definition of the clock source frequency */
-#define FLEXCOMM1_CLOCK_SOURCE 12000000UL
-/* BOARD_InitPeripherals defines for FLEXCOMM4 */
-/* Definition of peripheral ID */
-#define FLEXCOMM4_PERIPHERAL ((I2C_Type *)FLEXCOMM4)
-/* Definition of the clock source frequency */
-#define FLEXCOMM4_CLOCK_SOURCE 12000000UL
+#define CTIMER2_TICK_PERIOD 10UL
+/* Definition of PWM period */
+#define CTIMER2_PWM_PERIOD 2
+/* Definition of channel 1 ID */
+#define CTIMER2_PWM_1_CHANNEL kCTIMER_Match_1
+/* Definition of channel 1 duty */
+#define CTIMER2_PWM_1_DUTY 1
 
 /***********************************************************************************************************************
  * Global variables
  **********************************************************************************************************************/
 extern dma_handle_t DMA0_CH0_Handle;
-extern const ctimer_config_t CTIMER1_config;
+extern const ctimer_config_t CTIMER0_config;
+extern const spi_master_config_t FLEXCOMM0_config;
+extern const i2c_master_config_t FLEXCOMM1_config;
+extern const usart_config_t FLEXCOMM2_config;
+extern const usart_config_t FLEXCOMM3_config;
+extern const i2c_master_config_t FLEXCOMM4_config;
 /* Date and time structure */
 extern rtc_datetime_t RTC_dateTimeStruct;
-extern const usart_config_t FLEXCOMM3_config;
-extern const usart_config_t FLEXCOMM2_config;
-extern const spi_master_config_t FLEXCOMM0_config;
-extern const ctimer_config_t CTIMER0_config;
-extern const i2c_master_config_t FLEXCOMM1_config;
-extern const i2c_master_config_t FLEXCOMM4_config;
+extern const ctimer_config_t CTIMER2_config;
 
 /***********************************************************************************************************************
  * Callback functions

@@ -433,36 +433,6 @@
               <FilePath>../drivers/fsl_clock.c</FilePath>
             </File>
             <File>
-              <FileName>fsl_power.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_power.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_inputmux.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_inputmux.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_flexcomm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_flexcomm.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_reset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_reset.c</FilePath>
-            </File>
-            <File>
               <FileName>memory.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\memory.c</FilePath>
@@ -1023,36 +993,6 @@
               <FileName>fsl_clock.c</FileName>
               <FileType>1</FileType>
               <FilePath>../drivers/fsl_clock.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_power.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_power.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_inputmux.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_inputmux.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_flexcomm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_flexcomm.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_reset.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../drivers/fsl_reset.c</FilePath>
             </File>
             <File>
               <FileName>memory.c</FileName>
