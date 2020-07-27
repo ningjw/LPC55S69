@@ -11,7 +11,20 @@
 ***************************************************************************************/
 void SI5351_WriteReg(uint8_t reg, uint8_t value) 
 {
+	i2c_master_transfer_t masterXfer;
+    memset(&masterXfer, 0, sizeof(masterXfer));
 
+    masterXfer.slaveAddress   = SI5351_ADDR;
+    masterXfer.direction      = kI2C_Write;
+    masterXfer.subaddress     = reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data           = &value;
+    masterXfer.dataSize       = 1;
+    masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+    /*  direction=write : start+device_write;cmdbuff;xBuff; */
+    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
+	I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
 }
 
 
@@ -21,7 +34,24 @@ void SI5351_WriteReg(uint8_t reg, uint8_t value)
   * @return  register value
 ***************************************************************************************/
 uint8_t SI5351_ReadReg(uint8_t reg) {
-	return 0;
+	i2c_master_transfer_t masterXfer;
+	uint8_t value;
+	
+    memset(&masterXfer, 0, sizeof(masterXfer));
+    masterXfer.slaveAddress   = SI5351_ADDR;
+    masterXfer.direction      = kI2C_Read;
+    masterXfer.subaddress     = reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data           = &value;
+    masterXfer.dataSize       = 1;
+    masterXfer.flags          = kI2C_TransferDefaultFlag;
+
+    /*  direction=write : start+device_write;cmdbuff;xBuff; */
+    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
+
+    I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
+
+	return value;
 }
 
 

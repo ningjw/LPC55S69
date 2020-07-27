@@ -22,7 +22,17 @@
   * @return  
 ***************************************************************************************/
 void MLX_WriteReg(uint8_t reg, uint8_t value) {
-
+	i2c_master_transfer_t masterXfer = {0};
+    uint8_t data = value;
+    masterXfer.slaveAddress = MLX_ADDR;
+    masterXfer.direction = kI2C_Write;
+    masterXfer.subaddress = reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data  = &data;;
+    masterXfer.dataSize = 1;
+    masterXfer.flags = kI2C_TransferDefaultFlag;
+    
+	I2C_MasterTransferBlocking(FLEXCOMM1_PERIPHERAL, &masterXfer);
 }
 
 
@@ -33,7 +43,20 @@ void MLX_WriteReg(uint8_t reg, uint8_t value) {
 ***************************************************************************************/
 uint16_t MLX_ReadReg(uint8_t reg) 
 {
-	return 0;
+	i2c_master_transfer_t masterXfer = {0};
+    uint8_t value[3];
+    uint16_t ret = 0;
+    masterXfer.slaveAddress = MLX_ADDR;
+    masterXfer.direction = kI2C_Read;
+    masterXfer.subaddress = (uint32_t)reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data = value;
+    masterXfer.dataSize = 3;
+    masterXfer.flags = kI2C_TransferRepeatedStartFlag;
+    
+    I2C_MasterTransferBlocking(FLEXCOMM1_PERIPHERAL, &masterXfer);
+    ret = (value[1]<<8) | value[0];
+	return ret;
 }
 
 /*******************************************************************************

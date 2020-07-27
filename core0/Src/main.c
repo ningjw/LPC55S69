@@ -2,6 +2,8 @@
 
 SysPara  g_sys_para;
 ADC_Set  g_adc_set;
+rtc_datetime_t sysTime;
+flash_config_t flashInstance;
 
 void main(void)
 {
@@ -9,7 +11,9 @@ void main(void)
 	BOARD_BootClockRUN();
 	BOARD_InitPins();
 	BOARD_InitPeripherals();
-
+	CTIMER1_Init();
+	memory_init();
+	FLASH_Init(&flashInstance);
 	/* 初始化EventRecorder并开启*/
 	EventRecorderInitialize(EventRecordAll, 1U);
 	EventRecorderStart();
@@ -33,9 +37,6 @@ void main(void)
 
 //    /* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
 //    xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-//	
-//	/* 创建LPM_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-//    xTaskCreate((TaskFunction_t )LPM_AppTask, "ADC_Task",512,NULL, 5,&LPM_TaskHandle);
 
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
@@ -45,7 +46,23 @@ void main(void)
 	}
 }
 
+/***************************************************************************************
+  * @brief  引脚中断回调函数
+  * @input   
+  * @return  
+***************************************************************************************/
 void PINT0_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 {
 	
 }
+
+/***************************************************************************************
+  * @brief   utick0回调函数
+  * @input   
+  * @return  
+***************************************************************************************/
+void UTICK0_Callback(void)
+{
+	
+}
+

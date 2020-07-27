@@ -19,7 +19,17 @@ const float LTC2942_FULLSCALE_TEMPERATURE = 600;
   * @return  
 ***************************************************************************************/
 static void LTC2942_WriteReg(uint8_t reg, uint8_t value) {
-
+	i2c_master_transfer_t masterXfer = {0};
+    uint8_t data = value;
+    masterXfer.slaveAddress = LTC2942_ADDR;
+    masterXfer.direction = kI2C_Write;
+    masterXfer.subaddress = reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data  = &data;;
+    masterXfer.dataSize = 1;
+    masterXfer.flags = kI2C_TransferDefaultFlag;
+    
+	I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
 }
 
 
@@ -29,7 +39,19 @@ static void LTC2942_WriteReg(uint8_t reg, uint8_t value) {
   * @return  register value
 ***************************************************************************************/
 static uint8_t LTC2942_ReadReg(uint8_t reg) {
-	return 0;
+	i2c_master_transfer_t masterXfer = {0};
+    uint8_t value;
+    
+    masterXfer.slaveAddress = LTC2942_ADDR;
+    masterXfer.direction = kI2C_Read;
+    masterXfer.subaddress = (uint32_t)reg;
+    masterXfer.subaddressSize = 1;
+    masterXfer.data = &value;
+    masterXfer.dataSize = 1;
+    masterXfer.flags = kI2C_TransferRepeatedStartFlag;
+
+    I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
+	return value;
 }
 
 

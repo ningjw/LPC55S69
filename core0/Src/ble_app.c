@@ -155,7 +155,7 @@ void BLE_AppTask(void)
 			/* 是否接受完成整个数据包 */
 			if( g_sys_para.firmUpdate == true) {
 				//将参数存入Nor Flash
-//				NorFlash_SaveUpgradePara();
+				Flash_SaveUpgradePara();
 				//关闭所有中断,并复位系统
 				NVIC_SystemReset();
 			}
@@ -214,16 +214,13 @@ void BLE_AppTask(void)
 ***************************************************************************************/
 void FLEXCOMM3_TimeTick(void)
 {
-//	extern volatile uint32_t g_eventTimeMilliseconds;
-//	g_eventTimeMilliseconds++;
-	
     if(g_flexcomm3StartRx)
     {
         g_flexcomm3RxTimeCnt++;
 		if(g_sys_para.BleWifiLedStatus == BLE_UPDATE){
 			if(g_flexcomm3RxTimeCnt >= 1000 ){
 				g_flexcomm3RxTimeCnt = 0;
-				printf("\n接受数据超时,当前接受%d个数据\n", g_flexcomm3RxCnt);
+				printf("\nReceive time out\n", g_flexcomm3RxCnt);
 				for(uint8_t i = 0;i<g_flexcomm3RxCnt; i++){
 					printf("%02x ",g_flexcomm3Buf[i]);
 				}

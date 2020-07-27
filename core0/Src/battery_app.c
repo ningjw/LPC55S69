@@ -29,7 +29,11 @@ void BAT_AppTask(void)
 	
 	g_sys_para.batRegAC = LTC2942_GetAC();
 	if(g_sys_para.batRegAC >= 0x7FE0 && g_sys_para.batRegAC <= 0x7FFF){//此时电池电量检测芯片中的AC值为完全掉电后的值,需要从flash中取
-//		g_sys_para.batRegAC = NORFLASH_AHB_READ_HALFWORD(BAT_PERCENT_SEC * SECTOR_SIZE);
+
+		memory_read(APP_START_ADDR, (uint8_t *)s_buffer, PAGE_SIZE);
+		FLASH_Program(&flashInstance, APP_START_ADDR, (uint8_t *)s_buffer, PAGE_SIZE);
+		
+		g_sys_para.batRegAC = *(volatile uint32_t *)(BAT_INFO_ADDR);
 		LTC2942_SetAC(g_sys_para.batRegAC);
 		
 		//调试时增加这条语句,为了测试拔掉电池后再上电会不会成功执行到该if语句里
@@ -57,14 +61,14 @@ void BAT_AppTask(void)
 				g_sys_para.batRegAC = 0x7FE0;
 				LTC2942_SetAC(0x7FE0);
 			}
-//			NroFlash_SaveBatPercent();//将AC寄存器的值写入flash保存下来
+			Flash_SaveBatPercent();//将AC寄存器的值写入flash保存下来
 		}
         g_sys_para.batRemainPercent = g_sys_para.batRegAC * 100.0 / 0xFFFF;
 		
 		//当保存在flash中的电池电量与当前电池电量不相等时
 		//将当前电量重新保存到flash当中
 		if(g_sys_para.batRemainPercent != g_sys_para.batRemainPercentBak){
-//			NroFlash_SaveBatPercent();
+			Flash_SaveBatPercent();
 		}
 		
         if(READ_CHARGE_STA == 0 && READ_STDBY_STA == 1) {//充电当中

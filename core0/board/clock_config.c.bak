@@ -58,6 +58,7 @@ called_from_default_init: true
 outputs:
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
 - {id: CTIMER1_clock.outFreq, value: 1 MHz}
+- {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
@@ -69,10 +70,12 @@ outputs:
 - {id: WDT_clock.outFreq, value: 1 MHz}
 settings:
 - {id: PLL0_Mode, value: Normal}
+- {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
@@ -88,6 +91,7 @@ settings:
 - {id: SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG, value: Enabled}
 - {id: UTICK_EN_CFG, value: Enable}
 sources:
+- {id: ANACTRL.fro_hf.outFreq, value: 96 MHz}
 - {id: SYSCON.XTAL32M.outFreq, value: 16 MHz, enabled: true}
 - {id: SYSCON.fro_1m.outFreq, value: 1 MHz}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -110,6 +114,8 @@ void BOARD_BootClockRUN(void)
 
     /*!< Configure fro_1m */
     SYSCON->CLOCK_CTRL |=  SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_MASK;                 /*!< Ensure fro_1m is on */
+
+    CLOCK_SetupFROClocking(96000000U);                   /* Enable FRO HF(96MHz) output */
 
     /*!< Configure XTAL32M */
     POWER_DisablePD(kPDRUNCFG_PD_XTAL32M);                        /* Ensure XTAL32M is powered */
@@ -162,6 +168,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
     CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */
+    CLOCK_AttachClk(kFRO_HF_to_CTIMER2);                 /*!< Switch CTIMER2 to FRO_HF */
     SYSCON->MAINCLKSELA = ((SYSCON->MAINCLKSELA & ~SYSCON_MAINCLKSELA_SEL_MASK) | SYSCON_MAINCLKSELA_SEL(1U));    /*!< Switch MAINCLKSELA to EXT_CLK even it is not used for MAINCLKSELB */
 
     /*< Set SystemCoreClock variable. */

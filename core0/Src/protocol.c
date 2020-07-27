@@ -4,7 +4,7 @@ extern uint8_t s_nor_program_buffer[];
 extern AdcInfoTotal adcInfoTotal;
 extern AdcInfo adcInfo;
 rtc_datetime_t sampTime;
-rtc_datetime_t sysTime;
+
 uint16_t ble_wait_time = 100;
 
 /***************************************************************************************
@@ -568,8 +568,8 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
     g_sys_para.firmUpdate = false;
     g_sys_para.firmPacksCount = 0;
     g_sys_para.firmSizeCurrent = 0;
-    g_sys_para.firmCurrentAddr = APP_START_SECTOR * SECTOR_SIZE;;
-
+    g_sys_para.firmCurrentAddr = APP_DATA_ADDR;
+	
     /*解析消息内容,*/
     pSub = cJSON_GetObjectItem(pJson, "Packs");
     if (NULL != pSub)
@@ -588,8 +588,8 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
     g_sys_para.firmUpdate = false;
 
     /* 按照文件大小擦除对应大小的空间 */
-    for(int i = 0; i<= g_sys_para.firmSizeTotal/SECTOR_SIZE; i++) {
-        FlexSPI_NorFlash_Erase_Sector(FLEXSPI, (APP_START_SECTOR + i)*SECTOR_SIZE);
+    for(int i = 0; i<= g_sys_para.firmSizeTotal/PAGE_SIZE; i++) {
+		FLASH_Erase(&flashInstance, APP_DATA_ADDR+PAGE_SIZE*i, PAGE_SIZE, kFLASH_ApiEraseKey);
     }
 
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -679,7 +679,7 @@ static char* GetManageInfo(cJSON *pJson, cJSON * pSub)
     fileStr = malloc(len);
     memset(fileStr, 0U, len);
 
-    NorFlash_ReadAdcInfo(si, num, fileStr);
+    W25Q148_ReadAdcInfo(si, num, fileStr);
 
     /*制作cjson格式的回复消息*/
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -717,7 +717,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
     }
 
     /*从flash读取文件*/
-    ret = NorFlash_ReadAdcData(fileName);
+    ret = W25Q128_ReadAdcData(fileName);
     if(ret == true) {
 		sampTime.year = (fileName[0] - '0')*10 + (fileName[1]-'0') + 2000;
 		sampTime.month =(fileName[2] - '0')*10 + (fileName[3]-'0');
@@ -766,6 +766,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 ***************************************************************************************/
 char *EraseAdcDataInFlash(void)
 {
+	/*
     for(int i = ADC_INFO_SECTOR; i<ADC_DATA_SECTOR; i++) {
         FlexSPI_NorFlash_Erase_Sector(FLEXSPI, i*SECTOR_SIZE);
     }
@@ -782,6 +783,7 @@ char *EraseAdcDataInFlash(void)
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     cJSON_Delete(pJsonRoot);
     return p_reply;
+	*/
 }
 
 
@@ -1081,7 +1083,7 @@ SEND_DATA:
 		free(p_reply);
 		p_reply = NULL;
 	}else{
-		LPUART_WriteBlocking(FLEXCOMM3, g_flexcomm3TxBuf, i);
+		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
 	}
 	vTaskDelay(ble_wait_time);
 	if(g_sys_para.sampPacksCnt < (g_adc_set.sampPacks-1) && flag_get_all_data) {
@@ -1197,9 +1199,9 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
         /* 包id */
         g_sys_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
-        g_sys_para.firmCurrentAddr = APP_START_SECTOR * SECTOR_SIZE + g_sys_para.firmPacksCount * FIRM_ONE_LEN;//
+        g_sys_para.firmCurrentAddr = APP_DATA_ADDR+g_sys_para.firmPacksCount * FIRM_ONE_LEN;//
 //        printf("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
-        FlexSPI_FlashWrite(pMsg+4, g_sys_para.firmCurrentAddr, FIRM_ONE_LEN);
+        FLASH_SaveAppData(pMsg+4, g_sys_para.firmCurrentAddr, FIRM_ONE_LEN);
     }
 
     /* 当前为最后一包,计算整个固件的crc16码 */
@@ -1217,13 +1219,13 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 //			printf("%02X ",*(uint8_t *)(FlexSPI_AMBA_BASE + APP_START_SECTOR * SECTOR_SIZE+i));
 //		}
 
-        crc = CRC16((uint8_t *)(FlexSPI_AMBA_BASE + APP_START_SECTOR * SECTOR_SIZE), g_sys_para.firmSizeTotal);
+        crc = CRC16((uint8_t *)APP_DATA_ADDR, g_sys_para.firmSizeTotal);
         printf("\nCRC=%d",crc);
         if(crc != g_sys_para.firmCrc16) {
             g_sys_para.firmUpdate = false;
             err_code = 2;
         } else {
-            printf("\n整包CRC校验通过,开始重启设备\n");
+            printf("\nCRC Verify OK\n");
             g_sys_para.firmUpdate = true;
         }
     }

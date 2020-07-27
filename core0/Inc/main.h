@@ -4,6 +4,13 @@
 #define SOFT_VERSION       "0.16"
 #define HARD_VERSION       "1.1"
 
+#define BAT_INFO_ADDR     0x7C00        //用于保存电池电量信息, 由于电池电量刷新频繁一些, 所有单独一个区域
+#define IAP_INFO_ADDR     0x7E00        //用于保存升级信息
+#define APP_START_ADDR    0x8000		// APP代码起始地址
+#define APP_DATA_ADDR     0x28000       // 32k+128k的位置
+
+#define PAGE_SIZE 0x200
+
 #define BLE_VERSION
 //#define WIFI_VERSION 
 #ifdef BLE_VERSION
@@ -34,6 +41,8 @@
 #include "fsl_spi.h"
 #include "fsl_power.h"
 #include "fsl_iocon.h"
+#include "memory.h"
+#include "fsl_iap.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -42,13 +51,18 @@
 #include "queue.h"
 #include "timers.h"
 
+
 #include "cJSON.h"
 #include "protocol.h"
 #include "led_app.h"
 #include "ble_app.h"
+#include "adc_app.h"
+#include "flash_app.h"
+#include "battery_app.h"
 #include "battery_drv.h"
 #include "iic_temp_drv.h"
 #include "si5351_drv.h"
+#include "adc_drv.h"
 
 typedef struct{
 	uint32_t totalAdcInfo;
@@ -159,5 +173,6 @@ typedef struct{
 
 extern SysPara g_sys_para;
 extern ADC_Set g_adc_set;
-
+extern rtc_datetime_t sysTime;
+extern flash_config_t flashInstance;
 #endif

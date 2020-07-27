@@ -57,12 +57,14 @@ name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
+- {id: CTIMER1_clock.outFreq, value: 1 MHz}
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: FXCOM0_clock.outFreq, value: 12 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
 - {id: FXCOM3_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
+- {id: FXCOM6_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
 - {id: System_clock.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
@@ -73,13 +75,16 @@ settings:
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
+- {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL3.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
+- {id: SYSCON.FCCLKSEL6.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
+- {id: SYSCON.FROHFDIV.scale, value: '2'}
 - {id: SYSCON.MAINCLKSELA.sel, value: SYSCON.CLK_IN_EN}
 - {id: SYSCON.MAINCLKSELB.sel, value: SYSCON.PLL0_BYPASS}
 - {id: SYSCON.PLL0CLKSEL.sel, value: SYSCON.CLK_IN_EN}
@@ -152,6 +157,8 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg3, 256U, false);         /*!< Set FRGCTRL3_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 0U, true);               /*!< Reset FRGCTRL4_DIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 256U, false);         /*!< Set FRGCTRL4_DIV divider to value 256 */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 0U, true);               /*!< Reset FRGCTRL6_DIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 256U, false);         /*!< Set FRGCTRL6_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false);         /*!< Set AHBCLKDIV divider to value 1 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
@@ -163,8 +170,10 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM3);                 /*!< Switch FLEXCOMM3 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
+    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
+    CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */
     CLOCK_AttachClk(kFRO_HF_to_CTIMER2);                 /*!< Switch CTIMER2 to FRO_HF */
     SYSCON->MAINCLKSELA = ((SYSCON->MAINCLKSELA & ~SYSCON_MAINCLKSELA_SEL_MASK) | SYSCON_MAINCLKSELA_SEL(1U));    /*!< Switch MAINCLKSELA to EXT_CLK even it is not used for MAINCLKSELB */
 

@@ -6,7 +6,8 @@
 
 volatile uint32_t g_pwmPeriod   = 0U;
 volatile uint32_t g_pulsePeriod = 0U;
-
+extern void CTIMER1_Callback(uint32_t flags);
+ctimer_callback_t CTIMER1_callback[] = {CTIMER1_Callback};
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -88,6 +89,21 @@ void Filter_PwmClkStart(void)
 void Filter_PwmClkStop(void)
 {
 	CTIMER_StopTimer(CTIMER2);
+}
+
+/***************************************************************************************
+  * @brief   用于捕获转速信号周期
+  * @input   
+  * @return  
+***************************************************************************************/
+void CTIMER1_Init(void)
+{
+	ctimer_config_t config;
+	CTIMER_GetDefaultConfig(&config);
+    config.input = kCTIMER_Capture_0;
+    CTIMER_Init(CTIMER1, &config);
+    CTIMER_RegisterCallBack(CTIMER1, CTIMER1_callback, kCTIMER_SingleCallback);
+    CTIMER_SetupCapture(CTIMER1, kCTIMER_Capture_0, kCTIMER_Capture_BothEdge, true);
 }
 
 /***************************************************************************************

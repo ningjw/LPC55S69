@@ -1,18 +1,17 @@
 #include "main.h"
 
-uint32_t SpeedADC[ADC_LEN];
+uint32_t SpeedADC[SPD_LEN];
 uint32_t ShakeADC[ADC_LEN];
 float Temperature[64];
 
-#define ADC_MODE_LOW_POWER       GPIO_PinWrite(BOARD_ADC_MODE_GPIO, BOARD_ADC_MODE_PIN, 1)  //低功耗模式
-#define ADC_MODE_HIGH_SPEED      GPIO_PinWrite(BOARD_ADC_MODE_GPIO, BOARD_ADC_MODE_PIN, 0)   //高速模式
+#define ADC_MODE_LOW_POWER       GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 1)  //低功耗模式
+#define ADC_MODE_HIGH_SPEED      GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 0)   //高速模式
 #define ADC_MODE_HIGH_RESOLUTION //高精度模式(浮空)
-#define ADC_SYNC_HIGH            GPIO_PinWrite(BOARD_ADC_SYNC_GPIO, BOARD_ADC_SYNC_PIN, 1)
-#define ADC_SYNC_LOW             GPIO_PinWrite(BOARD_ADC_SYNC_GPIO, BOARD_ADC_SYNC_PIN, 0)
+#define ADC_SYNC_HIGH            GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 1)
+#define ADC_SYNC_LOW             GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 0)
 
-#define PWR_ON    GPIO_PinWrite(BOARD_PWR_EN_GPIO, BOARD_PWR_EN_PIN, 0)
-#define PWR_OFF   GPIO_PinWrite(BOARD_PWR_EN_GPIO, BOARD_PWR_EN_PIN, 1)
-
+#define PWR_ADC_ON    GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
+#define PWR_ADC_OFF   GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 1)
 
 TaskHandle_t ADC_TaskHandle = NULL;  /* ADC任务句柄 */
 
@@ -22,34 +21,24 @@ char str[12];
 uint32_t ADC_ShakeValue = 0;
 uint32_t  ADC_InvalidCnt = 0;
 
-//extern lpspi_transfer_t spi_tranxfer;
-extern void QuadTimer1_init(void);
+
 /***************************************************************************************
-  * @brief   kPIT_Chnl_0用于触发ADC采样 ；kPIT_Chnl_1 用于定时采样; kPIT_Chnl_2用于定时关机1分钟中断
+  * @brief   
   * @input
   * @return
 ***************************************************************************************/
-void PIT_IRQHandler(void)
+void RTC_IRQHANDLER(void)
 {
-    if( PIT_GetStatusFlags(PIT, kPIT_Chnl_2) == true) {
-        /* 清除中断标志位.*/
-        PIT_ClearStatusFlags(PIT, kPIT_Chnl_2, kPIT_TimerFlag);
-		
-		//在采集数据时,每间隔1S获取一次温度数据
-		if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
-			Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
-		}
-		
-		SNVS_LP_SRTC_GetDatetime(SNVS_LP_PERIPHERAL, &sysTime);
-		
-        if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
-            GPIO_PinWrite(BOARD_SYS_PWR_OFF_GPIO, BOARD_SYS_PWR_OFF_PIN, 1);
-            //SNVS->LPSR |= SNVS_LPCR_DP_EN(1);
-            //SNVS->LPSR |= SNVS_LPCR_TOP(1);
-        }
-    }
-
-    __DSB();
+	//在采集数据时,每间隔1S获取一次温度数据
+	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
+		Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
+	}
+	
+	RTC_GetDatetime(RTC, &sysTime);
+	
+	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
+		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
+	}
 }
 
 /***************************************************************************************
@@ -57,26 +46,15 @@ void PIT_IRQHandler(void)
   * @input
   * @return
 ***************************************************************************************/
-void TMR1_IRQHandler(void)
+void CTIMER1_Callback(uint32_t flags)
 {
-    /* 清除中断标志 */
-    QTMR_ClearStatusFlags(QUADTIMER1_PERIPHERAL, QUADTIMER1_CHANNEL_0_CHANNEL, kQTMR_EdgeFlag);
-	if(g_adc_set.spdCount < ADC_LEN){
-		SpeedADC[g_adc_set.spdCount++] = QUADTIMER1_PERIPHERAL->CHANNEL[QUADTIMER1_CHANNEL_0_CHANNEL].CAPT;//读取寄存器值
+	//清楚输入捕获0的中断
+	CTIMER_ClearStatusFlags(CTIMER1, kCTIMER_Capture0Flag);
+	if(g_adc_set.spdCount < SPD_LEN){
+		SpeedADC[g_adc_set.spdCount++] = CTIMER_GetTimerCountValue(CTIMER1);
 	}
 }
 
-
-/***************************************************************************************
-  * @brief   用于检测ADC_RDY引脚下降沿中断引脚
-  * @input
-  * @return
-***************************************************************************************/
-void GPIO2_Combined_0_15_IRQHandler(void)
-{
-	/* 清除中断标志位 */
-	GPIO_PortClearInterruptFlags(BOARD_ADC_RDY_PORT,1U << BOARD_ADC_RDY_PIN);
-}
 
 /***************************************************************************************
   * @brief   start adc sample
@@ -89,7 +67,7 @@ void ADC_SampleStart(void)
     g_adc_set.spdCount = 0;
     g_adc_set.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
-	memset(SpeedADC,0,ADC_LEN);
+	memset(SpeedADC,0,SPD_LEN);
 
 		//判断自动关机条件
     if(g_sys_para.inactiveCondition != 1) {
@@ -101,13 +79,12 @@ void ADC_SampleStart(void)
 		g_sys_para.sampNumber = ADC_LEN;
 	}
 	
-	PWR_ON;//开启ADC相关的电源
+	PWR_ADC_ON;//开启ADC相关的电源
 	vTaskDelay(500);//等待500ms
 	
 	//挂起电池与LED灯的任务,并停止PendSV与SysTick中断
     vTaskSuspend(BAT_TaskHandle);
     vTaskSuspend(LED_TaskHandle);
-	vTaskSuspend(LPM_TaskHandle);
 	NVIC_DisableIRQ(PendSV_IRQn);   
     NVIC_DisableIRQ(SysTick_IRQn);
 	
@@ -130,22 +107,16 @@ void ADC_SampleStart(void)
 #ifdef HDV_1_0
 	g_sys_para.Ltc1063Clk = 1000000;
 #endif
-    QTMR_SetupPwm(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL, g_sys_para.Ltc1063Clk, 50U, false, CLOCK_GetFreq(kCLOCK_IpgClk));
-    QTMR_StartTimer(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL, kQTMR_PriSrcRiseEdge);
 	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
 	si5351aSetClk1Frequency(g_sys_para.Ltc1063Clk);
 	
-	//设置为true后,会在PIT中断中采集温度数据
-	g_sys_para.WorkStatus = true;
-	PIT_StopTimer(PIT1_PERIPHERAL, kPIT_Chnl_2);
-	PIT_StartTimer(PIT1_PERIPHERAL, kPIT_Chnl_2);
-	
 	//开始采集数据前获取一次温度
 	Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
+	//设置为true后,会在PIT中断中采集温度数据
+	g_sys_para.WorkStatus = true;
 	
 	/* 输入捕获，计算转速信号周期 */
-	QuadTimer1_init();
-    QTMR_StartTimer(QUADTIMER1_PERIPHERAL, QUADTIMER1_CHANNEL_0_CHANNEL, kQTMR_PriSrcRiseEdge);
+    CTIMER_StartTimer(CTIMER1);
 	
 	//丢弃前500个数据
 	ADC_InvalidCnt = 0;
@@ -156,10 +127,6 @@ void ADC_SampleStart(void)
 		if(ADC_InvalidCnt > 100) break;
     }
 	
-	/* Set channel 0 period (66000000 ticks). 用于触发内部ADC采样，采集转速信号*/
-//    PIT_SetTimerPeriod(PIT1_PERIPHERAL, kPIT_Chnl_0, PIT1_CLK_FREQ / g_adc_set.SampleRate);
-//    /* Start channel 0. 开启通道0,正式开始采样*/
-//    PIT_StartTimer(PIT1_PERIPHERAL, kPIT_Chnl_0);
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
@@ -193,12 +160,10 @@ void ADC_SampleStop(void)
 	g_sys_para.WorkStatus = false;
 	ADC_PwmClkStop();
     /* Stop the timer */
-    QTMR_StopTimer(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL);
-    QTMR_StopTimer(QUADTIMER1_PERIPHERAL, QUADTIMER1_CHANNEL_0_CHANNEL);
+	CTIMER_StopTimer(CTIMER1);
 	
     vTaskResume(BAT_TaskHandle);
     vTaskResume(LED_TaskHandle);
-	vTaskResume(LPM_TaskHandle);
 	
 	//结束采集后获取一次温度
 	Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
@@ -208,7 +173,7 @@ void ADC_SampleStop(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL,false);
 	
 	//关闭电源
-	PWR_OFF;
+	PWR_ADC_OFF;
 	
     /* 触发ADC采样完成事件  */
     xTaskNotify(ADC_TaskHandle, NOTIFY_FINISH, eSetBits);
@@ -231,20 +196,17 @@ void ADC_AppTask(void)
 	ADC_PwmClkConfig(1000000);
 	si5351aSetClk0Frequency(1000000);
 	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
-    QTMR_SetupPwm(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL, g_sys_para.Ltc1063Clk, 50U, false, CLOCK_GetFreq(kCLOCK_IpgClk));
-    QTMR_StartTimer(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL, kQTMR_PriSrcRiseEdge);
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
     while (ADC_READY == 1){};  //wait ads1271 ready
     if(ADS1271_ReadData() == 0) {
         g_sys_para.sampLedStatus = WORK_FATAL_ERR;
     }
-	SI5351a_SetPDN(SI_CLK0_CONTROL,false);
-	QTMR_StopTimer(QUADTIMER3_PERIPHERAL, QUADTIMER3_CHANNEL_0_CHANNEL);
+	SI5351a_SetPDN(SI_CLK0_CONTROL, false);
 //	while (1) { //wait ads1271 ready
 //        while(ADC_READY == 1){};//等待ADC_READY为低电平
 //		ADC_ShakeValue = ADS1271_ReadData();
 //    }
-	PWR_OFF;//关闭ADC采集相关的电源
+	PWR_ADC_OFF;//关闭ADC采集相关的电源
     printf("ADC Task Create and Running\r\n");
     while(1)
     {
@@ -287,7 +249,7 @@ void ADC_AppTask(void)
 				g_adc_set.ProcessMax = Temperature[max_i];
 				g_adc_set.ProcessMin = Temperature[min_i];
 				
-				NorFlash_AddAdcData();
+				W25Q128_AddAdcData();
                 /* 发送任务通知，并解锁阻塞在该任务通知下的任务 */
                 xTaskNotifyGive( BLE_TaskHandle);
             }

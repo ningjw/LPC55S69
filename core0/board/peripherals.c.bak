@@ -122,7 +122,7 @@ instance:
       - timerPrescaler: '1'
     - EnableTimerInInit: 'true'
     - pwmConfig:
-      - pwmPeriodValueStr: '1'
+      - pwmPeriodValueStr: '2'
       - enableInterrupt: 'false'
       - pwmChannels:
         - 0:
@@ -154,18 +154,18 @@ void CTIMER0_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER1 initialization code
+ * CTIMER2 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'CTIMER1'
+- name: 'CTIMER2'
 - type: 'ctimer'
-- mode: 'Capture_Match'
+- mode: 'PWM'
 - custom_name_enabled: 'false'
 - type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER1'
+- peripheral: 'CTIMER2'
 - config_sets:
   - fsl_ctimer:
     - ctimerConfig:
@@ -173,8 +173,16 @@ instance:
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
       - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
-    - matchChannels: []
+    - EnableTimerInInit: 'true'
+    - pwmConfig:
+      - pwmPeriodValueStr: '2'
+      - enableInterrupt: 'false'
+      - pwmChannels:
+        - 0:
+          - pwmChannelPrefixId: 'PWM_1'
+          - pwmChannel: 'kCTIMER_Match_1'
+          - pwmDutyValueStr: '1'
+          - enableInterrupt: 'false'
     - interruptCallbackConfig:
       - interrupt:
         - IRQn: 'CTIMER1_IRQn'
@@ -183,15 +191,19 @@ instance:
       - callback: 'kCTIMER_NoCallback'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ctimer_config_t CTIMER1_config = {
+const ctimer_config_t CTIMER2_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
   .prescale = 0
 };
 
-void CTIMER1_init(void) {
-  /* CTIMER1 peripheral initialization */
-  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
+void CTIMER2_init(void) {
+  /* CTIMER2 peripheral initialization */
+  CTIMER_Init(CTIMER2_PERIPHERAL, &CTIMER2_config);
+  /* PWM channel 1 of CTIMER2 peripheral initialization */
+  CTIMER_SetupPwmPeriod(CTIMER2_PERIPHERAL, CTIMER2_PWM_1_CHANNEL, CTIMER2_PWM_PERIOD, CTIMER2_PWM_1_DUTY, false);
+  /* Start the timer */
+  CTIMER_StartTimer(CTIMER2_PERIPHERAL);
 }
 
 /***********************************************************************************************************************
@@ -511,15 +523,13 @@ instance:
         - minute: '0'
         - second: '0'
       - setAlarmTime: 'false'
-      - setWakeup: 'true'
-      - wakeuptimer:
-        - wake_up_time: '10'
+      - setWakeup: 'false'
       - alarm_wake_up_enable: 'false'
       - wake_up_enable: 'false'
       - start: 'true'
     - rtc_interrupt:
       - interrupt_vectors:
-        - enable_irq: 'false'
+        - enable_irq: 'true'
         - interrupt:
           - IRQn: 'RTC_IRQn'
           - enable_priority: 'false'
@@ -543,10 +553,10 @@ void RTC_init(void) {
   RTC_StopTimer(RTC_PERIPHERAL);
   /* Date and time initialization */
   RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
-  /* Wake-up initialization */
-  RTC_SetWakeupCount(RTC_PERIPHERAL, RTC_WAKE_UP_TIME);
   /* Start RTC timer */
   RTC_StartTimer(RTC_PERIPHERAL);
+  /* Enable interrupt RTC_IRQn request in the NVIC */
+  EnableIRQ(RTC_IRQN);
 }
 
 /***********************************************************************************************************************
@@ -570,8 +580,9 @@ instance:
     - timerSettingUTICK:
       - utick_mode_t: 'kUTICK_Repeat'
       - startTimer: 'true'
-      - timerValueStr: '10000'
-      - callbackEnable: 'false'
+      - timerValueStr: '1000000'
+      - callbackEnable: 'true'
+      - utick_callback_t: 'UTICK0_Callback'
     - interrupt:
       - IRQn: 'UTICK0_IRQn'
       - enable_priority: 'false'
@@ -583,7 +594,49 @@ void UTICK0_init(void) {
   /* UTICK0 peripheral initialization */
   UTICK_Init(UTICK0_PERIPHERAL);
   /* Configuration of UTICK0 peripheral initialization */
-  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, NULL);
+  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, UTICK0_Callback);
+}
+
+/***********************************************************************************************************************
+ * CTIMER1 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'CTIMER1'
+- type: 'ctimer'
+- mode: 'Capture_Match'
+- custom_name_enabled: 'false'
+- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'CTIMER1'
+- config_sets:
+  - fsl_ctimer:
+    - ctimerConfig:
+      - mode: 'kCTIMER_TimerMode'
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - timerPrescaler: '1'
+    - EnableTimerInInit: 'false'
+    - matchChannels: []
+    - interruptCallbackConfig:
+      - interrupt:
+        - IRQn: 'CTIMER1_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+      - callback: 'kCTIMER_SingleCallback'
+      - singleCallback: 'CTIMER1_Callback'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const ctimer_config_t CTIMER1_config = {
+  .mode = kCTIMER_TimerMode,
+  .input = kCTIMER_Capture_0,
+  .prescale = 0
+};
+
+void CTIMER1_init(void) {
+  /* CTIMER1 peripheral initialization */
+  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
 }
 
 /***********************************************************************************************************************
@@ -597,7 +650,7 @@ void BOARD_InitPeripherals(void)
   /* Initialize components */
   DMA0_init();
   CTIMER0_init();
-  CTIMER1_init();
+  CTIMER2_init();
   FLEXCOMM0_init();
   FLEXCOMM1_init();
   FLEXCOMM2_init();
@@ -606,6 +659,7 @@ void BOARD_InitPeripherals(void)
   PINT_init();
   RTC_init();
   UTICK0_init();
+  CTIMER1_init();
 }
 
 /***********************************************************************************************************************
