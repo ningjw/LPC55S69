@@ -63,6 +63,7 @@
 #include "iic_temp_drv.h"
 #include "si5351_drv.h"
 #include "adc_drv.h"
+#include "w25q128_drv.h"
 
 typedef struct{
 	uint32_t totalAdcInfo;
