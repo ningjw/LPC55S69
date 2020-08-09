@@ -6,6 +6,7 @@
 ".\objects\ble_app.o"
 ".\objects\protocol.o"
 ".\objects\flash_app.o"
+".\objects\nbiot_app.o"
 ".\objects\iic_temp_drv.o"
 ".\objects\battery_drv.o"
 ".\objects\adc_drv.o"

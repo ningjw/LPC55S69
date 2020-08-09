@@ -3,395 +3,220 @@
 * Author             :
 * Version            :
 * Date               :
-* Description        : Flash的特性是：写数据只能将1写为0，擦除数据就是写1
-*                      因此如果想在以有数据的falsh上写入新的数据，则必须先擦除。
-*                      还有Flash在擦除的时候必须整块擦除
+* Description        : 4Kbytes为一个Sector,16个扇区为1个Block,
+*                      W25Q128容量为16M字节,共有256个Block,4096个Sector
 *******************************************************************************/
 
 #include "main.h"
 
 
-#define FLASH_CS_LOW    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT ,BOARD_FLASH_CS_PIN ,0);
-#define FLASH_CS_HIGH   GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT ,BOARD_FLASH_CS_PIN ,1);
-#define FLASH_CLK_Low   GPIO_PinWrite(GPIO, BOARD_FLASH_SCK_PORT,BOARD_FLASH_SCK_PIN,0);
-#define FLASH_CLK_High  GPIO_PinWrite(GPIO, BOARD_FLASH_SCK_PORT,BOARD_FLASH_SCK_PIN,1);
-#define FLASH_DI_Low    GPIO_PinWrite(GPIO, BOARD_FLASH_MOSI_PORT ,BOARD_FLASH_MOSI_PIN ,0);
-#define FLASH_DI_High   GPIO_PinWrite(GPIO, BOARD_FLASH_MOSI_PORT ,BOARD_FLASH_MOSI_PIN ,1);
-#define FLASH_WP_Low    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT ,BOARD_FLASH_WP_PIN ,0)
-#define FLASH_WP_High	GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT ,BOARD_FLASH_WP_PIN ,1)
-#define FLASH_Read_DO   GPIO_PinRead(GPIO, BOARD_FLASH_MISO_PORT, BOARD_FLASH_MISO_PIN)
-#define SPI_FLASH_PageSize  256
-
-/*******************************************************************************
-* Function Name  : MX25L128_BufferWrite
-* Description    : Writes block of data to the FLASH. In this function, the
-*                  number of WRITE cycles are reduced, using Page WRITE sequence.
-* Input          : - pBuffer : pointer to the buffer  containing the data to be
-*                    written to the FLASH.
-*                  - WriteAddr : FLASH's internal address to write to.
-*                  - NumByteToWrite : number of bytes to write to the FLASH.
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void NorFLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
+//SPIx 读写一个字节
+//TxData:要写入的字节
+//返回值:读取到的字节
+uint8_t SPI_ReadWriteByte(uint8_t TxData)
 {
-    uint8_t NumOfPage = 0, NumOfSingle = 0, Addr = 0, count = 0, temp = 0;
+    while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_TXEMPTY_MASK)==0);	//等待发送fifo为空,从而可以发送数据	
+	FLEXCOMM0_PERIPHERAL->FIFOWR = TxData;		 //发送数据
+	while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK)==0);//等待接收fifo不为空,从而可以读取数据
+    
+	return FLEXCOMM6_PERIPHERAL->FIFORD;			//读取数据
+}
 
-    Addr = WriteAddr % SPI_FLASH_PageSize;
-    count = SPI_FLASH_PageSize - Addr;
-    NumOfPage =  NumByteToWrite / SPI_FLASH_PageSize;
-    NumOfSingle = NumByteToWrite % SPI_FLASH_PageSize;
 
-    if (Addr == 0) /* WriteAddr is SPI_FLASH_PageSize aligned  */
+//读取芯片ID W25X16的ID:0XEF14
+uint16_t SPI_Flash_ReadID(void)
+{
+    uint16_t Temp = 0;
+//	SPI_FLASH_CS=0;
+    SPI_ReadWriteByte(0x90);//发送读取ID命令
+    SPI_ReadWriteByte(0x00);
+    SPI_ReadWriteByte(0x00);
+    SPI_ReadWriteByte(0x00);
+    Temp|=SPI_ReadWriteByte(0xFF)<<8;
+    Temp|=SPI_ReadWriteByte(0xFF);
+//	SPI_FLASH_CS=1;
+    return Temp;
+}
+
+uint16_t SPI_FLASH_TYPE = W25Q128;//默认就是25Q128
+//初始化SPI FLASH的IO口
+void SPI_Flash_Init(void)
+{
+    SPI_FLASH_TYPE = SPI_Flash_ReadID();//读取FLASH ID.
+}
+
+//读取SPI FLASH
+//在指定地址开始读取指定长度的数据
+//pBuffer:数据存储区
+//ReadAddr:开始读取的地址(24bit)
+//NumByteToRead:要读取的字节数(最大65535)
+void SPI_Flash_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint16_t NumByteToRead)
+{
+    uint16_t i;
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_ReadData);         //暍送读取命令
+    SPI_ReadWriteByte((uint8_t)((ReadAddr)>>16));  //暍送24bit地謺
+    SPI_ReadWriteByte((uint8_t)((ReadAddr)>>8));
+    SPI_ReadWriteByte((uint8_t)ReadAddr);
+    for(i=0; i<NumByteToRead; i++)
     {
-        if (NumOfPage == 0) /* NumByteToWrite < SPI_FLASH_PageSize */
+        pBuffer[i]=SPI_ReadWriteByte(0XFF);   //循粫读数
+    }
+//	SPI_FLASH_CS=1;                            //取消片选
+}
+uint8_t SPI_Flash_ReadSR(void)
+{
+    uint8_t byte=0;
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_ReadStatusReg);    //暍送读取状态寄存器命令
+    byte=SPI_ReadWriteByte(0Xff);             //读取一个字节
+//	SPI_FLASH_CS=1;                            //取消片选
+    return byte;
+}
+//等待空闲
+void SPI_Flash_Wait_Busy(void)
+{
+    while ((SPI_Flash_ReadSR()&0x01)==0x01);   // 等待BUSY位清空
+}
+//SPI_FLASH写使能
+//将WEL置位
+void SPI_FLASH_Write_Enable(void)
+{
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_WriteEnable);      //暍送写使能
+//	SPI_FLASH_CS=1;                            //取消片选
+}
+//SPI在一页(0~65535)内写入少于256个字节的数据
+//在指定地謺开始写入最大256字节的数据
+//pBuffer:数据存储区
+//WriteAddr:开始写入的地謺(24bit)
+//NumByteToWrite:要写入的字节数(最大256),该数不应该超过该页的剩余字节数!!!
+void SPI_Flash_Write_Page(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteToWrite)
+{
+    uint16_t i;
+    SPI_FLASH_Write_Enable();                  //SET WEL
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_PageProgram);      //暍送写页命令
+    SPI_ReadWriteByte((uint8_t)((WriteAddr)>>16)); //暍送24bit地謺
+    SPI_ReadWriteByte((uint8_t)((WriteAddr)>>8));
+    SPI_ReadWriteByte((uint8_t)WriteAddr);
+    for(i=0; i<NumByteToWrite; i++)SPI_ReadWriteByte(pBuffer[i]); //循粫写数
+//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_Flash_Wait_Busy();					   //等待写入结束
+}
+//无检验写SPI FLASH
+//必须葧保所写的地謺暥围内的数据全部为0XFF,曬则在暻0XFF处写入的数据将失败!
+//具有自动换页功能
+//在指定地謺开始写入指定长度的数据,但是要葧保地謺不越界!
+//pBuffer:数据存储区
+//WriteAddr:开始写入的地謺(24bit)
+//NumByteToWrite:要写入的字节数(最大65535)
+//CHECK OK
+void SPI_Flash_Write_NoCheck(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteToWrite)
+{
+    uint16_t pageremain;
+    pageremain=256-WriteAddr%256; //单页剩余的字节数
+    if(NumByteToWrite<=pageremain)pageremain=NumByteToWrite;//不大于256个字节
+    while(1)
+    {
+        SPI_Flash_Write_Page(pBuffer,WriteAddr,pageremain);
+        if(NumByteToWrite==pageremain)break;//写入结束了
+        else //NumByteToWrite>pageremain
         {
-            NorFLASH_Page_Write(pBuffer, WriteAddr, NumByteToWrite);
+            pBuffer+=pageremain;
+            WriteAddr+=pageremain;
+
+            NumByteToWrite-=pageremain;			  //减去已经写入了的字节数
+            if(NumByteToWrite>256)pageremain=256; //一次可以写入256个字节
+            else pageremain=NumByteToWrite; 	  //不够256个字节了
         }
-        else /* NumByteToWrite > SPI_FLASH_PageSize */
+    };
+}
+
+
+//写SPI_FLASH状态寄存器
+//只有SPR,TB,BP2,BP1,BP0(bit 7,5,4,3,2)可以写!!!
+void SPI_FLASH_Write_SR(uint8_t sr)
+{
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_WriteStatusReg);   //暍送写取状态寄存器命令
+    SPI_ReadWriteByte(sr);               //写入一个字节
+//	SPI_FLASH_CS=1;                            //取消片选
+}
+
+//SPI_FLASH写禁止
+//将WEL清零
+void SPI_FLASH_Write_Disable(void)
+{
+//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_WriteDisable);     //暍送写禁止指令
+//	SPI_FLASH_CS=1;                            //取消片选
+}
+//擦除一个扇区
+//Dst_Addr:扇区地謺 0~511 for w25x16
+//擦除一个山区的最少时间:150ms
+void SPI_Flash_Erase_Sector(uint32_t Dst_Addr)
+{
+
+    SPI_FLASH_Write_Enable();                  //SET WEL
+    SPI_Flash_Wait_Busy();
+//  	SPI_FLASH_CS=0;                            //使能器件
+    SPI_ReadWriteByte(W25X_SectorErase);      //暍送扇区擦除指令
+    SPI_ReadWriteByte((uint8_t)((Dst_Addr)>>16));  //暍送24bit地謺
+    SPI_ReadWriteByte((uint8_t)((Dst_Addr)>>8));
+    SPI_ReadWriteByte((uint8_t)Dst_Addr);
+//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_Flash_Wait_Busy();   				   //等待擦除完成
+}
+//写SPI FLASH
+//在指定地謺开始写入指定长度的数据
+//该函数带擦除操作!
+//pBuffer:数据存储区
+//WriteAddr:开始写入的地謺(24bit)
+//NumByteToWrite:要写入的字节数(最大65535)
+uint8_t SPI_FLASH_BUF[4096];
+void SPI_Flash_Write(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteToWrite)
+{
+    uint32_t secpos;
+    uint16_t secoff;
+    uint16_t secremain;
+    uint16_t i;
+
+    secpos=WriteAddr/4096;//扇区地謺 0~511 for w25x16
+    secoff=WriteAddr%4096;//在扇区内的偏移
+    secremain=4096-secoff;//扇区剩余空间大小
+
+    if(NumByteToWrite<=secremain)secremain=NumByteToWrite;//不大于4096个字节
+    while(1)
+    {
+        SPI_Flash_Read(SPI_FLASH_BUF,secpos*4096,4096);//读出整个扇区的内容
+        for(i=0; i<secremain; i++) //校验数据
         {
-            while (NumOfPage--)
+            if(SPI_FLASH_BUF[secoff+i]!=0XFF)break;//需要擦除
+        }
+        if(i<secremain)//需要擦除
+        {
+            SPI_Flash_Erase_Sector(secpos);//擦除这个扇区
+            for(i=0; i<secremain; i++)	 //复制
             {
-                NorFLASH_Page_Write(pBuffer, WriteAddr,SPI_FLASH_PageSize);
-                WriteAddr +=  SPI_FLASH_PageSize;
-                pBuffer += SPI_FLASH_PageSize;
+                SPI_FLASH_BUF[i+secoff]=pBuffer[i];
             }
+            SPI_Flash_Write_NoCheck(SPI_FLASH_BUF,secpos*4096,4096);//写入整个扇区
 
-            NorFLASH_Page_Write(pBuffer, WriteAddr, NumOfSingle);
-        }
-    }
-    else /* WriteAddr is not SPI_FLASH_PageSize aligned  */
-    {
-        if (NumOfPage == 0) /* NumByteToWrite < SPI_FLASH_PageSize */
+        } else SPI_Flash_Write_NoCheck(pBuffer,WriteAddr,secremain);//写已经擦除了的,直接写入扇区剩余区间.
+        if(NumByteToWrite==secremain)break;//写入结束了
+        else//写入未结束
         {
-            if (NumOfSingle > count) /* (NumByteToWrite + WriteAddr) > SPI_FLASH_PageSize */
-            {
-                temp = NumOfSingle - count;
-                NorFLASH_Page_Write(pBuffer, WriteAddr, count);
-                WriteAddr +=  count;
-                pBuffer += count;
+            secpos++;//扇区地謺增1
+            secoff=0;//偏移位置为0
 
-                NorFLASH_Page_Write(pBuffer, WriteAddr, temp);
-            }
-            else
-            {
-                NorFLASH_Page_Write(pBuffer, WriteAddr, NumByteToWrite);
-            }
+            pBuffer+=secremain;  //指针偏移
+            WriteAddr+=secremain;//写地謺偏移
+            NumByteToWrite-=secremain;				//字节数递减
+            if(NumByteToWrite>4096)secremain=4096;	//下一个扇区还是写不完
+            else secremain=NumByteToWrite;			//下一个扇区可以写完了
         }
-        else /* NumByteToWrite > SPI_FLASH_PageSize */
-        {
-            NumByteToWrite -= count;
-            NumOfPage =  NumByteToWrite / SPI_FLASH_PageSize;
-            NumOfSingle = NumByteToWrite % SPI_FLASH_PageSize;
-
-            NorFLASH_Page_Write(pBuffer, WriteAddr, count);
-            WriteAddr +=  count;
-            pBuffer += count;
-
-            while (NumOfPage--)
-            {
-                NorFLASH_Page_Write(pBuffer, WriteAddr, SPI_FLASH_PageSize);
-                WriteAddr +=  SPI_FLASH_PageSize;
-                pBuffer += SPI_FLASH_PageSize;
-            }
-
-            if (NumOfSingle != 0)
-            {
-                NorFLASH_Page_Write(pBuffer, WriteAddr, NumOfSingle);
-            }
-        }
-    }
-}
-
-/*******************************************************************************
-* Function Name  :
-* Description    : flash 一个page为256byte ,调用该函数时要确保写入的地址addr是已经擦除过的
-*******************************************************************************/
-void NorFLASH_Page_Write(uint8_t* pBuffer,uint32_t addr,uint16_t NumByte)
-{
-    NorFLASH_WREN();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x02);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-    while (NumByte--)
-    {
-        /* Send the current byte */
-        NorFLASH_WriteByte(* pBuffer);
-        /* Point on the next byte to be written */
-        pBuffer++;
-    }
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-}
-
-
-/*******************************************************************************
-* Function Name  :
-* Description    :
-*******************************************************************************/
-void NorFLASH_BufferRead(uint8_t* pBuffer,uint32_t addr,uint16_t NumByte)
-{
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x03);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-    while (NumByte--) /* while there is data to be read */
-    {
-        * pBuffer = NorFLASH_ReadByte();
-        pBuffer++;
-    }
-    FLASH_CS_HIGH;
-}
-
-
-
-
-
-/*******************************************************************************
-* Function Name  : NorFLASH_Word_Write
-* Description    : 写入一个word
-* Input          : - addr : FLASH's internal address to write to.
-                    -word :the data to be read to the FLASH.
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void NorFLASH_Word_Write(uint32_t addr,uint32_t word)
-{
-
-    NorFLASH_WaitForWriteEnd();
-    NorFLASH_WREN();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x02);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-
-    NorFLASH_WriteByte((uint8_t)(word>>24));
-    NorFLASH_WriteByte((uint8_t)(word>>16));
-    NorFLASH_WriteByte((uint8_t)(word>>8));
-    NorFLASH_WriteByte((uint8_t)word);
-
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-}
-
-
-/*******************************************************************************
-* Function Name  : NorFLASH_Word_read
-* Description    : 读一个word
-* Input          : - addr : FLASH's internal address to read to.
-* Output         : None
-* Return         : TempData 从Flash中读取到的数据
-*******************************************************************************/
-uint32_t NorFLASH_Word_read(uint32_t addr)
-{
-    uint8_t  TempDataArray[4];
-    uint32_t TempData;
-    NorFLASH_WaitForWriteEnd();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x03);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-
-    TempDataArray[0] = NorFLASH_ReadByte();
-    TempDataArray[1] = NorFLASH_ReadByte();
-    TempDataArray[2] = NorFLASH_ReadByte();
-    TempDataArray[3] = NorFLASH_ReadByte();
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-    TempData = (TempDataArray[0]<<24)|(TempDataArray[1]<<16)|(TempDataArray[2]<<8)|(TempDataArray[3]);
-    return TempData;
-}
-
-
-/*******************************************************************************
-* Function Name  : NorFLASH_HalfWordRead
-* Description    : 读一个halfword
-* Input          : - addr : FLASH's internal address to read to.
-* Output         : None
-* Return         : TempData 从Flash中读取到的数据
-*******************************************************************************/
-uint16_t NorFLASH_HalfWordRead(uint32_t addr)
-{
-    uint8_t  TempDataArray[2];
-    uint16_t TempData;
-
-    NorFLASH_WaitForWriteEnd();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x03);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-
-    TempDataArray[0] = NorFLASH_ReadByte();
-    TempDataArray[1] = NorFLASH_ReadByte();
-
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-    TempData = ( (TempDataArray[0]<<8) | TempDataArray[1] );
-    return TempData;
-}
-
-
-/*******************************************************************************
-* Function Name  :
-* Description    :
-*******************************************************************************/
-uint32_t NorFLASH_ReadID(void)
-{
-    uint32_t TempID;
-
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x9F);
-    TempID = NorFLASH_ReadByte();		            //Manufacturer Identification
-    TempID = (TempID<<8)| NorFLASH_ReadByte();	//Device Identification
-    TempID = (TempID<<8)| NorFLASH_ReadByte();
-    FLASH_CS_HIGH;
-    return TempID;
-}
-
-
-/*******************************************************************************
-* Function Name  :
-* Description    :
-*******************************************************************************/
-void NorFLASH_WriteByte(unsigned char _dat)
-{
-    unsigned char i;//用于循环
-    unsigned char Flag_Bit = 0x80;//数据写入从数据的高位（MSB）开始
-
-    for(i = 0; i < 8; i++)
-    {
-        FLASH_CLK_Low;
-        if( (_dat & Flag_Bit) == 0 )//判断_dat的第Flag_Bit位上的数据
-        {
-            FLASH_DI_Low;//输出低电平
-        } else
-        {
-            FLASH_DI_High;//输出高电平
-        }
-        Flag_Bit >>= 1;
-        FLASH_CLK_High;
-    }
-    FLASH_CLK_Low;
-}
-
-/*******************************************************************************
-* Function Name  :
-* Description    :
-*******************************************************************************/
-uint8_t NorFLASH_ReadByte(void)
-{
-    uint8_t i;
-    uint8_t tmpData = 0;
-    for(i = 0; i < 8; i++)
-    {
-        FLASH_CLK_Low;
-        if( FLASH_Read_DO == 1 )
-        {
-            tmpData = (tmpData | (0x80>>i));
-        }
-        FLASH_CLK_High;
-    }
-    FLASH_CLK_Low;
-    return tmpData;
-}
-
-
-
-/*******************************************************************************
-* Function Name  :
-* Description    : 擦除整个芯片，全部写1.
-*******************************************************************************/
-void NorFLASH_Chip_Erase(void)
-{
-    NorFLASH_WREN();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0xC7);
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-}
-
-
-/*******************************************************************************
-* Function Name  : NorFLASH_Block_Erase
-* Description    : 擦除一个Block 64k
-*******************************************************************************/
-void NorFLASH_Block_Erase(unsigned int addr)
-{
-    NorFLASH_WREN();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0xD8);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-}
-
-/*******************************************************************************
-* Function Name  : NorFLASH_Sector_Erase
-* Description    : flash一个sector大小为4096（0xFFF），由16个page组成
-*                  调用该函数时，要确保这16个page里的数据无用或者已经备份
-*******************************************************************************/
-void NorFLASH_Sector_Erase(unsigned int addr)
-{
-    NorFLASH_WREN();
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x20);
-    NorFLASH_WriteByte( (addr >> 16)&0xFF );
-    NorFLASH_WriteByte( (addr >> 8)&0xFF );
-    NorFLASH_WriteByte( addr&0xFF );
-    FLASH_CS_HIGH;
-    NorFLASH_WaitForWriteEnd();
-}
-
-
-/*******************************************************************************
-* Function Name  : NorFLASH_WREN
-* Description    :
-*******************************************************************************/
-void NorFLASH_WREN(void)
-{
-    FLASH_CS_LOW;
-    NorFLASH_WriteByte(0x06);
-    FLASH_CS_HIGH;
-}
-
-
-/*******************************************************************************
-* Function Name  :
-* Description    :
-- 以下动作会使得标志位的的第一位WEL BIT清零
-- Write Disable (WRDI) command completion
-- Write Status Register (WRSR) command completion
-- Page Program (PP, 4PP) command completion
-- Continuously Program mode (CP) instruction completion
-- Sector Erase (SE) command completion
-- Block Erase (BE, BE32K) command completion
-- Chip Erase (CE) command completion
-- Single Block Lock/Unlock (SBLK/SBULK) instruction completion
-- Gang Block Lock/Unlock (GBLK/GBULK) instruction completion
-*******************************************************************************/
-void NorFLASH_WaitForWriteEnd(void)
-{
-    uint8_t FLASH_Status = 0;
-    /* Select the FLASH: Chip Select low */
-    FLASH_CS_LOW;
-    /* Send "Read Status Register" instruction */
-    NorFLASH_WriteByte(0x05);
-    /* Loop as long as the memory is busy with a write cycle */
-    do
-    {
-        FLASH_Status = NorFLASH_ReadByte();
-    }
-    while ((FLASH_Status & 0x01) == 1); /* Write in progress */
-    /* Deselect the FLASH: Chip Select high */
-    FLASH_CS_HIGH;
+    };
 }
 /****************************************END OF FILE*******************************************************/
 

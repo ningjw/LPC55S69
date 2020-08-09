@@ -24,8 +24,7 @@
 #endif
 
 #define ULONG_MAX     0xFFFFFFFF
-#define EVT_OK       (1 << 0)
-#define EVT_TIMTOUT  (1 << 1)
+
 
 
 #include "stdio.h"
@@ -59,11 +58,14 @@
 #include "adc_app.h"
 #include "flash_app.h"
 #include "battery_app.h"
+#include "nbiot_app.h"
+
 #include "battery_drv.h"
 #include "iic_temp_drv.h"
 #include "si5351_drv.h"
 #include "adc_drv.h"
 #include "w25q128_drv.h"
+
 
 typedef struct{
 	uint32_t totalAdcInfo;

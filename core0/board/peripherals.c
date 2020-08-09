@@ -58,6 +58,7 @@ instance:
   - fsl_dma:
     - dma_table:
       - 0: []
+      - 1: []
     - dma_channels:
       - 0:
         - apiMode: 'trans'
@@ -151,6 +152,48 @@ void CTIMER0_init(void) {
   CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM_0_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM_0_DUTY, false);
   /* Start the timer */
   CTIMER_StartTimer(CTIMER0_PERIPHERAL);
+}
+
+/***********************************************************************************************************************
+ * CTIMER1 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'CTIMER1'
+- type: 'ctimer'
+- mode: 'Capture_Match'
+- custom_name_enabled: 'false'
+- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'CTIMER1'
+- config_sets:
+  - fsl_ctimer:
+    - ctimerConfig:
+      - mode: 'kCTIMER_TimerMode'
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - timerPrescaler: '1'
+    - EnableTimerInInit: 'false'
+    - matchChannels: []
+    - interruptCallbackConfig:
+      - interrupt:
+        - IRQn: 'CTIMER1_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+      - callback: 'kCTIMER_SingleCallback'
+      - singleCallback: 'CTIMER1_Callback'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const ctimer_config_t CTIMER1_config = {
+  .mode = kCTIMER_TimerMode,
+  .input = kCTIMER_Capture_0,
+  .prescale = 0
+};
+
+void CTIMER1_init(void) {
+  /* CTIMER1 peripheral initialization */
+  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
 }
 
 /***********************************************************************************************************************
@@ -314,12 +357,32 @@ void FLEXCOMM1_init(void) {
 instance:
 - name: 'FLEXCOMM2'
 - type: 'flexcomm_usart'
-- mode: 'polling'
+- mode: 'dma'
 - custom_name_enabled: 'false'
 - type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FLEXCOMM2'
 - config_sets:
+  - dmaCfg:
+    - dma_channels:
+      - enable_rx_dma_channel: 'true'
+      - dma_rx_channel:
+        - DMA_source: 'kDma0RequestFlexcomm2Rx'
+        - init_channel_priority: 'false'
+        - dma_priority: 'kDMA_ChannelPriority0'
+        - enable_custom_name: 'false'
+      - enable_tx_dma_channel: 'false'
+      - dma_tx_channel:
+        - DMA_source: 'kDma0RequestFlexcomm2Tx'
+        - init_channel_priority: 'false'
+        - dma_priority: 'kDMA_ChannelPriority0'
+        - enable_custom_name: 'false'
+    - usart_dma_handle:
+      - enable_custom_name: 'true'
+      - handle_custom_name: 'g_uartDmaHandle'
+      - init_callback: 'true'
+      - callback_fcn: 'UART_UserCallback'
+      - user_data: ''
   - usartConfig_t:
     - usartConfig:
       - clockSource: 'FXCOMFunctionClock'
@@ -353,11 +416,19 @@ const usart_config_t FLEXCOMM2_config = {
   .clockPolarity = kUSART_RxSampleOnFallingEdge,
   .enableContinuousSCLK = false
 };
+dma_handle_t FLEXCOMM2_RX_Handle;
+usart_dma_handle_t g_uartDmaHandle;
 
 void FLEXCOMM2_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
+  /* Enable the DMA 10channel in the DMA */
+  DMA_EnableChannel(FLEXCOMM2_RX_DMA_BASEADDR, FLEXCOMM2_RX_DMA_CHANNEL);
+  /* Create the DMA FLEXCOMM2_RX_Handlehandle */
+  DMA_CreateHandle(&FLEXCOMM2_RX_Handle, FLEXCOMM2_RX_DMA_BASEADDR, FLEXCOMM2_RX_DMA_CHANNEL);
+  /* Create the USART DMA handle */
+  USART_TransferCreateHandleDMA(FLEXCOMM2_PERIPHERAL, &g_uartDmaHandle, UART_UserCallback, NULL, NULL, &FLEXCOMM2_RX_Handle);
 }
 
 /***********************************************************************************************************************
@@ -375,7 +446,7 @@ instance:
 - peripheral: 'FLEXCOMM3'
 - config_sets:
   - interruptsCfg:
-    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_TxLevelInterruptEnable kUSART_RxLevelInterruptEnable'
+    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_RxLevelInterruptEnable'
     - interrupt_vectors:
       - enable_rx_tx_irq: 'true'
       - interrupt_rx_tx:
@@ -420,7 +491,7 @@ void FLEXCOMM3_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM3_PERIPHERAL, &FLEXCOMM3_config, FLEXCOMM3_CLOCK_SOURCE);
-  USART_EnableInterrupts(FLEXCOMM3_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_TxLevelInterruptEnable | kUSART_RxLevelInterruptEnable);
+  USART_EnableInterrupts(FLEXCOMM3_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
   /* Enable interrupt FLEXCOMM3_IRQn request in the NVIC */
   EnableIRQ(FLEXCOMM3_FLEXCOMM_IRQN);
 }
@@ -460,6 +531,69 @@ void FLEXCOMM4_init(void) {
   RESET_PeripheralReset( kFC4_RST_SHIFT_RSTn);
   /* Initialization function */
   I2C_MasterInit(FLEXCOMM4_PERIPHERAL, &FLEXCOMM4_config, FLEXCOMM4_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
+ * FLEXCOMM6 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM6'
+- type: 'flexcomm_spi'
+- mode: 'SPI_Polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_spi_481dadba00035f986f31ed9ac95af181'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM6'
+- config_sets:
+  - fsl_spi:
+    - spi_mode: 'kSPI_Master'
+    - clockSource: 'FXCOMFunctionClock'
+    - clockSourceFreq: 'BOARD_BootClockRUN'
+    - spi_master_config:
+      - enableLoopback: 'false'
+      - enableMaster: 'true'
+      - polarity: 'kSPI_ClockPolarityActiveHigh'
+      - phase: 'kSPI_ClockPhaseFirstEdge'
+      - direction: 'kSPI_MsbFirst'
+      - baudRate_Bps: '12000000'
+      - dataWidth: 'kSPI_Data8Bits'
+      - sselNum: 'kSPI_Ssel0'
+      - sselPol_set: ''
+      - txWatermark: 'kSPI_TxFifo0'
+      - rxWatermark: 'kSPI_RxFifo1'
+      - delayConfig:
+        - preDelay: '0'
+        - postDelay: '0'
+        - frameDelay: '0'
+        - transferDelay: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const spi_master_config_t FLEXCOMM6_config = {
+  .enableLoopback = false,
+  .enableMaster = true,
+  .polarity = kSPI_ClockPolarityActiveHigh,
+  .phase = kSPI_ClockPhaseFirstEdge,
+  .direction = kSPI_MsbFirst,
+  .baudRate_Bps = 12000000,
+  .dataWidth = kSPI_Data8Bits,
+  .sselNum = kSPI_Ssel0,
+  .sselPol = kSPI_SpolActiveAllLow,
+  .txWatermark = kSPI_TxFifo0,
+  .rxWatermark = kSPI_RxFifo1,
+  .delayConfig = {
+    .preDelay = 0,
+    .postDelay = 0,
+    .frameDelay = 0,
+    .transferDelay = 0
+  }
+};
+
+void FLEXCOMM6_init(void) {
+  RESET_PeripheralReset(kFC6_RST_SHIFT_RSTn);
+  /* Initialization function */
+  SPI_MasterInit(FLEXCOMM6_PERIPHERAL, &FLEXCOMM6_config, FLEXCOMM6_CLOCK_SOURCE);
 }
 
 /***********************************************************************************************************************
@@ -598,111 +732,6 @@ void UTICK0_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER1 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'CTIMER1'
-- type: 'ctimer'
-- mode: 'Capture_Match'
-- custom_name_enabled: 'false'
-- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER1'
-- config_sets:
-  - fsl_ctimer:
-    - ctimerConfig:
-      - mode: 'kCTIMER_TimerMode'
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '1'
-    - EnableTimerInInit: 'false'
-    - matchChannels: []
-    - interruptCallbackConfig:
-      - interrupt:
-        - IRQn: 'CTIMER1_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-      - callback: 'kCTIMER_SingleCallback'
-      - singleCallback: 'CTIMER1_Callback'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const ctimer_config_t CTIMER1_config = {
-  .mode = kCTIMER_TimerMode,
-  .input = kCTIMER_Capture_0,
-  .prescale = 0
-};
-
-void CTIMER1_init(void) {
-  /* CTIMER1 peripheral initialization */
-  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
-}
-
-/***********************************************************************************************************************
- * FLEXCOMM6 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM6'
-- type: 'flexcomm_spi'
-- mode: 'SPI_Polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_spi_481dadba00035f986f31ed9ac95af181'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM6'
-- config_sets:
-  - fsl_spi:
-    - spi_mode: 'kSPI_Master'
-    - clockSource: 'FXCOMFunctionClock'
-    - clockSourceFreq: 'BOARD_BootClockRUN'
-    - spi_master_config:
-      - enableLoopback: 'false'
-      - enableMaster: 'true'
-      - polarity: 'kSPI_ClockPolarityActiveHigh'
-      - phase: 'kSPI_ClockPhaseFirstEdge'
-      - direction: 'kSPI_MsbFirst'
-      - baudRate_Bps: '12000000'
-      - dataWidth: 'kSPI_Data8Bits'
-      - sselNum: 'kSPI_Ssel0'
-      - sselPol_set: ''
-      - txWatermark: 'kSPI_TxFifo0'
-      - rxWatermark: 'kSPI_RxFifo1'
-      - delayConfig:
-        - preDelay: '0'
-        - postDelay: '0'
-        - frameDelay: '0'
-        - transferDelay: '0'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const spi_master_config_t FLEXCOMM6_config = {
-  .enableLoopback = false,
-  .enableMaster = true,
-  .polarity = kSPI_ClockPolarityActiveHigh,
-  .phase = kSPI_ClockPhaseFirstEdge,
-  .direction = kSPI_MsbFirst,
-  .baudRate_Bps = 12000000,
-  .dataWidth = kSPI_Data8Bits,
-  .sselNum = kSPI_Ssel0,
-  .sselPol = kSPI_SpolActiveAllLow,
-  .txWatermark = kSPI_TxFifo0,
-  .rxWatermark = kSPI_RxFifo1,
-  .delayConfig = {
-    .preDelay = 0,
-    .postDelay = 0,
-    .frameDelay = 0,
-    .transferDelay = 0
-  }
-};
-
-void FLEXCOMM6_init(void) {
-  RESET_PeripheralReset(kFC6_RST_SHIFT_RSTn);
-  /* Initialization function */
-  SPI_MasterInit(FLEXCOMM6_PERIPHERAL, &FLEXCOMM6_config, FLEXCOMM6_CLOCK_SOURCE);
-}
-
-/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
@@ -713,17 +742,17 @@ void BOARD_InitPeripherals(void)
   /* Initialize components */
   DMA0_init();
   CTIMER0_init();
+  CTIMER1_init();
   CTIMER2_init();
   FLEXCOMM0_init();
   FLEXCOMM1_init();
   FLEXCOMM2_init();
   FLEXCOMM3_init();
   FLEXCOMM4_init();
+  FLEXCOMM6_init();
   PINT_init();
   RTC_init();
   UTICK0_init();
-  CTIMER1_init();
-  FLEXCOMM6_init();
 }
 
 /***********************************************************************************************************************

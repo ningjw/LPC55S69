@@ -67,7 +67,7 @@ void ADC_PwmClkStop(void)
 void Filter_PwmClkConfig(uint32_t freq)
 {
 	CTIMER_GetPwmPeriodValue(freq, 50, CTIMER2_TICK_FREQ);
-	CTIMER_SetupPwmPeriod(CTIMER0, CTIMER2_PWM_1_CHANNEL, g_pwmPeriod, g_pulsePeriod, false);
+	CTIMER_SetupPwmPeriod(CTIMER2, CTIMER2_PWM_1_CHANNEL, g_pwmPeriod, g_pulsePeriod, false);
 }
 
 /***************************************************************************************

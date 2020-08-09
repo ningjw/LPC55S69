@@ -7,7 +7,7 @@ static uint32_t sys_led_cnt = 0;
 static uint32_t bat_led_cnt = 0;
 static uint32_t ble_led_cnt = 0;
 
-TaskHandle_t LED_TaskHandle = NULL;  /* 电池管理任务句柄 */
+TaskHandle_t LED_TaskHandle = NULL;  /* LED任务句柄 */
 static bool flag_led_chk;
 
 

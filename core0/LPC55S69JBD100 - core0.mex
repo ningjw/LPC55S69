@@ -573,6 +573,11 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="CTIMER1_clock" description="CTIMER1_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="CTIMER2_clock" description="CTIMER2_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
@@ -638,6 +643,16 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.flexcomm_usart_dma" description="The fsl_usart_dma driver is missing in the project (required for the DMA mode).问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="enabled" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.flexcomm_usart_dma" description="The compatible version of the fsl_usart_dma driver is not available in the project (required for the DMA mode).问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="version" evaluation="compatible">
+                        <data type="Version">2.0.0</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="FXCOM3_clock" description="FXCOM3 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
@@ -668,21 +683,6 @@
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="PINT.pint.0" description="Signal PINT, 0 of the peripheral PINT is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="UTICK_clock" description="UTICK_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="CTIMER1_clock" description="CTIMER1_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM6.spi_miso" description="Signal SPI master data in, slave data out of the peripheral FLEXCOMM6 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
@@ -704,6 +704,16 @@
                      </feature>
                   </dependency>
                   <dependency resourceType="ClockOutput" resourceId="FXCOM6_clock" description="FXCOM6 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="PINT.pint.0" description="Signal PINT, 0 of the peripheral PINT is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="UTICK_clock" description="UTICK_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
                      </feature>
@@ -738,6 +748,27 @@
                               <setting name="priority" value="0"/>
                            </struct>
                            <setting name="callback" value="kCTIMER_NoCallback"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="CTIMER1" uuid="4e1b716c-3958-4b8c-9de7-eebd5bbe755c" type="ctimer" type_id="ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a" mode="Capture_Match" peripheral="CTIMER1" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="fsl_ctimer">
+                        <struct name="ctimerConfig">
+                           <setting name="mode" value="kCTIMER_TimerMode"/>
+                           <setting name="clockSource" value="FunctionClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="timerPrescaler" value="1"/>
+                        </struct>
+                        <setting name="EnableTimerInInit" value="false"/>
+                        <array name="matchChannels"/>
+                        <struct name="interruptCallbackConfig">
+                           <struct name="interrupt">
+                              <setting name="IRQn" value="CTIMER1_IRQn"/>
+                              <setting name="enable_priority" value="false"/>
+                              <setting name="priority" value="0"/>
+                           </struct>
+                           <setting name="callback" value="kCTIMER_SingleCallback"/>
+                           <setting name="singleCallback" value="CTIMER1_Callback"/>
                         </struct>
                      </config_set>
                   </instance>
@@ -776,6 +807,7 @@
                      <config_set name="fsl_dma" quick_selection="default">
                         <array name="dma_table">
                            <struct name="0"/>
+                           <struct name="1"/>
                         </array>
                         <array name="dma_channels">
                            <struct name="0">
@@ -851,7 +883,32 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
+                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="dma" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="dmaCfg">
+                        <struct name="dma_channels">
+                           <setting name="enable_rx_dma_channel" value="true"/>
+                           <struct name="dma_rx_channel">
+                              <setting name="DMA_source" value="kDma0RequestFlexcomm2Rx"/>
+                              <setting name="init_channel_priority" value="false"/>
+                              <setting name="dma_priority" value="kDMA_ChannelPriority0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                           <setting name="enable_tx_dma_channel" value="false"/>
+                           <struct name="dma_tx_channel">
+                              <setting name="DMA_source" value="kDma0RequestFlexcomm2Tx"/>
+                              <setting name="init_channel_priority" value="false"/>
+                              <setting name="dma_priority" value="kDMA_ChannelPriority0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                        <struct name="usart_dma_handle">
+                           <setting name="enable_custom_name" value="true"/>
+                           <setting name="handle_custom_name" value="g_uartDmaHandle"/>
+                           <setting name="init_callback" value="true"/>
+                           <setting name="callback_fcn" value="UART_UserCallback"/>
+                           <setting name="user_data" value=""/>
+                        </struct>
+                     </config_set>
                      <config_set name="usartConfig_t" quick_selection="QuickSelection1">
                         <struct name="usartConfig">
                            <setting name="clockSource" value="FXCOMFunctionClock"/>
@@ -876,7 +933,6 @@
                         <set name="interrupts">
                            <selected>
                               <id>kUSART_RxErrorInterruptEnable</id>
-                              <id>kUSART_TxLevelInterruptEnable</id>
                               <id>kUSART_RxLevelInterruptEnable</id>
                            </selected>
                         </set>
@@ -918,6 +974,34 @@
                            <setting name="enableMaster" value="true"/>
                            <setting name="baudRate_Bps" value="100000"/>
                            <setting name="enableTimeout" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="FLEXCOMM6" uuid="cec43cb7-6788-45fa-9b4c-5cd0a429de7b" type="flexcomm_spi" type_id="flexcomm_spi_481dadba00035f986f31ed9ac95af181" mode="SPI_Polling" peripheral="FLEXCOMM6" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="fsl_spi">
+                        <setting name="spi_mode" value="kSPI_Master"/>
+                        <setting name="clockSource" value="FXCOMFunctionClock"/>
+                        <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                        <struct name="spi_master_config">
+                           <setting name="enableLoopback" value="false"/>
+                           <setting name="enableMaster" value="true"/>
+                           <setting name="polarity" value="kSPI_ClockPolarityActiveHigh"/>
+                           <setting name="phase" value="kSPI_ClockPhaseFirstEdge"/>
+                           <setting name="direction" value="kSPI_MsbFirst"/>
+                           <setting name="baudRate_Bps" value="12000000"/>
+                           <setting name="dataWidth" value="kSPI_Data8Bits"/>
+                           <setting name="sselNum" value="kSPI_Ssel0"/>
+                           <set name="sselPol_set">
+                              <selected/>
+                           </set>
+                           <setting name="txWatermark" value="kSPI_TxFifo0"/>
+                           <setting name="rxWatermark" value="kSPI_RxFifo1"/>
+                           <struct name="delayConfig">
+                              <setting name="preDelay" value="0"/>
+                              <setting name="postDelay" value="0"/>
+                              <setting name="frameDelay" value="0"/>
+                              <setting name="transferDelay" value="0"/>
+                           </struct>
                         </struct>
                      </config_set>
                   </instance>
@@ -990,55 +1074,6 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="CTIMER1" uuid="4e1b716c-3958-4b8c-9de7-eebd5bbe755c" type="ctimer" type_id="ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a" mode="Capture_Match" peripheral="CTIMER1" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="fsl_ctimer">
-                        <struct name="ctimerConfig">
-                           <setting name="mode" value="kCTIMER_TimerMode"/>
-                           <setting name="clockSource" value="FunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="timerPrescaler" value="1"/>
-                        </struct>
-                        <setting name="EnableTimerInInit" value="false"/>
-                        <array name="matchChannels"/>
-                        <struct name="interruptCallbackConfig">
-                           <struct name="interrupt">
-                              <setting name="IRQn" value="CTIMER1_IRQn"/>
-                              <setting name="enable_priority" value="false"/>
-                              <setting name="priority" value="0"/>
-                           </struct>
-                           <setting name="callback" value="kCTIMER_SingleCallback"/>
-                           <setting name="singleCallback" value="CTIMER1_Callback"/>
-                        </struct>
-                     </config_set>
-                  </instance>
-                  <instance name="FLEXCOMM6" uuid="cec43cb7-6788-45fa-9b4c-5cd0a429de7b" type="flexcomm_spi" type_id="flexcomm_spi_481dadba00035f986f31ed9ac95af181" mode="SPI_Polling" peripheral="FLEXCOMM6" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="fsl_spi">
-                        <setting name="spi_mode" value="kSPI_Master"/>
-                        <setting name="clockSource" value="FXCOMFunctionClock"/>
-                        <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                        <struct name="spi_master_config">
-                           <setting name="enableLoopback" value="false"/>
-                           <setting name="enableMaster" value="true"/>
-                           <setting name="polarity" value="kSPI_ClockPolarityActiveHigh"/>
-                           <setting name="phase" value="kSPI_ClockPhaseFirstEdge"/>
-                           <setting name="direction" value="kSPI_MsbFirst"/>
-                           <setting name="baudRate_Bps" value="12000000"/>
-                           <setting name="dataWidth" value="kSPI_Data8Bits"/>
-                           <setting name="sselNum" value="kSPI_Ssel0"/>
-                           <set name="sselPol_set">
-                              <selected/>
-                           </set>
-                           <setting name="txWatermark" value="kSPI_TxFifo0"/>
-                           <setting name="rxWatermark" value="kSPI_RxFifo1"/>
-                           <struct name="delayConfig">
-                              <setting name="preDelay" value="0"/>
-                              <setting name="postDelay" value="0"/>
-                              <setting name="frameDelay" value="0"/>
-                              <setting name="transferDelay" value="0"/>
-                           </struct>
-                        </struct>
-                     </config_set>
-                  </instance>
                </instances>
             </functional_group>
          </functional_groups>
@@ -1046,7 +1081,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="c665d303-7eeb-4ee5-ae2c-06e97ecbf7bf" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="b882506c-d812-4436-b235-d3ca1c26a0ee" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>
