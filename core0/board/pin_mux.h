@@ -244,6 +244,12 @@ void BOARD_InitBootPins(void);
 #define PIO1_18_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_19_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_19_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_1_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -260,12 +266,6 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 5. */
 #define PIO1_21_FUNC_ALT5 0x05u
-/*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO1_24_DIGIMODE_DIGITAL 0x01u
-/*!
- * @brief Selects pin function.: Alternative connection 0. */
-#define PIO1_24_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_25_DIGIMODE_DIGITAL 0x01u
@@ -462,12 +462,12 @@ void BOARD_InitBootPins(void);
 #define BOARD_BT_CTS_PIN 4U  /*!<@brief 0U pin index: 4 */
                              /* @} */
 
-/*! @name PIO1_24 (coord F6), NB_PWR_EN
+/*! @name PIO1_19 (coord H13), NB_PWR_EN
   @{ */
-#define BOARD_NB_PWR_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_NB_PWR_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_NB_PWR_PIN 24U   /*!<@brief 1U pin index: 24 */
-                               /* @} */
+#define BOARD_NB_PWR_EN_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_NB_PWR_EN_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_NB_PWR_EN_PIN 19U   /*!<@brief 1U pin index: 19 */
+                                  /* @} */
 
 /*! @name PIO0_18 (coord H9), NB_RELOAD
   @{ */

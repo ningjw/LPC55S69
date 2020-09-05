@@ -379,7 +379,7 @@ instance:
         - enable_custom_name: 'false'
     - usart_dma_handle:
       - enable_custom_name: 'true'
-      - handle_custom_name: 'UART_DMA_Handle'
+      - handle_custom_name: 'g_uartDmaHandle'
       - init_callback: 'true'
       - callback_fcn: 'UART_UserCallback'
       - user_data: ''
@@ -417,7 +417,7 @@ const usart_config_t FLEXCOMM2_config = {
   .enableContinuousSCLK = false
 };
 dma_handle_t FLEXCOMM2_RX_Handle;
-usart_dma_handle_t UART_DMA_Handle;
+usart_dma_handle_t g_uartDmaHandle;
 
 void FLEXCOMM2_init(void) {
   /* Reset FLEXCOMM device */
@@ -428,7 +428,7 @@ void FLEXCOMM2_init(void) {
   /* Create the DMA FLEXCOMM2_RX_Handlehandle */
   DMA_CreateHandle(&FLEXCOMM2_RX_Handle, FLEXCOMM2_RX_DMA_BASEADDR, FLEXCOMM2_RX_DMA_CHANNEL);
   /* Create the USART DMA handle */
-  USART_TransferCreateHandleDMA(FLEXCOMM2_PERIPHERAL, &UART_DMA_Handle, UART_UserCallback, NULL, NULL, &FLEXCOMM2_RX_Handle);
+  USART_TransferCreateHandleDMA(FLEXCOMM2_PERIPHERAL, &g_uartDmaHandle, UART_UserCallback, NULL, NULL, &FLEXCOMM2_RX_Handle);
 }
 
 /***********************************************************************************************************************
@@ -686,7 +686,7 @@ void RTC_init(void) {
   /* Stop RTC timer */
   RTC_StopTimer(RTC_PERIPHERAL);
   /* Date and time initialization */
-  RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
+//  RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
   /* Start RTC timer */
   RTC_StartTimer(RTC_PERIPHERAL);
   /* Enable interrupt RTC_IRQn request in the NVIC */

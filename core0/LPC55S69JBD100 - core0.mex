@@ -48,7 +48,7 @@
                <pin_label pin_num="G12" pin_signal="PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5" label="LED_SYS_RED" identifier="LED1;LED_PWR_RED;LED_SYS_RED"/>
                <pin_label pin_num="G13" pin_signal="PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6" label="LED_SYS_GREEN" identifier="LED2;LED_PWR_GREEN;LED_SYS_GREEN"/>
                <pin_label pin_num="B6" pin_signal="PIO1_15/UTICK_CAP3/CT_INP7/FC5_RTS_SCL_SSEL1/FC4_RTS_SCL_SSEL1/SD1_D2" label="LED_BAT_GREEN" identifier="LED4;LED_BAT_GREEN"/>
-               <pin_label pin_num="H13" pin_signal="PIO1_19/SCT0_OUT7/CTIMER3_MAT1/SCT_GPI7/FC4_SCK/PLU_OUT1/ACMPVREF" label="LED_BLE_RED" identifier="LED5;LED_BLE_RED"/>
+               <pin_label pin_num="H13" pin_signal="PIO1_19/SCT0_OUT7/CTIMER3_MAT1/SCT_GPI7/FC4_SCK/PLU_OUT1/ACMPVREF" label="NB_PWR_EN" identifier="LED5;LED_BLE_RED;NB_PWR_EN"/>
                <pin_label pin_num="C2" pin_signal="PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2" label="PWR_SCL" identifier="LED6;LED_BLE_GREEN;PWR_SCL"/>
                <pin_label pin_num="G9" pin_signal="PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0" label="KEY_WAKE" identifier="KEY_WAKE"/>
                <pin_label pin_num="A11" pin_signal="PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25" label="PWR_5V" identifier="PWR_5V"/>
@@ -203,6 +203,7 @@
                   <pin peripheral="GPIO" signal="PIO0, 25" pin_num="A11" pin_signal="PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 24" pin_num="E12" pin_signal="PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24">
@@ -246,9 +247,9 @@
                   <pin peripheral="FLEXCOMM3" signal="RXD_SDA_MOSI_DATA" pin_num="F8" pin_signal="PIO0_3/FC3_RXD_SDA_MOSI_DATA/CTIMER0_MAT1/SCT0_OUT1/SCT_GPI3/SECURE_GPIO0_3"/>
                   <pin peripheral="FLEXCOMM3" signal="RTS_SCL_SSEL1" pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5"/>
                   <pin peripheral="FLEXCOMM3" signal="CTS_SDA_SSEL0" pin_num="E7" pin_signal="PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4"/>
-                  <pin peripheral="GPIO" signal="PIO1, 24" pin_num="F6" pin_signal="PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6">
+                  <pin peripheral="GPIO" signal="PIO1, 19" pin_num="H13" pin_signal="PIO1_19/SCT0_OUT7/CTIMER3_MAT1/SCT_GPI7/FC4_SCK/PLU_OUT1/ACMPVREF">
                      <pin_features>
-                        <pin_feature name="identifier" value="NB_PWR"/>
+                        <pin_feature name="identifier" value="NB_PWR_EN"/>
                         <pin_feature name="direction" value="OUTPUT"/>
                      </pin_features>
                   </pin>
@@ -1026,15 +1027,7 @@
                   <instance name="RTC" uuid="05064fcd-74b4-484c-a02d-a35d3d620ecf" type="lpc_rtc" type_id="lpc_rtc_607bd7331c2c81c0037fe4624be881b6" mode="general" peripheral="RTC" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="fsl_rtc">
                         <struct name="rtc_config">
-                           <setting name="setDateTime" value="true"/>
-                           <struct name="rtc_datetime">
-                              <setting name="year" value="2020"/>
-                              <setting name="month" value="1"/>
-                              <setting name="day" value="1"/>
-                              <setting name="hour" value="0"/>
-                              <setting name="minute" value="0"/>
-                              <setting name="second" value="0"/>
-                           </struct>
+                           <setting name="setDateTime" value="false"/>
                            <setting name="setAlarmTime" value="false"/>
                            <setting name="setWakeup" value="false"/>
                            <setting name="alarm_wake_up_enable" value="false"/>
@@ -1043,7 +1036,7 @@
                         </struct>
                         <struct name="rtc_interrupt">
                            <struct name="interrupt_vectors">
-                              <setting name="enable_irq" value="true"/>
+                              <setting name="enable_irq" value="false"/>
                               <struct name="interrupt">
                                  <setting name="IRQn" value="RTC_IRQn"/>
                                  <setting name="enable_priority" value="false"/>
@@ -1081,7 +1074,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="b882506c-d812-4436-b235-d3ca1c26a0ee" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="0b7ece93-03b5-4252-a7b2-6842a176b3f6" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

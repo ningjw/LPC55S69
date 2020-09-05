@@ -648,14 +648,7 @@ instance:
 - config_sets:
   - fsl_rtc:
     - rtc_config:
-      - setDateTime: 'true'
-      - rtc_datetime:
-        - year: '2020'
-        - month: '1'
-        - day: '1'
-        - hour: '0'
-        - minute: '0'
-        - second: '0'
+      - setDateTime: 'false'
       - setAlarmTime: 'false'
       - setWakeup: 'false'
       - alarm_wake_up_enable: 'false'
@@ -663,7 +656,7 @@ instance:
       - start: 'true'
     - rtc_interrupt:
       - interrupt_vectors:
-        - enable_irq: 'true'
+        - enable_irq: 'false'
         - interrupt:
           - IRQn: 'RTC_IRQn'
           - enable_priority: 'false'
@@ -671,26 +664,12 @@ instance:
           - enable_custom_name: 'false'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-rtc_datetime_t RTC_dateTimeStruct = {
-  .year = 2020,
-  .month = 1,
-  .day = 1,
-  .hour = 0,
-  .minute = 0,
-  .second = 0
-};
 
 void RTC_init(void) {
   /* RTC initialization */
   RTC_Init(RTC_PERIPHERAL);
-  /* Stop RTC timer */
-  RTC_StopTimer(RTC_PERIPHERAL);
-  /* Date and time initialization */
-  RTC_SetDatetime(RTC_PERIPHERAL, &RTC_dateTimeStruct);
   /* Start RTC timer */
   RTC_StartTimer(RTC_PERIPHERAL);
-  /* Enable interrupt RTC_IRQn request in the NVIC */
-  EnableIRQ(RTC_IRQN);
 }
 
 /***********************************************************************************************************************

@@ -20,7 +20,7 @@ void LED_AppTask(void)
 {
     while(1)
     {
-		LED_RED_TOGGLE();
+		RTC_GetDatetime(RTC, &sysTime);
         if(flag_led_chk) { //当前led灯正在自检
             vTaskDelay(200);
         }

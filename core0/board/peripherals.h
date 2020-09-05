@@ -111,10 +111,6 @@ extern "C" {
 #define PINT_INT_0 kPINT_PinInt0
 /* Definition of peripheral ID */
 #define RTC_PERIPHERAL RTC
-/* RTC interrupt vector ID (number). */
-#define RTC_IRQN RTC_IRQn
-/* RTC interrupt handler identifier. */
-#define RTC_IRQHANDLER RTC_IRQHandler
 /* BOARD_InitPeripherals defines for UTICK0 */
 /* Definition of peripheral ID */
 #define UTICK0_PERIPHERAL UTICK0
@@ -144,8 +140,6 @@ extern usart_dma_handle_t g_uartDmaHandle;
 extern const usart_config_t FLEXCOMM3_config;
 extern const i2c_master_config_t FLEXCOMM4_config;
 extern const spi_master_config_t FLEXCOMM6_config;
-/* Date and time structure */
-extern rtc_datetime_t RTC_dateTimeStruct;
 
 /***********************************************************************************************************************
  * Callback functions

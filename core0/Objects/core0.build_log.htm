@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V6.13.1
 Hex Converter:   FromElf.exe V6.13.1
 CPU DLL:         
 Dialog DLL:      
-Target DLL:      CMSIS_AGDI_V8M.DLL V1.6.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
 Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
@@ -27,7 +27,32 @@ Project File Date:  08/05/2020
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'core0'
-".\Objects\core0.out" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+compiling led_app.c...
+compiling battery_app.c...
+compiling nbiot_app.c...
+Src/flash_app.c(97): warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+1 warning generated.
+compiling flash_app.c...
+compiling adc_app.c...
+compiling ble_app.c...
+Src/protocol.c(787): warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+1 warning generated.
+compiling protocol.c...
+compiling iic_temp_drv.c...
+compiling battery_drv.c...
+compiling adc_drv.c...
+compiling si5351_drv.c...
+compiling w25q128_drv.c...
+compiling peripherals.c...
+linking...
+Program Size: Code=72344 RO-data=4652 RW-data=60 ZI-data=196336  
+FromELF: creating hex file...
+".\Objects\core0.out" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -99,16 +124,16 @@ Package Vendor: Keil
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:SDK Drivers:clock:2.1.0
-      Source file:   drivers\fsl_clock.c
       Include file:  drivers\fsl_clock.h
+      Source file:   drivers\fsl_clock.c
 
    * Component: NXP::Device:SDK Drivers:common:2.2.2
       Include file:  drivers\fsl_common.h
       Source file:   drivers\fsl_common.c
 
    * Component: NXP::Device:SDK Drivers:ctimer:2.0.3
-      Source file:   drivers\fsl_ctimer.c
       Include file:  drivers\fsl_ctimer.h
+      Source file:   drivers\fsl_ctimer.c
 
    * Component: NXP::Device:SDK Drivers:dma:2.4.0
       Include file:  drivers\fsl_dma.h
@@ -119,16 +144,16 @@ Package Vendor: Keil
       Include file:  drivers\fsl_flexcomm.h
 
    * Component: NXP::Device:SDK Drivers:gpio:2.1.5
-      Include file:  drivers\fsl_gpio.h
       Source file:   drivers\fsl_gpio.c
+      Include file:  drivers\fsl_gpio.h
 
    * Component: NXP::Device:SDK Drivers:i2c:2.0.6
       Source file:   drivers\fsl_i2c.c
       Include file:  drivers\fsl_i2c.h
 
    * Component: NXP::Device:SDK Drivers:i2c_dma:2.0.6
-      Source file:   drivers\fsl_i2c_dma.c
       Include file:  drivers\fsl_i2c_dma.h
+      Source file:   drivers\fsl_i2c_dma.c
 
    * Component: NXP::Device:SDK Drivers:iap1:2.0.1
       Include file:  drivers\fsl_iap.h
@@ -136,8 +161,8 @@ Package Vendor: Keil
       Source file:   drivers\fsl_iap.c
 
    * Component: NXP::Device:SDK Drivers:inputmux:2.0.2
-      Source file:   drivers\fsl_inputmux.c
       Include file:  drivers\fsl_inputmux.h
+      Source file:   drivers\fsl_inputmux.c
 
    * Component: NXP::Device:SDK Drivers:inputmux_connections:2.0.1
       Include file:  drivers\fsl_inputmux_connections.h
@@ -154,12 +179,12 @@ Package Vendor: Keil
       Include file:  drivers\fsl_mailbox.h
 
    * Component: NXP::Device:SDK Drivers:mem_manager:1.0.0
-      Source file:   components\mem_manager\mem_manager.c
       Include file:  components\mem_manager\mem_manager.h
+      Source file:   components\mem_manager\mem_manager.c
 
    * Component: NXP::Device:SDK Drivers:pint:2.1.6
-      Include file:  drivers\fsl_pint.h
       Source file:   drivers\fsl_pint.c
+      Include file:  drivers\fsl_pint.h
 
    * Component: NXP::Device:SDK Drivers:power:2.0.0
       Library file:  arm\keil_lib_power_cm33_core0.lib
@@ -171,12 +196,12 @@ Package Vendor: Keil
       Source file:   drivers\fsl_reset.c
 
    * Component: NXP::Device:SDK Drivers:spi:2.1.0
-      Source file:   drivers\fsl_spi.c
       Include file:  drivers\fsl_spi.h
+      Source file:   drivers\fsl_spi.c
 
    * Component: NXP::Device:SDK Drivers:spi_dma:2.1.0
-      Source file:   drivers\fsl_spi_dma.c
       Include file:  drivers\fsl_spi_dma.h
+      Source file:   drivers\fsl_spi_dma.c
 
    * Component: NXP::Device:SDK Drivers:usart:2.1.1
       Include file:  drivers\fsl_usart.h
@@ -187,8 +212,8 @@ Package Vendor: Keil
       Source file:   components\uart\usart_adapter.c
 
    * Component: NXP::Device:SDK Drivers:usart_dma:2.1.1
-      Include file:  drivers\fsl_usart_dma.h
       Source file:   drivers\fsl_usart_dma.c
+      Include file:  drivers\fsl_usart_dma.h
 
    * Component: NXP::Device:SDK Drivers:utick:2.0.3
       Include file:  drivers\fsl_utick.h
@@ -196,12 +221,12 @@ Package Vendor: Keil
 
    * Component: NXP::Device:Startup:1.0.0
       Source file:   arm\startup_LPC55S69_cm33_core0.s
+      Source file:   system_LPC55S69_cm33_core0.c
+      Include file:  LPC55S69_cm33_core0_features.h
       Include file:  LPC55S69_cm33_core0.h
       Include file:  fsl_device_registers.h
       Include file:  system_LPC55S69_cm33_core0.h
-      Source file:   system_LPC55S69_cm33_core0.c
-      Include file:  LPC55S69_cm33_core0_features.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

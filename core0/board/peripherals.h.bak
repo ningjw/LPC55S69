@@ -140,7 +140,7 @@ extern const spi_master_config_t FLEXCOMM0_config;
 extern const i2c_master_config_t FLEXCOMM1_config;
 extern const usart_config_t FLEXCOMM2_config;
 extern dma_handle_t FLEXCOMM2_RX_Handle;
-extern usart_dma_handle_t UART_DMA_Handle;
+extern usart_dma_handle_t g_uartDmaHandle;
 extern const usart_config_t FLEXCOMM3_config;
 extern const i2c_master_config_t FLEXCOMM4_config;
 extern const spi_master_config_t FLEXCOMM6_config;
