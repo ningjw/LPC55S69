@@ -6,6 +6,10 @@ usart_transfer_t NbXfer;
 uint8_t g_NbRxBuffer[1024] = {0};
 uint8_t g_NbTxBuffer[64] = {0};
 
+uint16_t g_NbRxCnt = 0;
+uint8_t  g_NbStartRx = false;
+uint32_t g_NbRxTimeCnt = 0;
+
 uint32_t nb_event = 0;
 
 /***************************************************************************************
@@ -16,16 +20,6 @@ uint32_t nb_event = 0;
 void FLEXCOMM2_SendStr(const char *str)
 {
 	USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, (uint8_t *)str, strlen(str));
-}
-
-/* UART user callback */
-void UART_UserCallback(USART_Type *base,usart_dma_handle_t *handle,status_t status,void *userData)
-{
-	if (kStatus_USART_RxIdle == status)
-    {
-		USART_TransferReceiveDMA(FLEXCOMM2_PERIPHERAL, &g_uartDmaHandle, &NbXfer);
-		xTaskNotify(NB_TaskHandle, NB_OK, eSetBits);
-	}
 }
 
 /*****************************************************************
@@ -84,8 +78,6 @@ void NB_Init()
 	
 	NB_SendCmd("AT+MIPLOPEN=0,3600,30\r\n" ,"OK", 200);
 	
-	
-	
 	NB_SendCmd("AT+MIPLNOTIFY=0,%u,3304,0,5700,4,%d,%s,0,0\r\n" ,"OK", 200);
 	
 	FLEXCOMM2_SendStr("AT+ENTM\r\n");//退出AT指令模式
@@ -96,14 +88,33 @@ void NB_AppTask(void)
 {
 	NbXfer.data = g_NbRxBuffer;
 	NbXfer.dataSize = sizeof(g_NbRxBuffer);
-	
+	NB_Init();
 	while(1)
 	{
 		vTaskDelay(1);
 	}
 }
 
+/***************************************************************************************
+  * @brief
+  * @input
+  * @return
+***************************************************************************************/
+void FLEXCOMM2_IRQHandler(void)
+{
+	uint8_t ucTemp;
+	/*串口接收到数据*/
+    if( USART_GetStatusFlags(FLEXCOMM2_PERIPHERAL) & (kUSART_RxFifoNotEmptyFlag | kUSART_RxError) )
+    {
+		/*读取数据*/
+        ucTemp = USART_ReadByte(FLEXCOMM2_PERIPHERAL);
 
+		if(g_NbRxCnt < sizeof(g_NbRxBuffer)) {
+			/* 将接受到的数据保存到数组*/
+			g_NbRxBuffer[g_NbRxCnt++] = ucTemp;
+		}
+	}
+}
 
 
 

@@ -453,11 +453,6 @@
               <FilePath>.\Src\si5351_drv.c</FilePath>
             </File>
             <File>
-              <FileName>memory.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\drivers\memory.c</FilePath>
-            </File>
-            <File>
               <FileName>w25q128_drv.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\w25q128_drv.c</FilePath>
@@ -565,6 +560,111 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>library</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_ctimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_ctimer.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_flexcomm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_flexcomm.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_gint.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_power.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_utick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_utick.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_sysctl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_sysctl.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_usart_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_usart_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_iap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_iap.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_pint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_pint.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_inputmux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_inputmux.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_reset.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_reset.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
@@ -594,150 +694,6 @@
       </component>
       <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with EVR">
         <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="clock" Cvendor="NXP" Cversion="2.1.0" condition="device.LPC55S69_AND_driver.common_AND_driver.power">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="common" Cvendor="NXP" Cversion="2.2.2" condition="device.LPC55S69_AND_device.LPC55S69_CMSIS_AND_driver.clock_AND_driver.reset">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="ctimer" Cvendor="NXP" Cversion="2.0.3" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="dma" Cvendor="NXP" Cversion="2.4.0" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="flexcomm" Cvendor="NXP" Cversion="2.0.2" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="gpio" Cvendor="NXP" Cversion="2.1.5" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="i2c" Cvendor="NXP" Cversion="2.0.6" condition="device.LPC55S69_AND_driver.common_AND_driver.flexcomm">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="i2c_dma" Cvendor="NXP" Cversion="2.0.6" condition="device.LPC55S69_AND_driver.common_AND_driver.flexcomm_AND_driver.flexcomm_i2c_AND_driver.lpc_dma">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="iap1" Cvendor="NXP" Cversion="2.0.1" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="inputmux" Cvendor="NXP" Cversion="2.0.2" condition="device.LPC55S69_AND_driver.common_AND_driver.inputmux_connections">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="inputmux_connections" Cvendor="NXP" Cversion="2.0.1" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="lists" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpc_rtc" Cvendor="NXP" Cversion="2.1.1" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="mailbox" Cvendor="NXP" Cversion="2.0.0" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="mem_manager" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND_component.lists_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="pint" Cvendor="NXP" Cversion="2.1.6" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="power" Cvendor="NXP" Cversion="2.0.0" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="reset" Cvendor="NXP" Cversion="2.0.1" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="spi" Cvendor="NXP" Cversion="2.1.0" condition="device.LPC55S69_AND_driver.common_AND_driver.flexcomm">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="spi_dma" Cvendor="NXP" Cversion="2.1.0" condition="device.LPC55S69_AND_driver.flexcomm_AND_driver.flexcomm_spi_AND_driver.lpc_dma">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="usart" Cvendor="NXP" Cversion="2.1.1" condition="device.LPC55S69_AND_driver.flexcomm">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="usart_adapter" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND_driver.common_AND_driver.flexcomm_AND_driver.flexcomm_usart">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="usart_dma" Cvendor="NXP" Cversion="2.1.1" condition="device.LPC55S69_AND_driver.flexcomm_AND_driver.flexcomm_usart_AND_driver.lpc_dma">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
-        <targetInfos>
-          <targetInfo name="core0"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Device" Cgroup="SDK Drivers" Csub="utick" Cvendor="NXP" Cversion="2.0.3" condition="device.LPC55S69_AND_driver.common">
-        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
           <targetInfo name="core0"/>
         </targetInfos>

@@ -6,10 +6,9 @@
 
 
 #define FLEXCOMM3_BUFF_LEN 1024
-#define BLE_WIFI_STATUS()             GPIO_PinRead(GPIO, BOARD_BT_STATUS_PORT, BOARD_BT_STATUS_PIN)
+#define BLE_RTS_LEVEL()             GPIO_PinRead(GPIO, BOARD_BT_RTS_PORT, BOARD_BT_RTS_PIN)
 
 
-extern uint16_t g_puart2TxCnt;
 extern uint16_t g_flexcomm3RxCnt;
 extern TaskHandle_t BLE_TaskHandle ;  /* À¶ÑÀÈÎÎñ¾ä±ú */
 extern uint8_t g_flexcomm3TxBuf[];

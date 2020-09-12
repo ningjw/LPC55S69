@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 #define DEVICE_BLE_NAME "BLE Communication"
 
 #define SET_COMMOND_MODE()       GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 1);
@@ -8,15 +7,12 @@
 #define BLE_POWER_ON()           GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 1);
 #define BLE_RESET()              GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 0);
 
-
 extern void LPUART2_init(void);
-
 
 uint8_t g_flexcomm3TxBuf[FLEXCOMM3_BUFF_LEN] = {0};//串口发送缓冲区
 uint8_t g_flexcomm3Buf[FLEXCOMM3_BUFF_LEN] = {0};//串口接收缓冲区
 
 uint16_t g_flexcomm3RxCnt = 0;
-uint16_t g_puart2TxCnt = 0;
 uint8_t g_flexcomm3StartRx = false;
 uint32_t  g_flexcomm3RxTimeCnt = 0;
 uint32_t ble_event = 0;
@@ -194,15 +190,6 @@ void BLE_AppTask(void)
         //清空接受到的数据
         memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
         g_flexcomm3RxCnt = 0;
-
-        /* 判断蓝牙连接状态*/
-		if(g_sys_para.BleWifiLedStatus != BLE_UPDATE){
-			if(!BLE_WIFI_STATUS()) { //Disconnected
-				g_sys_para.BleWifiLedStatus = BLE_READY;
-			} else { 
-				g_sys_para.BleWifiLedStatus = BLE_CONNECT;//Connected
-			}
-		}
     }
 }
 

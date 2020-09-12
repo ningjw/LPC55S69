@@ -1,7 +1,5 @@
-./objects/fsl_iap.o: \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_iap.c \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_iap.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
+./objects/fsl_iap.o: ..\drivers\fsl_iap.c ..\drivers\fsl_iap.h \
+  ..\drivers\fsl_common.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
@@ -19,6 +17,4 @@
   C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv8.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_iap_ffr.h
+  ..\drivers\fsl_clock.h ..\drivers\fsl_reset.h ..\drivers\fsl_iap_ffr.h

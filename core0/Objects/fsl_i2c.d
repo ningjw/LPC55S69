@@ -1,6 +1,4 @@
-./objects/fsl_i2c.o: \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.c \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_i2c.h \
+./objects/fsl_i2c.o: ..\drivers\fsl_i2c.c ..\drivers\fsl_i2c.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\fsl_device_registers.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0.h \
@@ -14,12 +12,10 @@
   C:\Users\ningjw\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv8.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_common.h \
+  ..\drivers\fsl_common.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  RTE\_core0\RTE_Components.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_clock.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_reset.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\NXP\LPC55S69_DFP\12.1.1\drivers\fsl_flexcomm.h
+  RTE\_core0\RTE_Components.h ..\drivers\fsl_clock.h \
+  ..\drivers\fsl_reset.h ..\drivers\fsl_flexcomm.h

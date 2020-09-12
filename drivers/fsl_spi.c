@@ -558,7 +558,8 @@ status_t SPI_MasterTransferBlocking(SPI_Type *base, spi_transfer_t *xfer)
     tx_ctrl |= ((xfer->configFlags & (uint32_t)kSPI_FrameDelay) != 0U) ? (uint32_t)kSPI_FrameDelay : 0U;
     /* end of transfer */
     last_ctrl |= ((xfer->configFlags & (uint32_t)kSPI_FrameAssert) != 0U) ? (uint32_t)kSPI_FrameAssert : 0U;
-    /* last index of loop */
+
+	/* last index of loop */
     while ((txRemainingBytes != 0U) || (rxRemainingBytes != 0U) || (toReceiveCount != 0U))
     {
         /* if rxFIFO is not empty */
@@ -596,16 +597,6 @@ status_t SPI_MasterTransferBlocking(SPI_Type *base, spi_transfer_t *xfer)
                     txRemainingBytes--;
                 }
                 if (txRemainingBytes == 0U)
-                {
-                    tx_ctrl |= last_ctrl;
-                }
-            }
-            else
-            {
-                tmp32 = (uint32_t)s_dummyData[instance];
-                tmp32 |= (uint32_t)s_dummyData[instance] << 8U;
-                /* last transfer */
-                if (rxRemainingBytes == SPI_COUNT_TO_BYTES(dataWidth, toReceiveCount + 1U))
                 {
                     tx_ctrl |= last_ctrl;
                 }

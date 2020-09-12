@@ -1,6 +1,12 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
+#if 1
+#define BLE_VERSION
+#else
+#define WIFI_VERSION 
+#endif
+
 #define SOFT_VERSION       "0.16"
 #define HARD_VERSION       "1.1"
 
@@ -11,8 +17,7 @@
 
 #define PAGE_SIZE 0x200
 
-#define BLE_VERSION
-//#define WIFI_VERSION 
+
 #ifdef BLE_VERSION
     #define ADC_NUM_ONE_PACK   58
 	#define FIRM_ONE_PACKE_LEN 166 
@@ -101,6 +106,7 @@ typedef struct{
 
     uint8_t  batLedStatus; //电池状态
     uint8_t  BleWifiLedStatus; //蓝牙状态
+	uint8_t  NbNetStatus;  //NB-IoT网络状态指示灯
     uint8_t  sampLedStatus;//采样状态
     bool     ads1271IsOk;  //ADC芯片是否完好
     bool     emmcIsOk;     //eMMC文件系统是否完好
@@ -108,8 +114,8 @@ typedef struct{
     float    batTemp;      //电池温度
     float    objTemp;      //物体温度
 	float    envTemp;      //环境温度
-    uint32_t    batRemainPercent;//充电百分比
-	uint32_t batRegAC;//电池管理芯片AC寄存器值
+    uint32_t batRemainPercent;//充电百分比
+	uint32_t batRegAC;     //电池管理芯片AC寄存器值
 	uint32_t batRemainPercentBak;//保存在flash中的电池电量百分比
 	
     uint32_t sampNumber;  //取样时间

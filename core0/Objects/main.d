@@ -20,16 +20,14 @@
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \
   ..\drivers\fsl_clock.h ..\drivers\fsl_reset.h ..\drivers\fsl_common.h \
-  ..\drivers\fsl_ctimer.h ..\drivers\fsl_clock.h ..\drivers\fsl_spi.h \
-  ..\drivers\fsl_flexcomm.h ..\drivers\fsl_i2c.h \
+  ..\drivers\fsl_ctimer.h ..\drivers\fsl_clock.h ..\drivers\fsl_i2c.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h ..\drivers\fsl_reset.h \
-  ..\drivers\fsl_usart.h ..\drivers\fsl_usart_dma.h ..\drivers\fsl_dma.h \
-  ..\drivers\fsl_usart.h ..\drivers\fsl_pint.h ..\drivers\fsl_rtc.h \
-  ..\drivers\fsl_utick.h board\clock_config.h ..\drivers\fsl_gpio.h \
-  ..\drivers\fsl_power.h ..\drivers\fsl_iocon.h ..\drivers\memory.h \
-  ..\drivers\fsl_iap.h ..\freertos\include\FreeRTOS.h \
-  ..\freertos\include\FreeRTOSConfig.h ..\freertos\include\projdefs.h \
-  ..\freertos\include\portable.h \
+  ..\drivers\fsl_usart.h ..\drivers\fsl_spi.h ..\drivers\fsl_flexcomm.h \
+  ..\drivers\fsl_pint.h ..\drivers\fsl_rtc.h ..\drivers\fsl_utick.h \
+  board\clock_config.h ..\drivers\fsl_gpio.h ..\drivers\fsl_power.h \
+  ..\drivers\fsl_iocon.h ..\drivers\memory.h ..\drivers\fsl_iap.h \
+  ..\freertos\include\FreeRTOS.h ..\freertos\include\FreeRTOSConfig.h \
+  ..\freertos\include\projdefs.h ..\freertos\include\portable.h \
   ..\freertos\include\deprecated_definitions.h \
   ..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h \
   ..\freertos\include\mpu_wrappers.h ..\freertos\include\task.h \

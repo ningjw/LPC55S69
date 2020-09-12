@@ -9,17 +9,33 @@
 
 #include "main.h"
 
+#define SPI_FLASH_CS_HIGH GPIO_PinWrite(GPIO,BOARD_FLASH_CS_PORT,BOARD_FLASH_CS_PIN,1)
+#define SPI_FLASH_CS_LOW  GPIO_PinWrite(GPIO,BOARD_FLASH_CS_PORT,BOARD_FLASH_CS_PIN,0)
 
 //SPIx 读写一个字节
 //TxData:要写入的字节
 //返回值:读取到的字节
+uint8_t rxData[0];
+spi_transfer_t flashXfer = 
+{
+	.rxData = rxData,
+	.configFlags = kSPI_FrameAssert,
+	.dataSize = 1,
+};
+
 uint8_t SPI_ReadWriteByte(uint8_t TxData)
 {
-    while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_TXEMPTY_MASK)==0);	//等待发送fifo为空,从而可以发送数据	
-	FLEXCOMM0_PERIPHERAL->FIFOWR = TxData;		 //发送数据
-	while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK)==0);//等待接收fifo不为空,从而可以读取数据
-    
+	#if 0
+    while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_TXNOTFULL_MASK) == 1U);
+	FLEXCOMM6_PERIPHERAL->FIFOWR = (0x7<<24) | TxData;		 //发送数据
+	
+	while((FLEXCOMM6_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK) == 1U);
 	return FLEXCOMM6_PERIPHERAL->FIFORD;			//读取数据
+	#else
+	flashXfer.txData = &TxData,
+	SPI_MasterTransferBlocking(FLEXCOMM6_PERIPHERAL, &flashXfer);
+	return rxData[0];
+	#endif
 }
 
 
@@ -27,14 +43,14 @@ uint8_t SPI_ReadWriteByte(uint8_t TxData)
 uint16_t SPI_Flash_ReadID(void)
 {
     uint16_t Temp = 0;
-//	SPI_FLASH_CS=0;
+    SPI_FLASH_CS_LOW;
     SPI_ReadWriteByte(0x90);//发送读取ID命令
     SPI_ReadWriteByte(0x00);
     SPI_ReadWriteByte(0x00);
     SPI_ReadWriteByte(0x00);
-    Temp|=SPI_ReadWriteByte(0xFF)<<8;
-    Temp|=SPI_ReadWriteByte(0xFF);
-//	SPI_FLASH_CS=1;
+    Temp |= SPI_ReadWriteByte(0xFF)<<8;
+    Temp |= SPI_ReadWriteByte(0xFF);
+    SPI_FLASH_CS_HIGH;
     return Temp;
 }
 
@@ -53,7 +69,7 @@ void SPI_Flash_Init(void)
 void SPI_Flash_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint16_t NumByteToRead)
 {
     uint16_t i;
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_ReadData);         //暍送读取命令
     SPI_ReadWriteByte((uint8_t)((ReadAddr)>>16));  //暍送24bit地謺
     SPI_ReadWriteByte((uint8_t)((ReadAddr)>>8));
@@ -62,15 +78,15 @@ void SPI_Flash_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint16_t NumByteToRead)
     {
         pBuffer[i]=SPI_ReadWriteByte(0XFF);   //循粫读数
     }
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
 }
 uint8_t SPI_Flash_ReadSR(void)
 {
     uint8_t byte=0;
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_ReadStatusReg);    //暍送读取状态寄存器命令
     byte=SPI_ReadWriteByte(0Xff);             //读取一个字节
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
     return byte;
 }
 //等待空闲
@@ -82,9 +98,9 @@ void SPI_Flash_Wait_Busy(void)
 //将WEL置位
 void SPI_FLASH_Write_Enable(void)
 {
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_WriteEnable);      //暍送写使能
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
 }
 //SPI在一页(0~65535)内写入少于256个字节的数据
 //在指定地謺开始写入最大256字节的数据
@@ -95,13 +111,13 @@ void SPI_Flash_Write_Page(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteTo
 {
     uint16_t i;
     SPI_FLASH_Write_Enable();                  //SET WEL
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_PageProgram);      //暍送写页命令
     SPI_ReadWriteByte((uint8_t)((WriteAddr)>>16)); //暍送24bit地謺
     SPI_ReadWriteByte((uint8_t)((WriteAddr)>>8));
     SPI_ReadWriteByte((uint8_t)WriteAddr);
     for(i=0; i<NumByteToWrite; i++)SPI_ReadWriteByte(pBuffer[i]); //循粫写数
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
     SPI_Flash_Wait_Busy();					   //等待写入结束
 }
 //无检验写SPI FLASH
@@ -138,34 +154,33 @@ void SPI_Flash_Write_NoCheck(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByt
 //只有SPR,TB,BP2,BP1,BP0(bit 7,5,4,3,2)可以写!!!
 void SPI_FLASH_Write_SR(uint8_t sr)
 {
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_WriteStatusReg);   //暍送写取状态寄存器命令
     SPI_ReadWriteByte(sr);               //写入一个字节
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
 }
 
 //SPI_FLASH写禁止
 //将WEL清零
 void SPI_FLASH_Write_Disable(void)
 {
-//	SPI_FLASH_CS=0;                            //使能器件
+    SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_WriteDisable);     //暍送写禁止指令
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
 }
 //擦除一个扇区
 //Dst_Addr:扇区地謺 0~511 for w25x16
 //擦除一个山区的最少时间:150ms
 void SPI_Flash_Erase_Sector(uint32_t Dst_Addr)
 {
-
     SPI_FLASH_Write_Enable();                  //SET WEL
     SPI_Flash_Wait_Busy();
-//  	SPI_FLASH_CS=0;                            //使能器件
+	SPI_FLASH_CS_LOW;                            //使能器件
     SPI_ReadWriteByte(W25X_SectorErase);      //暍送扇区擦除指令
     SPI_ReadWriteByte((uint8_t)((Dst_Addr)>>16));  //暍送24bit地謺
     SPI_ReadWriteByte((uint8_t)((Dst_Addr)>>8));
     SPI_ReadWriteByte((uint8_t)Dst_Addr);
-//	SPI_FLASH_CS=1;                            //取消片选
+    SPI_FLASH_CS_HIGH;                            //取消片选
     SPI_Flash_Wait_Busy();   				   //等待擦除完成
 }
 //写SPI FLASH

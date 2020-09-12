@@ -20,7 +20,7 @@ char str[12];
 
 uint32_t ADC_ShakeValue = 0;
 uint32_t  ADC_InvalidCnt = 0;
-
+float ADC_VoltageValue;
 
 /***************************************************************************************
   * @brief   
@@ -33,8 +33,6 @@ void RTC_IRQHANDLER(void)
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
 	}
-	
-	RTC_GetDatetime(RTC, &sysTime);
 	
 	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
 		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
@@ -54,7 +52,6 @@ void CTIMER1_Callback(uint32_t flags)
 		SpeedADC[g_adc_set.spdCount++] = CTIMER_GetTimerCountValue(CTIMER1);
 	}
 }
-
 
 /***************************************************************************************
   * @brief   start adc sample
@@ -193,19 +190,25 @@ void ADC_AppTask(void)
 
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
-	ADC_PwmClkConfig(1000000);
-	si5351aSetClk0Frequency(1000000);
+//	ADC_PwmClkConfig(1000000);
+	si5351aSetClk0Frequency(12000000);//给ADS1271提供时钟
+	si5351aSetClk1Frequency(1000000);//设置滤波器时钟
 	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
+#if 0
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
     while (ADC_READY == 1){};  //wait ads1271 ready
     if(ADS1271_ReadData() == 0) {
         g_sys_para.sampLedStatus = WORK_FATAL_ERR;
     }
+#else
+	while (1) { //wait ads1271 ready
+        while(ADC_READY == 1){};//等待ADC_READY为低电平
+		ADC_ShakeValue = ADS1271_ReadData();
+		ADC_VoltageValue = ADC_ShakeValue * 2.048 / 0x800000;
+    }
+#endif
 	SI5351a_SetPDN(SI_CLK0_CONTROL, false);
-//	while (1) { //wait ads1271 ready
-//        while(ADC_READY == 1){};//等待ADC_READY为低电平
-//		ADC_ShakeValue = ADS1271_ReadData();
-//    }
+	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
     printf("ADC Task Create and Running\r\n");
     while(1)

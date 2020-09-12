@@ -531,18 +531,21 @@ SEND_DATA:
     }
 
 	g_sys_para.inactiveCount = 0;
-	
+#if 0
+	int timeOut = 0;
+	while(BLE_RTS_LEVEL() == 0){//BLE的RTS引脚为低电平,表示
+		vTaskDelay(1);
+		if(timeOut++ > 100)break;
+	}
+#endif
 	if(sid <= 2){
-//			while(BLE_WIFI_STATUS() == 1){};//在这里等待低电平
 		FLEXCOMM3_SendStr((char *)p_reply);
 		printf("%s\r\n",(char *)p_reply);
 		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
 	}else{
-//			while(BLE_WIFI_STATUS() == 1){};//在这里等待低电平
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
-//		LPUART_WriteBlocking(LPUART3, g_flexcomm3TxBuf, i);
 //		printf("sid = %d ; 数据长度 = %d\r\n",sid, i);
 	}
 	

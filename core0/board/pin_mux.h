@@ -72,8 +72,11 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_15_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 1. */
-#define PIO0_15_FUNC_ALT1 0x01u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_15_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO0_15_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_16_DIGIMODE_DIGITAL 0x01u
@@ -144,8 +147,18 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_28_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 1. */
-#define PIO0_28_FUNC_ALT1 0x01u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_28_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Repeater. Repeater mode. */
+#define PIO0_28_MODE_REPEATER 0x03u
+/*!
+ * @brief
+ * Driver slew rate.
+ * : Fast-mode, output slew rate is faster.
+ * Refer to the appropriate specific device data sheet for details.
+ */
+#define PIO0_28_SLEW_FAST 0x01u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_29_DIGIMODE_DIGITAL 0x01u
@@ -162,14 +175,24 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_30_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 1. */
-#define PIO0_30_FUNC_ALT1 0x01u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_30_FUNC_ALT0 0x00u
+/*!
+ * @brief
+ * Driver slew rate.
+ * : Fast-mode, output slew rate is faster.
+ * Refer to the appropriate specific device data sheet for details.
+ */
+#define PIO0_30_SLEW_FAST 0x01u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_31_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_31_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO0_31_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_3_DIGIMODE_DIGITAL 0x01u
@@ -180,8 +203,8 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_4_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO0_5_DIGIMODE_DIGITAL 0x01u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_4_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_7_DIGIMODE_DIGITAL 0x01u
@@ -207,6 +230,9 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 2. */
 #define PIO1_12_FUNC_ALT2 0x02u
 /*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO1_12_MODE_PULL_UP 0x02u
+/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_13_DIGIMODE_DIGITAL 0x01u
 /*!
@@ -231,11 +257,17 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 2. */
 #define PIO1_16_FUNC_ALT2 0x02u
 /*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO1_16_MODE_PULL_UP 0x02u
+/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_17_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_17_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO1_17_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_18_DIGIMODE_DIGITAL 0x01u
@@ -355,19 +387,19 @@ void BOARD_InitBootPins(void);
 #define BOARD_LED_BAT_GREEN_PIN 15U   /*!<@brief 1U pin index: 15 */
                                       /* @} */
 
-/*! @name PIO0_19 (coord E6), LED_BLE_RED
-  @{ */
-#define BOARD_LED_BLE_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED_BLE_RED_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_LED_BLE_RED_PIN 19U   /*!<@brief 0U pin index: 19 */
-                                    /* @} */
-
-/*! @name PIO0_20 (coord B12), LED_BLE_GREEN
+/*! @name PIO0_19 (coord E6), LED_BLE_GREEN
   @{ */
 #define BOARD_LED_BLE_GREEN_GPIO GPIO /*!<@brief GPIO device name: GPIO */
 #define BOARD_LED_BLE_GREEN_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_LED_BLE_GREEN_PIN 20U   /*!<@brief 0U pin index: 20 */
+#define BOARD_LED_BLE_GREEN_PIN 19U   /*!<@brief 0U pin index: 19 */
                                       /* @} */
+
+/*! @name PIO0_20 (coord B12), LED_BLE_RED
+  @{ */
+#define BOARD_LED_BLE_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_LED_BLE_RED_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_LED_BLE_RED_PIN 20U   /*!<@brief 0U pin index: 20 */
+                                    /* @} */
 
 /*! @name PIO1_18 (coord G9), KEY_WAKE
   @{ */
@@ -419,10 +451,9 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO1_30 (coord F9), BT_STATUS
   @{ */
-#define BOARD_BT_STATUS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_BT_STATUS_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_BT_STATUS_PIN 30U   /*!<@brief 1U pin index: 30 */
-                                  /* @} */
+#define BOARD_BT_STATUS_PORT 1U /*!<@brief PORT device name: 1U */
+#define BOARD_BT_STATUS_PIN 30U /*!<@brief 1U pin index: 30 */
+                                /* @} */
 
 /*! @name PIO1_27 (coord E8), BT_MODE
   @{ */
@@ -450,18 +481,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_BT_RXD_PIN 3U  /*!<@brief 0U pin index: 3 */
                              /* @} */
 
-/*! @name PIO0_5 (coord A7), BT_RTS
-  @{ */
-#define BOARD_BT_RTS_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_BT_RTS_PIN 5U  /*!<@brief 0U pin index: 5 */
-                             /* @} */
-
-/*! @name PIO0_4 (coord E7), BT_CTS
-  @{ */
-#define BOARD_BT_CTS_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_BT_CTS_PIN 4U  /*!<@brief 0U pin index: 4 */
-                             /* @} */
-
 /*! @name PIO1_19 (coord H13), NB_PWR_EN
   @{ */
 #define BOARD_NB_PWR_EN_GPIO GPIO /*!<@brief GPIO device name: GPIO */
@@ -476,12 +495,11 @@ void BOARD_InitBootPins(void);
 #define BOARD_NB_RELOAD_PIN 18U   /*!<@brief 0U pin index: 18 */
                                   /* @} */
 
-/*! @name PIO0_29 (coord H8), NB_ST
+/*! @name PIO0_29 (coord H8), NB_NETSTATUS
   @{ */
-#define BOARD_NB_ST_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_NB_ST_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_NB_ST_PIN 29U   /*!<@brief 0U pin index: 29 */
-                              /* @} */
+#define BOARD_NB_NETSTATUS_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_NB_NETSTATUS_PIN 29U /*!<@brief 0U pin index: 29 */
+                                   /* @} */
 
 /*! @name PIO1_28 (coord A8), NB_RST
   @{ */
@@ -489,18 +507,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_NB_RST_PORT 1U   /*!<@brief PORT device name: 1U */
 #define BOARD_NB_RST_PIN 28U   /*!<@brief 1U pin index: 28 */
                                /* @} */
-
-/*! @name PIO0_27 (coord N2), NB_RXD
-  @{ */
-#define BOARD_NB_RXD_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_NB_RXD_PIN 27U /*!<@brief 0U pin index: 27 */
-                             /* @} */
-
-/*! @name PIO0_26 (coord H12), NB_TXD
-  @{ */
-#define BOARD_NB_TXD_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_NB_TXD_PIN 26U /*!<@brief 0U pin index: 26 */
-                             /* @} */
 
 /*! @name PIO0_1 (coord F5), FREQ_CAP
   @{ */
@@ -522,24 +528,12 @@ void BOARD_InitBootPins(void);
 #define BOARD_ADC_SYNC_PIN 16U   /*!<@brief 0U pin index: 16 */
                                  /* @} */
 
-/*! @name PIO0_30 (coord E5), ADC_MISO
-  @{ */
-#define BOARD_ADC_MISO_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_ADC_MISO_PIN 30U /*!<@brief 0U pin index: 30 */
-                               /* @} */
-
 /*! @name PIO0_7 (coord G5), ADC_MODE
   @{ */
 #define BOARD_ADC_MODE_GPIO GPIO /*!<@brief GPIO device name: GPIO */
 #define BOARD_ADC_MODE_PORT 0U   /*!<@brief PORT device name: 0U */
 #define BOARD_ADC_MODE_PIN 7U    /*!<@brief 0U pin index: 7 */
                                  /* @} */
-
-/*! @name PIO0_28 (coord F13), ADC_SPI_SCK
-  @{ */
-#define BOARD_ADC_SCK_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_ADC_SCK_PIN 28U /*!<@brief 0U pin index: 28 */
-                              /* @} */
 
 /*! @name PIO0_0 (coord L12), ADC_CLK
   @{ */
@@ -637,11 +631,45 @@ void BOARD_InitBootPins(void);
 #define BOARD_FLASH_WP_PIN 17U   /*!<@brief 1U pin index: 17 */
                                  /* @} */
 
+/*! @name PIO0_4 (coord E7), BT_RTS
+  @{ */
+#define BOARD_BT_RTS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_BT_RTS_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_BT_RTS_PIN 4U    /*!<@brief 0U pin index: 4 */
+                               /* @} */
+
+/*! @name PIO0_30 (coord E5), ADC_MISO
+  @{ */
+#define BOARD_ADC_MISO_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_ADC_MISO_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_ADC_MISO_PIN 30U   /*!<@brief 0U pin index: 30 */
+                                 /* @} */
+
+/*! @name PIO0_28 (coord F13), ADC_SPI_SCK
+  @{ */
+#define BOARD_ADC_SPI_SCK_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_ADC_SPI_SCK_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_ADC_SPI_SCK_PIN 28U   /*!<@brief 0U pin index: 28 */
+                                    /* @} */
+
+/*! @name PIO0_27 (coord N2), NB_RXD
+  @{ */
+#define BOARD_NB_RXD_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_NB_RXD_PIN 27U /*!<@brief 0U pin index: 27 */
+                             /* @} */
+
+/*! @name PIO0_26 (coord H12), NB_TXD
+  @{ */
+#define BOARD_NB_TXD_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_NB_TXD_PIN 26U /*!<@brief 0U pin index: 26 */
+                             /* @} */
+
 /*! @name PIO0_15 (coord L2), FLASH_CS
   @{ */
-#define BOARD_FLASH_CS_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_FLASH_CS_PIN 15U /*!<@brief 0U pin index: 15 */
-                               /* @} */
+#define BOARD_FLASH_CS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_FLASH_CS_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_FLASH_CS_PIN 15U   /*!<@brief 0U pin index: 15 */
+                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
