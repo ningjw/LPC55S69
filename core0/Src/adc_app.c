@@ -90,12 +90,10 @@ void ADC_SampleStart(void)
 	if(g_adc_set.SampleRate > 45000){
 		ADC_MODE_HIGH_SPEED;//使用高速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
-		ADC_PwmClkConfig(g_adc_set.SampleRate * 256);
 		si5351aSetClk0Frequency(g_adc_set.SampleRate * 256);
 	}else{
 		ADC_MODE_LOW_POWER;//使用低速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
-		ADC_PwmClkConfig(g_adc_set.SampleRate * 512);
 		si5351aSetClk0Frequency(g_adc_set.SampleRate * 512);
 	}
 
@@ -151,11 +149,9 @@ void ADC_SampleStart(void)
 ***************************************************************************************/
 void ADC_SampleStop(void)
 {
-	/* Stop channel 0. */
-//    PIT_StopTimer(PIT1_PERIPHERAL, kPIT_Chnl_0);
 	/* Stop get temperature*/
 	g_sys_para.WorkStatus = false;
-	ADC_PwmClkStop();
+
     /* Stop the timer */
 	CTIMER_StopTimer(CTIMER1);
 	

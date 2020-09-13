@@ -27,19 +27,6 @@ void BOARD_InitBootPins(void);
 
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO0_0_DIGIMODE_DIGITAL 0x01u
-/*!
- * @brief Selects pin function.: Alternative connection 3. */
-#define PIO0_0_FUNC_ALT3 0x03u
-/*!
- * @brief
- * Driver slew rate.
- * : Fast-mode, output slew rate is faster.
- * Refer to the appropriate specific device data sheet for details.
- */
-#define PIO0_0_SLEW_FAST 0x01u
-/*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_10_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -353,12 +340,6 @@ void BOARD_InitBootPins(void);
 #define PIO1_3_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO1_4_DIGIMODE_DIGITAL 0x01u
-/*!
- * @brief Selects pin function.: Alternative connection 3. */
-#define PIO1_4_FUNC_ALT3 0x03u
-/*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_6_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -546,12 +527,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_ADC_MODE_PIN 7U    /*!<@brief 0U pin index: 7 */
                                  /* @} */
 
-/*! @name PIO0_0 (coord L12), ADC_CLK
-  @{ */
-#define BOARD_ADC_CLK_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_ADC_CLK_PIN 0U  /*!<@brief 0U pin index: 0 */
-                              /* @} */
-
 /*! @name PIO0_21 (coord A12), ADC_RDY
   @{ */
 #define BOARD_ADC_RDY_GPIO GPIO /*!<@brief GPIO device name: GPIO */
@@ -603,12 +578,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_TEMP_SDA_PORT 0U /*!<@brief PORT device name: 0U */
 #define BOARD_TEMP_SDA_PIN 13U /*!<@brief 0U pin index: 13 */
                                /* @} */
-
-/*! @name PIO1_4 (coord B2), FLT_CLK
-  @{ */
-#define BOARD_FLT_CLK_PORT 1U /*!<@brief PORT device name: 1U */
-#define BOARD_FLT_CLK_PIN 4U  /*!<@brief 1U pin index: 4 */
-                              /* @} */
 
 /*! @name PIO1_13 (coord B3), FLASH_MOSI
   @{ */

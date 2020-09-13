@@ -126,7 +126,6 @@ BOARD_InitPins:
     identifier: ADC_FORMAT, direction: OUTPUT}
   - {pin_num: J2, peripheral: GPIO, signal: 'PIO0, 16', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, identifier: ADC_SYNC, direction: INPUT}
   - {pin_num: G5, peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT, gpio_init_state: 'false'}
-  - {pin_num: L12, peripheral: CTIMER0, signal: 'MATCH, 0', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A, slew_rate: fast}
   - {pin_num: A12, peripheral: GPIO, signal: 'PIO0, 21', pin_signal: PIO0_21/FC3_RTS_SCL_SSEL1/UTICK_CAP3/CTIMER3_MAT3/SCT_GPI3/FC7_SCK/PLU_CLKIN/SECURE_GPIO0_21,
     direction: INPUT}
   - {pin_num: E2, peripheral: SWD, signal: SWDIO, pin_signal: PIO0_12/FC3_TXD_SCL_MISO_WS/SD1_BACKEND_PWR/FREQME_GPIO_CLK_B/SCT_GPI7/SD0_POW_EN/SWDIO/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_12/ADC0_10}
@@ -138,7 +137,6 @@ BOARD_InitPins:
   - {pin_num: G11, peripheral: GPIO, signal: 'PIO1, 1', pin_signal: PIO1_1/FC3_RXD_SDA_MOSI_DATA/CT_INP3/SCT_GPI5/HS_SPI_SSEL1/USB1_OVERCURRENTN/PLU_OUT4, direction: OUTPUT}
   - {pin_num: C13, peripheral: FLEXCOMM1, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14}
   - {pin_num: C12, peripheral: FLEXCOMM1, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_13/FC1_CTS_SDA_SSEL0/UTICK_CAP0/CT_INP0/SCT_GPI0/FC1_RXD_SDA_MOSI_DATA/PLU_IN0/SECURE_GPIO0_13}
-  - {pin_num: B2, peripheral: CTIMER2, signal: 'MATCH, 1', pin_signal: PIO1_4/FC0_SCK/SD0_D0/CTIMER2_MAT1/SCT0_OUT0/FREQME_GPIO_CLK_A}
   - {pin_num: B3, peripheral: FLEXCOMM6, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_13/FC6_RXD_SDA_MOSI_DATA/CT_INP6/USB0_OVERCURRENTN/USB0_FRAME/SD0_CARD_DET_N,
     direction: OUTPUT}
   - {pin_num: C7, peripheral: FLEXCOMM6, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_16/FC6_TXD_SCL_MISO_WS/CTIMER1_MAT3/SD0_CMD, direction: INPUT, mode: pullUp}
@@ -378,24 +376,6 @@ void BOARD_InitPins(void)
     INPUTMUX_AttachSignal(INPUTMUX, 2U, kINPUTMUX_GpioPort0Pin29ToPintsel);
     /* Ctimer input 0 is selected for Secure TIMER1 CAPTSEL 0 */
     INPUTMUX_AttachSignal(INPUTMUX, 0U, kINPUTMUX_CtimerInp0ToTimer1Captsel);
-
-    IOCON->PIO[0][0] = ((IOCON->PIO[0][0] &
-                         /* Mask bits to zero which are setting */
-                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_SLEW_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                        /* Selects pin function.
-                         * : PORT00 (pin L12) is configured as CTIMER0_MAT0. */
-                        | IOCON_PIO_FUNC(PIO0_0_FUNC_ALT3)
-
-                        /* Driver slew rate.
-                         * : Fast-mode, output slew rate is faster.
-                         * Refer to the appropriate specific device data sheet for details. */
-                        | IOCON_PIO_SLEW(PIO0_0_SLEW_FAST)
-
-                        /* Select Digital mode.
-                         * : Enable Digital mode.
-                         * Digital input is enabled. */
-                        | IOCON_PIO_DIGIMODE(PIO0_0_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][1] = ((IOCON->PIO[0][1] &
                          /* Mask bits to zero which are setting */
@@ -1146,19 +1126,6 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO1_30_DIGIMODE_DIGITAL));
-
-    IOCON->PIO[1][4] = ((IOCON->PIO[1][4] &
-                         /* Mask bits to zero which are setting */
-                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                        /* Selects pin function.
-                         * : PORT14 (pin B2) is configured as CTIMER2_MAT1. */
-                        | IOCON_PIO_FUNC(PIO1_4_FUNC_ALT3)
-
-                        /* Select Digital mode.
-                         * : Enable Digital mode.
-                         * Digital input is enabled. */
-                        | IOCON_PIO_DIGIMODE(PIO1_4_DIGIMODE_DIGITAL));
 
     IOCON->PIO[1][6] = ((IOCON->PIO[1][6] &
                          /* Mask bits to zero which are setting */

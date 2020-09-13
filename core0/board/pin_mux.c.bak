@@ -125,7 +125,7 @@ BOARD_InitPins:
   - {pin_num: F2, peripheral: GPIO, signal: 'PIO0, 10', pin_signal: PIO0_10/FC6_SCK/CT_INP10/CTIMER2_MAT0/FC1_TXD_SCL_MISO_WS/SCT0_OUT2/SWO/SECURE_GPIO0_10/ADC0_1,
     identifier: ADC_FORMAT, direction: OUTPUT}
   - {pin_num: J2, peripheral: GPIO, signal: 'PIO0, 16', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, identifier: ADC_SYNC, direction: INPUT}
-  - {pin_num: G5, peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: G5, peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT, gpio_init_state: 'false'}
   - {pin_num: L12, peripheral: CTIMER0, signal: 'MATCH, 0', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A, slew_rate: fast}
   - {pin_num: A12, peripheral: GPIO, signal: 'PIO0, 21', pin_signal: PIO0_21/FC3_RTS_SCL_SSEL1/UTICK_CAP3/CTIMER3_MAT3/SCT_GPI3/FC7_SCK/PLU_CLKIN/SECURE_GPIO0_21,
     direction: INPUT}
@@ -191,7 +191,7 @@ void BOARD_InitPins(void)
 
     gpio_pin_config_t ADC_MODE_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 1U
+        .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PIO0_7 (pin G5)  */
     GPIO_PinInit(BOARD_ADC_MODE_GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, &ADC_MODE_config);

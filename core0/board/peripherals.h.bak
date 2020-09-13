@@ -126,7 +126,7 @@ extern "C" {
 /* Definition of peripheral ID */
 #define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
 /* Definition of the clock source frequency */
-#define FLEXCOMM0_CLOCK_SOURCE 48000000UL
+#define FLEXCOMM0_CLOCK_SOURCE 12000000UL
 
 /***********************************************************************************************************************
  * Global variables

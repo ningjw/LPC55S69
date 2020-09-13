@@ -147,11 +147,15 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_28_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 0. */
-#define PIO0_28_FUNC_ALT0 0x00u
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO0_28_FUNC_ALT1 0x01u
 /*!
- * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Repeater. Repeater mode. */
-#define PIO0_28_MODE_REPEATER 0x03u
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO0_28_MODE_INACTIVE 0x00u
 /*!
  * @brief
  * Driver slew rate.
@@ -175,8 +179,15 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_30_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 0. */
-#define PIO0_30_FUNC_ALT0 0x00u
+ * @brief Selects pin function.: Alternative connection 1. */
+#define PIO0_30_FUNC_ALT1 0x01u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO0_30_MODE_INACTIVE 0x00u
 /*!
  * @brief
  * Driver slew rate.
@@ -640,17 +651,15 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO0_30 (coord E5), ADC_MISO
   @{ */
-#define BOARD_ADC_MISO_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_ADC_MISO_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_ADC_MISO_PIN 30U   /*!<@brief 0U pin index: 30 */
-                                 /* @} */
+#define BOARD_ADC_MISO_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_ADC_MISO_PIN 30U /*!<@brief 0U pin index: 30 */
+                               /* @} */
 
 /*! @name PIO0_28 (coord F13), ADC_SPI_SCK
   @{ */
-#define BOARD_ADC_SPI_SCK_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_ADC_SPI_SCK_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_ADC_SPI_SCK_PIN 28U   /*!<@brief 0U pin index: 28 */
-                                    /* @} */
+#define BOARD_ADC_SPI_SCK_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_ADC_SPI_SCK_PIN 28U /*!<@brief 0U pin index: 28 */
+                                  /* @} */
 
 /*! @name PIO0_27 (coord N2), NB_RXD
   @{ */
