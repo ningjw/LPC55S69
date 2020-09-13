@@ -17,7 +17,6 @@ void main(void)
 	CTIMER1_Init();
 	memory_init();
 	FLASH_Init(&flashInstance);
-	__disable_irq();
 	SPI_Flash_Init();
 	InitSysPara();
 	/* 初始化EventRecorder并开启*/
@@ -39,7 +38,7 @@ void main(void)
 
     /* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-
+	
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
     while(1);

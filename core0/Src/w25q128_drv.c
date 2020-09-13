@@ -33,7 +33,7 @@ uint8_t SPI_ReadWriteByte(uint8_t TxData)
 	return FLEXCOMM6_PERIPHERAL->FIFORD;			//¶ÁÈ¡Êý¾Ý
 	#else
 	flashXfer.txData = &TxData,
-	SPI_MasterTransferBlocking(FLEXCOMM6_PERIPHERAL, &flashXfer);
+	SPI_FlashMasterTransfer(FLEXCOMM6_PERIPHERAL, &flashXfer);
 	return rxData[0];
 	#endif
 }

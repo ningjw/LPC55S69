@@ -59,12 +59,12 @@ outputs:
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
 - {id: CTIMER1_clock.outFreq, value: 1 MHz}
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
-- {id: FXCOM0_clock.outFreq, value: 12 MHz}
+- {id: FXCOM0_clock.outFreq, value: 48 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
 - {id: FXCOM3_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
-- {id: FXCOM6_clock.outFreq, value: 48 MHz}
+- {id: FXCOM6_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
 - {id: System_clock.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
@@ -77,12 +77,12 @@ settings:
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
-- {id: SYSCON.FCCLKSEL0.sel, value: ANACTRL.fro_12m_clk}
+- {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL3.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
-- {id: SYSCON.FCCLKSEL6.sel, value: SYSCON.FROHFDIV}
+- {id: SYSCON.FCCLKSEL6.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
 - {id: SYSCON.FROHFDIV.scale, value: '2'}
 - {id: SYSCON.MAINCLKSELA.sel, value: SYSCON.CLK_IN_EN}
@@ -167,12 +167,12 @@ void BOARD_BootClockRUN(void)
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO12M */
+    CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM3);                 /*!< Switch FLEXCOMM3 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
-    CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO_HF_DIV */
+    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
     CLOCK_AttachClk(kFRO1M_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO1M */

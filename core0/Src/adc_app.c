@@ -194,7 +194,7 @@ void ADC_AppTask(void)
 	si5351aSetClk0Frequency(12000000);//给ADS1271提供时钟
 	si5351aSetClk1Frequency(1000000);//设置滤波器时钟
 	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
-#if 0
+#if 1
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
     while (ADC_READY == 1){};  //wait ads1271 ready
     if(ADS1271_ReadData() == 0) {

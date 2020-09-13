@@ -1,12 +1,12 @@
 Dependencies for Project 'project', Target 'core0': (DO NOT MODIFY !)
 CompilerVersion: 6130001::V6.13.1::.\ARMCLANG
-F (.\Src\main.c)(0x5F5CE7A0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/main.o -MD)
+F (.\Src\main.c)(0x5F5DD25E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/main.o -MD)
 I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -31,7 +31,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -74,8 +74,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -100,7 +100,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -137,13 +137,13 @@ I (Inc\iic_temp_drv.h)(0x5E721AB0)
 I (Inc\si5351_drv.h)(0x5EDAF59B)
 I (Inc\adc_drv.h)(0x5F1E3EFE)
 I (Inc\w25q128_drv.h)(0x5F5CE782)
-F (.\Src\adc_app.c)(0x5F5CC95C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/adc_app.o -MD)
+F (.\Src\adc_app.c)(0x5F5DD255)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/adc_app.o -MD)
 I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -168,7 +168,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -210,8 +210,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -236,7 +236,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -278,8 +278,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -304,7 +304,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -346,8 +346,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -372,7 +372,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -414,8 +414,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -440,7 +440,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -482,8 +482,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -508,7 +508,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -550,8 +550,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -576,7 +576,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -618,8 +618,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -644,7 +644,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -681,13 +681,13 @@ I (Inc\iic_temp_drv.h)(0x5E721AB0)
 I (Inc\si5351_drv.h)(0x5EDAF59B)
 I (Inc\adc_drv.h)(0x5F1E3EFE)
 I (Inc\w25q128_drv.h)(0x5F5CE782)
-F (.\Src\adc_drv.c)(0x5F5CB8AE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/adc_drv.o -MD)
+F (.\Src\adc_drv.c)(0x5F5DD1CD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/adc_drv.o -MD)
 I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -712,7 +712,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -754,8 +754,8 @@ I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -780,7 +780,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -817,13 +817,13 @@ I (Inc\iic_temp_drv.h)(0x5E721AB0)
 I (Inc\si5351_drv.h)(0x5EDAF59B)
 I (Inc\adc_drv.h)(0x5F1E3EFE)
 I (Inc\w25q128_drv.h)(0x5F5CE782)
-F (.\Src\w25q128_drv.c)(0x5F5CE655)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/w25q128_drv.o -MD)
+F (.\Src\w25q128_drv.c)(0x5F5DD19D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/w25q128_drv.o -MD)
 I (Inc\main.h)(0x5F5B7AC0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h)(0x5B8F507E)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
-I (board\pin_mux.h)(0x5F5CE10F)
-I (board\peripherals.h)(0x5F5CE73A)
+I (board\pin_mux.h)(0x5F5DC2C2)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -848,7 +848,7 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
@@ -885,7 +885,7 @@ I (Inc\iic_temp_drv.h)(0x5E721AB0)
 I (Inc\si5351_drv.h)(0x5EDAF59B)
 I (Inc\adc_drv.h)(0x5F1E3EFE)
 I (Inc\w25q128_drv.h)(0x5F5CE782)
-F (.\board\clock_config.c)(0x5F5CE739)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/clock_config.o -MD)
+F (.\board\clock_config.c)(0x5F5DCDA6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/clock_config.o -MD)
 I (..\drivers\fsl_power.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -909,8 +909,8 @@ I (..\drivers\fsl_clock.h)(0x5EEFE8C4)
 I (..\drivers\fsl_reset.h)(0x5EEFE8C4)
 I (board\clock_config.h)(0x5F1983F8)
 F (.\board\clock_config.h)(0x5F1983F8)()
-F (.\board\peripherals.c)(0x5F5CE73A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/peripherals.o -MD)
-I (board\peripherals.h)(0x5F5CE73A)
+F (.\board\peripherals.c)(0x5F5DCDA8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/peripherals.o -MD)
+I (board\peripherals.h)(0x5F5DCDA8)
 I (..\drivers\fsl_dma.h)(0x5EEFE8C4)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
@@ -936,13 +936,13 @@ I (..\drivers\fsl_ctimer.h)(0x5EEFE8C4)
 I (..\drivers\fsl_i2c.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x5DB34DA0)
 I (..\drivers\fsl_usart.h)(0x5EEFE8C4)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_flexcomm.h)(0x5EEFE8C4)
 I (..\drivers\fsl_pint.h)(0x5EEFE8C4)
 I (..\drivers\fsl_rtc.h)(0x5EEFE8C4)
 I (..\drivers\fsl_utick.h)(0x5EEFE8C4)
-F (.\board\peripherals.h)(0x5F5CE73A)()
-F (.\board\pin_mux.c)(0x5F5CE10F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/pin_mux.o -MD)
+F (.\board\peripherals.h)(0x5F5DCDA8)()
+F (.\board\pin_mux.c)(0x5F5DC54A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/pin_mux.o -MD)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)
@@ -966,8 +966,8 @@ I (..\drivers\fsl_reset.h)(0x5EEFE8C4)
 I (..\drivers\fsl_gpio.h)(0x5EEFE8C4)
 I (..\drivers\fsl_inputmux.h)(0x5EEFE8C4)
 I (..\drivers\fsl_inputmux_connections.h)(0x5EEFE8C4)
-I (board\pin_mux.h)(0x5F5CE10F)
-F (.\board\pin_mux.h)(0x5F5CE10F)()
+I (board\pin_mux.h)(0x5F5DC2C2)
+F (.\board\pin_mux.h)(0x5F5DC2C2)()
 F (..\freertos\event_groups.c)(0x5EEFE8C6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/event_groups.o -MD)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5DB34DA0)
 I (..\freertos\include\FreeRTOS.h)(0x5EEFE8C6)
@@ -1302,8 +1302,8 @@ I (RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h)(0x5F1D876
 I (..\drivers\fsl_clock.h)(0x5EEFE8C4)
 I (..\drivers\fsl_reset.h)(0x5EEFE8C4)
 I (..\drivers\fsl_power.h)(0x5EEFE8C4)
-F (..\drivers\fsl_spi.c)(0x5F5CE6D4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/fsl_spi.o -MD)
-I (..\drivers\fsl_spi.h)(0x5EEFE8C4)
+F (..\drivers\fsl_spi.c)(0x5F5DD18A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DDEBUG -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33-o ./objects/fsl_spi.o -MD)
+I (..\drivers\fsl_spi.h)(0x5F5DD048)
 I (..\drivers\fsl_common.h)(0x5EEFE8C4)
 I (D:\Keil_v5\ARM\ARMCLANG\include\assert.h)(0x5DB34DA0)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x5DB34DA0)

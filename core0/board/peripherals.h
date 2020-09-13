@@ -122,6 +122,11 @@ extern "C" {
 #define UTICK0_TICKS 999999UL
 /* UTICK0 interrupt vector ID (number). */
 #define UTICK0_IRQN UTICK0_IRQn
+/* BOARD_InitPeripherals defines for FLEXCOMM0 */
+/* Definition of peripheral ID */
+#define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
+/* Definition of the clock source frequency */
+#define FLEXCOMM0_CLOCK_SOURCE 12000000UL
 
 /***********************************************************************************************************************
  * Global variables
@@ -135,6 +140,7 @@ extern const usart_config_t FLEXCOMM2_config;
 extern const usart_config_t FLEXCOMM3_config;
 extern const i2c_master_config_t FLEXCOMM4_config;
 extern const spi_master_config_t FLEXCOMM6_config;
+extern const spi_master_config_t FLEXCOMM0_config;
 
 /***********************************************************************************************************************
  * Callback functions

@@ -111,7 +111,7 @@ uint8_t spiRxBuff[4] = {0};
 spi_transfer_t xfer = {
 	.txData = spiTxBuff,
 	.rxData = spiRxBuff,
-	.dataSize = 4,
+	.dataSize = 3,
 	.configFlags = kSPI_FrameAssert,
 };
 /***************************************************************************************
@@ -121,23 +121,9 @@ spi_transfer_t xfer = {
 ***************************************************************************************/
 uint32_t ADS1271_ReadData(void)
 {
-#if 0
-    uint32_t spiData = 0;
-	uint16_t temp[3] = {0};
-	/* clear tx/rx errors and empty FIFOs */
-	FLEXCOMM0_PERIPHERAL->FIFOCFG |= SPI_FIFOCFG_EMPTYTX_MASK | SPI_FIFOCFG_EMPTYRX_MASK;
-	FLEXCOMM0_PERIPHERAL->FIFOSTAT |= SPI_FIFOSTAT_TXERR_MASK | SPI_FIFOSTAT_RXERR_MASK;
-	for( uint8_t i = 0; i<3; i++){
-		
-		/* transmit if txFIFO is not full  */
-        while((FLEXCOMM0_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_TXNOTFULL_MASK) == 1U);
-		FLEXCOMM0_PERIPHERAL->FIFOWR = 0x7<<24;
-		
-		/* if rxFIFO is not empty */
-        while((FLEXCOMM0_PERIPHERAL->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK) == 1U);
-		temp[i] = FLEXCOMM0_PERIPHERAL->FIFORD;
-	}
-	return ((temp[0]<<16) | (temp[1]<<8) | temp[2]);
+#if 1
+	SPI_ADCMasterTransfer(FLEXCOMM0_PERIPHERAL, &xfer);
+	return ((spiRxBuff[0]<<16) | (spiRxBuff[1]<<8) | spiRxBuff[2]);
 #else
 	uint32_t spiData = 0;
 	uint8_t  bitData[24] = {0};

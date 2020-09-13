@@ -570,6 +570,19 @@ status_t SPI_MasterTransferCreateHandle(SPI_Type *base,
                                         void *userData);
 
 /*!
+ * brief Transfers a block of data using a polling method.
+ *
+ * param base SPI base pointer
+ * param xfer pointer to spi_xfer_config_t structure
+ * retval kStatus_Success Successfully start a transfer.
+ * retval kStatus_InvalidArgument Input argument is invalid.
+ */
+status_t SPI_ADCMasterTransfer(SPI_Type *base, spi_transfer_t *xfer);
+
+status_t SPI_FlashMasterTransfer(SPI_Type *base, spi_transfer_t *xfer);
+
+
+/*!
  * @brief Transfers a block of data using a polling method.
  *
  * @param base SPI base pointer

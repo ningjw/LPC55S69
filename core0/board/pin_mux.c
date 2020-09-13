@@ -125,7 +125,7 @@ BOARD_InitPins:
   - {pin_num: F2, peripheral: GPIO, signal: 'PIO0, 10', pin_signal: PIO0_10/FC6_SCK/CT_INP10/CTIMER2_MAT0/FC1_TXD_SCL_MISO_WS/SCT0_OUT2/SWO/SECURE_GPIO0_10/ADC0_1,
     identifier: ADC_FORMAT, direction: OUTPUT}
   - {pin_num: J2, peripheral: GPIO, signal: 'PIO0, 16', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, identifier: ADC_SYNC, direction: INPUT}
-  - {pin_num: G5, peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: G5, peripheral: GPIO, signal: 'PIO0, 7', pin_signal: PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7, direction: OUTPUT, gpio_init_state: 'false'}
   - {pin_num: L12, peripheral: CTIMER0, signal: 'MATCH, 0', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A, slew_rate: fast}
   - {pin_num: A12, peripheral: GPIO, signal: 'PIO0, 21', pin_signal: PIO0_21/FC3_RTS_SCL_SSEL1/UTICK_CAP3/CTIMER3_MAT3/SCT_GPI3/FC7_SCK/PLU_CLKIN/SECURE_GPIO0_21,
     direction: INPUT}
@@ -148,10 +148,10 @@ BOARD_InitPins:
   - {pin_num: J9, peripheral: GPIO, signal: 'PIO1, 17', pin_signal: PIO1_17/FC6_RTS_SCL_SSEL1/SCT0_OUT4/SD1_CARD_INT_N/SD1_CARD_DET_N, direction: OUTPUT, gpio_init_state: 'true',
     mode: pullUp}
   - {pin_num: E7, peripheral: GPIO, signal: 'PIO0, 4', pin_signal: PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4, identifier: BT_RTS, direction: INPUT}
-  - {pin_num: E5, peripheral: GPIO, signal: 'PIO0, 30', pin_signal: PIO0_30/FC0_TXD_SCL_MISO_WS/SD1_D3/CTIMER0_MAT0/SCT0_OUT9/SECURE_GPIO0_30, identifier: ADC_MISO,
-    direction: INPUT, slew_rate: fast}
-  - {pin_num: F13, peripheral: GPIO, signal: 'PIO0, 28', pin_signal: PIO0_28/FC0_SCK/SD1_CMD/CT_INP11/SCT0_OUT7/USB0_OVERCURRENTN/PLU_OUT1/SECURE_GPIO0_28, identifier: ADC_SPI_SCK,
-    direction: OUTPUT, mode: repeater, slew_rate: fast}
+  - {pin_num: E5, peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_30/FC0_TXD_SCL_MISO_WS/SD1_D3/CTIMER0_MAT0/SCT0_OUT9/SECURE_GPIO0_30, identifier: ADC_MISO,
+    direction: INPUT, mode: inactive, slew_rate: fast}
+  - {pin_num: F13, peripheral: FLEXCOMM0, signal: SCK, pin_signal: PIO0_28/FC0_SCK/SD1_CMD/CT_INP11/SCT0_OUT7/USB0_OVERCURRENTN/PLU_OUT1/SECURE_GPIO0_28, identifier: ADC_SPI_SCK,
+    direction: OUTPUT, mode: inactive, slew_rate: fast}
   - {pin_num: N2, peripheral: FLEXCOMM2, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27,
     direction: INPUT}
   - {pin_num: H12, peripheral: FLEXCOMM2, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_26/FC2_RXD_SDA_MOSI_DATA/CLKOUT/CT_INP14/SCT0_OUT5/USB0_IDVALUE/FC0_SCK/HS_SPI_MOSI/SECURE_GPIO0_26,
@@ -191,7 +191,7 @@ void BOARD_InitPins(void)
 
     gpio_pin_config_t ADC_MODE_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 1U
+        .outputLogic = 0U
     };
     /* Initialize GPIO functionality on pin PIO0_7 (pin G5)  */
     GPIO_PinInit(BOARD_ADC_MODE_GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, &ADC_MODE_config);
@@ -265,20 +265,6 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PIO0_25 (pin A11)  */
     GPIO_PinInit(BOARD_PWR_5V_GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, &PWR_5V_config);
-
-    gpio_pin_config_t ADC_SPI_SCK_config = {
-        .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO0_28 (pin F13)  */
-    GPIO_PinInit(BOARD_ADC_SPI_SCK_GPIO, BOARD_ADC_SPI_SCK_PORT, BOARD_ADC_SPI_SCK_PIN, &ADC_SPI_SCK_config);
-
-    gpio_pin_config_t ADC_MISO_config = {
-        .pinDirection = kGPIO_DigitalInput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO0_30 (pin E5)  */
-    GPIO_PinInit(BOARD_ADC_MISO_GPIO, BOARD_ADC_MISO_PORT, BOARD_ADC_MISO_PIN, &ADC_MISO_config);
 
     gpio_pin_config_t FLASH_RESET_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -733,13 +719,13 @@ void BOARD_InitPins(void)
           (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_SLEW_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
          /* Selects pin function.
-          * : PORT028 (pin F13) is configured as PIO0_28. */
-         | IOCON_PIO_FUNC(PIO0_28_FUNC_ALT0)
+          * : PORT028 (pin F13) is configured as FC0_SCK. */
+         | IOCON_PIO_FUNC(PIO0_28_FUNC_ALT1)
 
          /* Selects function mode (on-chip pull-up/pull-down resistor control).
-          * : Repeater.
-          * Repeater mode. */
-         | IOCON_PIO_MODE(PIO0_28_MODE_REPEATER)
+          * : Inactive.
+          * Inactive (no pull-down/pull-up resistor enabled). */
+         | IOCON_PIO_MODE(PIO0_28_MODE_INACTIVE)
 
          /* Driver slew rate.
           * : Fast-mode, output slew rate is faster.
@@ -777,23 +763,29 @@ void BOARD_InitPins(void)
                          * Digital input is enabled. */
                         | IOCON_PIO_DIGIMODE(PIO0_3_DIGIMODE_DIGITAL));
 
-    IOCON->PIO[0][30] = ((IOCON->PIO[0][30] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_SLEW_MASK | IOCON_PIO_DIGIMODE_MASK)))
+    IOCON->PIO[0][30] =
+        ((IOCON->PIO[0][30] &
+          /* Mask bits to zero which are setting */
+          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_SLEW_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-                         /* Selects pin function.
-                          * : PORT030 (pin E5) is configured as PIO0_30. */
-                         | IOCON_PIO_FUNC(PIO0_30_FUNC_ALT0)
+         /* Selects pin function.
+          * : PORT030 (pin E5) is configured as FC0_TXD_SCL_MISO_WS. */
+         | IOCON_PIO_FUNC(PIO0_30_FUNC_ALT1)
 
-                         /* Driver slew rate.
-                          * : Fast-mode, output slew rate is faster.
-                          * Refer to the appropriate specific device data sheet for details. */
-                         | IOCON_PIO_SLEW(PIO0_30_SLEW_FAST)
+         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+          * : Inactive.
+          * Inactive (no pull-down/pull-up resistor enabled). */
+         | IOCON_PIO_MODE(PIO0_30_MODE_INACTIVE)
 
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_30_DIGIMODE_DIGITAL));
+         /* Driver slew rate.
+          * : Fast-mode, output slew rate is faster.
+          * Refer to the appropriate specific device data sheet for details. */
+         | IOCON_PIO_SLEW(PIO0_30_SLEW_FAST)
+
+         /* Select Digital mode.
+          * : Enable Digital mode.
+          * Digital input is enabled. */
+         | IOCON_PIO_DIGIMODE(PIO0_30_DIGIMODE_DIGITAL));
 
     if (Chip_GetVersion()==1)
     {

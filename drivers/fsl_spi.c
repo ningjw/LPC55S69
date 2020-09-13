@@ -615,6 +615,110 @@ status_t SPI_MasterTransferBlocking(SPI_Type *base, spi_transfer_t *xfer)
 }
 
 /*!
+ * brief Transfers a block of data using a polling method.
+ *
+ * param base SPI base pointer
+ * param xfer pointer to spi_xfer_config_t structure
+ * retval kStatus_Success Successfully start a transfer.
+ * retval kStatus_InvalidArgument Input argument is invalid.
+ */
+status_t SPI_ADCMasterTransfer(SPI_Type *base, spi_transfer_t *xfer)
+{
+    uint32_t tx_ctrl = 0U;
+    uint32_t tmp32, rxRemainingBytes, txRemainingBytes;
+    uint32_t toReceiveCount = 0;
+    uint8_t *rxData = xfer->rxData;
+   
+    txRemainingBytes = 3;
+    rxRemainingBytes = 3;
+
+    /* clear tx/rx errors and empty FIFOs */
+    base->FIFOCFG |= SPI_FIFOCFG_EMPTYTX_MASK | SPI_FIFOCFG_EMPTYRX_MASK;
+    base->FIFOSTAT |= SPI_FIFOSTAT_TXERR_MASK | SPI_FIFOSTAT_RXERR_MASK;
+
+    tx_ctrl |= SPI_FIFOWR_LEN(7);
+
+	/* last index of loop */
+    while ((txRemainingBytes != 0U) || (rxRemainingBytes != 0U) || (toReceiveCount != 0U))
+    {
+        /* if rxFIFO is not empty */
+        if ((base->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK) != 0U)
+        {
+            *(rxData++) = (uint8_t)base->FIFORD;
+             rxRemainingBytes--;
+            /* decrease number of data expected to receive */
+            toReceiveCount -= 1U;
+        }
+        /* transmit if txFIFO is not full and data to receive does not exceed FIFO depth */
+        if (((base->FIFOSTAT & SPI_FIFOSTAT_TXNOTFULL_MASK) != 0U) && ((txRemainingBytes != 0U) ))
+        {
+            txRemainingBytes--;
+            /* send data */
+            base->FIFOWR = tx_ctrl | 0xff;
+            toReceiveCount += 1U;
+        }
+    }
+    /* wait if TX FIFO of previous transfer is not empty */
+    while (0U == (base->FIFOSTAT & SPI_FIFOSTAT_TXEMPTY_MASK))
+    {
+    }
+    return kStatus_Success;
+}
+
+/*!
+ * brief Transfers a block of data using a polling method.
+ *
+ * param base SPI base pointer
+ * param xfer pointer to spi_xfer_config_t structure
+ * retval kStatus_Success Successfully start a transfer.
+ * retval kStatus_InvalidArgument Input argument is invalid.
+ */
+status_t SPI_FlashMasterTransfer(SPI_Type *base, spi_transfer_t *xfer)
+{
+    uint32_t tx_ctrl = 0U;
+    uint32_t tmp32, rxRemainingBytes, txRemainingBytes;
+    uint32_t toReceiveCount = 0;
+    uint8_t *rxData, *txData;
+
+    rxData           = xfer->rxData;
+	txData           = xfer->txData;
+    txRemainingBytes = 1;
+    rxRemainingBytes = 1;
+
+    /* clear tx/rx errors and empty FIFOs */
+    base->FIFOCFG |= SPI_FIFOCFG_EMPTYTX_MASK | SPI_FIFOCFG_EMPTYRX_MASK;
+    base->FIFOSTAT |= SPI_FIFOSTAT_TXERR_MASK | SPI_FIFOSTAT_RXERR_MASK;
+
+    tx_ctrl |= SPI_FIFOWR_LEN(7);
+
+	/* last index of loop */
+    while ((txRemainingBytes != 0U) || (rxRemainingBytes != 0U) || (toReceiveCount != 0U))
+    {
+        /* if rxFIFO is not empty */
+        if ((base->FIFOSTAT & SPI_FIFOSTAT_RXNOTEMPTY_MASK) != 0U)
+        {
+            *(rxData++) = (uint8_t)base->FIFORD;
+             rxRemainingBytes--;
+            /* decrease number of data expected to receive */
+            toReceiveCount -= 1U;
+        }
+        /* transmit if txFIFO is not full and data to receive does not exceed FIFO depth */
+        if (((base->FIFOSTAT & SPI_FIFOSTAT_TXNOTFULL_MASK) != 0U) && (txRemainingBytes != 0U))
+        {
+            txRemainingBytes--;
+            /* send data */
+            base->FIFOWR = tx_ctrl | *(txData);
+            toReceiveCount += 1U;
+        }
+    }
+    /* wait if TX FIFO of previous transfer is not empty */
+    while (0U == (base->FIFOSTAT & SPI_FIFOSTAT_TXEMPTY_MASK))
+    {
+    }
+    return kStatus_Success;
+}
+
+/*!
  * brief Performs a non-blocking SPI interrupt transfer.
  *
  * param base SPI peripheral base address.
