@@ -6,7 +6,7 @@
 #define READ_STDBY_STA     GPIO_PinRead(GPIO, BOARD_BAT_STDBY_PORT,BOARD_BAT_STDBY_PIN)
 
 TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
-
+uint8_t status = 0;
 float remain;
 /***********************************************************************
   * @ 函数名  ： BAT_AppTask
@@ -45,14 +45,16 @@ void BAT_AppTask(void)
 
     while(1)
     {
+		RTC_GetDatetime(RTC, &sysTime);
+
         // 获取电池电压
         g_sys_para.batVoltage = LTC2942_GetVoltage() / 1000.0;
-
+		
         // 获取温度传感器温度
 //        g_sys_para.batTemp = LTC2942_GetTemperature() / 100.0;
-
-        // 获取电量百分比
-		g_sys_para.batRegAC = LTC2942_GetAC();
+		
+		// 获取电量百分比
+			g_sys_para.batRegAC = LTC2942_GetAC();
 		if(g_sys_para.batRegAC > 0x7FE0 && g_sys_para.batRegAC <= 0x7FFF){//这里保证AC寄存器里的数据不为7FFF,因为7FFF在开机时会作为一个判断
 			if(READ_CHARGE_STA == 0 && READ_STDBY_STA == 1) {//充电当中
 				g_sys_para.batRegAC = 0x8000;
@@ -94,7 +96,7 @@ void BAT_AppTask(void)
             g_sys_para.batLedStatus = BAT_NORMAL;
         }
 		
-        vTaskDelay(2000);
+        vTaskDelay(1000);
     }
 }
 

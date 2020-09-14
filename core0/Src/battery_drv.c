@@ -19,17 +19,37 @@ const float LTC2942_FULLSCALE_TEMPERATURE = 600;
   * @return  
 ***************************************************************************************/
 static void LTC2942_WriteReg(uint8_t reg, uint8_t value) {
-	i2c_master_transfer_t masterXfer = {0};
-    uint8_t data = value;
-    masterXfer.slaveAddress = LTC2942_ADDR;
-    masterXfer.direction = kI2C_Write;
-    masterXfer.subaddress = reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data  = &data;;
-    masterXfer.dataSize = 1;
-    masterXfer.flags = kI2C_TransferDefaultFlag;
-    
-	I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(LTC2942_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(value);
+	IIC_Wait_Ack();
+	IIC_Stop();
+	__enable_irq();
+}
+
+/***************************************************************************************
+  * @brief   Write new value to LTC2942 register
+  * @input   reg - register number
+  * @input   value - new register value
+  * @return  
+***************************************************************************************/
+static void LTC2942_WriteReg2(uint8_t reg, uint16_t value) {
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(LTC2942_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(value>>8);
+	IIC_Wait_Ack();
+	IIC_Send_Byte((uint8_t)value);
+	IIC_Wait_Ack();
+	IIC_Stop();
+	__enable_irq();
 }
 
 
@@ -39,18 +59,42 @@ static void LTC2942_WriteReg(uint8_t reg, uint8_t value) {
   * @return  register value
 ***************************************************************************************/
 static uint8_t LTC2942_ReadReg(uint8_t reg) {
-	i2c_master_transfer_t masterXfer = {0};
-    uint8_t value;
-    
-    masterXfer.slaveAddress = LTC2942_ADDR;
-    masterXfer.direction = kI2C_Read;
-    masterXfer.subaddress = (uint32_t)reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data = &value;
-    masterXfer.dataSize = 1;
-    masterXfer.flags = kI2C_TransferRepeatedStartFlag;
+	uint8_t value;
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(LTC2942_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Start();
+	IIC_Send_Byte((LTC2942_ADDR<<1) | 1);
+	IIC_Wait_Ack();
+	value = IIC_Read_Byte(0);
+	IIC_Stop();
+	__enable_irq();
+	return value;
+}
 
-    I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
+/***************************************************************************************
+  * @brief   Read LTC2942 register
+  * @input   reg - register number
+  * @return  register value
+***************************************************************************************/
+static uint16_t LTC2942_ReadReg2(uint8_t reg) {
+	uint16_t value;
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(LTC2942_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Start();
+	IIC_Send_Byte((LTC2942_ADDR<<1) | 1);
+	IIC_Wait_Ack();
+	value = IIC_Read_Byte(1);
+	value = (value<<8) | IIC_Read_Byte(0);
+	IIC_Stop();
+	__enable_irq();
 	return value;
 }
 
@@ -81,11 +125,8 @@ inline uint8_t LTC2942_GetControl(void) {
   * @return  voltage in millivolts (value of '4263' represents 4.263V)
 ***************************************************************************************/
 uint32_t LTC2942_GetVoltage(void) {
-	uint8_t buf[2];
 	uint32_t value = 0; 
-    buf[0] = LTC2942_ReadReg(LTC2942_REG_VOL_H);
-    buf[1] = LTC2942_ReadReg(LTC2942_REG_VOL_L);
-    value  = (buf[0] << 8) | buf[1];
+    value  = LTC2942_ReadReg2(LTC2942_REG_VOL_H);
 	value *= 6000;
 	value /= 65535;
 	return value;
@@ -122,14 +163,7 @@ int32_t LTC2942_GetTemperature(void) {
   * @return  
 ***************************************************************************************/
 uint16_t LTC2942_GetAC(void) {
-	uint8_t buf[2];
-	uint32_t value = 0x0000; // Initialize with error value in case of I2C timeout
-    
-    // Send temperature MSB register address
-    buf[0] = LTC2942_ReadReg(LTC2942_REG_AC_H);
-    buf[1] = LTC2942_ReadReg(LTC2942_REG_AC_L);
-    value = buf[1] | (buf[0] << 8);
-	return value;
+	return LTC2942_ReadReg2(LTC2942_REG_AC_H);
 }
 
 

@@ -288,14 +288,20 @@ void BOARD_InitBootPins(void);
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_20_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 5. */
-#define PIO1_20_FUNC_ALT5 0x05u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_20_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO1_20_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_21_DIGIMODE_DIGITAL 0x01u
 /*!
- * @brief Selects pin function.: Alternative connection 5. */
-#define PIO1_21_FUNC_ALT5 0x05u
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_21_FUNC_ALT0 0x00u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO1_21_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_25_DIGIMODE_DIGITAL 0x01u
@@ -543,15 +549,17 @@ void BOARD_InitBootPins(void);
 
 /*! @name PIO1_20 (coord C2), PWR_SCL
   @{ */
-#define BOARD_PWR_SCL_PORT 1U /*!<@brief PORT device name: 1U */
-#define BOARD_PWR_SCL_PIN 20U /*!<@brief 1U pin index: 20 */
-                              /* @} */
+#define BOARD_PWR_SCL_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_PWR_SCL_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_PWR_SCL_PIN 20U   /*!<@brief 1U pin index: 20 */
+                                /* @} */
 
 /*! @name PIO1_21 (coord M7), PWR_SDA
   @{ */
-#define BOARD_PWR_SDA_PORT 1U /*!<@brief PORT device name: 1U */
-#define BOARD_PWR_SDA_PIN 21U /*!<@brief 1U pin index: 21 */
-                              /* @} */
+#define BOARD_PWR_SDA_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_PWR_SDA_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_PWR_SDA_PIN 21U   /*!<@brief 1U pin index: 21 */
+                                /* @} */
 
 /*! @name PIO1_7 (coord J5), SENSOR_ST
   @{ */

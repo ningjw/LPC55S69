@@ -37,6 +37,6 @@
 
 void SI5351a_SetPDN(unsigned char clkCtrlReg, unsigned char flag);
 void SI5351_WriteReg(unsigned char reg, unsigned char value);
-void si5351aSetClk0Frequency(unsigned long int frequency);
-void si5351aSetClk1Frequency(unsigned long int frequency);
+void si5351aSetAdcClk0(unsigned long int frequency);
+void si5351aSetFilterClk0(unsigned long int frequency);
 #endif

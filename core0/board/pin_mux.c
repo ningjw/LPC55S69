@@ -131,8 +131,10 @@ BOARD_InitPins:
   - {pin_num: E2, peripheral: SWD, signal: SWDIO, pin_signal: PIO0_12/FC3_TXD_SCL_MISO_WS/SD1_BACKEND_PWR/FREQME_GPIO_CLK_B/SCT_GPI7/SD0_POW_EN/SWDIO/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_12/ADC0_10}
   - {pin_num: F1, peripheral: SWD, signal: SWCLK, pin_signal: PIO0_11/FC6_RXD_SDA_MOSI_DATA/CTIMER2_MAT2/FREQME_GPIO_CLK_A/SWCLK/SECURE_GPIO0_11/ADC0_9}
   - {pin_num: H5, peripheral: GPIO, signal: 'PIO1, 6', pin_signal: PIO1_6/FC0_TXD_SCL_MISO_WS/SD0_D3/CTIMER2_MAT1/SCT_GPI3, identifier: PWR_CHG_COMPLETE, direction: OUTPUT}
-  - {pin_num: C2, peripheral: FLEXCOMM4, signal: TXD_SCL_MISO_WS, pin_signal: PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2, identifier: PWR_SCL}
-  - {pin_num: M7, peripheral: FLEXCOMM4, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO1_21/FC7_CTS_SDA_SSEL0/CTIMER3_MAT2/FC4_RXD_SDA_MOSI_DATA/PLU_OUT3}
+  - {pin_num: C2, peripheral: GPIO, signal: 'PIO1, 20', pin_signal: PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2, identifier: PWR_SCL, direction: OUTPUT,
+    gpio_init_state: 'true', mode: pullUp}
+  - {pin_num: M7, peripheral: GPIO, signal: 'PIO1, 21', pin_signal: PIO1_21/FC7_CTS_SDA_SSEL0/CTIMER3_MAT2/FC4_RXD_SDA_MOSI_DATA/PLU_OUT3, direction: OUTPUT, gpio_init_state: 'true',
+    mode: pullUp}
   - {pin_num: J5, peripheral: GPIO, signal: 'PIO1, 7', pin_signal: PIO1_7/FC0_RTS_SCL_SSEL1/SD0_D1/CTIMER2_MAT2/SCT_GPI4}
   - {pin_num: G11, peripheral: GPIO, signal: 'PIO1, 1', pin_signal: PIO1_1/FC3_RXD_SDA_MOSI_DATA/CT_INP3/SCT_GPI5/HS_SPI_SSEL1/USB1_OVERCURRENTN/PLU_OUT4, direction: OUTPUT}
   - {pin_num: C13, peripheral: FLEXCOMM1, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_14/FC1_RTS_SCL_SSEL1/UTICK_CAP1/CT_INP1/SCT_GPI1/FC1_TXD_SCL_MISO_WS/PLU_IN1/SECURE_GPIO0_14}
@@ -340,6 +342,20 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PIO1_19 (pin H13)  */
     GPIO_PinInit(BOARD_NB_PWR_EN_GPIO, BOARD_NB_PWR_EN_PORT, BOARD_NB_PWR_EN_PIN, &NB_PWR_EN_config);
+
+    gpio_pin_config_t PWR_SCL_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO1_20 (pin C2)  */
+    GPIO_PinInit(BOARD_PWR_SCL_GPIO, BOARD_PWR_SCL_PORT, BOARD_PWR_SCL_PIN, &PWR_SCL_config);
+
+    gpio_pin_config_t PWR_SDA_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO1_21 (pin M7)  */
+    GPIO_PinInit(BOARD_PWR_SDA_GPIO, BOARD_PWR_SDA_PORT, BOARD_PWR_SDA_PIN, &PWR_SDA_config);
 
     gpio_pin_config_t BT_RST_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -1025,11 +1041,16 @@ void BOARD_InitPins(void)
 
     IOCON->PIO[1][20] = ((IOCON->PIO[1][20] &
                           /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                          /* Selects pin function.
-                          * : PORT120 (pin C2) is configured as FC4_TXD_SCL_MISO_WS. */
-                         | IOCON_PIO_FUNC(PIO1_20_FUNC_ALT5)
+                          * : PORT120 (pin C2) is configured as PIO1_20. */
+                         | IOCON_PIO_FUNC(PIO1_20_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO1_20_MODE_PULL_UP)
 
                          /* Select Digital mode.
                           * : Enable Digital mode.
@@ -1038,11 +1059,16 @@ void BOARD_InitPins(void)
 
     IOCON->PIO[1][21] = ((IOCON->PIO[1][21] &
                           /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                          /* Selects pin function.
-                          * : PORT121 (pin M7) is configured as FC4_RXD_SDA_MOSI_DATA. */
-                         | IOCON_PIO_FUNC(PIO1_21_FUNC_ALT5)
+                          * : PORT121 (pin M7) is configured as PIO1_21. */
+                         | IOCON_PIO_FUNC(PIO1_21_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO1_21_MODE_PULL_UP)
 
                          /* Select Digital mode.
                           * : Enable Digital mode.

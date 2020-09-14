@@ -12,6 +12,7 @@
 ".\objects\adc_drv.o"
 ".\objects\si5351_drv.o"
 ".\objects\w25q128_drv.o"
+".\objects\soft_iic_drv.o"
 ".\objects\clock_config.o"
 ".\objects\peripherals.o"
 ".\objects\pin_mux.o"

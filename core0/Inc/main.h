@@ -70,7 +70,7 @@
 #include "si5351_drv.h"
 #include "adc_drv.h"
 #include "w25q128_drv.h"
-
+#include "soft_iic_drv.h"
 
 typedef struct{
 	uint32_t totalAdcInfo;

@@ -11,20 +11,16 @@
 ***************************************************************************************/
 void SI5351_WriteReg(uint8_t reg, uint8_t value) 
 {
-	i2c_master_transfer_t masterXfer;
-    memset(&masterXfer, 0, sizeof(masterXfer));
-
-    masterXfer.slaveAddress   = SI5351_ADDR;
-    masterXfer.direction      = kI2C_Write;
-    masterXfer.subaddress     = reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data           = &value;
-    masterXfer.dataSize       = 1;
-    masterXfer.flags          = kI2C_TransferDefaultFlag;
-
-    /*  direction=write : start+device_write;cmdbuff;xBuff; */
-    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
-	I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(SI5351_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(value);
+	IIC_Wait_Ack();
+	IIC_Stop();
+	__enable_irq();
 }
 
 
@@ -34,23 +30,19 @@ void SI5351_WriteReg(uint8_t reg, uint8_t value)
   * @return  register value
 ***************************************************************************************/
 uint8_t SI5351_ReadReg(uint8_t reg) {
-	i2c_master_transfer_t masterXfer;
 	uint8_t value;
-	
-    memset(&masterXfer, 0, sizeof(masterXfer));
-    masterXfer.slaveAddress   = SI5351_ADDR;
-    masterXfer.direction      = kI2C_Read;
-    masterXfer.subaddress     = reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data           = &value;
-    masterXfer.dataSize       = 1;
-    masterXfer.flags          = kI2C_TransferDefaultFlag;
-
-    /*  direction=write : start+device_write;cmdbuff;xBuff; */
-    /*  direction=recive : start+device_write;cmdbuff;repeatStart+device_read;xBuff; */
-
-    I2C_MasterTransferBlocking(FLEXCOMM4_PERIPHERAL, &masterXfer);
-
+	__disable_irq();
+	IIC_Start();
+	IIC_Send_Byte(SI5351_ADDR<<1);
+	IIC_Wait_Ack();
+	IIC_Send_Byte(reg);
+	IIC_Wait_Ack();
+	IIC_Start();
+	IIC_Send_Byte((SI5351_ADDR<<1) | 1);
+	IIC_Wait_Ack();
+	value = IIC_Read_Byte(0);
+	IIC_Stop();
+	__enable_irq();
 	return value;
 }
 
@@ -164,11 +156,11 @@ uint8_t calc_r_div(unsigned long int *freq)
 /**************************************************************************
  * @brief  Set CLK0 output ON and to the specified frequency
 * Frequency is in the range 4kHz to 100MHz
-* Example: si5351aSetClk0Frequency(10000000);
+* Example: si5351aSetAdcClk0(10000000);
 * will set output CLK0 to 10MHz
 * This example sets up PLL A and MultiSynth 0 and produces the output on CLK0
 **************************************************************************/
-void si5351aSetClk0Frequency(unsigned long int frequency)
+void si5351aSetAdcClk0(unsigned long int frequency)
 {
 	unsigned long int pllFreq;
 	unsigned long int xtalFreq = XTAL_FREQ;
@@ -214,11 +206,11 @@ void si5351aSetClk0Frequency(unsigned long int frequency)
 /**************************************************************************
  * @brief  Set CLK1 output ON and to the specified frequency
 * Frequency is in the range 4kHz to 100MHz
-* Example: si5351aSetClk0Frequency(10000000);
+* Example: si5351aSetAdcClk0(10000000);
 * will set output CLK0 to 10MHz
 * This example sets up PLL A and MultiSynth 0 and produces the output on CLK1
 **************************************************************************/
-void si5351aSetClk1Frequency(unsigned long int frequency)
+void si5351aSetFilterClk0(unsigned long int frequency)
 {
 	unsigned long int pllFreq;
 	unsigned long int xtalFreq = XTAL_FREQ;

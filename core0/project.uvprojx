@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>.\Src\w25q128_drv.c</FilePath>
             </File>
+            <File>
+              <FileName>soft_iic_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\soft_iic_drv.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
