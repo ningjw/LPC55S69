@@ -210,7 +210,7 @@ void si5351aSetAdcClk0(unsigned long int frequency)
 * will set output CLK0 to 10MHz
 * This example sets up PLL A and MultiSynth 0 and produces the output on CLK1
 **************************************************************************/
-void si5351aSetFilterClk0(unsigned long int frequency)
+void si5351aSetFilterClk1(unsigned long int frequency)
 {
 	unsigned long int pllFreq;
 	unsigned long int xtalFreq = XTAL_FREQ;

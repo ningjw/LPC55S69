@@ -57,10 +57,6 @@ extern "C" {
 #define FLEXCOMM2_PERIPHERAL ((USART_Type *)FLEXCOMM2)
 /* Definition of the clock source frequency */
 #define FLEXCOMM2_CLOCK_SOURCE 12000000UL
-/* FLEXCOMM2 interrupt vector ID (number). */
-#define FLEXCOMM2_FLEXCOMM_IRQN FLEXCOMM2_IRQn
-/* FLEXCOMM2 interrupt handler identifier. */
-#define FLEXCOMM2_FLEXCOMM_IRQHANDLER FLEXCOMM2_IRQHandler
 /* Definition of peripheral ID */
 #define FLEXCOMM3_PERIPHERAL ((USART_Type *)FLEXCOMM3)
 /* Definition of the clock source frequency */

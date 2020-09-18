@@ -1,7 +1,9 @@
 #include "main.h"
 
+extern rtc_datetime_t sampTime;
 
 uint8_t s_buffer[512] = {0};
+
 AdcInfoTotal adcInfoTotal;
 AdcInfo adcInfo;
 
@@ -83,7 +85,79 @@ void FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWri
 ***************************************************************************************/
 void W25Q128_AddAdcData(void)
 {
+	char tempTime[20] = {0};
+	//前12字节保存的是 adcInfoTotal 结构体
+	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
 	
+	//判断为首次上电运行
+	if(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){
+		//总数为初始化为0
+		adcInfoTotal.totalAdcInfo = 0;
+		//本次 AdcInfo 结构体保存地址
+		adcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);
+		//本次数据的开始地址
+		adcInfoTotal.addrOfNewData = ADC_DATA_ADDR;
+	}
+	
+	//初始化 adcInfo 结构体 数据时间
+	sprintf(tempTime, "%d%02d%02d%02d%02d%02d", 
+		                       sampTime.year%100, sampTime.month, sampTime.day, 
+	                           sampTime.hour, sampTime.minute, sampTime.second);
+	memcpy(adcInfo.AdcDataTime, tempTime, 12);
+	
+	//初始化 adcInfo 结构体 数据长度
+	adcInfo.AdcDataLen = sizeof(ADC_Set) + g_adc_set.shkCount*4 + g_adc_set.spdCount*4;
+	//初始化 adcInfo 结构体 数据地址
+	adcInfo.AdcDataAddr = adcInfoTotal.addrOfNewData;
+	if((adcInfo.AdcDataAddr % 4) != 0){//判断地址是否四字节对齐
+		adcInfo.AdcDataAddr = adcInfo.AdcDataAddr + (4 - (adcInfo.AdcDataAddr % 4));
+	}
+	if((adcInfo.AdcDataAddr + adcInfo.AdcDataLen) > SPI_FLASH_SIZE_BYTE){//判断地址是否超过flash范围
+		adcInfo.AdcDataAddr = ADC_DATA_ADDR;
+	}
+	
+	//保存 adcInfo 结构体
+	SPI_Flash_Write((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
+	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
+	
+	//保存 ADC_Set 结构体
+	SPI_Flash_Write((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
+	
+	SPI_Flash_Read((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
+	
+	//保存 震动数据
+	SPI_Flash_Write((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount*4);
+	SPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount*4);
+
+	//保存 转速数据
+	SPI_Flash_Write((uint8_t *)&SpeedADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount*4, g_adc_set.spdCount*4);
+	
+	//更新 adcInfoTotal 结构体中的总采样条数
+	adcInfoTotal.totalAdcInfo++;//调用该函数,表示需要增加一条adc采样数据
+	if(adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){//判断出已达到最大值
+		adcInfoTotal.totalAdcInfo = ADC_MAX_NUM;
+	}
+	//更新 adcInfoTotal 结构体中的下次采样信息保存地址
+	adcInfoTotal.addrOfNewInfo = adcInfoTotal.addrOfNewInfo + sizeof(adcInfoTotal);
+	if(adcInfoTotal.addrOfNewInfo >= SPI_FLASH_SIZE_BYTE){
+		adcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(AdcInfoTotal);
+	}
+	//更新 adcInfoTotal 结构体中的下次采样数据保存地址
+	adcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + adcInfo.AdcDataLen;
+	if( adcInfoTotal.addrOfNewData % 4 != 0){//判断新地址不是4字节对齐的, 需要进行4字节对齐
+		adcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + (4-adcInfoTotal.addrOfNewData%4);
+	}
+	if (adcInfoTotal.addrOfNewData > SPI_FLASH_SIZE_BYTE){//判断出新地址超出flash范围,则从头开始记录
+		adcInfoTotal.addrOfNewData = ADC_DATA_ADDR;
+		adcInfoTotal.freeOfKb = 0;
+	}else{
+		adcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;
+	}
+	
+	//更新 adcInfoTotal 结构体
+	SPI_Flash_Write((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(AdcInfoTotal));
 }
 
 /***************************************************************************************
@@ -93,7 +167,45 @@ void W25Q128_AddAdcData(void)
 ***************************************************************************************/
 char W25Q128_ReadAdcData(char *adcDataTime)
 {
+	uint32_t tempAddr;
+	uint8_t  ret = false;
 	
+	//前12字节保存的是 adcInfoTotal 结构体
+	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
+	
+	//flash中还未保存有数据,直接返回
+	if(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){
+		return ret;
+	}
+	
+	for(uint32_t i = 0; i<adcInfoTotal.totalAdcInfo; i++){
+		//往前查找文件
+		tempAddr = adcInfoTotal.addrOfNewInfo - (i+1)*sizeof(AdcInfo);
+		if(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){
+			tempAddr = ADC_DATA_ADDR - sizeof(adcInfo);
+		}
+		//读取数据到 adcInfo 结构体
+		SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));
+		
+		//找到文件
+		if( memcmp(adcDataTime, adcInfo.AdcDataTime, sizeof(adcInfo.AdcDataTime)) == 0){
+			ret = true;
+			break;
+		}
+	}
+	if ( ret == true){
+		//读取 ADC_Set 结构体数据
+		SPI_Flash_Read((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+		
+		//读取 震动数据
+		SPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount);
+		
+		//读取 转速数据
+		if (g_adc_set.spdCount != 0){
+			SPI_Flash_Read((uint8_t *)SpeedADC, adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount, g_adc_set.spdCount);
+		}
+	}
+	return ret;
 }
 
 /***************************************************************************************
@@ -101,7 +213,40 @@ char W25Q128_ReadAdcData(char *adcDataTime)
   * @input   
   * @return  返回数据地址
 ***************************************************************************************/
-void W25Q148_ReadAdcInfo(int si, int num, char *buf)
+void W25Q128_ReadAdcInfo(int si, int num, char *buf)
 {
+	uint32_t tempAddr,ei;
 	
+	//前12字节保存的是 adcInfoTotal 结构体
+	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
+	
+	//flash中还未保存有数据,直接返回
+	if(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){
+		adcInfoTotal.totalAdcInfo = 0;
+		adcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;
+		return;
+	}
+	
+	if(si > ADC_MAX_NUM)si= ADC_MAX_NUM;
+	if(si <= 0 ) si = 1;
+	
+	ei = num+si;
+	if(ei > adcInfoTotal.totalAdcInfo+1) ei=adcInfoTotal.totalAdcInfo+1;
+	
+	for(uint32_t i = si; i<ei; i++){
+		//往前查找文件
+		tempAddr = adcInfoTotal.addrOfNewInfo - i*sizeof(AdcInfo);
+		if(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){
+			tempAddr = ADC_DATA_ADDR - sizeof(adcInfo);
+		}
+
+		//读取数据到 adcInfo 结构体
+		SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));
+		strncat(buf, adcInfo.AdcDataTime, 12);
+		strcat(buf, ",");//添加分隔符
+	}
+	if(strlen(buf) > 0){//去掉最后一个分隔符
+		buf[strlen(buf)-1] = 0x00;
+	}
 }
+

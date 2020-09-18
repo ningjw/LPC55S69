@@ -163,7 +163,7 @@ instance:
     - spi_master_config:
       - enableLoopback: 'false'
       - enableMaster: 'true'
-      - polarity: 'kSPI_ClockPolarityActiveHigh'
+      - polarity: 'kSPI_ClockPolarityActiveLow'
       - phase: 'kSPI_ClockPhaseFirstEdge'
       - direction: 'kSPI_MsbFirst'
       - baudRate_Bps: '12000000'
@@ -182,7 +182,7 @@ instance:
 const spi_master_config_t FLEXCOMM0_config = {
   .enableLoopback = false,
   .enableMaster = true,
-  .polarity = kSPI_ClockPolarityActiveHigh,
+  .polarity = kSPI_ClockPolarityActiveLow,
   .phase = kSPI_ClockPhaseFirstEdge,
   .direction = kSPI_MsbFirst,
   .baudRate_Bps = 12000000,
@@ -250,21 +250,12 @@ void FLEXCOMM1_init(void) {
 instance:
 - name: 'FLEXCOMM2'
 - type: 'flexcomm_usart'
-- mode: 'interrupts'
+- mode: 'polling'
 - custom_name_enabled: 'false'
 - type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FLEXCOMM2'
 - config_sets:
-  - interruptsCfg:
-    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_RxLevelInterruptEnable'
-    - interrupt_vectors:
-      - enable_rx_tx_irq: 'true'
-      - interrupt_rx_tx:
-        - IRQn: 'FLEXCOMM2_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-        - enable_custom_name: 'false'
   - usartConfig_t:
     - usartConfig:
       - clockSource: 'FXCOMFunctionClock'
@@ -302,9 +293,6 @@ void FLEXCOMM2_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
-  USART_EnableInterrupts(FLEXCOMM2_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
-  /* Enable interrupt FLEXCOMM2_IRQn request in the NVIC */
-  EnableIRQ(FLEXCOMM2_FLEXCOMM_IRQN);
 }
 
 /***********************************************************************************************************************

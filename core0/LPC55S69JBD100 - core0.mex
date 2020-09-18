@@ -271,7 +271,8 @@
                   <pin peripheral="GPIO" signal="PIO0, 16" pin_num="J2" pin_signal="PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8">
                      <pin_features>
                         <pin_feature name="identifier" value="ADC_SYNC"/>
-                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 7" pin_num="G5" pin_signal="PIO0_7/FC3_RTS_SCL_SSEL1/SD0_CLK/FC5_SCK/FC1_SCK/SECURE_GPIO0_7">
@@ -791,7 +792,7 @@
                         <struct name="spi_master_config">
                            <setting name="enableLoopback" value="false"/>
                            <setting name="enableMaster" value="true"/>
-                           <setting name="polarity" value="kSPI_ClockPolarityActiveHigh"/>
+                           <setting name="polarity" value="kSPI_ClockPolarityActiveLow"/>
                            <setting name="phase" value="kSPI_ClockPhaseFirstEdge"/>
                            <setting name="direction" value="kSPI_MsbFirst"/>
                            <setting name="baudRate_Bps" value="12000000"/>
@@ -823,24 +824,7 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="interrupts" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="interruptsCfg">
-                        <set name="interrupts">
-                           <selected>
-                              <id>kUSART_RxErrorInterruptEnable</id>
-                              <id>kUSART_RxLevelInterruptEnable</id>
-                           </selected>
-                        </set>
-                        <struct name="interrupt_vectors">
-                           <setting name="enable_rx_tx_irq" value="true"/>
-                           <struct name="interrupt_rx_tx">
-                              <setting name="IRQn" value="FLEXCOMM2_IRQn"/>
-                              <setting name="enable_priority" value="false"/>
-                              <setting name="priority" value="0"/>
-                              <setting name="enable_custom_name" value="false"/>
-                           </struct>
-                        </struct>
-                     </config_set>
+                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="usartConfig_t">
                         <struct name="usartConfig">
                            <setting name="clockSource" value="FXCOMFunctionClock"/>
@@ -1005,7 +989,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="743f3f69-4ee2-4364-bae1-839a6e7fc7c6" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="d5bbf484-327c-4729-b25b-0be9f8f6a223" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

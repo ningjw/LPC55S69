@@ -3,9 +3,11 @@
 extern uint8_t s_nor_program_buffer[];
 extern AdcInfoTotal adcInfoTotal;
 extern AdcInfo adcInfo;
+
+
 rtc_datetime_t sampTime;
 
-uint16_t ble_wait_time = 100;
+uint16_t ble_wait_time = 50;
 
 /***************************************************************************************
   * @brief   
@@ -129,7 +131,7 @@ static char * CheckSelf(void)
     LED_CheckSelf();
 
     //红外测温模块自检
-    g_sys_para.objTemp = MXL_ReadObjTemp();
+    g_sys_para.objTemp = TMP101_ReadTemp();
 
     //震动传感器电压
     while (ADC_READY == 0);  //wait ads1271 ready
@@ -262,7 +264,7 @@ static char * SetSamplePara(cJSON *pJson, cJSON * pSub)
         }
         pSub = cJSON_GetObjectItem(pJson, "D");
         if (NULL != pSub) {
-            g_adc_set.DetectionType = pSub->valueint;
+            g_adc_set.DetectType = pSub->valueint;
         }
         pSub = cJSON_GetObjectItem(pJson, "S");
         if (NULL != pSub) {
@@ -454,7 +456,7 @@ SEND_DATA:
     case 1:
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
-        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectionType);
+        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectType);
         cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);
@@ -531,11 +533,12 @@ SEND_DATA:
     }
 
 	g_sys_para.inactiveCount = 0;
-#if 0
+#if 1
 	int timeOut = 0;
 	while(BLE_RTS_LEVEL() == 0){//BLE的RTS引脚为低电平,表示
 		vTaskDelay(1);
-		if(timeOut++ > 100)break;
+		if(timeOut++ > 100)
+			break;
 	}
 #endif
 	if(sid <= 2){
@@ -616,8 +619,8 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 static char * GetObjTemp(void)
 {
     //红外测温模块自检
-    g_sys_para.objTemp = MXL_ReadObjTemp();
-    g_sys_para.envTemp = MXL_ReadEnvTemp();
+    g_sys_para.objTemp = TMP101_ReadTemp();
+
     cJSON *pJsonRoot = cJSON_CreateObject();
     if(NULL == pJsonRoot) {
         return NULL;
@@ -682,7 +685,7 @@ static char* GetManageInfo(cJSON *pJson, cJSON * pSub)
     fileStr = malloc(len);
     memset(fileStr, 0U, len);
 
-    W25Q148_ReadAdcInfo(si, num, fileStr);
+    W25Q128_ReadAdcInfo(si, num, fileStr);
 
     /*制作cjson格式的回复消息*/
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -769,10 +772,8 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 ***************************************************************************************/
 char *EraseAdcDataInFlash(void)
 {
-	/*
-    for(int i = ADC_INFO_SECTOR; i<ADC_DATA_SECTOR; i++) {
-        FlexSPI_NorFlash_Erase_Sector(FLEXSPI, i*SECTOR_SIZE);
-    }
+//    SPI_Flash_Erase_Chip();
+	SPI_Flash_Erase_Sector(0);
 
     cJSON *pJsonRoot = cJSON_CreateObject();
     if(NULL == pJsonRoot) {
@@ -781,12 +782,11 @@ char *EraseAdcDataInFlash(void)
     cJSON_AddNumberToObject(pJsonRoot, "Id", 15);
     cJSON_AddNumberToObject(pJsonRoot, "Sid",0);
     cJSON_AddBoolToObject(pJsonRoot, "Status",true);
-    uint32_t free = (FLASH_SIZE_BYTE - ADC_DATA_SECTOR*SECTOR_SIZE)/1024;
+    uint32_t free = (SPI_FLASH_SIZE_BYTE - ADC_DATA_ADDR)/1024;
     cJSON_AddNumberToObject(pJsonRoot, "Kb", free);
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     cJSON_Delete(pJsonRoot);
     return p_reply;
-	*/
 }
 
 
@@ -879,7 +879,7 @@ static char * SetSampleParaByWifi(cJSON *pJson, cJSON * pSub)
     }
     pSub = cJSON_GetObjectItem(pJson, "D");
     if (NULL != pSub) {
-        g_adc_set.DetectionType = pSub->valueint;
+        g_adc_set.DetectType = pSub->valueint;
     }
     pSub = cJSON_GetObjectItem(pJson, "S");
     if (NULL != pSub) {
@@ -1005,7 +1005,7 @@ SEND_DATA:
         cJSON_AddStringToObject(pJsonRoot, "NP", g_adc_set.NamePath);//硬件版本号
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
-        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectionType);
+        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectType);
         cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);

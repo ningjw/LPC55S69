@@ -22,16 +22,21 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69\core0\project.uvprojx
-Project File Date:  09/14/2020
+Project File Date:  09/18/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'core0'
+Src/adc_app.c(220): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+                                printf("<B9><B2><B2><C9><D1><F9><B5><BD> %d <B8><F6><D5><F0><B6><AF><D0>ź<C5>\r\n", g_adc_set.shkCount);
+                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~
+1 warning generated.
 compiling adc_app.c...
+compiling protocol.c...
 linking...
-Program Size: Code=72216 RO-data=2988 RW-data=100 ZI-data=197332  
+Program Size: Code=75112 RO-data=3056 RW-data=84 ZI-data=201448  
 FromELF: creating hex file...
-".\Objects\core0.out" - 0 Error(s), 0 Warning(s).
+".\Objects\core0.out" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,21 +72,21 @@ Package Vendor: Keil
       Include file:  CMSIS\Core\Include\tz_context.h
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
-      Include file:  Include\EventRecorder.h
       Source file:   Source\EventRecorder.c
       Include file:  Config\EventRecorderConf.h
+      Include file:  Include\EventRecorder.h
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:Startup:1.0.0
-      Source file:   system_LPC55S69_cm33_core0.c
-      Include file:  fsl_device_registers.h
       Source file:   arm\startup_LPC55S69_cm33_core0.s
+      Include file:  fsl_device_registers.h
       Include file:  LPC55S69_cm33_core0.h
       Include file:  system_LPC55S69_cm33_core0.h
       Include file:  LPC55S69_cm33_core0_features.h
-Build Time Elapsed:  00:00:02
+      Source file:   system_LPC55S69_cm33_core0.c
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

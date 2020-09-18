@@ -31,7 +31,7 @@ void RTC_IRQHANDLER(void)
 {
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
-		Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
+		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	}
 	
 	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
@@ -103,10 +103,10 @@ void ADC_SampleStart(void)
 	g_sys_para.Ltc1063Clk = 1000000;
 #endif
 	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
-	si5351aSetFilterClk0(g_sys_para.Ltc1063Clk);
+	si5351aSetFilterClk1(g_sys_para.Ltc1063Clk);
 	
 	//开始采集数据前获取一次温度
-	Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
+	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	//设置为true后,会在PIT中断中采集温度数据
 	g_sys_para.WorkStatus = true;
 	
@@ -159,7 +159,7 @@ void ADC_SampleStop(void)
     vTaskResume(LED_TaskHandle);
 	
 	//结束采集后获取一次温度
-	Temperature[g_sys_para.tempCount++] = MXL_ReadObjTemp();
+	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	
 	//关闭时钟输出
 	SI5351a_SetPDN(SI_CLK0_CONTROL,false);
@@ -186,8 +186,8 @@ void ADC_AppTask(void)
 
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
-	si5351aSetAdcClk0(6000000);//给ADS1271提供时钟
-	si5351aSetFilterClk0(1000000);//设置滤波器时钟
+	si5351aSetAdcClk0(1000000);//给ADS1271提供时钟
+	si5351aSetFilterClk1(1000000);//设置滤波器时钟
 	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
 #if 1
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
@@ -206,6 +206,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
     printf("ADC Task Create and Running\r\n");
+	
     while(1)
     {
         /*等待ADC完成采样事件*/
@@ -216,12 +217,16 @@ void ADC_AppTask(void)
             /* 完成采样事件*/
             if(r_event & NOTIFY_FINISH) {
 				/* ---------------将震动信号转换-----------------------*/
-//				printf("共采样到 %d 个震动信号\r\n", g_adc_set.shkCount);
-//				float tempValue = 0;
-//                for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
-//                    tempValue = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
-//					printf("%01.5f,",tempValue);
-//                }
+				printf("共采样到 %d 个震动信号\r\n", g_adc_set.shkCount);
+				float tempValue = 0;
+                for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
+					if(ShakeADC[i] < 0x800000){
+						tempValue = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
+					}else{
+						tempValue = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
+					}
+					printf("%01.5f,",tempValue);
+                }
 				
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);

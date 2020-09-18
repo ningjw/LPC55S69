@@ -6,7 +6,6 @@ rtc_datetime_t sysTime;
 flash_config_t flashInstance;
 static void InitSysPara();
 
-
 void main(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */

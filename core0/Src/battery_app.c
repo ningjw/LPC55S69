@@ -8,6 +8,7 @@
 TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
 uint8_t status = 0;
 float remain;
+uint16_t temp;
 /***********************************************************************
   * @ 函数名  ： BAT_AppTask
   * @ 功能说明：
@@ -46,7 +47,7 @@ void BAT_AppTask(void)
     while(1)
     {
 		RTC_GetDatetime(RTC, &sysTime);
-
+		temp = TMP101_ReadTemp();
         // 获取电池电压
         g_sys_para.batVoltage = LTC2942_GetVoltage() / 1000.0;
 		

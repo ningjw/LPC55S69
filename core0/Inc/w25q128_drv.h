@@ -7,7 +7,8 @@
 #define W25Q64 	0XEF16
 #define W25Q128 0xEF17
 
-
+#define SPI_FLASH_SIZE_BYTE   (16*1024*1024)
+#define SPI_FALSH_SECTOR_SIZE 4096
 #define	SPI_FLASH_CS PBout(12)  //Ñ¡ÖÐFLASH	
 
 //W25X16¶ÁÐ´
@@ -39,9 +40,10 @@ void SPI_FLASH_Write_SR(uint8_t sr);  	//Ð´×´Ì¬¼Ä´æÆ÷
 void SPI_FLASH_Write_Enable(void);  //Ð´Ê¹ÄÜ 
 void SPI_FLASH_Write_Disable(void);	//Ð´±£»¤
 
-void SPI_Flash_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint16_t NumByteToRead);
+void SPI_Flash_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint32_t NumByteToRead);
+void SPI_Flash_Write(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite);//Ð´Èëflash
 
-void SPI_Flash_Write(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteToWrite);//Ð´Èëflash
+
 void SPI_Flash_Erase_Chip(void);    	  //ÕûÆ¬²Á³ý
 void SPI_Flash_Erase_Sector(uint32_t Dst_Addr);//ÉÈÇø²Á³ý
 void SPI_Flash_Wait_Busy(void);           //µÈ´ý¿ÕÏÐ

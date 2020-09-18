@@ -17,6 +17,10 @@
 
 #define PAGE_SIZE 0x200
 
+//有5个sector用于管理ADC采样数据, 每个采样数据占用20byte, 共可以保存20480/20=1024个
+#define ADC_MAX_NUM    1023
+#define ADC_INFO_ADDR  0
+#define ADC_DATA_ADDR  20480
 
 #ifdef BLE_VERSION
     #define ADC_NUM_ONE_PACK   58
@@ -66,7 +70,7 @@
 #include "nbiot_app.h"
 
 #include "battery_drv.h"
-#include "iic_temp_drv.h"
+#include "iic_tp100_drv.h"
 #include "si5351_drv.h"
 #include "adc_drv.h"
 #include "w25q128_drv.h"
@@ -140,11 +144,11 @@ typedef struct{
 
 
 typedef struct{
+	char  DetectType;//手动检测0,定时检测1
     char  IDPath[128];
     char  NamePath[128];
 	char  SpeedUnits[8];
 	char  ProcessUnits[8];//温度单位
-	char  DetectionType;//手动检测0,定时检测1
 	float Senstivity;//灵敏度
     float Zerodrift;//零点偏移
     int   EUType;
