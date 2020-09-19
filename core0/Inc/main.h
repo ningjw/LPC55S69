@@ -37,7 +37,7 @@
 
 
 #include "stdio.h"
-#include "EventRecorder.h"
+//#include "EventRecorder.h"
 #include "pin_mux.h"
 #include "peripherals.h"
 #include "clock_config.h"

@@ -65,7 +65,7 @@ void ADC_SampleStart(void)
     g_adc_set.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
 	memset(SpeedADC,0,SPD_LEN);
-
+	PWR_ADC_ON;//开启ADC相关的电源
 		//判断自动关机条件
     if(g_sys_para.inactiveCondition != 1) {
         g_sys_para.inactiveCount = 0;
@@ -75,15 +75,6 @@ void ADC_SampleStart(void)
 	if(g_sys_para.sampNumber > ADC_LEN){
 		g_sys_para.sampNumber = ADC_LEN;
 	}
-	
-	PWR_ADC_ON;//开启ADC相关的电源
-	vTaskDelay(500);//等待500ms
-	
-	//挂起电池与LED灯的任务,并停止PendSV与SysTick中断
-    vTaskSuspend(BAT_TaskHandle);
-    vTaskSuspend(LED_TaskHandle);
-	NVIC_DisableIRQ(PendSV_IRQn);   
-    NVIC_DisableIRQ(SysTick_IRQn);
 	
 	//配置ADC芯片时钟
 	SI5351a_SetPDN(SI_CLK1_CONTROL,true);
@@ -105,6 +96,8 @@ void ADC_SampleStart(void)
 	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
 	si5351aSetFilterClk1(g_sys_para.Ltc1063Clk);
 	
+	vTaskDelay(500);//等待500ms
+	
 	//开始采集数据前获取一次温度
 	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	//设置为true后,会在PIT中断中采集温度数据
@@ -113,7 +106,7 @@ void ADC_SampleStart(void)
 	/* 输入捕获，计算转速信号周期 */
     CTIMER_StartTimer(CTIMER1);
 	
-	//丢弃前500个数据
+	//丢弃前部分数据
 	ADC_InvalidCnt = 0;
 	while (1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
@@ -121,13 +114,13 @@ void ADC_SampleStart(void)
 		ADC_InvalidCnt++;
 		if(ADC_InvalidCnt > 100) break;
     }
-	
+	__disable_irq();//关闭中断
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
-		__disable_irq();//关闭中断
+		
 		ShakeADC[g_adc_set.shkCount++] = ADS1271_ReadData();
-		__enable_irq();//开启中断
+		
 		if(g_adc_set.shkCount >= g_sys_para.sampNumber){
 			g_adc_set.shkCount = g_sys_para.sampNumber;
 			SpeedADC[0] = SpeedADC[1];//采集的第一个数据可能不是一个完整的周期,所以第一个数据丢弃.
@@ -137,7 +130,10 @@ void ADC_SampleStart(void)
 			break;
 		}
     }
-
+	__enable_irq();//开启中断
+	
+	//结束采集后获取一次温度
+	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	ADC_SampleStop();
 }
 
@@ -151,15 +147,6 @@ void ADC_SampleStop(void)
 {
 	/* Stop get temperature*/
 	g_sys_para.WorkStatus = false;
-
-    /* Stop the timer */
-	CTIMER_StopTimer(CTIMER1);
-	
-    vTaskResume(BAT_TaskHandle);
-    vTaskResume(LED_TaskHandle);
-	
-	//结束采集后获取一次温度
-	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	
 	//关闭时钟输出
 	SI5351a_SetPDN(SI_CLK0_CONTROL,false);
@@ -206,7 +193,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
     printf("ADC Task Create and Running\r\n");
-	
+	ADC_SampleStart();
     while(1)
     {
         /*等待ADC完成采样事件*/
@@ -217,7 +204,7 @@ void ADC_AppTask(void)
             /* 完成采样事件*/
             if(r_event & NOTIFY_FINISH) {
 				/* ---------------将震动信号转换-----------------------*/
-				printf("共采样到 %d 个震动信号\r\n", g_adc_set.shkCount);
+				__disable_irq();
 				float tempValue = 0;
                 for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
 					if(ShakeADC[i] < 0x800000){
@@ -227,7 +214,7 @@ void ADC_AppTask(void)
 					}
 					printf("%01.5f,",tempValue);
                 }
-				
+				__enable_irq();
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
 				//计算发送转速信号需要多少个包

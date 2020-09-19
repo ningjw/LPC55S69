@@ -47,7 +47,7 @@ extern "C" {
 /* Definition of peripheral ID */
 #define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
 /* Definition of the clock source frequency */
-#define FLEXCOMM0_CLOCK_SOURCE 12000000UL
+#define FLEXCOMM0_CLOCK_SOURCE 48000000UL
 /* BOARD_InitPeripherals defines for FLEXCOMM1 */
 /* Definition of peripheral ID */
 #define FLEXCOMM1_PERIPHERAL ((I2C_Type *)FLEXCOMM1)
@@ -65,6 +65,10 @@ extern "C" {
 #define FLEXCOMM3_FLEXCOMM_IRQN FLEXCOMM3_IRQn
 /* FLEXCOMM3 interrupt handler identifier. */
 #define FLEXCOMM3_FLEXCOMM_IRQHANDLER FLEXCOMM3_IRQHandler
+/* Definition of peripheral ID */
+#define FLEXCOMM5_PERIPHERAL ((USART_Type *)FLEXCOMM5)
+/* Definition of the clock source frequency */
+#define FLEXCOMM5_CLOCK_SOURCE 12000000UL
 /* BOARD_InitPeripherals defines for FLEXCOMM6 */
 /* Definition of peripheral ID */
 #define FLEXCOMM6_PERIPHERAL ((SPI_Type *)FLEXCOMM6)
@@ -104,6 +108,7 @@ extern const spi_master_config_t FLEXCOMM0_config;
 extern const i2c_master_config_t FLEXCOMM1_config;
 extern const usart_config_t FLEXCOMM2_config;
 extern const usart_config_t FLEXCOMM3_config;
+extern const usart_config_t FLEXCOMM5_config;
 extern const spi_master_config_t FLEXCOMM6_config;
 
 /***********************************************************************************************************************

@@ -159,6 +159,8 @@ BOARD_InitPins:
     direction: INPUT}
   - {pin_num: L2, peripheral: GPIO, signal: 'PIO0, 15', pin_signal: PIO0_15/FC6_CTS_SDA_SSEL0/UTICK_CAP2/CT_INP16/SCT0_OUT2/SD0_WR_PRT/SECURE_GPIO0_15/ADC0_2, identifier: FLASH_CS,
     direction: OUTPUT, gpio_init_state: 'true', mode: pullUp}
+  - {pin_num: M2, peripheral: FLEXCOMM5, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_8/FC3_SSEL3/SD0_CMD/FC5_RXD_SDA_MOSI_DATA/SWO/SECURE_GPIO0_8}
+  - {pin_num: L13, peripheral: FLEXCOMM5, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_9/FC3_SSEL2/SD0_POW_EN/FC5_TXD_SCL_MISO_WS/SECURE_GPIO0_9/ACMP0_B}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -850,6 +852,50 @@ void BOARD_InitPins(void)
                          * : Enable Digital mode.
                          * Digital input is enabled. */
                         | IOCON_PIO_DIGIMODE(PIO0_7_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][8] = ((IOCON->PIO[0][8] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT08 (pin M2) is configured as FC5_RXD_SDA_MOSI_DATA. */
+                        | IOCON_PIO_FUNC(PIO0_8_FUNC_ALT3)
+
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO0_8_DIGIMODE_DIGITAL));
+
+    if (Chip_GetVersion()==1)
+    {
+        IOCON->PIO[0][9] = ((IOCON->PIO[0][9] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT09 (pin L13) is configured as FC5_TXD_SCL_MISO_WS. */
+                        | IOCON_PIO_FUNC(PIO0_9_FUNC_ALT3)
+
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO0_9_DIGIMODE_DIGITAL));
+    }
+    else
+    {
+        IOCON->PIO[0][9] = ((IOCON->PIO[0][9] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT09 (pin L13) is configured as FC5_TXD_SCL_MISO_WS. */
+                        | IOCON_PIO_FUNC(PIO0_9_FUNC_ALT3)
+
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO0_9_DIGIMODE_DIGITAL));
+    }
 
     if (Chip_GetVersion()==1)
     {

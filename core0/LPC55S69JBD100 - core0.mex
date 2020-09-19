@@ -127,6 +127,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="FLEXCOMM5" description="Peripheral FLEXCOMM5 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="cm33_core1">
                         <data>true</data>
@@ -388,6 +393,8 @@
                         <pin_feature name="mode" value="pullUp"/>
                      </pin_features>
                   </pin>
+                  <pin peripheral="FLEXCOMM5" signal="RXD_SDA_MOSI_DATA" pin_num="M2" pin_signal="PIO0_8/FC3_SSEL3/SD0_CMD/FC5_RXD_SDA_MOSI_DATA/SWO/SECURE_GPIO0_8"/>
+                  <pin peripheral="FLEXCOMM5" signal="TXD_SCL_MISO_WS" pin_num="L13" pin_signal="PIO0_9/FC3_SSEL2/SD0_POW_EN/FC5_TXD_SCL_MISO_WS/SECURE_GPIO0_9/ACMP0_B"/>
                </pins>
             </function>
          </functions_list>
@@ -465,11 +472,12 @@
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM0_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM1_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM2_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM3_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM4_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM5_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM6_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="SYSTICK0_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="96 MHz" locked="true" accuracy="0.001"/>
@@ -484,11 +492,12 @@
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL0.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL1.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL3.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL4.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL5.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL6.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FRGCTRL1_DIV.scale" value="256" locked="true"/>
                   <setting id="SYSCON.FROHFDIV.scale" value="2" locked="false"/>
@@ -682,6 +691,16 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="FXCOM5_clock" description="FXCOM5 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM5.usart_txd" description="Signal TX of the peripheral FLEXCOMM5 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM6.spi_miso" description="Signal SPI master data in, slave data out of the peripheral FLEXCOMM6 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
@@ -792,10 +811,10 @@
                         <struct name="spi_master_config">
                            <setting name="enableLoopback" value="false"/>
                            <setting name="enableMaster" value="true"/>
-                           <setting name="polarity" value="kSPI_ClockPolarityActiveLow"/>
+                           <setting name="polarity" value="kSPI_ClockPolarityActiveHigh"/>
                            <setting name="phase" value="kSPI_ClockPhaseFirstEdge"/>
                            <setting name="direction" value="kSPI_MsbFirst"/>
-                           <setting name="baudRate_Bps" value="12000000"/>
+                           <setting name="baudRate_Bps" value="24000000"/>
                            <setting name="dataWidth" value="kSPI_Data8Bits"/>
                            <setting name="sselNum" value="kSPI_Ssel0"/>
                            <set name="sselPol_set">
@@ -875,6 +894,26 @@
                            <setting name="txWatermark" value="kUSART_TxFifo0"/>
                            <setting name="rxWatermark" value="kUSART_RxFifo1"/>
                            <setting name="enableRx" value="true"/>
+                           <setting name="enableTx" value="true"/>
+                           <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
+                           <setting name="enableContinuousSCLK" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
+                  <instance name="FLEXCOMM5" uuid="bb5d7c81-7f6c-47f3-ad40-64eedefa12e3" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM5" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="usartConfig_t">
+                        <struct name="usartConfig">
+                           <setting name="clockSource" value="FXCOMFunctionClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="baudRate_Bps" value="115200"/>
+                           <setting name="syncMode" value="kUSART_SyncModeDisabled"/>
+                           <setting name="parityMode" value="kUSART_ParityDisabled"/>
+                           <setting name="stopBitCount" value="kUSART_OneStopBit"/>
+                           <setting name="bitCountPerChar" value="kUSART_8BitsPerChar"/>
+                           <setting name="loopback" value="false"/>
+                           <setting name="txWatermark" value="kUSART_TxFifo0"/>
+                           <setting name="rxWatermark" value="kUSART_RxFifo1"/>
+                           <setting name="enableRx" value="false"/>
                            <setting name="enableTx" value="true"/>
                            <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
                            <setting name="enableContinuousSCLK" value="false"/>
@@ -989,7 +1028,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="d5bbf484-327c-4729-b25b-0be9f8f6a223" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="f3272aa3-fc7c-40f8-a952-73c38a201f29" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

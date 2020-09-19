@@ -1,10 +1,9 @@
 ./objects/main.o: Src\main.c Inc\main.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\Include\EventRecorder.h \
-  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h board\pin_mux.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h board\pin_mux.h \
   board\peripherals.h ..\drivers\fsl_dma.h ..\drivers\fsl_common.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   RTE\_core0\RTE_Components.h \

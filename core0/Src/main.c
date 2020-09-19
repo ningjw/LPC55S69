@@ -19,8 +19,8 @@ void main(void)
 	SPI_Flash_Init();
 	InitSysPara();
 	/* 初始化EventRecorder并开启*/
-	EventRecorderInitialize(EventRecordAll, 1U);
-	EventRecorderStart();
+//	EventRecorderInitialize(EventRecordAll, 1U);
+//	EventRecorderStart();
 	printf("app start\n");
 	
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
@@ -54,8 +54,8 @@ static void InitSysPara()
     g_sys_para.inactiveTime = 15;    //默认15分钟没有活动后，自动关机。
     g_sys_para.batAlarmValue = 10;   //电池电量报警值
 	
-    g_adc_set.SampleRate = 5120;     //取样频率
-    g_sys_para.sampNumber = 6144;    //12288;    //取样点数,
+    g_adc_set.SampleRate = 100000;     //取样频率
+    g_sys_para.sampNumber = 3000;    //12288;    //取样点数,
     g_sys_para.inactiveCount = 0;    //
     g_sys_para.sampLedStatus = WORK_FINE;
     g_sys_para.batLedStatus = BAT_NORMAL;
@@ -108,3 +108,12 @@ void UTICK0_Callback(void)
 	FLEXCOMM3_TimeTick();
 }
 
+int fputc(int ch, FILE* stream)
+{
+    //USART_SendData(USART1, (unsigned char) ch);
+    //while (!(USART1->SR & USART_FLAG_TXE));
+	/* Wait to finish transfer */
+    while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
+	USART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);
+    return ch;
+}
