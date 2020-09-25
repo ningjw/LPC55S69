@@ -2,68 +2,194 @@
 
 #define TMP101_ADDR  0x48
 
-/***************************************************************************************
-  * @brief   
-  * @input   
-  * @return  
-***************************************************************************************/
-void MLX_WriteReg(uint8_t reg, uint8_t value) {
-	i2c_master_transfer_t masterXfer = {0};
-    uint8_t data = value;
-    masterXfer.slaveAddress = TMP101_ADDR;
-    masterXfer.direction = kI2C_Write;
-    masterXfer.subaddress = reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data  = &data;;
-    masterXfer.dataSize = 1;
-    masterXfer.flags = kI2C_TransferDefaultFlag;
-    
-	I2C_MasterTransferBlocking(FLEXCOMM1_PERIPHERAL, &masterXfer);
+#define IIC_TMP_SDA(a) GPIO_PinWrite(GPIO,BOARD_TMP_SDA_PORT,BOARD_TMP_SDA_PIN,a)
+#define IIC_TMP_SCL(a) GPIO_PinWrite(GPIO,BOARD_TMP_SCL_PORT,BOARD_TMP_SCL_PIN,a)
+#define READ_TMP_SDA   GPIO_PinRead(GPIO,BOARD_TMP_SDA_PORT,BOARD_TMP_SDA_PIN)
+
+static __inline__ void TMP_SDA_OUT(void)
+{
+	gpio_pin_config_t TMP_SDA_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO1_21 (pin M7)  */
+    GPIO_PinInit(BOARD_TMP_SDA_GPIO, BOARD_TMP_SDA_PORT, BOARD_TMP_SDA_PIN, &TMP_SDA_config);
+}
+
+static __inline__ void TMP_SDA_IN(void)
+{
+	gpio_pin_config_t TMP_SDA_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO1_21 (pin M7)  */
+    GPIO_PinInit(BOARD_TMP_SDA_GPIO, BOARD_TMP_SDA_PORT, BOARD_TMP_SDA_PIN, &TMP_SDA_config);
 }
 
 
-/***************************************************************************************
-  * @brief   Read MLX register
-  * @input   reg - register number
-  * @return  register value
-***************************************************************************************/
-uint16_t TMP101_ReadReg(uint8_t reg) 
+//产生IIC起始信号
+void PT_IIC_Start(void)
 {
-	i2c_master_transfer_t masterXfer = {0};
-    uint8_t value[3];
-    uint16_t ret = 0;
-    masterXfer.slaveAddress = TMP101_ADDR;
-    masterXfer.direction = kI2C_Read;
-    masterXfer.subaddress = (uint32_t)reg;
-    masterXfer.subaddressSize = 1;
-    masterXfer.data = value;
-    masterXfer.dataSize = 3;
-    masterXfer.flags = kI2C_TransferRepeatedStartFlag;
-    
-    I2C_MasterTransferBlocking(FLEXCOMM1_PERIPHERAL, &masterXfer);
-    ret = (value[1]<<8) | value[0];
-	return ret;
+	TMP_SDA_OUT();     //sda线输出
+	IIC_TMP_SDA(1);	  	  
+	IIC_TMP_SCL(1);
+	delay_us(4);
+ 	IIC_TMP_SDA(0);//START:when CLK is high,DATA change form high to low 
+	delay_us(4);
+	IIC_TMP_SCL(0);//钳住I2C总线，准备发送或接收数据 
 }
 
-uint16_t TMP101_ReadTemp(void) 
+
+//产生IIC停止信号
+void PT_IIC_Stop(void)
 {
-	uint16_t temp; 
-	temp = TMP101_ReadReg(0x00);
-	temp = temp >> 4;
-	temp=(temp/16.0); /*仅处理了正的温度 负温度取反后加1 再按正温度处理*/
+	TMP_SDA_OUT();//sda线输出
+	IIC_TMP_SCL(0);
+	IIC_TMP_SDA(0);//STOP:when CLK is high DATA change form low to high
+ 	delay_us(4);
+	IIC_TMP_SCL(1); 
+	delay_us(4);			
+	IIC_TMP_SDA(1);//发送I2C总线结束信号				   	
+}
+//等待应答信号到来
+//返回值：1，接收应答失败
+//        0，接收应答成功
+uint8_t PT_IIC_Wait_Ack(void)
+{
+	uint8_t ucErrTime=0;
+	TMP_SDA_IN();      //SDA设置为输入  
+	IIC_TMP_SDA(1);
+	delay_us(1);	   
+	IIC_TMP_SCL(1);
+	delay_us(1);	 
+	while(READ_TMP_SDA)
+	{
+		ucErrTime++;
+		if(ucErrTime>250)
+		{
+			IIC_Stop();
+			return 1;
+		}
+	}
+	IIC_TMP_SCL(0);//时钟输出0 	   
+	return 0;  
+} 
+//产生ACK应答
+void PT_IIC_Ack(void)
+{
+	IIC_TMP_SCL(0);
+	TMP_SDA_OUT();
+	IIC_TMP_SDA(0);
+	delay_us(2);
+	IIC_TMP_SCL(1);
+	delay_us(2);
+	IIC_TMP_SCL(0);
+}
+//不产生ACK应答		    
+void PT_IIC_NAck(void)
+{
+	IIC_TMP_SCL(0);
+	TMP_SDA_OUT();
+	IIC_TMP_SDA(1);
+	delay_us(2);
+	IIC_TMP_SCL(1);
+	delay_us(2);
+	IIC_TMP_SCL(0);
+}					 				     
+//IIC发送一个字节
+//返回从机有无应答
+//1，有应答
+//0，无应答			  
+void PT_IIC_Send_Byte(uint8_t txd)
+{                        
+    uint8_t t;   
+	TMP_SDA_OUT(); 	    
+    IIC_TMP_SCL(0);//拉低时钟开始数据传输
+    for(t=0;t<8;t++)
+    {              
+        IIC_TMP_SDA((txd&0x80)>>7);
+        txd<<=1; 	  
+		delay_us(2);   //对TEA5767这三个延时都是必须的
+		IIC_TMP_SCL(1);
+		delay_us(2); 
+		IIC_TMP_SCL(0);	
+		delay_us(2);
+    }	 
+} 	    
+//读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
+uint8_t PT_IIC_Read_Byte(unsigned char ack)
+{
+	unsigned char i,receive=0;
+	TMP_SDA_IN();//SDA设置为输入
+    for(i=0;i<8;i++ )
+	{
+        IIC_TMP_SCL(0); 
+        delay_us(2);
+		IIC_TMP_SCL(1);
+        receive<<=1;
+        if(READ_TMP_SDA)receive++;   
+		delay_us(1); 
+    }					 
+    if (!ack)
+        IIC_NAck();//发送nACK
+    else
+        IIC_Ack(); //发送ACK   
+    return receive;
+}
+
+
+
+void TMP101_WriteReg(uint8_t reg, uint8_t value) 
+{
+	__disable_irq();
+	PT_IIC_Start();
+	PT_IIC_Send_Byte(TMP101_ADDR<<1);
+	PT_IIC_Wait_Ack();
+	PT_IIC_Send_Byte(reg);
+	PT_IIC_Wait_Ack();
+	PT_IIC_Send_Byte(value);
+	PT_IIC_Wait_Ack();
+	PT_IIC_Stop();
+	__enable_irq();
+}
+
+
+float TMP101_ReadTemp(void) 
+{
+	float tmp = 0;
+	uint16_t value;
+	__disable_irq();
+	PT_IIC_Start();
+	PT_IIC_Send_Byte(TMP101_ADDR<<1);
+	PT_IIC_Wait_Ack();
+	PT_IIC_Send_Byte(0);
+	PT_IIC_Wait_Ack();
+	PT_IIC_Start();
+	PT_IIC_Send_Byte((TMP101_ADDR<<1) | 1);
+	PT_IIC_Wait_Ack();
+	value = PT_IIC_Read_Byte(1);
+	value =(value << 8) | PT_IIC_Read_Byte(0);
+	PT_IIC_Stop();
+	__enable_irq();
+	value = value >> 4;
 	
-	return temp;
+	if(value & 0x800){//负温度
+		tmp = -1.0 * (0xFFF - value) / 16.0;
+	}else{//正温度
+		tmp = value / 16.0;
+	}
+	return tmp;
 }
 
 void TMP101_ShutDown(void) 
 {
 	/* 写Configuration Register  12位温度 连续转换*/
-	MLX_WriteReg(0x01, 0xFF);
+	TMP101_WriteReg(0x01, 0xFF);
 }
 
 void TMP101_Init(void) 
 {
 	/* 写Configuration Register  12位温度 连续转换*/
-	MLX_WriteReg(0x01, 0xFE);
+	TMP101_WriteReg(0x01, 0xFE);
 }
 

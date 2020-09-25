@@ -1,5 +1,8 @@
 #include "main.h"
 
+#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
+
+
 SysPara  g_sys_para;
 ADC_Set  g_adc_set;
 rtc_datetime_t sysTime;
@@ -17,10 +20,9 @@ void main(void)
 	memory_init();
 	FLASH_Init(&flashInstance);
 	SPI_Flash_Init();
+	
 	InitSysPara();
-	/* 初始化EventRecorder并开启*/
-//	EventRecorderInitialize(EventRecordAll, 1U);
-//	EventRecorderStart();
+	PQ_Init(POWERQUAD);
 	printf("app start\n");
 	
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
@@ -50,6 +52,8 @@ void main(void)
 ***************************************************************************************/
 static void InitSysPara()
 {
+	Flash_ReadPara();
+	
     g_sys_para.inactiveCondition = 1;//默认蓝牙没有通信是开始计时
     g_sys_para.inactiveTime = 15;    //默认15分钟没有活动后，自动关机。
     g_sys_para.batAlarmValue = 10;   //电池电量报警值
@@ -62,10 +66,18 @@ static void InitSysPara()
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
     g_adc_set.bias = 2.043f;//震动传感器的偏置电压默认为2.43V
     g_adc_set.refV = 3.3f;  //参考电压
-    g_sys_para.firmUpdate = false;
-    g_sys_para.firmPacksCount = 0;
-    g_sys_para.firmSizeCurrent = 0;
 }
+
+void SystemSleep(void)
+{
+	printf("enter deep sleep\n");
+	PWR_ADC_OFF;//关闭ADC采集相关的电源
+	PWR_5V_OFF;
+	PWR_NB_OFF;
+	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
+	printf("exit deep sleep\n");
+}
+
 
 /***************************************************************************************
   * @brief  BLE连接状态引脚中断回调函数
@@ -110,9 +122,6 @@ void UTICK0_Callback(void)
 
 int fputc(int ch, FILE* stream)
 {
-    //USART_SendData(USART1, (unsigned char) ch);
-    //while (!(USART1->SR & USART_FLAG_TXE));
-	/* Wait to finish transfer */
     while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
 	USART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);
     return ch;

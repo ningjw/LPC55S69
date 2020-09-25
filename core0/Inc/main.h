@@ -1,40 +1,6 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-#if 1
-#define BLE_VERSION
-#else
-#define WIFI_VERSION 
-#endif
-
-#define SOFT_VERSION       "0.16"
-#define HARD_VERSION       "1.1"
-
-#define BAT_INFO_ADDR     0x7C00        //用于保存电池电量信息, 由于电池电量刷新频繁一些, 所有单独一个区域
-#define IAP_INFO_ADDR     0x7E00        //用于保存升级信息
-#define APP_START_ADDR    0x8000		// APP代码起始地址
-#define APP_DATA_ADDR     0x28000       // 32k+128k的位置
-
-#define PAGE_SIZE 0x200
-
-//有5个sector用于管理ADC采样数据, 每个采样数据占用20byte, 共可以保存20480/20=1024个
-#define ADC_MAX_NUM    1023
-#define ADC_INFO_ADDR  0
-#define ADC_DATA_ADDR  20480
-
-#ifdef BLE_VERSION
-    #define ADC_NUM_ONE_PACK   58
-	#define FIRM_ONE_PACKE_LEN 166 
-	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
-#elif defined WIFI_VERSION
-	#define ADC_NUM_ONE_PACK   335
-	#define FIRM_ONE_PACKE_LEN 1006
-	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
-#endif
-
-#define ULONG_MAX     0xFFFFFFFF
-
-
 
 #include "stdio.h"
 //#include "EventRecorder.h"
@@ -51,6 +17,7 @@
 #include "fsl_iocon.h"
 #include "memory.h"
 #include "fsl_iap.h"
+#include "fsl_powerquad.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -75,6 +42,61 @@
 #include "adc_drv.h"
 #include "w25q128_drv.h"
 #include "soft_iic_drv.h"
+
+#if 1
+#define BLE_VERSION
+#else
+#define WIFI_VERSION 
+#endif
+
+#define SOFT_VERSION       "0.16"
+#define HARD_VERSION       "1.1"
+
+
+#define PARA_ADDR         0x00007E00
+#define APP_START_ADDR    0x00008000		// APP代码起始地址
+#define APP_DATA_ADDR     0x00028000       // 32k+128k的位置
+
+#define PAGE_SIZE 0x200
+
+//有5个sector用于管理ADC采样数据, 每个采样数据占用20byte, 共可以保存20480/20=1024个
+#define ADC_MAX_NUM    1023
+#define ADC_INFO_ADDR  0
+#define ADC_DATA_ADDR  20480
+
+#ifdef BLE_VERSION
+    #define ADC_NUM_ONE_PACK   58
+	#define FIRM_ONE_PACKE_LEN 166 
+	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
+#elif defined WIFI_VERSION
+	#define ADC_NUM_ONE_PACK   335
+	#define FIRM_ONE_PACKE_LEN 1006
+	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
+#endif
+
+#define ULONG_MAX     0xFFFFFFFF
+
+#define ADC_MODE_LOW_POWER       GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 1)  //低功耗模式
+#define ADC_MODE_HIGH_SPEED      GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 0)   //高速模式
+#define ADC_MODE_HIGH_RESOLUTION //高精度模式(浮空)
+#define ADC_SYNC_HIGH            GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 1)
+#define ADC_SYNC_LOW             GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 0)
+
+
+#define SET_COMMOND_MODE()       GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 1);
+#define SET_THROUGHPUT_MODE()    GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 0);
+#define BLE_POWER_ON()           GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 1);
+#define BLE_RESET()              GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 0);
+#define BLE_RTS_LEVEL()          GPIO_PinRead(GPIO, BOARD_BT_RTS_PORT, BOARD_BT_RTS_PIN)
+
+#define PWR_ADC_ON               GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
+#define PWR_ADC_OFF              GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 1)
+
+#define PWR_NB_ON                GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 0)
+#define PWR_NB_OFF               GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 1)
+
+#define PWR_5V_ON                GPIO_PinWrite(GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, 1)
+#define PWR_5V_OFF               GPIO_PinWrite(GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, 0)
 
 typedef struct{
 	uint32_t totalAdcInfo;
@@ -136,8 +158,7 @@ typedef struct{
     
 	uint32_t tempCount;  //当前记录的温度个数
 	bool     WorkStatus; //用于指示当前是否正在采集.
-	
-    
+	uint8_t  BleInitFlag;
     char     fileName[20];
     char     earliestFile[20];
 }SysPara;
@@ -188,4 +209,7 @@ extern SysPara g_sys_para;
 extern ADC_Set g_adc_set;
 extern rtc_datetime_t sysTime;
 extern flash_config_t flashInstance;
+
+void SystemSleep();
+
 #endif

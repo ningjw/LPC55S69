@@ -3,7 +3,7 @@
 
 
 
-uint16_t TMP101_ReadTemp(void);
+float TMP101_ReadTemp(void);
 void TMP101_Init(void);
 
 #endif

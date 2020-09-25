@@ -393,12 +393,14 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
 
     if(g_sys_para.sampNumber != 0) { //Android发送了中断采集命令
         cJSON *pJsonRoot = cJSON_CreateObject();
+		char dataTime[15] = {0};
+		memcpy(dataTime, adcInfo.AdcDataTime, sizeof(adcInfo.AdcDataTime));
         if(NULL == pJsonRoot) {
             return NULL;
         }
         cJSON_AddNumberToObject(pJsonRoot, "Id",  8);
         cJSON_AddNumberToObject(pJsonRoot, "Sid", 1);
-        cJSON_AddStringToObject(pJsonRoot, "F", adcInfo.AdcDataTime);
+        cJSON_AddStringToObject(pJsonRoot, "F", dataTime);
         cJSON_AddNumberToObject(pJsonRoot, "Kb", adcInfoTotal.freeOfKb);
 		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_adc_set.sampPacks);
         cJSON_AddNumberToObject(pJsonRoot, "V", g_adc_set.shkCount);

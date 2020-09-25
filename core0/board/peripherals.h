@@ -14,7 +14,6 @@
 #include "fsl_ctimer.h"
 #include "fsl_clock.h"
 #include "fsl_spi.h"
-#include "fsl_i2c.h"
 #include "fsl_reset.h"
 #include "fsl_usart.h"
 #include "fsl_pint.h"
@@ -48,11 +47,6 @@ extern "C" {
 #define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
 /* Definition of the clock source frequency */
 #define FLEXCOMM0_CLOCK_SOURCE 48000000UL
-/* BOARD_InitPeripherals defines for FLEXCOMM1 */
-/* Definition of peripheral ID */
-#define FLEXCOMM1_PERIPHERAL ((I2C_Type *)FLEXCOMM1)
-/* Definition of the clock source frequency */
-#define FLEXCOMM1_CLOCK_SOURCE 12000000UL
 /* Definition of peripheral ID */
 #define FLEXCOMM2_PERIPHERAL ((USART_Type *)FLEXCOMM2)
 /* Definition of the clock source frequency */
@@ -105,7 +99,6 @@ extern "C" {
 extern dma_handle_t DMA0_CH0_Handle;
 extern const ctimer_config_t CTIMER1_config;
 extern const spi_master_config_t FLEXCOMM0_config;
-extern const i2c_master_config_t FLEXCOMM1_config;
 extern const usart_config_t FLEXCOMM2_config;
 extern const usart_config_t FLEXCOMM3_config;
 extern const usart_config_t FLEXCOMM5_config;

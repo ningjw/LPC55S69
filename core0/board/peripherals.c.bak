@@ -163,7 +163,7 @@ instance:
     - spi_master_config:
       - enableLoopback: 'false'
       - enableMaster: 'true'
-      - polarity: 'kSPI_ClockPolarityActiveLow'
+      - polarity: 'kSPI_ClockPolarityActiveHigh'
       - phase: 'kSPI_ClockPhaseFirstEdge'
       - direction: 'kSPI_MsbFirst'
       - baudRate_Bps: '24000000'
@@ -182,7 +182,7 @@ instance:
 const spi_master_config_t FLEXCOMM0_config = {
   .enableLoopback = false,
   .enableMaster = true,
-  .polarity = kSPI_ClockPolarityActiveLow,
+  .polarity = kSPI_ClockPolarityActiveHigh,
   .phase = kSPI_ClockPhaseFirstEdge,
   .direction = kSPI_MsbFirst,
   .baudRate_Bps = 24000000,

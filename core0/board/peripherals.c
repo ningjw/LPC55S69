@@ -206,43 +206,6 @@ void FLEXCOMM0_init(void) {
 }
 
 /***********************************************************************************************************************
- * FLEXCOMM1 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM1'
-- type: 'flexcomm_i2c'
-- mode: 'I2C_Polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_i2c_567d1a9d97c12e5d39b00259c3436dc4'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM1'
-- config_sets:
-  - fsl_i2c:
-    - i2c_mode: 'kI2C_Master'
-    - clockSource: 'FXCOMFunctionClock'
-    - clockSourceFreq: 'BOARD_BootClockRUN'
-    - i2c_master_config:
-      - enableMaster: 'true'
-      - baudRate_Bps: '100000'
-      - enableTimeout: 'false'
-    - quick_selection: 'QS_I2C_Master'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const i2c_master_config_t FLEXCOMM1_config = {
-  .enableMaster = true,
-  .baudRate_Bps = 100000,
-  .enableTimeout = false
-};
-
-void FLEXCOMM1_init(void) {
-  RESET_PeripheralReset( kFC1_RST_SHIFT_RSTn);
-  /* Initialization function */
-  I2C_MasterInit(FLEXCOMM1_PERIPHERAL, &FLEXCOMM1_config, FLEXCOMM1_CLOCK_SOURCE);
-}
-
-/***********************************************************************************************************************
  * FLEXCOMM2 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -616,7 +579,6 @@ void BOARD_InitPeripherals(void)
   DMA0_init();
   CTIMER1_init();
   FLEXCOMM0_init();
-  FLEXCOMM1_init();
   FLEXCOMM2_init();
   FLEXCOMM3_init();
   FLEXCOMM5_init();

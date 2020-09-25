@@ -4,14 +4,7 @@ uint32_t SpeedADC[SPD_LEN];
 uint32_t ShakeADC[ADC_LEN];
 float Temperature[64];
 
-#define ADC_MODE_LOW_POWER       GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 1)  //低功耗模式
-#define ADC_MODE_HIGH_SPEED      GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT, BOARD_ADC_MODE_PIN, 0)   //高速模式
-#define ADC_MODE_HIGH_RESOLUTION //高精度模式(浮空)
-#define ADC_SYNC_HIGH            GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 1)
-#define ADC_SYNC_LOW             GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT, BOARD_ADC_SYNC_PIN, 0)
 
-#define PWR_ADC_ON    GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
-#define PWR_ADC_OFF   GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 1)
 
 TaskHandle_t ADC_TaskHandle = NULL;  /* ADC任务句柄 */
 
@@ -66,6 +59,7 @@ void ADC_SampleStart(void)
 	memset(ShakeADC,0,ADC_LEN);
 	memset(SpeedADC,0,SPD_LEN);
 	PWR_ADC_ON;//开启ADC相关的电源
+	PWR_5V_ON;//开启5V的滤波器电源
 		//判断自动关机条件
     if(g_sys_para.inactiveCondition != 1) {
         g_sys_para.inactiveCount = 0;
@@ -104,7 +98,7 @@ void ADC_SampleStart(void)
 	g_sys_para.WorkStatus = true;
 	
 	/* 输入捕获，计算转速信号周期 */
-    CTIMER_StartTimer(CTIMER1);
+ //   CTIMER_StartTimer(CTIMER1);
 	
 	//丢弃前部分数据
 	ADC_InvalidCnt = 0;
@@ -154,6 +148,7 @@ void ADC_SampleStop(void)
 	
 	//关闭电源
 	PWR_ADC_OFF;
+	PWR_5V_OFF;//开启5V的滤波器电源
 	
     /* 触发ADC采样完成事件  */
     xTaskNotify(ADC_TaskHandle, NOTIFY_FINISH, eSetBits);
@@ -193,7 +188,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
     printf("ADC Task Create and Running\r\n");
-	ADC_SampleStart();
+	TMP101_Init();
     while(1)
     {
         /*等待ADC完成采样事件*/
@@ -204,6 +199,7 @@ void ADC_AppTask(void)
             /* 完成采样事件*/
             if(r_event & NOTIFY_FINISH) {
 				/* ---------------将震动信号转换-----------------------*/
+#if 0
 				__disable_irq();
 				float tempValue = 0;
                 for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
@@ -215,6 +211,7 @@ void ADC_AppTask(void)
 					printf("%01.5f,",tempValue);
                 }
 				__enable_irq();
+#endif
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
 				//计算发送转速信号需要多少个包

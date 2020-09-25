@@ -2,7 +2,7 @@
 #define __SOFT_IIC_DRV_H
 
 
-
+void delay_us(uint32_t nus);
 void IIC_Start(void);
 void IIC_Stop(void);
 uint8_t IIC_Wait_Ack(void);

@@ -6,7 +6,6 @@
 
 
 #define FLEXCOMM3_BUFF_LEN 1024
-#define BLE_RTS_LEVEL()             GPIO_PinRead(GPIO, BOARD_BT_RTS_PORT, BOARD_BT_RTS_PIN)
 
 
 extern uint16_t g_flexcomm3RxCnt;

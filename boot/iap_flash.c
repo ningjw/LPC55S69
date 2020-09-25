@@ -55,7 +55,7 @@ int main()
 	
     status = FLASH_Erase(&flashInstance, APP_ADDR_INFO, flashInstance.PFlashPageSize, kFLASH_ApiEraseKey);
     verify_status(status);
-
+	
     /* Start programming specified flash region */
     printf("Calling FLASH_Program() API...\r\n");
     status = FLASH_Program(&flashInstance, APP_ADDR_INFO, (uint8_t *)s_buffer, sizeof(s_buffer));

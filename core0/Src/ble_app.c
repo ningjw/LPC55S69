@@ -2,10 +2,6 @@
 
 #define DEVICE_BLE_NAME "BLE Communication"
 
-#define SET_COMMOND_MODE()       GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 1);
-#define SET_THROUGHPUT_MODE()    GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 0);
-#define BLE_POWER_ON()           GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 1);
-#define BLE_RESET()              GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 0);
 
 extern void LPUART2_init(void);
 
@@ -106,13 +102,17 @@ retry:
 ***************************************************************************************/
 void BLE_Init(void)
 {
-	SET_COMMOND_MODE();
-	BLE_SendCmd("AT\r\n","OK",500);
-	BLE_SendCmd("AT+BAUD=115200\r\n","OK",300);
-	BLE_SendCmd("AT+NAME=BLE Communication\r\n","OK",300);/* 设置蓝牙名称 */
-	BLE_SendCmd("AT+VER\r\n","OK",300);/* 读取版本号 */
-	BLE_SendCmd("AT+LPM=0\r\n","OK",300);/*关闭低功耗模式*/
-    BLE_SendCmd("AT+TPMODE=1\r\n","OK",300);/* 开启透传模式 */
+	if(g_sys_para.BleInitFlag != 1){
+		SET_COMMOND_MODE();
+		BLE_SendCmd("AT\r\n","OK",500);
+		BLE_SendCmd("AT+BAUD=115200\r\n","OK",300);
+		BLE_SendCmd("AT+NAME=BLE Communication\r\n","OK",300);/* 设置蓝牙名称 */
+		BLE_SendCmd("AT+VER\r\n","OK",300);/* 读取版本号 */
+		BLE_SendCmd("AT+LPM=0\r\n","OK",300);/*关闭低功耗模式*/
+		BLE_SendCmd("AT+TPMODE=1\r\n","OK",300);/* 开启透传模式 */
+		g_sys_para.BleInitFlag = 1;
+		Flash_SavePara();
+	}
 	SET_THROUGHPUT_MODE();
 	g_sys_para.BleWifiLedStatus = BLE_READY;
 }
@@ -138,7 +138,7 @@ void BLE_AppTask(void)
 	BleStartFlag = true;
     memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
     g_flexcomm3RxCnt = 0;
-
+	
     while(1)
     {
         /*wait task notify*/
@@ -151,7 +151,7 @@ void BLE_AppTask(void)
 			/* 是否接受完成整个数据包 */
 			if( g_sys_para.firmUpdate == true) {
 				//将参数存入Nor Flash
-				Flash_SaveUpgradePara();
+				Flash_SavePara();
 				//关闭所有中断,并复位系统
 				NVIC_SystemReset();
 			}
@@ -201,7 +201,7 @@ void BLE_AppTask(void)
 ***************************************************************************************/
 void FLEXCOMM3_TimeTick(void)
 {
-    if(g_flexcomm3StartRx)
+    if(g_flexcomm3StartRx && BleStartFlag)
     {
         g_flexcomm3RxTimeCnt++;
 		if(g_sys_para.BleWifiLedStatus == BLE_UPDATE){
@@ -214,7 +214,7 @@ void FLEXCOMM3_TimeTick(void)
 				xTaskNotify(BLE_TaskHandle, EVT_OK, eSetBits);
 			}
 		}
-		else if(g_flexcomm3RxTimeCnt >= 30) { //30ms未接受到数据,表示接受数据超时
+		else if(g_flexcomm3RxTimeCnt >= 10) { //10ms未接受到数据,表示接受数据超时
 			g_flexcomm3RxTimeCnt = 0;
 			g_flexcomm3StartRx = false;
 			xTaskNotify(BLE_TaskHandle, EVT_TIMTOUT, eSetBits);

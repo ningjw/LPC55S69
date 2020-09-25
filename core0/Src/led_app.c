@@ -10,7 +10,7 @@ static uint32_t ble_led_cnt = 0;
 TaskHandle_t LED_TaskHandle = NULL;  /* LED任务句柄 */
 static bool flag_led_chk;
 
-
+float T = 0;
 /***************************************************************************************
   * @brief
   * @input
@@ -20,15 +20,13 @@ void LED_AppTask(void)
 {
     while(1)
     {
+		
+		T = TMP101_ReadTemp();
         if(flag_led_chk) { //当前led灯正在自检
             vTaskDelay(200);
         }
         else
         {
-//            if((SNVS_HP_GetStatusFlags(SNVS) & SNVS_HPSR_BTN_MASK) == 0x01){
-//                g_sys_para.inactiveCount = 0;
-//            }
-            
             //系统状态指示灯
             switch(g_sys_para.sampLedStatus)
             {

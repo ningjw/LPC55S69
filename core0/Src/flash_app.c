@@ -1,34 +1,42 @@
 #include "main.h"
 
+
+
 extern rtc_datetime_t sampTime;
 
 uint8_t s_buffer[512] = {0};
 
 AdcInfoTotal adcInfoTotal;
 AdcInfo adcInfo;
-
-/***************************************************************************************
-  * @brief   将电池电量信息写入Flash
-  * @input   
-  * @return  
-***************************************************************************************/
-void Flash_SaveBatPercent()
+uint32_t inFlashBuf[128] = {0};
+void Flash_SavePara(void)
 {
-	FLASH_Erase(&flashInstance, BAT_INFO_ADDR, PAGE_SIZE, kFLASH_ApiEraseKey);
-	FLASH_Program(&flashInstance, BAT_INFO_ADDR, (uint8_t *)&g_sys_para.batRegAC, 4);
+	g_sys_para.firmUpdate = 1;
+	g_adc_set.bias = 2.04;
+	memcpy(&inFlashBuf[0],&g_sys_para.firmUpdate, 4);
+	memcpy(&inFlashBuf[1],&g_sys_para.firmSizeTotal, 4);
+	memcpy(&inFlashBuf[2],&g_sys_para.firmCrc16, 4);
+	memcpy(&inFlashBuf[3],&g_sys_para.firmPacksTotal, 4);
+	memcpy(&inFlashBuf[4],&g_sys_para.batRegAC, 4);
+	memcpy(&inFlashBuf[5],&g_sys_para.BleInitFlag, 4);
+	memcpy(&inFlashBuf[6],&g_adc_set.bias, 4);
+
+	memory_erase(PARA_ADDR,PAGE_SIZE);
+	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
 	g_sys_para.batRemainPercentBak = g_sys_para.batRemainPercent;
 }
 
-
-/***************************************************************************************
-  * @brief   保存固件升级参数,在接受到完整的固件包后,调用该函数
-  * @input   
-  * @return  
-***************************************************************************************/
-void Flash_SaveUpgradePara(void)
+void Flash_ReadPara(void)
 {
-	FLASH_Erase(&flashInstance, IAP_INFO_ADDR, PAGE_SIZE, kFLASH_ApiEraseKey);
-    FLASH_Program(&flashInstance, BAT_INFO_ADDR, &g_sys_para.firmUpdate, 20);
+	memory_read(PARA_ADDR, (uint8_t *)inFlashBuf, PAGE_SIZE);
+	
+	memcpy(&g_sys_para.firmUpdate,    &inFlashBuf[0],4);
+	memcpy(&g_sys_para.firmSizeTotal, &inFlashBuf[1],4);
+	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[2],4);
+	memcpy(&g_sys_para.firmPacksTotal,&inFlashBuf[3],4);
+	memcpy(&g_sys_para.batRegAC,      &inFlashBuf[4],4);
+	memcpy(&g_sys_para.BleInitFlag,   &inFlashBuf[5],4);
+	memcpy(&g_adc_set.bias,           &inFlashBuf[6],4);
 }
 
 /*******************************************************************************
