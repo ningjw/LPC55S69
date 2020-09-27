@@ -53,9 +53,13 @@
 #define HARD_VERSION       "1.1"
 
 
-#define PARA_ADDR         0x00007E00
-#define APP_START_ADDR    0x00008000		// APP代码起始地址
-#define APP_DATA_ADDR     0x00028000       // 32k+128k的位置
+#define CORE0_START_ADDR    0x00018000	   // core0代码起始地址
+#define CORE0_DATA_ADDR     0x00060000     // core0升级数据地址
+
+#define CORE1_START_ADDR    0x00008000     // core1代码起始地址
+#define CORE1_DATA_ADDR     0x00050000     // core1升级数据地址
+
+#define PARA_ADDR           0x00098000
 
 #define PAGE_SIZE 0x200
 
@@ -114,11 +118,14 @@ typedef struct{
 
 //该结构体定义了需要保存到EEPROM中的参数
 typedef struct{
-    uint8_t  firmUpdate;     //固件更新
-    uint32_t firmSizeTotal;  //固件总大小
+    uint32_t firmCore0Update;//Core0固件更新
+	uint32_t firmCore1Update;//Core1固件更新
+    uint32_t firmCore0Size;  //Core0固件总大小
+	uint32_t firmCore1Size;  //Core1固件总大小
+	
     uint32_t firmCrc16;      //固件校验码
     uint32_t firmPacksTotal; //固件总包数
-//	uint32_t batEnergyInFlash;
+	uint32_t firmCoreIndex;  //判断是升级core0,还是升级core1
 	
     uint32_t firmPacksCount; //当前接受的固件包数
     uint32_t firmSizeCurrent;//当前接受到的固件大小

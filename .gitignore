@@ -2,3 +2,5 @@ boot/debug/*
 boot/Listings/*
 core0/Listings/*
 core0/Objects/*
+core1/debug/*
+core1/output/*

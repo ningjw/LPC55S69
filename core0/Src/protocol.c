@@ -573,10 +573,10 @@ SEND_DATA:
 static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 {
     /* 开始升级固件后, 初始化一些必要的变量*/
-    g_sys_para.firmUpdate = false;
+    g_sys_para.firmCore0Update = false;
     g_sys_para.firmPacksCount = 0;
     g_sys_para.firmSizeCurrent = 0;
-    g_sys_para.firmCurrentAddr = APP_DATA_ADDR;
+    g_sys_para.firmCurrentAddr = CORE0_DATA_ADDR;
 	
     /*解析消息内容,*/
     pSub = cJSON_GetObjectItem(pJson, "Packs");
@@ -585,19 +585,24 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 
     pSub = cJSON_GetObjectItem(pJson, "Size");
     if (NULL != pSub)
-        g_sys_para.firmSizeTotal = pSub->valueint;
+        g_sys_para.firmCore0Size = pSub->valueint;
 
     pSub = cJSON_GetObjectItem(pJson, "CRC16");
     if (NULL != pSub)
         g_sys_para.firmCrc16 = pSub->valueint;
 
+	pSub = cJSON_GetObjectItem(pJson, "Core");
+    if (NULL != pSub)
+        g_sys_para.firmCoreIndex = pSub->valueint;
+	
+	g_sys_para.firmCoreIndex = 0;
     g_sys_para.firmPacksCount = 0;
     g_sys_para.firmSizeCurrent = 0;
-    g_sys_para.firmUpdate = false;
+    g_sys_para.firmCore0Update = false;
 
     /* 按照文件大小擦除对应大小的空间 */
-    for(int i = 0; i<= g_sys_para.firmSizeTotal/PAGE_SIZE; i++) {
-		FLASH_Erase(&flashInstance, APP_DATA_ADDR+PAGE_SIZE*i, PAGE_SIZE, kFLASH_ApiEraseKey);
+    for(int i = 0; i<= g_sys_para.firmCore0Size/PAGE_SIZE; i++) {
+		FLASH_Erase(&flashInstance, CORE0_DATA_ADDR+PAGE_SIZE*i, PAGE_SIZE, kFLASH_ApiEraseKey);
     }
 
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -1196,6 +1201,13 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 {
     uint16_t crc = 0;
     uint8_t  err_code = 0;
+	uint32_t app_data_addr = 0;
+	
+	if(g_sys_para.firmCoreIndex == 1){
+		app_data_addr = CORE1_DATA_ADDR;
+	}else{
+		app_data_addr = CORE0_DATA_ADDR;
+	}
 
     crc = CRC16(pMsg+4, FIRM_ONE_LEN);//自己计算出的CRC16
     if(pMsg[FIRM_ONE_PACKE_LEN-2] != (uint8_t)crc || pMsg[FIRM_ONE_PACKE_LEN-1] != (crc>>8)) {
@@ -1204,34 +1216,33 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
         /* 包id */
         g_sys_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
-        g_sys_para.firmCurrentAddr = APP_DATA_ADDR+g_sys_para.firmPacksCount * FIRM_ONE_LEN;//
+        g_sys_para.firmCurrentAddr = app_data_addr+g_sys_para.firmPacksCount * FIRM_ONE_LEN;//
 //        printf("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
         FLASH_SaveAppData(pMsg+4, g_sys_para.firmCurrentAddr, FIRM_ONE_LEN);
     }
 
     /* 当前为最后一包,计算整个固件的crc16码 */
     if(g_sys_para.firmPacksCount == g_sys_para.firmPacksTotal - 1) {
-
+		
         g_sys_para.BleWifiLedStatus = BLE_CONNECT;
         g_flexcomm3RxTimeCnt = 0;
         g_flexcomm3StartRx = false;
 
-
 //		printf("升级文件:\r\n");
 //
-//		for(uint32_t i = 0;i<g_sys_para.firmSizeTotal; i++){
+//		for(uint32_t i = 0;i<g_sys_para.firmCore0Size; i++){
 //			if(i%16 == 0) printf("\n");
 //			printf("%02X ",*(uint8_t *)(FlexSPI_AMBA_BASE + APP_START_SECTOR * SECTOR_SIZE+i));
 //		}
 
-        crc = CRC16((uint8_t *)APP_DATA_ADDR, g_sys_para.firmSizeTotal);
+        crc = CRC16((uint8_t *)app_data_addr, g_sys_para.firmCore0Size);
         printf("\nCRC=%d",crc);
         if(crc != g_sys_para.firmCrc16) {
-            g_sys_para.firmUpdate = false;
+            g_sys_para.firmCore0Update = false;
             err_code = 2;
         } else {
             printf("\nCRC Verify OK\n");
-            g_sys_para.firmUpdate = true;
+            g_sys_para.firmCore0Update = true;
         }
     }
 

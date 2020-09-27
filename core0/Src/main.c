@@ -20,7 +20,7 @@ void main(void)
 	memory_init();
 	FLASH_Init(&flashInstance);
 	SPI_Flash_Init();
-	
+	PWR_NB_ON;
 	InitSysPara();
 	PQ_Init(POWERQUAD);
 	printf("app start\n");

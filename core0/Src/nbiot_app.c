@@ -51,8 +51,6 @@ nb_retry:
 }
 
 
-
-
 /* NB-IoT 模块初始化 */
 void NB_Init()
 {
@@ -86,12 +84,21 @@ void NB_Init()
 /* NB-IOT模块初始化函数 */
 void NB_AppTask(void)
 {
+	uint8_t xReturn = pdFALSE;
 	NbXfer.data = g_NbRxBuffer;
 	NbXfer.dataSize = sizeof(g_NbRxBuffer);
 	NB_Init();
 	while(1)
 	{
-		vTaskDelay(1);
+		/*wait task notify*/
+        xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &nb_event, portMAX_DELAY);
+		if ( pdTRUE == xReturn && EVT_TIMTOUT == EVT_OK) 
+		{
+			
+		}
+		//清空接受到的数据
+        memset(g_NbRxBuffer, 0, sizeof(g_NbRxBuffer));
+        g_flexcomm3RxCnt = 0;
 	}
 }
 
@@ -108,13 +115,25 @@ void FLEXCOMM2_IRQHandler(void)
     {
 		/*读取数据*/
         ucTemp = USART_ReadByte(FLEXCOMM2_PERIPHERAL);
-
+		g_NbStartRx = true;
 		if(g_NbRxCnt < sizeof(g_NbRxBuffer)) {
 			/* 将接受到的数据保存到数组*/
 			g_NbRxBuffer[g_NbRxCnt++] = ucTemp;
+			
 		}
 	}
 }
 
-
+void FLEXCOMM2_TimeTick(void)
+{
+    if(g_NbStartRx )
+    {
+        g_NbRxTimeCnt++;
+		if(g_NbRxTimeCnt >= 10) { //10ms未接受到数据,表示接受数据超时
+			g_NbRxTimeCnt = 0;
+			g_NbStartRx = false;
+			xTaskNotify(NB_TaskHandle, EVT_TIMTOUT, eSetBits);
+        }
+    }
+}
 

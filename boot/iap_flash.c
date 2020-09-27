@@ -5,35 +5,59 @@
 #include "pin_mux.h"
 #include "EventRecorder.h"
 #include "memory.h"
-#define APP_DATA_ADDR     0x28000       // 32k+128k的位置
-#define APP_START_ADDR    0x8000		// APP代码起始地址
-#define APP_ADDR_INFO     0x7E00
+#include <stdlib.h>
 
-#define SECTOR_SIZE       0x1000
-#define PAGE_SIZE         0x200
+#define CORE0_START_ADDR    0x00018000	   // core0代码起始地址
+#define CORE0_DATA_ADDR     0x00060000     // core0升级数据地址
+
+#define CORE1_START_ADDR    0x00008000     // core1代码起始地址
+#define CORE1_DATA_ADDR     0x00050000     // core1升级数据地址
+
+#define PARA_ADDR           0x00098000
+#define PAGE_SIZE           0x200
+
+#define BUFFER_LEN          128
 
 typedef void (*iapFun)(void);
 iapFun appMain; 
 
+
 //该结构体定义了升级参数
 typedef struct{
-    uint32_t  firmUpdate;    //固件更新
-    uint32_t  firmSizeTotal; //固件总大小
+    uint32_t  firmCore0Update;//core0固件更新
+	uint32_t  firmCore1Update;//core1固件更新
+    uint32_t  firmCore0Size;  //core0固件总大小
+	uint32_t  firmCore1Size;  //core1固件总大小
+	uint32_t  firmCrc16;
 }UpdatePara_t;
-UpdatePara_t UpdatePara;
+UpdatePara_t g_sys_para;
 
-static void verify_status(status_t status);
-static void error_trap();
-////////////////////////////////////////////////////////////////////////////////
-// Variables
-////////////////////////////////////////////////////////////////////////////////
-#define BUFFER_LEN 512 / 4
-uint32_t s_buffer_rbc[BUFFER_LEN];
-const uint32_t s_buffer[BUFFER_LEN] = {1, 2, 3, 4};
 
-void printf(const char *__res, ...)
+uint32_t inFlashBuf[BUFFER_LEN] = {0};
+void Flash_SavePara(void)
 {
+	uint16_t i = 0;
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Update, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Update, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Size, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCrc16, 4);
 
+
+	memory_erase(PARA_ADDR,PAGE_SIZE);
+	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
+}
+
+void Flash_ReadPara(void)
+{
+	uint16_t i = 0;
+	memory_read(PARA_ADDR, (uint8_t *)inFlashBuf, PAGE_SIZE);
+	
+	memcpy(&g_sys_para.firmCore0Update,&inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore1Update,&inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore0Size, &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore1Size, &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[i++],4);
 }
 
 int main()
@@ -53,95 +77,31 @@ int main()
 	
     FLASH_Init(&flashInstance);
 	
-    status = FLASH_Erase(&flashInstance, APP_ADDR_INFO, flashInstance.PFlashPageSize, kFLASH_ApiEraseKey);
-    verify_status(status);
-	
-    /* Start programming specified flash region */
-    printf("Calling FLASH_Program() API...\r\n");
-    status = FLASH_Program(&flashInstance, APP_ADDR_INFO, (uint8_t *)s_buffer, sizeof(s_buffer));
-    verify_status(status);
-
-    /* Verify programming by reading back from flash directly */
-    for (uint32_t i = 0; i < BUFFER_LEN; i++)
-    {
-        s_buffer_rbc[i] = *(volatile uint32_t *)(APP_ADDR_INFO + i * 4);
-        if (s_buffer_rbc[i] != s_buffer[i])
-        {
-            error_trap();
-        }
-    }
-
 	//读取升级参数
-	UpdatePara.firmUpdate = *(volatile uint32_t *)(APP_ADDR_INFO);
-	UpdatePara.firmSizeTotal = *(volatile uint32_t *)(APP_ADDR_INFO+4);
-	if (UpdatePara.firmUpdate == true){//需要更新系统
-	
-//		for(int i=0; i<=UpdatePara.firmSizeTotal/SECTOR_SIZE; i++){
-//			FLASH_Erase(&flashInstance, APP_START_ADDR+i*SECTOR_SIZE,SECTOR_SIZE, kFLASH_ApiEraseKey);
-//			FLASH_Program(&flashInstance,APP_START_ADDR+i*SECTOR_SIZE, (void *)(APP_DATA_ADDR+i*SECTOR_SIZE) ,SECTOR_SIZE);
-//		}
-		
-//		//将擦除flash中的标识位
-//		memcpy(page_buf, (void*)(APP_START_ADDR-PAGE_SIZE), PAGE_SIZE);
-//		memset(page_buf+PAGE_SIZE-8, 0, 8);
-//		FLASH_Program(&flashInstance, APP_START_ADDR-PAGE_SIZE, sector_buf, sizeof(sector_buf));
+	Flash_ReadPara();
+
+	if (g_sys_para.firmCore0Update == true){//需要更新core0系统
+		memory_copy(CORE0_START_ADDR, CORE0_DATA_ADDR, g_sys_para.firmCore0Size);
+		g_sys_para.firmCore0Update = false;
 	}
-    printf("Jump to app\n");
 	
-	//在flash执行一次写操作后,才能以指针的方式操作flash
-	memset((uint8_t *)s_buffer_rbc, 0xFF, PAGE_SIZE);
-	memory_read(APP_START_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
-	status = FLASH_Program(&flashInstance, APP_START_ADDR, (uint8_t *)s_buffer_rbc, PAGE_SIZE);
-    verify_status(status);
+	if (g_sys_para.firmCore1Update == true){//需要更新core1系统
+		memory_copy(CORE1_START_ADDR, CORE1_DATA_ADDR, g_sys_para.firmCore1Size);
+		g_sys_para.firmCore1Update = false;
+	}
 	
-	SCB->VTOR = APP_START_ADDR;
+//    printf("Jump to app\n");
 	
-//	MSR_MSP(*(volatile uint32_t*)APP_START_ADDR);
-	__set_MSP(*(volatile uint32_t*)(APP_START_ADDR));
+	SCB->VTOR = CORE0_START_ADDR;
 	
-	appMain = (iapFun)*(volatile uint32_t*)(APP_START_ADDR+4);
+	__set_MSP(*(volatile uint32_t*)(CORE0_START_ADDR));
+	
+	appMain = (iapFun)*(volatile uint32_t*)(CORE0_START_ADDR+4);
 	
 	__ASM volatile ("cpsie i" : : : "memory");
 	
 	appMain();
 	
-    while (1)
-    {
-    }
-}
-
-void verify_status(status_t status)
-{
-    char *tipString = "Unknown status";
-    switch (status)
-    {
-        case kStatus_Success:
-            tipString = "Done.";
-            break;
-        case kStatus_InvalidArgument:
-            tipString = "Invalid argument.";
-            break;
-        case kStatus_FLASH_AlignmentError:
-            tipString = "Alignment Error.";
-            break;
-        case kStatus_FLASH_AccessError:
-            tipString = "Flash Access Error.";
-            break;
-        case kStatus_FLASH_CommandNotSupported:
-            tipString = "This API is not supported in current target.";
-            break;
-        default:
-            break;
-    }
-    printf("%s\r\n\r\n", tipString);
-}
-
-/*
- * @brief Gets called when an error occurs.
- */
-void error_trap(void)
-{
-    printf("\r\n\r\n\r\n\t---- HALTED DUE TO FLASH ERROR! ----");
     while (1)
     {
     }

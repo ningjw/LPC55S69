@@ -59,4 +59,4 @@
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"
 ./keil_lib_power_cm33_core0.lib --remove --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list ".\Listings\core0.map" -o .\Objects\core0.out
+--list ".\Listings\core0.map" -o .\Objects\core0.axf

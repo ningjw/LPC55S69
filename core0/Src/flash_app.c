@@ -11,15 +11,18 @@ AdcInfo adcInfo;
 uint32_t inFlashBuf[128] = {0};
 void Flash_SavePara(void)
 {
-	g_sys_para.firmUpdate = 1;
+	uint16_t i = 0;
 	g_adc_set.bias = 2.04;
-	memcpy(&inFlashBuf[0],&g_sys_para.firmUpdate, 4);
-	memcpy(&inFlashBuf[1],&g_sys_para.firmSizeTotal, 4);
-	memcpy(&inFlashBuf[2],&g_sys_para.firmCrc16, 4);
-	memcpy(&inFlashBuf[3],&g_sys_para.firmPacksTotal, 4);
-	memcpy(&inFlashBuf[4],&g_sys_para.batRegAC, 4);
-	memcpy(&inFlashBuf[5],&g_sys_para.BleInitFlag, 4);
-	memcpy(&inFlashBuf[6],&g_adc_set.bias, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Update, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Update, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Size, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCrc16, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmPacksTotal, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.firmCoreIndex, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.batRegAC, 4);
+	memcpy(&inFlashBuf[i++],&g_sys_para.BleInitFlag, 4);
+	memcpy(&inFlashBuf[i++],&g_adc_set.bias, 4);
 
 	memory_erase(PARA_ADDR,PAGE_SIZE);
 	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
@@ -28,19 +31,23 @@ void Flash_SavePara(void)
 
 void Flash_ReadPara(void)
 {
+	uint16_t i = 0;
 	memory_read(PARA_ADDR, (uint8_t *)inFlashBuf, PAGE_SIZE);
 	
-	memcpy(&g_sys_para.firmUpdate,    &inFlashBuf[0],4);
-	memcpy(&g_sys_para.firmSizeTotal, &inFlashBuf[1],4);
-	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[2],4);
-	memcpy(&g_sys_para.firmPacksTotal,&inFlashBuf[3],4);
-	memcpy(&g_sys_para.batRegAC,      &inFlashBuf[4],4);
-	memcpy(&g_sys_para.BleInitFlag,   &inFlashBuf[5],4);
-	memcpy(&g_adc_set.bias,           &inFlashBuf[6],4);
+	memcpy(&g_sys_para.firmCore0Update,&inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore1Update,&inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore0Size, &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCore1Size, &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmPacksTotal,&inFlashBuf[i++],4);
+	memcpy(&g_sys_para.firmCoreIndex, &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.batRegAC,      &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.BleInitFlag,   &inFlashBuf[i++],4);
+	memcpy(&g_adc_set.bias,           &inFlashBuf[i++],4);
 }
 
 /*******************************************************************************
-* 函数名  : STMFLASH_Write
+* 函数名  : FLASH_SaveAppData
 * 描述    : 从指定地址开始写入指定长度的数据
 * 输入    : WriteAddr:起始地址(此地址必须为2的倍数!!)  pBuffer:数据指针  NumToWrite:
 * 返回值  :
@@ -64,13 +71,14 @@ void FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWri
     while(1) 
 	{
 		memory_read(secpos*PAGE_SIZE, (uint8_t *)FLEXSPI_BUF, PAGE_SIZE);
-		FLASH_Erase(&flashInstance, secpos*PAGE_SIZE, PAGE_SIZE, kFLASH_ApiEraseKey);
+		memory_erase(secpos*PAGE_SIZE, PAGE_SIZE);
         for(i=0;i<secremain;i++)	                    //复制
         {
             FLEXSPI_BUF[i+secoff]=pBuffer[i];	  
         }
-		FLASH_Program(&flashInstance, secpos*PAGE_SIZE, FLEXSPI_BUF, PAGE_SIZE);
-		if(NumByteToWrite==secremain)break;//写入结束了
+		memory_write(secpos*PAGE_SIZE, FLEXSPI_BUF, PAGE_SIZE);
+		if(NumByteToWrite==secremain)
+			break;//写入结束了
 		else//写入未结束
 		{
 			secpos++;//扇区地址增1
@@ -79,8 +87,10 @@ void FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWri
 		   	pBuffer+=secremain;  //指针偏移
 			WriteAddr+=secremain;//写地址偏移	   
 		   	NumByteToWrite-=secremain;				//字节数递减
-			if(NumByteToWrite>4096)secremain=4096;	//下一个扇区还是写不完
-			else secremain=NumByteToWrite;			//下一个扇区可以写完了
+			if(NumByteToWrite>PAGE_SIZE)
+				secremain=PAGE_SIZE;	           //下一页还是写不完
+			else 
+				secremain=NumByteToWrite;			//下一页可以写完了
 		}	 
 	};
 	__enable_irq();
@@ -111,7 +121,7 @@ void W25Q128_AddAdcData(void)
 	sprintf(tempTime, "%d%02d%02d%02d%02d%02d", 
 		                       sampTime.year%100, sampTime.month, sampTime.day, 
 	                           sampTime.hour, sampTime.minute, sampTime.second);
-	memcpy(adcInfo.AdcDataTime, tempTime, 12);
+	memcpy(adcInfo.AdcDataTime, tempTime, sizeof(adcInfo.AdcDataTime));
 	
 	//初始化 adcInfo 结构体 数据长度
 	adcInfo.AdcDataLen = sizeof(ADC_Set) + g_adc_set.shkCount*4 + g_adc_set.spdCount*4;
