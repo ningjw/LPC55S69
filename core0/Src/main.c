@@ -116,8 +116,7 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
-	extern void FLEXCOMM3_TimeTick(void);
-	FLEXCOMM3_TimeTick();
+	
 }
 
 int fputc(int ch, FILE* stream)

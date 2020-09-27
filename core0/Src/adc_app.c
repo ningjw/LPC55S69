@@ -170,7 +170,8 @@ void ADC_AppTask(void)
 	ADC_MODE_LOW_POWER;
 	si5351aSetAdcClk0(1000000);//给ADS1271提供时钟
 	si5351aSetFilterClk1(1000000);//设置滤波器时钟
-	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
+	PWR_5V_ON;
+	PWR_ADC_ON;
 #if 1
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
     while (ADC_READY == 1){};  //wait ads1271 ready
@@ -187,6 +188,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK0_CONTROL, false);
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
+	PWR_5V_OFF;
     printf("ADC Task Create and Running\r\n");
 	TMP101_Init();
     while(1)

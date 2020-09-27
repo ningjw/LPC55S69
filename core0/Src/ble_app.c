@@ -138,7 +138,7 @@ void BLE_AppTask(void)
 	BleStartFlag = true;
     memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
     g_flexcomm3RxCnt = 0;
-	
+
     while(1)
     {
         /*wait task notify*/
