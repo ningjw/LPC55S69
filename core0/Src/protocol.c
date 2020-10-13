@@ -535,7 +535,8 @@ SEND_DATA:
     }
 
 	g_sys_para.inactiveCount = 0;
-#if 1
+	
+#if 0
 	int timeOut = 0;
 	while(BLE_RTS_LEVEL() == 0){//BLE的RTS引脚为低电平,表示
 		vTaskDelay(1);
@@ -543,16 +544,17 @@ SEND_DATA:
 			break;
 	}
 #endif
+	
 	if(sid <= 2){
 		FLEXCOMM3_SendStr((char *)p_reply);
-		printf("%s\r\n",(char *)p_reply);
 		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
 	}else{
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
-//		printf("sid = %d ; 数据长度 = %d\r\n",sid, i);
 	}
+	
+	printf("sid = %d ; len = %d\r\n",sid, i);
 	
 	//获取所有的数据包
 	if(g_sys_para.sampPacksCnt < (g_adc_set.sampPacks-1) && flag_get_all_data) {

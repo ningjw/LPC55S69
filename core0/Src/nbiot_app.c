@@ -4,7 +4,7 @@ TaskHandle_t NB_TaskHandle = NULL;
 usart_transfer_t NbXfer;
 
 uint8_t g_NbRxBuffer[1024] = {0};
-uint8_t g_NbTxBuffer[64] = {0};
+uint8_t g_NbTxBuffer[128] = {0};
 
 uint16_t g_NbRxCnt = 0;
 uint8_t  g_NbStartRx = false;
@@ -81,10 +81,64 @@ void NB_Init()
 	FLEXCOMM2_SendStr("AT+ENTM\r\n");//退出AT指令模式
 }
 
+uint32_t NB73_get_id(char *data, uint8_t index)
+{
+    int i = 0;
+    char *temp = NULL;
+
+    for(i = 0; i < index; i++)
+    {
+        temp = strstr(data, ",");
+        if(temp == NULL)
+        {
+            temp = strstr(data, ":");
+        }
+        data = data + (temp - data) + 1;
+    }
+
+    return atoi(data);
+}
+
+/* 将数据通过NB模块上传到OneNet*/
+void NB_UploadData(void)
+{
+	//等待模块附着网络
+	NB_SendCmd("AT+CGATT?\r\n" ,"+CGATT:1", 2000);
+	
+	//
+	NB_SendCmd("AT+MIPLCLOSE=0\r\n","OK",200);
+	
+	NB_SendCmd("AT+MIPLDELETE=0\r\n","OK",200);
+	
+	//创建通信套件
+	NB_SendCmd("AT+MIPLCREATE\r\n" ,"+MIPL", 2000);
+	
+	//添加温度对象
+	NB_SendCmd("AT+MIPLADDOBJ=0,3303,1,\"1\",6,1\r\n" ,"OK", 2000);
+	
+	//添加时域总值对象
+	NB_SendCmd("AT+MIPLADDOBJ=0,3304,1,\"1\",6,1\r\n","OK", 2000);
+	
+	//添加XXX对象
+	NB_SendCmd("AT+MIPLADDOBJ=0,3201,1,\"1\",3,0\r\n","OK", 2000);
+	
+	//发起注册请求
+	NB_SendCmd("AT+MIPLOPEN=0,3600,30\r\n","OK", 2000);
+	
+	//资源发现
+	NB_SendCmd("AT+MIPLOPEN\r\n" ,"+MIPLEVENT:6", 2000);
+}
+
+
 /* NB-IOT模块初始化函数 */
 void NB_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
+	uint32_t mid;
+	uint32_t oid;
+	uint32_t eid;
+	uint8_t  value;
+	
 	NbXfer.data = g_NbRxBuffer;
 	NbXfer.dataSize = sizeof(g_NbRxBuffer);
 	NB_Init();
@@ -94,7 +148,34 @@ void NB_AppTask(void)
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &nb_event, portMAX_DELAY);
 		if ( pdTRUE == xReturn && EVT_TIMTOUT == EVT_OK) 
 		{
-			
+			if(strstr((char *)g_NbRxBuffer, "+MIPLDISCOVER"))
+            {
+                mid = NB73_get_id((char *)g_NbRxBuffer, 1);
+                oid = NB73_get_id((char *)g_NbRxBuffer, 2);
+            }
+            else if(strstr((char *)g_NbRxBuffer, "+MIPLOBSERVE"))
+            {
+                mid = NB73_get_id((char *)g_NbRxBuffer, 1);
+                oid = NB73_get_id((char *)g_NbRxBuffer, 3);
+            }
+            else if(strstr((char *)g_NbRxBuffer, "+MIPLREAD"))
+            {
+                mid = NB73_get_id((char *)g_NbRxBuffer, 1);
+                oid = NB73_get_id((char *)g_NbRxBuffer, 2);
+            }
+            else if(strstr((char *)g_NbRxBuffer,"+MIPLWRITE"))
+            {
+
+            }
+            else if(strstr((char *)g_NbRxBuffer,"+MIPLEVENT"))
+            {
+                eid = NB73_get_id((char *)g_NbRxBuffer, 1);
+            }
+            else
+            {
+                return;
+            }
+			FLEXCOMM2_SendStr((char *)g_NbTxBuffer);
 		}
 		//清空接受到的数据
         memset(g_NbRxBuffer, 0, sizeof(g_NbRxBuffer));

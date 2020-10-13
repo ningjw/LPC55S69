@@ -1,20 +1,41 @@
 #include "main.h"
+#include "fsl_device_registers.h"
+
+#define CORE1_BOOT_ADDRESS (void *)0x20033000
+	
+#define CORE1_IMAGE_START &Image$$CORE1_REGION$$Base
+#define CORE1_IMAGE_SIZE  (uint32_t)&Image$$CORE1_REGION$$Length
 
 #define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
 
+typedef struct {  //定义结构体
+	uint16_t len;
+	uint16_t spdData[1024];
+}msg_t;
+msg_t * my_msg_t=NULL;        //定义结构体指针。
+
+
+extern uint32_t Image$$CORE1_REGION$$Base;
+extern uint32_t Image$$CORE1_REGION$$Length;
 
 SysPara  g_sys_para;
 ADC_Set  g_adc_set;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
+volatile uint32_t startupDone     = 0U;
+
 static void InitSysPara();
+static void core1_init();
+
+
 
 void main(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+	
 	BOARD_BootClockRUN();
 	BOARD_InitPins();
-
+	
 	BOARD_InitPeripherals();
 	CTIMER1_Init();
 	memory_init();
@@ -24,13 +45,17 @@ void main(void)
 	InitSysPara();
 	PQ_Init(POWERQUAD);
 	printf("app start\n");
-	
+
+#ifdef CORE1_IMAGE_COPY_TO_RAM
+	core1_init();
+#endif
+
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
     
     /* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",1024,NULL, 2,&BAT_TaskHandle);
-
+	
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
 
@@ -43,6 +68,87 @@ void main(void)
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
     while(1);
+}
+
+mcmgr_status_t mcmgr_start_core_internal(mcmgr_core_t coreNum, void *bootAddress)
+{
+    if (coreNum != kMCMGR_Core1)
+    {
+        return kStatus_MCMGR_Error;
+    }
+
+    SYSCON->CPUCFG |= SYSCON_CPUCFG_CPU1ENABLE_MASK;
+
+    /* Boot source for Core 1 from RAM */
+    SYSCON->CPBOOT = SYSCON_CPBOOT_CPBOOT(bootAddress);
+
+    uint32_t temp = SYSCON->CPUCTRL;
+    temp |= 0xc0c48000U;
+    SYSCON->CPUCTRL = temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK | SYSCON_CPUCTRL_CPU1CLKEN_MASK;
+    SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1CLKEN_MASK) & (~SYSCON_CPUCTRL_CPU1RSTEN_MASK);
+
+    return kStatus_MCMGR_Success;
+}
+
+mcmgr_status_t mcmgr_stop_core_internal(mcmgr_core_t coreNum)
+{
+    if (coreNum != kMCMGR_Core1)
+    {
+        return kStatus_MCMGR_Error;
+    }
+    uint32_t temp = SYSCON->CPUCTRL;
+    temp |= 0xc0c48000U;
+
+    /* hold in reset and disable clock */
+    SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK) & (~SYSCON_CPUCTRL_CPU1CLKEN_MASK);
+    return kStatus_MCMGR_Success;
+}
+
+void delay(void)
+{
+    for (uint32_t i = 0; i < 0x7fffffU; i++)
+    {
+        __NOP();
+    }
+}
+
+static void core1_init()
+{
+	/* Init Mailbox */
+    MAILBOX_Init(MAILBOX);
+	
+    /* Enable mailbox interrupt */
+    NVIC_EnableIRQ(MAILBOX_IRQn);
+	
+	/* Copy Secondary core application from FLASH to the target memory. */
+    memcpy(CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
+	
+	/* Boot Secondary core application */
+	mcmgr_start_core_internal(kMCMGR_Core1, CORE1_BOOT_ADDRESS);
+	
+	delay();
+	
+	while (MAILBOX_GetMutex(MAILBOX) == 0){}
+	
+	printf("len=%d\n",my_msg_t->len);
+	
+	MAILBOX_SetMutex(MAILBOX);
+		
+		
+//	mcmgr_stop_core_internal(kMCMGR_Core1);
+}
+
+void MAILBOX_IRQHandler(void)
+{
+	uint32_t data;
+	data = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
+	
+	if(data>=0x20000000)
+    {
+        my_msg_t = (msg_t *)(data);
+    }
+    MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, data);
+	__DSB();
 }
 
 /***************************************************************************************

@@ -18,6 +18,7 @@
 #include "memory.h"
 #include "fsl_iap.h"
 #include "fsl_powerquad.h"
+#include "fsl_mailbox.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -26,6 +27,8 @@
 #include "queue.h"
 #include "timers.h"
 
+#include "mcmgr.h"
+#include "mcmgr_internal_core_api.h"
 
 #include "cJSON.h"
 #include "protocol.h"

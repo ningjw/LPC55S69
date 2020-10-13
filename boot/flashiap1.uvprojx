@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
-              <Define>DEBUG, CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33, SERIAL_PORT_TYPE_UART=1</Define>
+              <Define>DEBUG, CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,</Define>
               <Undefine></Undefine>
               <IncludePath>.\board;..\drivers;..\CMSIS\Include;..\CMSIS\device;..\drivers</IncludePath>
             </VariousControls>

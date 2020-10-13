@@ -2307,9 +2307,9 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(float num)
     {
         item->type = cJSON_Number;
         item->valuedouble = num;
-
+		
         /* use saturation in case of overflow */
-        if (num >= INT_MAX)
+        if ((int)num >= INT_MAX)
         {
             item->valueint = INT_MAX;
         }

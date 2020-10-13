@@ -22,16 +22,28 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69\core0\project.uvprojx
-Project File Date:  09/27/2020
+Project File Date:  10/11/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'core0'
+compiling battery_app.c...
+compiling led_app.c...
+compiling nbiot_app.c...
+compiling ble_app.c...
+compiling main.c...
+compiling adc_app.c...
+compiling flash_app.c...
+compiling protocol.c...
+compiling battery_drv.c...
+compiling adc_drv.c...
+compiling si5351_drv.c...
+compiling soft_iic_drv.c...
+compiling w25q128_drv.c...
+compiling iic_tp100_drv.c...
 linking...
-Program Size: Code=72872 RO-data=3000 RW-data=84 ZI-data=202972  
-FromELF: creating hex file...
-After Build - User command #1: fromelf --bin ".\Objects\core0.axf" --output ".\core0.bin"
-".\Objects\core0.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=79412 RO-data=3248 RW-data=88 ZI-data=198872  
+".\Objects\core0.out" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,21 +79,21 @@ Package Vendor: Keil
       Include file:  CMSIS\Core\Include\tz_context.h
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
-      Source file:   Source\EventRecorder.c
-      Include file:  Config\EventRecorderConf.h
       Include file:  Include\EventRecorder.h
+      Include file:  Config\EventRecorderConf.h
+      Source file:   Source\EventRecorder.c
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:Startup:1.0.0
       Source file:   arm\startup_LPC55S69_cm33_core0.s
-      Include file:  fsl_device_registers.h
-      Include file:  LPC55S69_cm33_core0.h
-      Include file:  LPC55S69_cm33_core0_features.h
-      Source file:   system_LPC55S69_cm33_core0.c
       Include file:  system_LPC55S69_cm33_core0.h
-Build Time Elapsed:  00:00:01
+      Source file:   system_LPC55S69_cm33_core0.c
+      Include file:  LPC55S69_cm33_core0_features.h
+      Include file:  LPC55S69_cm33_core0.h
+      Include file:  fsl_device_registers.h
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

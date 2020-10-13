@@ -214,7 +214,7 @@ void FLEXCOMM3_TimeTick(void)
 				xTaskNotify(BLE_TaskHandle, EVT_OK, eSetBits);
 			}
 		}
-		else if(g_flexcomm3RxTimeCnt >= 10) { //10ms未接受到数据,表示接受数据超时
+		else if(g_flexcomm3RxTimeCnt >= 100) { //10ms未接受到数据,表示接受数据超时
 			g_flexcomm3RxTimeCnt = 0;
 			g_flexcomm3StartRx = false;
 			xTaskNotify(BLE_TaskHandle, EVT_TIMTOUT, eSetBits);

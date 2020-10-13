@@ -89,8 +89,7 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: cm33_core1, enableClock: 'true'}
 - pin_list:
-  - {pin_num: E2, peripheral: SWD, signal: SWDIO, pin_signal: PIO0_12/FC3_TXD_SCL_MISO_WS/SD1_BACKEND_PWR/FREQME_GPIO_CLK_B/SCT_GPI7/SD0_POW_EN/SWDIO/FC6_TXD_SCL_MISO_WS/SECURE_GPIO0_12/ADC0_10}
-  - {pin_num: F1, peripheral: SWD, signal: SWCLK, pin_signal: PIO0_11/FC6_RXD_SDA_MOSI_DATA/CTIMER2_MAT2/FREQME_GPIO_CLK_A/SWCLK/SECURE_GPIO0_11/ADC0_9}
+  - {pin_num: J5, peripheral: CTIMER2, signal: 'MATCH, 2', pin_signal: PIO1_7/FC0_RTS_SCL_SSEL1/SD0_D1/CTIMER2_MAT2/SCT_GPI4}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -107,67 +106,18 @@ void BOARD_InitPins(void)
     /* Enables the clock for the I/O controller.: Enable Clock. */
     CLOCK_EnableClock(kCLOCK_Iocon);
 
-    if (Chip_GetVersion()==1)
-    {
-        IOCON->PIO[0][11] = ((IOCON->PIO[0][11] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+    IOCON->PIO[1][7] = ((IOCON->PIO[1][7] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
-                         /* Selects pin function.
-                          * : PORT011 (pin F1) is configured as SWCLK. */
-                         | IOCON_PIO_FUNC(PIO0_11_FUNC_ALT6)
+                        /* Selects pin function.
+                         * : PORT17 (pin J5) is configured as CTIMER2_MAT2. */
+                        | IOCON_PIO_FUNC(PIO1_7_FUNC_ALT3)
 
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_11_DIGIMODE_DIGITAL));
-    }
-    else
-    {
-        IOCON->PIO[0][11] = ((IOCON->PIO[0][11] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                         /* Selects pin function.
-                          * : PORT011 (pin F1) is configured as SWCLK. */
-                         | IOCON_PIO_FUNC(PIO0_11_FUNC_ALT6)
-
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_11_DIGIMODE_DIGITAL));
-    }
-
-    if (Chip_GetVersion()==1)
-    {
-        IOCON->PIO[0][12] = ((IOCON->PIO[0][12] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                         /* Selects pin function.
-                          * : PORT012 (pin E2) is configured as SWDIO. */
-                         | IOCON_PIO_FUNC(PIO0_12_FUNC_ALT6)
-
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_12_DIGIMODE_DIGITAL));
-    }
-    else
-    {
-        IOCON->PIO[0][12] = ((IOCON->PIO[0][12] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                         /* Selects pin function.
-                          * : PORT012 (pin E2) is configured as SWDIO. */
-                         | IOCON_PIO_FUNC(PIO0_12_FUNC_ALT6)
-
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_12_DIGIMODE_DIGITAL));
-    }
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO1_7_DIGIMODE_DIGITAL));
 }
 /***********************************************************************************************************************
  * EOF

@@ -14,16 +14,16 @@
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>LPC55S69JBD100:cm33_core1</Device>
+          <Device>LPC55S69JEV98:cm33_core1</Device>
           <Vendor>NXP</Vendor>
           <PackID>NXP.LPC55S69_DFP.12.1.1</PackID>
           <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
-          <Cpu>CPUTYPE("Cortex-M33")</Cpu>
+          <Cpu>IRAM(0x20000000,0x040000) IRAM2(0x20040000,0x4000) IROM(0x00000000,0x098000) XRAM(0x04000000,0x8000) XRAM2(0x40100000,0x4000) CPUTYPE("Cortex-M33") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll></FlashDriverDll>
+          <FlashDriverDll>UL2V8M(-S0 -C0 -P0 -FD20000000 -FC1000 -FN2 -FF0LPC55XX_640 -FS00 -FL098000 -FF1LPC55XX_S_640 -FS110000000 -FL198000 -FP0($$Device:LPC55S69JEV98$arm\LPC55XX_640.FLM) -FP1($$Device:LPC55S69JEV98$arm\LPC55XX_S_640.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:LPC55S69JBD100$fsl_device_registers.h</RegisterFile>
+          <RegisterFile>$$Device:LPC55S69JEV98$fsl_device_registers.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:LPC55S69JBD100$LPC55S69_cm33_core1.xml</SFDFile>
+          <SFDFile>$$Device:LPC55S69JEV98$LPC55S69_cm33_core1.xml</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -82,7 +82,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>fromelf.exe --bincombined --bincombined_base=0x20033000 --output=$Lcore1_image.bin !L</UserProg1Name>
+            <UserProg1Name>fromelf.exe --bincombined --bincombined_base=0x20033000 --output=..\core0\Lcore1_image.bin !L</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -179,13 +179,13 @@
             <mOS>0</mOS>
             <uocRom>0</uocRom>
             <uocRam>0</uocRam>
-            <hadIROM>0</hadIROM>
-            <hadIRAM>0</hadIRAM>
-            <hadXRAM>0</hadXRAM>
+            <hadIROM>1</hadIROM>
+            <hadIRAM>1</hadIRAM>
+            <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
-            <hadIRAM2>0</hadIRAM2>
+            <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
             <useUlib>1</useUlib>
@@ -210,7 +210,7 @@
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
             <Im1Chk>1</Im1Chk>
-            <Im2Chk>0</Im2Chk>
+            <Im2Chk>1</Im2Chk>
             <OnChipMemories>
               <Ocm1>
                 <Type>0</Type>
@@ -245,7 +245,7 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x44000</Size>
+                <Size>0x40000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
@@ -254,8 +254,8 @@
               </IROM>
               <XRAM>
                 <Type>1</Type>
-                <StartAddress>0x40100000</StartAddress>
-                <Size>0x4000</Size>
+                <StartAddress>0x4000000</StartAddress>
+                <Size>0x8000</Size>
               </XRAM>
               <OCR_RVCT1>
                 <Type>1</Type>
@@ -284,13 +284,13 @@
               </OCR_RVCT5>
               <OCR_RVCT6>
                 <Type>0</Type>
-                <StartAddress>0x40100000</StartAddress>
-                <Size>0x4000</Size>
+                <StartAddress>0x4000000</StartAddress>
+                <Size>0x8000</Size>
               </OCR_RVCT6>
               <OCR_RVCT7>
                 <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <StartAddress>0x40100000</StartAddress>
+                <Size>0x4000</Size>
               </OCR_RVCT7>
               <OCR_RVCT8>
                 <Type>0</Type>
@@ -300,12 +300,12 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x44000</Size>
+                <Size>0x40000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x4000000</StartAddress>
-                <Size>0x8000</Size>
+                <StartAddress>0x20040000</StartAddress>
+                <Size>0x4000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
             <RvctStartVector></RvctStartVector>
@@ -387,30 +387,15 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>mcmgr</GroupName>
-          <Files>
             <File>
-              <FileName>mcmgr.c</FileName>
+              <FileName>clock_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\mcmgr\mcmgr.c</FilePath>
+              <FilePath>.\board\clock_config.c</FilePath>
             </File>
             <File>
-              <FileName>mcmgr_internal_core_api_lpc55s69.c</FileName>
+              <FileName>pin_mux.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\mcmgr\mcmgr_internal_core_api_lpc55s69.c</FilePath>
-            </File>
-            <File>
-              <FileName>mcmgr.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\mcmgr\mcmgr.h</FilePath>
-            </File>
-            <File>
-              <FileName>mcmgr_internal_core_api.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\mcmgr\mcmgr_internal_core_api.h</FilePath>
+              <FilePath>.\board\pin_mux.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -446,6 +431,11 @@
               <FileName>fsl_reset.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_reset.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_power.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -840,30 +830,15 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>mcmgr</GroupName>
-          <Files>
             <File>
-              <FileName>mcmgr.c</FileName>
+              <FileName>clock_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\mcmgr\mcmgr.c</FilePath>
+              <FilePath>.\board\clock_config.c</FilePath>
             </File>
             <File>
-              <FileName>mcmgr_internal_core_api_lpc55s69.c</FileName>
+              <FileName>pin_mux.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\mcmgr\mcmgr_internal_core_api_lpc55s69.c</FilePath>
-            </File>
-            <File>
-              <FileName>mcmgr.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\mcmgr\mcmgr.h</FilePath>
-            </File>
-            <File>
-              <FileName>mcmgr_internal_core_api.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\mcmgr\mcmgr_internal_core_api.h</FilePath>
+              <FilePath>.\board\pin_mux.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -899,6 +874,11 @@
               <FileName>fsl_reset.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_reset.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_power.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_power.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -962,7 +942,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -971,7 +950,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -980,7 +958,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -989,7 +966,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -998,7 +974,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -1007,7 +982,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -1016,7 +990,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -1025,7 +998,6 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
         </targetInfos>
       </file>
@@ -1034,8 +1006,79 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
         <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
         <targetInfos>
-          <targetInfo name="core1"/>
           <targetInfo name="hello_world_cm33_core1 release"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" condition="core_id.cm33_core1_AND_core_type.cm33" name="LPC55S69_cm33_core1.h" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\LPC55S69_cm33_core1.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" condition="core_id.cm33_core1_AND_core_type.cm33" name="LPC55S69_cm33_core1_features.h" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\LPC55S69_cm33_core1_features.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="core_id.cm33_core1_AND_core_type.cm33_AND_mdk" name="arm\LPC55S69_cm33_core1_flash.scf" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\LPC55S69_cm33_core1_flash.scf</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="core_id.cm33_core1_AND_core_type.cm33_AND_mdk" name="arm\LPC55S69_cm33_core1_ram.scf" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\LPC55S69_cm33_core1_ram.scf</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="core_id.cm33_core1_AND_core_type.cm33_AND_mdk" name="arm\LPC55S69_cm33_core1_ram_s.scf" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\LPC55S69_cm33_core1_ram_s.scf</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" condition="_core_id.cm33_core0_OR_core_id.cm33_core1__AND_core_type.cm33" name="fsl_device_registers.h" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\fsl_device_registers.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceAsm" condition="core_id.cm33_core1_AND_core_type.cm33_AND_mdk" name="arm\startup_LPC55S69_cm33_core1.s" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\startup_LPC55S69_cm33_core1.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="sourceC" condition="core_id.cm33_core1_AND_core_type.cm33" name="system_LPC55S69_cm33_core1.c" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\system_LPC55S69_cm33_core1.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="header" condition="core_id.cm33_core1_AND_core_type.cm33" name="system_LPC55S69_cm33_core1.h" version="1.0.0">
+        <instance index="0">RTE\Device\LPC55S69JEV98_cm33_core1\system_LPC55S69_cm33_core1.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="NXP" Cversion="1.0.0" condition="device.LPC55S69_AND__CMSIS_Include_core_cm33__AND__armclang_OR_iar_"/>
+        <package license="Licenses.txt" name="LPC55S69_DFP" schemaVersion="1.4" url="http://mcuxpresso.nxp.com/cmsis_pack/repo/" vendor="NXP" version="12.1.1"/>
+        <targetInfos>
+          <targetInfo name="core1"/>
         </targetInfos>
       </file>
     </files>

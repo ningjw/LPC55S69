@@ -29,26 +29,19 @@
 /* USB BDT size */
 #define usb_bdt_size                   0x0
 /* Sizes */
-#if (defined(__stack_size__))
-  #define Stack_Size                   __stack_size__
-#else
-  #define Stack_Size                   0x1000
-#endif
 
-#if (defined(__heap_size__))
-  #define Heap_Size                    __heap_size__
-#else
-  #define Heap_Size                    0x1000
-#endif
+#define Stack_Size                   0x800
 
-#define  m_interrupts_start            0x00018000
-#define  m_interrupts_size             0x00018200
-
-#define  m_text_start                  0x00018200
-#define  m_text_size                   0x00037E00
+#define Heap_Size                    0x800
 
 #define  m_core1_image_start           0x00008000
 #define  m_core1_image_size            0x00010000
+
+#define  m_interrupts_start            0x00018000
+#define  m_interrupts_size             0x00000200
+
+#define  m_text_start                  0x00018200
+#define  m_text_size                   0x00037E00
 
 #if (defined(__use_shmem__))
   #define  m_data_start                0x20000000

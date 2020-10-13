@@ -25,18 +25,14 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
-/*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO0_11_DIGIMODE_DIGITAL 0x01u
-/*!
- * @brief Selects pin function.: Alternative connection 6. */
-#define PIO0_11_FUNC_ALT6 0x06u
-/*!
- * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
-#define PIO0_12_DIGIMODE_DIGITAL 0x01u
-/*!
- * @brief Selects pin function.: Alternative connection 6. */
-#define PIO0_12_FUNC_ALT6 0x06u
+#define PIO1_7_DIGIMODE_DIGITAL 0x01u /*!<@brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_7_FUNC_ALT3 0x03u        /*!<@brief Selects pin function.: Alternative connection 3. */
+
+/*! @name PIO1_7 (coord J5), SENSOR_ST
+  @{ */
+#define BOARD_SENSOR_ST_PORT 1U /*!<@brief PORT device name: 1U */
+#define BOARD_SENSOR_ST_PIN 7U  /*!<@brief 1U pin index: 7 */
+                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

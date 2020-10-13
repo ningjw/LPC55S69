@@ -6,7 +6,7 @@
 #include "EventRecorder.h"
 #include "memory.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 #define CORE0_START_ADDR    0x00018000	   // core0代码起始地址
 #define CORE0_DATA_ADDR     0x00060000     // core0升级数据地址
 
@@ -72,8 +72,9 @@ int main()
 	memory_init();
 	
     /* 初始化EventRecorder并开启*/
-	EventRecorderInitialize(EventRecordAll, 1U);
-	EventRecorderStart();
+//	EventRecorderInitialize(EventRecordAll, 1U);
+//	EventRecorderStart();
+//	printf("boot start");
 	
     FLASH_Init(&flashInstance);
 	

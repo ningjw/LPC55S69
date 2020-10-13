@@ -7,6 +7,7 @@
 ".\objects\protocol.o"
 ".\objects\flash_app.o"
 ".\objects\nbiot_app.o"
+".\objects\incbin.o"
 ".\objects\battery_drv.o"
 ".\objects\adc_drv.o"
 ".\objects\si5351_drv.o"
@@ -57,6 +58,6 @@
 ".\objects\startup_lpc55s69_cm33_core0.o"
 ".\objects\system_lpc55s69_cm33_core0.o"
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"
-./keil_lib_power_cm33_core0.lib --remove --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+./keil_lib_power_cm33_core0.lib --remove --keep=*(.m0code) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list ".\Listings\core0.map" -o .\Objects\core0.axf
+--list ".\Listings\core0.map" -o .\Objects\core0.out

@@ -26,9 +26,9 @@
   ..\drivers\fsl_i2c.h D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
   ..\drivers\fsl_power.h ..\drivers\fsl_iocon.h ..\drivers\memory.h \
   ..\drivers\fsl_iap.h ..\drivers\fsl_powerquad.h \
-  ..\drivers\fsl_powerquad_data.h ..\freertos\include\FreeRTOS.h \
-  ..\freertos\include\FreeRTOSConfig.h ..\freertos\include\projdefs.h \
-  ..\freertos\include\portable.h \
+  ..\drivers\fsl_powerquad_data.h ..\drivers\fsl_mailbox.h \
+  ..\freertos\include\FreeRTOS.h ..\freertos\include\FreeRTOSConfig.h \
+  ..\freertos\include\projdefs.h ..\freertos\include\portable.h \
   ..\freertos\include\deprecated_definitions.h \
   ..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h \
   ..\freertos\include\mpu_wrappers.h ..\freertos\include\task.h \
@@ -36,7 +36,8 @@
   ..\freertos\include\queue.h ..\freertos\include\task.h \
   ..\freertos\include\event_groups.h ..\freertos\include\timers.h \
   ..\freertos\include\queue.h ..\freertos\include\timers.h \
-  ..\cjson\cJSON.h Inc\protocol.h Inc\led_app.h Inc\ble_app.h \
-  Inc\adc_app.h Inc\flash_app.h Inc\battery_app.h Inc\nbiot_app.h \
-  Inc\battery_drv.h Inc\iic_tp100_drv.h Inc\si5351_drv.h Inc\adc_drv.h \
-  Inc\w25q128_drv.h Inc\soft_iic_drv.h
+  ..\mcmgr\mcmgr.h ..\mcmgr\mcmgr_internal_core_api.h ..\cjson\cJSON.h \
+  Inc\protocol.h Inc\led_app.h Inc\ble_app.h Inc\adc_app.h \
+  Inc\flash_app.h Inc\battery_app.h Inc\nbiot_app.h Inc\battery_drv.h \
+  Inc\iic_tp100_drv.h Inc\si5351_drv.h Inc\adc_drv.h Inc\w25q128_drv.h \
+  Inc\soft_iic_drv.h

@@ -49,10 +49,10 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>core0</OutputName>
+          <OutputName>core0.out</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -80,7 +80,7 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>fromelf --bin ".\Objects\@L.axf" --output ".\@L.bin"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
-              <Define>DEBUG, CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,</Define>
+              <Define>DEBUG, CORE1_IMAGE_COPY_TO_RAM,CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers</IncludePath>
+              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -372,7 +372,7 @@
             <ScatterFile>.\LPC55S69_cm33_core0_flash.scf</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>./keil_lib_power_cm33_core0.lib --remove</Misc>
+            <Misc>./keil_lib_power_cm33_core0.lib --remove  --keep=*(.m0code)</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings>6314</DisabledWarnings>
           </LDads>
@@ -426,6 +426,11 @@
               <FileName>nbiot_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\nbiot_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>incbin.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\incbin.S</FilePath>
             </File>
           </Files>
         </Group>
