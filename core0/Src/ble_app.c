@@ -138,12 +138,13 @@ void BLE_AppTask(void)
 	BleStartFlag = true;
     memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
     g_flexcomm3RxCnt = 0;
-
+	g_flexcomm3RxTimeCnt = 0;
+	g_flexcomm3StartRx = false;
     while(1)
     {
         /*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, portMAX_DELAY);
-        if ( pdTRUE == xReturn && ble_event == EVT_OK) {
+        if ( xReturn && ble_event == EVT_OK) {
 
             /* 处理蓝牙数据协议 */
             sendBuf = ParseProtocol(g_flexcomm3Buf);
@@ -165,7 +166,7 @@ void BLE_AppTask(void)
             }
         }
 #ifdef BLE_VERSION
-        else if(pdTRUE == xReturn && ble_event == EVT_TIMTOUT) { //接受蓝牙数据超时
+        else if(xReturn && ble_event == EVT_TIMTOUT && BleStartFlag) { //接受蓝牙数据超时
 			g_flexcomm3StartRx = false;
 			
 			uint8_t id = 100;

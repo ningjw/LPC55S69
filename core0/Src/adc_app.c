@@ -112,9 +112,11 @@ void ADC_SampleStart(void)
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
-		
+#if 1
 		ShakeADC[g_adc_set.shkCount++] = ADS1271_ReadData();
-		
+#else
+		ShakeADC[g_adc_set.shkCount++] = 0xC00000;
+#endif
 		if(g_adc_set.shkCount >= g_sys_para.sampNumber){
 			g_adc_set.shkCount = g_sys_para.sampNumber;
 			SpeedADC[0] = SpeedADC[1];//采集的第一个数据可能不是一个完整的周期,所以第一个数据丢弃.
@@ -219,6 +221,7 @@ void ADC_AppTask(void)
 				//计算发送转速信号需要多少个包
 				g_sys_para.spdPacks = (g_adc_set.spdCount / ADC_NUM_ONE_PACK) +  (g_adc_set.spdCount%ADC_NUM_ONE_PACK?1:0);
                 
+				g_adc_set.spdStartSid = g_sys_para.shkPacks + 3;
 				//计算将一次采集数据全部发送到Android需要多少个包
 #ifdef BLE_VERSION
 				g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;

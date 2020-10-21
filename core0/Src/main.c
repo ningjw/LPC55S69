@@ -1,7 +1,7 @@
 #include "main.h"
 #include "fsl_device_registers.h"
 
-#define CORE1_BOOT_ADDRESS (void *)0x20033000
+#define CORE1_BOOT_ADDRESS 0x20033000
 	
 #define CORE1_IMAGE_START &Image$$CORE1_REGION$$Base
 #define CORE1_IMAGE_SIZE  (uint32_t)&Image$$CORE1_REGION$$Length
@@ -22,12 +22,14 @@ SysPara  g_sys_para;
 ADC_Set  g_adc_set;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
-volatile uint32_t startupDone     = 0U;
+/* Shared variable by both cores, before changing of this variable the cores must
+   first take mailbox mutex, after changing the shared variable must return mutex */
+volatile uint32_t g_msg = 1;
+/* For the flow control */
+volatile bool g_secondary_core_started = false;
 
 static void InitSysPara();
 static void core1_init();
-
-
 
 void main(void)
 {
@@ -37,18 +39,19 @@ void main(void)
 	BOARD_InitPins();
 	
 	BOARD_InitPeripherals();
+	
+#ifdef CORE1_IMAGE_COPY_TO_RAM
+	core1_init();
+#endif
+	
 	CTIMER1_Init();
 	memory_init();
-	FLASH_Init(&flashInstance);
+//	FLASH_Init(&flashInstance);
 	SPI_Flash_Init();
 	PWR_NB_ON;
 	InitSysPara();
 	PQ_Init(POWERQUAD);
 	printf("app start\n");
-
-#ifdef CORE1_IMAGE_COPY_TO_RAM
-	core1_init();
-#endif
 
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
@@ -70,47 +73,27 @@ void main(void)
     while(1);
 }
 
-mcmgr_status_t mcmgr_start_core_internal(mcmgr_core_t coreNum, void *bootAddress)
+void start_secondary_core(uint32_t sec_core_boot_addr)
 {
-    if (coreNum != kMCMGR_Core1)
-    {
-        return kStatus_MCMGR_Error;
-    }
-
+    /* Boot source for Core 1 from flash */
     SYSCON->CPUCFG |= SYSCON_CPUCFG_CPU1ENABLE_MASK;
+    SYSCON->CPBOOT = SYSCON_CPBOOT_CPBOOT(sec_core_boot_addr);
 
-    /* Boot source for Core 1 from RAM */
-    SYSCON->CPBOOT = SYSCON_CPBOOT_CPBOOT(bootAddress);
-
-    uint32_t temp = SYSCON->CPUCTRL;
-    temp |= 0xc0c48000U;
+    int32_t temp = SYSCON->CPUCTRL;
+    temp |= 0xc0c48000;
     SYSCON->CPUCTRL = temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK | SYSCON_CPUCTRL_CPU1CLKEN_MASK;
     SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1CLKEN_MASK) & (~SYSCON_CPUCTRL_CPU1RSTEN_MASK);
-
-    return kStatus_MCMGR_Success;
 }
 
-mcmgr_status_t mcmgr_stop_core_internal(mcmgr_core_t coreNum)
+void stop_secondary_core(void)
 {
-    if (coreNum != kMCMGR_Core1)
-    {
-        return kStatus_MCMGR_Error;
-    }
     uint32_t temp = SYSCON->CPUCTRL;
     temp |= 0xc0c48000U;
 
     /* hold in reset and disable clock */
     SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK) & (~SYSCON_CPUCTRL_CPU1CLKEN_MASK);
-    return kStatus_MCMGR_Success;
 }
 
-void delay(void)
-{
-    for (uint32_t i = 0; i < 0x7fffffU; i++)
-    {
-        __NOP();
-    }
-}
 
 static void core1_init()
 {
@@ -121,34 +104,46 @@ static void core1_init()
     NVIC_EnableIRQ(MAILBOX_IRQn);
 	
 	/* Copy Secondary core application from FLASH to the target memory. */
-    memcpy(CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
-	
-	/* Boot Secondary core application */
-	mcmgr_start_core_internal(kMCMGR_Core1, CORE1_BOOT_ADDRESS);
-	
-	delay();
-	
-	while (MAILBOX_GetMutex(MAILBOX) == 0){}
-	
-	printf("len=%d\n",my_msg_t->len);
-	
-	MAILBOX_SetMutex(MAILBOX);
-		
-		
-//	mcmgr_stop_core_internal(kMCMGR_Core1);
-}
+    memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
+	printf("Copy CORE1 image to address: 0x%x, size: %d\r\n", CORE1_BOOT_ADDRESS, CORE1_IMAGE_SIZE);
 
+	/* Boot Secondary core application */
+	start_secondary_core(CORE1_BOOT_ADDRESS);
+	
+	/* Wait for start and initialization of secondary core */
+    while (!g_secondary_core_started);
+	printf("core1 start ok");
+	
+	printf("Write to the secondary core mailbox register: %d\r\n", g_msg);
+    /* Write g_msg to the secondary core mailbox register - it causes interrupt on the secondary core */
+    MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, g_msg);
+
+    while (1)
+    {
+        __WFI();
+    }
+}
+uint32_t value = 0;
 void MAILBOX_IRQHandler(void)
 {
-	uint32_t data;
-	data = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
-	
-	if(data>=0x20000000)
+    if (!g_secondary_core_started)
     {
-        my_msg_t = (msg_t *)(data);
+		value = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
+        if (1234 == value)
+        {
+            g_secondary_core_started = true;
+        }
+        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
     }
-    MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, data);
-	__DSB();
+    else
+    {
+        g_msg = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
+        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
+        printf("Read value from the primary core mailbox register: %d\r\n", g_msg);
+        g_msg++;
+        printf("Write to the secondary core mailbox register: %d\r\n", g_msg);
+        MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, g_msg);
+    }
 }
 
 /***************************************************************************************

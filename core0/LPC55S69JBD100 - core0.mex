@@ -237,6 +237,7 @@
                         <pin_feature name="identifier" value="PWR_NB"/>
                         <pin_feature name="direction" value="OUTPUT"/>
                         <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="mode" value="inactive"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 18" pin_num="H9" pin_signal="PIO0_18/FC4_CTS_SDA_SSEL0/SD0_WR_PRT/CTIMER1_MAT0/SCT0_OUT1/PLU_IN3/SECURE_GPIO0_18/ACMP0_C">
@@ -1000,7 +1001,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="80ccd0fa-3aa3-4a2a-9b7a-736e502f1885" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="93f21d08-6f80-4111-90bb-b2b52c4fd181" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

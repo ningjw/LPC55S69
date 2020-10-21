@@ -212,6 +212,7 @@ typedef struct{
 	uint32_t sampPacks;	   //总共采集道的数据,需要分多少个包发给Android
 	uint32_t spdCount;   //转速信号采集到的个数
     uint32_t shkCount;   //震动信号采集到的个数
+	uint32_t spdStartSid;//转速信号从那个sid开始.
 }ADC_Set;
 
 

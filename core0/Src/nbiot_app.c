@@ -50,6 +50,14 @@ nb_retry:
     }
 }
 
+void NB_Reset(void)
+{
+	GPIO_PinWrite(GPIO, BOARD_NB_RST_PORT, BOARD_NB_RST_PIN, 0);
+	vTaskDelay(300);
+	GPIO_PinWrite(GPIO, BOARD_NB_RST_PORT, BOARD_NB_RST_PIN, 1);
+	vTaskDelay(200);
+}
+
 
 /* NB-IoT Ä£¿é³õÊ¼»¯ */
 void NB_Init()
@@ -138,6 +146,8 @@ void NB_AppTask(void)
 	uint32_t oid;
 	uint32_t eid;
 	uint8_t  value;
+	
+	NB_Reset();
 	
 	NbXfer.data = g_NbRxBuffer;
 	NbXfer.dataSize = sizeof(g_NbRxBuffer);

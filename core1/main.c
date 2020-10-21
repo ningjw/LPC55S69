@@ -13,7 +13,7 @@
 /* Pointer to shared variable by both cores, before changing of this variable the
    cores must first take Mailbox mutex, after changing the shared variable must
    retrun mutex */
-volatile uint32_t *g_shared = NULL;
+volatile uint32_t g_msg;
 
 typedef struct  {
     uint16_t  len;
@@ -27,11 +27,10 @@ msg_t my_msg;
  ******************************************************************************/
 void MAILBOX_IRQHandler()
 {
-    uint32_t data = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core1);
-	
+    g_msg = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core1);
     MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core1, 0xffffffff);
-	
-    __DSB();
+    g_msg++;
+    MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core0, g_msg);
 }
 
 
@@ -39,9 +38,7 @@ void main()
 {
 	uint32_t startupData;
 	mcmgr_status_t status;
-	/* Initialize MCMGR, install generic event handlers */
- //   MCMGR_Init();
-	
+
 	BOARD_InitBootClocks();
 	BOARD_InitPins();
 	
@@ -51,23 +48,13 @@ void main()
 	 /* Enable mailbox interrupt */
     NVIC_EnableIRQ(MAILBOX_IRQn);
 
-	while(1)
-	{
-		MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core0, (uint32_t)&my_msg);
-		
-		/* Get Mailbox mutex */
-        while (MAILBOX_GetMutex(MAILBOX) == 0)
-			
-		/* The core1 has mutex, can change shared variable g_shared */
-        my_msg.len = 0xAA;
-		
-		/* Set mutex to allow access other core to shared variable */
-        MAILBOX_SetMutex(MAILBOX);
-		
-		/* Add several nop instructions to allow the opposite core to get the mutex */
-		for(int i =0; i<100; i++ )
-			__asm("nop");
-	}
+    /* Let the other side know the application is up and running */
+    MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core0, (uint32_t)START_EVENT);
+
+    while (1)
+    {
+        __WFI();
+    }
 }
 
 

@@ -7,7 +7,7 @@ extern AdcInfo adcInfo;
 
 rtc_datetime_t sampTime;
 
-uint16_t ble_wait_time = 50;
+uint16_t ble_wait_time = 80;
 
 /***************************************************************************************
   * @brief   
@@ -405,6 +405,7 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
 		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_adc_set.sampPacks);
         cJSON_AddNumberToObject(pJsonRoot, "V", g_adc_set.shkCount);
         cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.spdCount);
+		cJSON_AddNumberToObject(pJsonRoot, "SS", g_adc_set.spdStartSid);
         sendBuf = cJSON_PrintUnformatted(pJsonRoot);
         cJSON_Delete(pJsonRoot);
     }
@@ -515,7 +516,7 @@ SEND_DATA:
         }
         else if(sid - 3 - g_sys_para.shkPacks < g_adc_set.spdCount)
         {
-            g_flexcomm3TxBuf[i++] = 0xE9;
+            g_flexcomm3TxBuf[i++] = 0xE8;
 			g_flexcomm3TxBuf[i++] = sid & 0xff;
 			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
             index = (sid - 3 - g_sys_para.shkPacks) * ADC_NUM_ONE_PACK;
@@ -554,15 +555,19 @@ SEND_DATA:
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
 	}
 	
-	printf("sid = %d ; len = %d\r\n",sid, i);
+//	USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm3TxBuf, i);
+	printf("\r\nsid = %d ; len = %d\r\n",sid, i);
 	
 	//获取所有的数据包
-	if(g_sys_para.sampPacksCnt < (g_adc_set.sampPacks-1) && flag_get_all_data) {
+	g_sys_para.sampPacksCnt++;
+	if(g_sys_para.sampPacksCnt < g_adc_set.sampPacks && flag_get_all_data) {
 		vTaskDelay(ble_wait_time);
-		g_sys_para.sampPacksCnt++;
 		goto SEND_DATA;
 	}
-
+	
+//	if(sid > 2 && flag_get_all_data){
+//		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
+//	}
     return p_reply;
 }
 
