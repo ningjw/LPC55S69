@@ -82,7 +82,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>fromelf.exe --bincombined --bincombined_base=0x20033000 --output=..\core0\Lcore1_image.bin !L</UserProg1Name>
+            <UserProg1Name>fromelf.exe --bincombined --bincombined_base=0x20033000 --output=..\core0\core1_image.bin !L</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -397,6 +397,11 @@
               <FileType>1</FileType>
               <FilePath>.\board\pin_mux.c</FilePath>
             </File>
+            <File>
+              <FileName>peripherals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\board\peripherals.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -436,6 +441,11 @@
               <FileName>fsl_power.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_power.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_inputmux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_inputmux.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -840,6 +850,11 @@
               <FileType>1</FileType>
               <FilePath>.\board\pin_mux.c</FilePath>
             </File>
+            <File>
+              <FileName>peripherals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\board\peripherals.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -879,6 +894,11 @@
               <FileName>fsl_power.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_power.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_inputmux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_inputmux.c</FilePath>
             </File>
           </Files>
         </Group>

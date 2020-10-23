@@ -38,6 +38,7 @@
 #include "flash_app.h"
 #include "battery_app.h"
 #include "nbiot_app.h"
+#include "core1_app.h"
 
 #include "battery_drv.h"
 #include "iic_tp100_drv.h"
@@ -45,6 +46,7 @@
 #include "adc_drv.h"
 #include "w25q128_drv.h"
 #include "soft_iic_drv.h"
+
 
 #if 1
 #define BLE_VERSION

@@ -1,35 +1,19 @@
 #include "main.h"
 #include "fsl_device_registers.h"
 
-#define CORE1_BOOT_ADDRESS 0x20033000
-	
-#define CORE1_IMAGE_START &Image$$CORE1_REGION$$Base
-#define CORE1_IMAGE_SIZE  (uint32_t)&Image$$CORE1_REGION$$Length
 
 #define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
 
-typedef struct {  //定义结构体
-	uint16_t len;
-	uint16_t spdData[1024];
-}msg_t;
-msg_t * my_msg_t=NULL;        //定义结构体指针。
 
-
-extern uint32_t Image$$CORE1_REGION$$Base;
-extern uint32_t Image$$CORE1_REGION$$Length;
 
 SysPara  g_sys_para;
 ADC_Set  g_adc_set;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
-/* Shared variable by both cores, before changing of this variable the cores must
-   first take mailbox mutex, after changing the shared variable must return mutex */
-volatile uint32_t g_msg = 1;
-/* For the flow control */
-volatile bool g_secondary_core_started = false;
+
 
 static void InitSysPara();
-static void core1_init();
+
 
 void main(void)
 {
@@ -39,10 +23,6 @@ void main(void)
 	BOARD_InitPins();
 	
 	BOARD_InitPeripherals();
-	
-#ifdef CORE1_IMAGE_COPY_TO_RAM
-	core1_init();
-#endif
 	
 	CTIMER1_Init();
 	memory_init();
@@ -57,7 +37,7 @@ void main(void)
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
     
     /* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",1024,NULL, 2,&BAT_TaskHandle);
+    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
 	
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
@@ -67,84 +47,15 @@ void main(void)
 
     /* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-	
+#ifdef CORE1_IMAGE_COPY_TO_RAM
+	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
+#endif
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
     while(1);
 }
 
-void start_secondary_core(uint32_t sec_core_boot_addr)
-{
-    /* Boot source for Core 1 from flash */
-    SYSCON->CPUCFG |= SYSCON_CPUCFG_CPU1ENABLE_MASK;
-    SYSCON->CPBOOT = SYSCON_CPBOOT_CPBOOT(sec_core_boot_addr);
-
-    int32_t temp = SYSCON->CPUCTRL;
-    temp |= 0xc0c48000;
-    SYSCON->CPUCTRL = temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK | SYSCON_CPUCTRL_CPU1CLKEN_MASK;
-    SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1CLKEN_MASK) & (~SYSCON_CPUCTRL_CPU1RSTEN_MASK);
-}
-
-void stop_secondary_core(void)
-{
-    uint32_t temp = SYSCON->CPUCTRL;
-    temp |= 0xc0c48000U;
-
-    /* hold in reset and disable clock */
-    SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK) & (~SYSCON_CPUCTRL_CPU1CLKEN_MASK);
-}
-
-
-static void core1_init()
-{
-	/* Init Mailbox */
-    MAILBOX_Init(MAILBOX);
-	
-    /* Enable mailbox interrupt */
-    NVIC_EnableIRQ(MAILBOX_IRQn);
-	
-	/* Copy Secondary core application from FLASH to the target memory. */
-    memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
-	printf("Copy CORE1 image to address: 0x%x, size: %d\r\n", CORE1_BOOT_ADDRESS, CORE1_IMAGE_SIZE);
-
-	/* Boot Secondary core application */
-	start_secondary_core(CORE1_BOOT_ADDRESS);
-	
-	/* Wait for start and initialization of secondary core */
-    while (!g_secondary_core_started);
-	printf("core1 start ok");
-	
-	printf("Write to the secondary core mailbox register: %d\r\n", g_msg);
-    /* Write g_msg to the secondary core mailbox register - it causes interrupt on the secondary core */
-    MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, g_msg);
-
-    while (1)
-    {
-        __WFI();
-    }
-}
-uint32_t value = 0;
-void MAILBOX_IRQHandler(void)
-{
-    if (!g_secondary_core_started)
-    {
-		value = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
-        if (1234 == value)
-        {
-            g_secondary_core_started = true;
-        }
-        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
-    }
-    else
-    {
-        g_msg = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
-        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
-        printf("Read value from the primary core mailbox register: %d\r\n", g_msg);
-        g_msg++;
-        printf("Write to the secondary core mailbox register: %d\r\n", g_msg);
-        MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, g_msg);
-    }
-}
 
 /***************************************************************************************
   * @brief   初始化系统变量

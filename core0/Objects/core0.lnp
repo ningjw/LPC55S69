@@ -8,6 +8,7 @@
 ".\objects\flash_app.o"
 ".\objects\nbiot_app.o"
 ".\objects\incbin.o"
+".\objects\core1_app.o"
 ".\objects\battery_drv.o"
 ".\objects\adc_drv.o"
 ".\objects\si5351_drv.o"

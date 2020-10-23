@@ -38,6 +38,6 @@
   ..\freertos\include\queue.h ..\freertos\include\timers.h \
   ..\mcmgr\mcmgr.h ..\mcmgr\mcmgr_internal_core_api.h ..\cjson\cJSON.h \
   Inc\protocol.h Inc\led_app.h Inc\ble_app.h Inc\adc_app.h \
-  Inc\flash_app.h Inc\battery_app.h Inc\nbiot_app.h Inc\battery_drv.h \
-  Inc\iic_tp100_drv.h Inc\si5351_drv.h Inc\adc_drv.h Inc\w25q128_drv.h \
-  Inc\soft_iic_drv.h
+  Inc\flash_app.h Inc\battery_app.h Inc\nbiot_app.h Inc\core1_app.h \
+  Inc\battery_drv.h Inc\iic_tp100_drv.h Inc\si5351_drv.h Inc\adc_drv.h \
+  Inc\w25q128_drv.h Inc\soft_iic_drv.h

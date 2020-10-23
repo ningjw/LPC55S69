@@ -432,6 +432,11 @@
               <FileType>2</FileType>
               <FilePath>.\incbin.S</FilePath>
             </File>
+            <File>
+              <FileName>core1_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\core1_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -28,12 +28,6 @@ void BOARD_InitBootPins(void);
 #define PIO0_1_DIGIMODE_DIGITAL 0x01u /*!<@brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_1_FUNC_ALT3 0x03u        /*!<@brief Selects pin function.: Alternative connection 3. */
 
-/*! @name PIO0_1 (coord F5), FREQ_CAP
-  @{ */
-#define BOARD_SPD_FREQ_CAP_PORT 0U /*!<@brief PORT device name: 0U */
-#define BOARD_SPD_FREQ_CAP_PIN 1U  /*!<@brief 0U pin index: 1 */
-                                   /* @} */
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
