@@ -7,11 +7,10 @@ extern uint32_t Image$$CORE1_REGION$$Length;
 
 /* For the flow control */
 volatile bool g_secondary_core_started = false;
-volatile uint32_t g_msg = 1;
 
 
 typedef struct {  //定义结构体
-	uint16_t startFlag;
+	uint32_t flag;
 	uint16_t len;
 	uint16_t spdData[1024];
 }msg_t;
@@ -41,13 +40,22 @@ void stop_secondary_core(void)
     SYSCON->CPUCTRL = (temp | SYSCON_CPUCTRL_CPU1RSTEN_MASK) & (~SYSCON_CPUCTRL_CPU1CLKEN_MASK);
 }
 
-uint32_t value = 0;
+void start_spd_caputer(void)
+{
+	MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, 1);
+}
+
+void stop_spd_caputer(void)
+{
+	MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, 2);
+}
+
+
 void MAILBOX_IRQHandler(void)
 {
     if (!g_secondary_core_started)
     {
-		value = MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
-        if (1234 == value)
+        if (1234 == MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0))
         {
             g_secondary_core_started = true;
         }
@@ -57,10 +65,9 @@ void MAILBOX_IRQHandler(void)
     {
         spd_msg = (msg_t *)MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
         MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
-        printf("spd_msg=0x%x startFlag=%d g_msg->len: %d\r\n",spd_msg,spd_msg->startFlag, spd_msg->len);
-		for(int i = 0;i <1024;i++){
-			printf("%d = %d \n",i,spd_msg->spdData[i]);
-		}
+		
+        printf("spd_msg=0x%x flag=%d g_msg->len: %d\r\n",spd_msg,spd_msg->flag, spd_msg->len);
+		
     }
 }
 
@@ -87,7 +94,7 @@ void CORE1_AppTask(void)
 	printf("core1 start ok\r\n");
 	
     /* Write g_msg to the secondary core mailbox register - it causes interrupt on the secondary core */
-    MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, g_msg);
+    start_spd_caputer();
 	
 	vTaskDelete(CORE1_TaskHandle);
 }

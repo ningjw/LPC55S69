@@ -37,11 +37,29 @@ extern "C" {
 /* Selected DMA channel number. */
 #define DMA0_CH0_DMA_CHANNEL 0
 /* Definition of peripheral ID */
-#define CTIMER1_PERIPHERAL CTIMER1
+#define CTIMER0_PERIPHERAL CTIMER0
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER1_TICK_FREQ 1000000UL
+#define CTIMER0_TICK_FREQ 96000000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER1_TICK_PERIOD 1000UL
+#define CTIMER0_TICK_PERIOD 10UL
+/* Definition of PWM period */
+#define CTIMER0_PWM_PERIOD 96
+/* Definition of channel 0 ID */
+#define CTIMER0_PWM0_CHANNEL kCTIMER_Match_0
+/* Definition of channel 0 duty */
+#define CTIMER0_PWM0_DUTY 48
+/* Definition of peripheral ID */
+#define CTIMER2_PERIPHERAL CTIMER2
+/* Timer tick frequency in Hz (input frequency of the timer) */
+#define CTIMER2_TICK_FREQ 96000000UL
+/* Timer tick period in ns (input period of the timer) */
+#define CTIMER2_TICK_PERIOD 10UL
+/* Definition of PWM period */
+#define CTIMER2_PWM_PERIOD 96
+/* Definition of channel 1 ID */
+#define CTIMER2_PWM1_CHANNEL kCTIMER_Match_1
+/* Definition of channel 1 duty */
+#define CTIMER2_PWM1_DUTY 48
 /* BOARD_InitPeripherals defines for FLEXCOMM0 */
 /* Definition of peripheral ID */
 #define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
@@ -97,7 +115,8 @@ extern "C" {
  * Global variables
  **********************************************************************************************************************/
 extern dma_handle_t DMA0_CH0_Handle;
-extern const ctimer_config_t CTIMER1_config;
+extern const ctimer_config_t CTIMER0_config;
+extern const ctimer_config_t CTIMER2_config;
 extern const spi_master_config_t FLEXCOMM0_config;
 extern const usart_config_t FLEXCOMM2_config;
 extern const usart_config_t FLEXCOMM3_config;

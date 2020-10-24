@@ -4,10 +4,10 @@
  *---------------------------------------------------------------------------*/
 #include "main.h"
 
+
 volatile uint32_t g_pwmPeriod   = 0U;
 volatile uint32_t g_pulsePeriod = 0U;
-extern void CTIMER1_Callback(uint32_t flags);
-ctimer_callback_t CTIMER1_callback[] = {CTIMER1_Callback};
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -28,19 +28,25 @@ status_t CTIMER_GetPwmPeriodValue(uint32_t pwmFreqHz, uint8_t dutyCyclePercent, 
     return kStatus_Success;
 }
 
-/***************************************************************************************
-  * @brief   用于捕获转速信号周期
-  * @input   
-  * @return  
-***************************************************************************************/
-void CTIMER1_Init(void)
+
+void ADC_PwmClkStart(uint32_t adcFreq, uint32_t ltcFreq)
 {
-	ctimer_config_t config;
-	CTIMER_GetDefaultConfig(&config);
-    config.input = kCTIMER_Capture_0;
-    CTIMER_Init(CTIMER1, &config);
-    CTIMER_RegisterCallBack(CTIMER1, CTIMER1_callback, kCTIMER_SingleCallback);
-    CTIMER_SetupCapture(CTIMER1, kCTIMER_Capture_0, kCTIMER_Capture_BothEdge, true);
+	/* PWM channel 0 of CTIMER0 peripheral initialization: ADC时钟*/
+	CTIMER_GetPwmPeriodValue(adcFreq, 50, CTIMER0_TICK_FREQ);
+	CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM0_CHANNEL, g_pwmPeriod, g_pulsePeriod, false);
+	CTIMER_StartTimer(CTIMER0_PERIPHERAL);
+	
+	/* PWM channel 1 of CTIMER2 peripheral initialization: 滤波器时钟*/
+	CTIMER_GetPwmPeriodValue(ltcFreq, 50, CTIMER2_TICK_FREQ);
+	CTIMER_SetupPwmPeriod(CTIMER2_PERIPHERAL, CTIMER2_PWM1_CHANNEL, g_pwmPeriod, g_pulsePeriod, false);
+	CTIMER_StartTimer(CTIMER2_PERIPHERAL);
+}
+
+
+void ADC_PwmClkStop(void)
+{
+	CTIMER_StopTimer(CTIMER0_PERIPHERAL);
+	CTIMER_StopTimer(CTIMER2_PERIPHERAL);
 }
 
 uint8_t spiTxBuff[4] = {0xFF};

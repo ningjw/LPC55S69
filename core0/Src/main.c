@@ -1,10 +1,7 @@
 #include "main.h"
 #include "fsl_device_registers.h"
 
-
 #define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
-
-
 
 SysPara  g_sys_para;
 ADC_Set  g_adc_set;
@@ -24,9 +21,7 @@ void main(void)
 	
 	BOARD_InitPeripherals();
 	
-	CTIMER1_Init();
 	memory_init();
-//	FLASH_Init(&flashInstance);
 	SPI_Flash_Init();
 	PWR_NB_ON;
 	InitSysPara();

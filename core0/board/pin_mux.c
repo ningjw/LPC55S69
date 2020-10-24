@@ -121,7 +121,6 @@ BOARD_InitPins:
   - {pin_num: H8, peripheral: PINT, signal: 'PINT, 2', pin_signal: PIO0_29/FC0_RXD_SDA_MOSI_DATA/SD1_D2/CTIMER2_MAT3/SCT0_OUT8/CMP0_OUT/PLU_OUT2/SECURE_GPIO0_29,
     identifier: NB_NETSTATUS, direction: INPUT}
   - {pin_num: A8, peripheral: GPIO, signal: 'PIO1, 28', pin_signal: PIO1_28/FC7_SCK/SD0_D5/CT_INP2/PLU_IN3, direction: OUTPUT, gpio_init_state: 'true'}
-  - {pin_num: F5, peripheral: CTIMER1, signal: 'CAPTURE, 0', pin_signal: PIO0_1/FC3_CTS_SDA_SSEL0/CT_INP0/SCT_GPI1/SD1_CLK/CMP0_OUT/SECURE_GPIO0_1, identifier: SPD_FREQ_CAP}
   - {pin_num: F2, peripheral: GPIO, signal: 'PIO0, 10', pin_signal: PIO0_10/FC6_SCK/CT_INP10/CTIMER2_MAT0/FC1_TXD_SCL_MISO_WS/SCT0_OUT2/SWO/SECURE_GPIO0_10/ADC0_1,
     identifier: ADC_FORMAT, direction: OUTPUT}
   - {pin_num: J2, peripheral: GPIO, signal: 'PIO0, 16', pin_signal: PIO0_16/FC4_TXD_SCL_MISO_WS/CLKOUT/CT_INP4/SECURE_GPIO0_16/ADC0_8, identifier: ADC_SYNC, direction: OUTPUT,
@@ -163,6 +162,8 @@ BOARD_InitPins:
     direction: OUTPUT, gpio_init_state: 'true', mode: pullUp}
   - {pin_num: M2, peripheral: FLEXCOMM5, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_8/FC3_SSEL3/SD0_CMD/FC5_RXD_SDA_MOSI_DATA/SWO/SECURE_GPIO0_8}
   - {pin_num: L13, peripheral: FLEXCOMM5, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_9/FC3_SSEL2/SD0_POW_EN/FC5_TXD_SCL_MISO_WS/SECURE_GPIO0_9/ACMP0_B}
+  - {pin_num: B2, peripheral: CTIMER2, signal: 'MATCH, 1', pin_signal: PIO1_4/FC0_SCK/SD0_D0/CTIMER2_MAT1/SCT0_OUT0/FREQME_GPIO_CLK_A}
+  - {pin_num: L12, peripheral: CTIMER0, signal: 'MATCH, 0', pin_signal: PIO0_0/FC3_SCK/CTIMER0_MAT0/SCT_GPI0/SD1_CARD_INT_N/SECURE_GPIO0_0/ACMP0_A}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -409,21 +410,19 @@ void BOARD_InitPins(void)
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_GpioPort1Pin30ToPintsel);
     /* PIO0_29 is selected for PINT input 2 */
     INPUTMUX_AttachSignal(INPUTMUX, 2U, kINPUTMUX_GpioPort0Pin29ToPintsel);
-    /* Ctimer input 0 is selected for Secure TIMER1 CAPTSEL 0 */
-    INPUTMUX_AttachSignal(INPUTMUX, 0U, kINPUTMUX_CtimerInp0ToTimer1Captsel);
 
-    IOCON->PIO[0][1] = ((IOCON->PIO[0][1] &
+    IOCON->PIO[0][0] = ((IOCON->PIO[0][0] &
                          /* Mask bits to zero which are setting */
                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                         /* Selects pin function.
-                         * : PORT01 (pin F5) is configured as CT_INP0. */
-                        | IOCON_PIO_FUNC(PIO0_1_FUNC_ALT3)
+                         * : PORT00 (pin L12) is configured as CTIMER0_MAT0. */
+                        | IOCON_PIO_FUNC(PIO0_0_FUNC_ALT3)
 
                         /* Select Digital mode.
                          * : Enable Digital mode.
                          * Digital input is enabled. */
-                        | IOCON_PIO_DIGIMODE(PIO0_1_DIGIMODE_DIGITAL));
+                        | IOCON_PIO_DIGIMODE(PIO0_0_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][10] = ((IOCON->PIO[0][10] &
                           /* Mask bits to zero which are setting */
@@ -1230,6 +1229,19 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO1_30_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[1][4] = ((IOCON->PIO[1][4] &
+                         /* Mask bits to zero which are setting */
+                         (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                        /* Selects pin function.
+                         * : PORT14 (pin B2) is configured as CTIMER2_MAT1. */
+                        | IOCON_PIO_FUNC(PIO1_4_FUNC_ALT3)
+
+                        /* Select Digital mode.
+                         * : Enable Digital mode.
+                         * Digital input is enabled. */
+                        | IOCON_PIO_DIGIMODE(PIO1_4_DIGIMODE_DIGITAL));
 
     IOCON->PIO[1][6] = ((IOCON->PIO[1][6] &
                          /* Mask bits to zero which are setting */

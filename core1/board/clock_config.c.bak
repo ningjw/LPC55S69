@@ -56,14 +56,15 @@ void BOARD_InitBootClocks(void)
 name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
-- {id: CTIMER1_clock.outFreq, value: 16 MHz}
+- {id: CTIMER2_clock.outFreq, value: 16 MHz}
 - {id: System_clock.outFreq, value: 16 MHz}
 settings:
 - {id: PLL0_Mode, value: Normal}
 - {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
-- {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.MAINCLKSELB}
+- {id: SYSCON.CTIMERCLKSEL1.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.CTIMERCLKSEL2.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
 - {id: SYSCON.FROHFDIV.scale, value: '2'}
 - {id: SYSCON.MAINCLKSELA.sel, value: SYSCON.CLK_IN_EN}
@@ -108,7 +109,7 @@ void BOARD_BootClockRUN(void)
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kEXT_CLK_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to EXT_CLK */
-    CLOCK_AttachClk(kMAIN_CLK_to_CTIMER1);                 /*!< Switch CTIMER1 to MAIN_CLK */
+    CLOCK_AttachClk(kMAIN_CLK_to_CTIMER2);                 /*!< Switch CTIMER2 to MAIN_CLK */
 
     /*< Set SystemCoreClock variable. */
     SystemCoreClock = BOARD_BOOTCLOCKRUN_CORE_CLOCK;

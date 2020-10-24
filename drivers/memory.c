@@ -308,7 +308,7 @@ int memory_erase(uint32_t addr, uint32_t len)
     status_t ret;
     
     /* for LPC55xx, safe protect, do not erase last sector */
-    if(addr + len > 512*1024)
+    if(addr + len > 628*1024)
     {
       return 1;
     }
@@ -325,7 +325,7 @@ int memory_write(uint32_t start_addr, uint8_t *buf, uint32_t len)
     memcpy(tmp_buf, buf, len);
     
     /* for LPC55xx, safe protect, do not erase last sector */
-    if((start_addr + len) > 512*1024)
+    if((start_addr + len) > 628*1024)
     {
       return 1;
     }

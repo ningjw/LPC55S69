@@ -32,19 +32,7 @@ void RTC_IRQHANDLER(void)
 	}
 }
 
-/***************************************************************************************
-  * @brief  定时器用于获取转速信号的周期(频率)
-  * @input
-  * @return
-***************************************************************************************/
-void CTIMER1_Callback(uint32_t flags)
-{
-	//清楚输入捕获0的中断
-	CTIMER_ClearStatusFlags(CTIMER1, kCTIMER_Capture0Flag);
-	if(g_adc_set.spdCount < SPD_LEN){
-		SpeedADC[g_adc_set.spdCount++] = CTIMER_GetTimerCountValue(CTIMER1);
-	}
-}
+
 
 /***************************************************************************************
   * @brief   start adc sample
@@ -70,35 +58,35 @@ void ADC_SampleStart(void)
 		g_sys_para.sampNumber = ADC_LEN;
 	}
 	
+	/* 输出PWM 用于LTC1063FA的时钟输入,控制采样带宽*/
+	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
+	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
+	si5351aSetFilterClk1(g_sys_para.Ltc1063Clk);
+	
 	//配置ADC芯片时钟
 	SI5351a_SetPDN(SI_CLK1_CONTROL,true);
 	if(g_adc_set.SampleRate > 45000){
 		ADC_MODE_HIGH_SPEED;//使用高速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
 		si5351aSetAdcClk0(g_adc_set.SampleRate * 256);
+		ADC_PwmClkStart(g_adc_set.SampleRate * 256, g_sys_para.Ltc1063Clk);
 	}else{
 		ADC_MODE_LOW_POWER;//使用低速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
 		si5351aSetAdcClk0(g_adc_set.SampleRate * 512);
+		ADC_PwmClkStart(g_adc_set.SampleRate * 512, g_sys_para.Ltc1063Clk);
 	}
 
-    /* 输出PWM 用于LTC1063FA的时钟输入,控制采样带宽*/
-	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
-#ifdef HDV_1_0
-	g_sys_para.Ltc1063Clk = 1000000;
-#endif
-	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
-	si5351aSetFilterClk1(g_sys_para.Ltc1063Clk);
+    
 	
-	vTaskDelay(500);//等待500ms
+	
+	
+	vTaskDelay(100);//等待500ms
 	
 	//开始采集数据前获取一次温度
 	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	//设置为true后,会在PIT中断中采集温度数据
 	g_sys_para.WorkStatus = true;
-	
-	/* 输入捕获，计算转速信号周期 */
- //   CTIMER_StartTimer(CTIMER1);
 	
 	//丢弃前部分数据
 	ADC_InvalidCnt = 0;
@@ -147,7 +135,7 @@ void ADC_SampleStop(void)
 	//关闭时钟输出
 	SI5351a_SetPDN(SI_CLK0_CONTROL,false);
 	SI5351a_SetPDN(SI_CLK1_CONTROL,false);
-	
+	ADC_PwmClkStop();
 	//关闭电源
 	PWR_ADC_OFF;
 	PWR_5V_OFF;//开启5V的滤波器电源

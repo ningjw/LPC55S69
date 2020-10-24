@@ -608,9 +608,7 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
     g_sys_para.firmCore0Update = false;
 
     /* 按照文件大小擦除对应大小的空间 */
-    for(int i = 0; i<= g_sys_para.firmCore0Size/PAGE_SIZE; i++) {
-		FLASH_Erase(&flashInstance, CORE0_DATA_ADDR+PAGE_SIZE*i, PAGE_SIZE, kFLASH_ApiEraseKey);
-    }
+	memory_erase(CORE0_DATA_ADDR, g_sys_para.firmCore0Size);
 
     cJSON *pJsonRoot = cJSON_CreateObject();
     if(NULL == pJsonRoot) {
