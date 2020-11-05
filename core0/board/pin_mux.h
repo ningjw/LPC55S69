@@ -102,6 +102,18 @@ void BOARD_InitBootPins(void);
 #define PIO0_19_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_1_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 3. */
+#define PIO0_1_FUNC_ALT3 0x03u
+/*!
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO0_1_MODE_PULL_UP 0x02u
+/*!
+ * @brief Controls open-drain mode.: Normal. Normal push-pull output */
+#define PIO0_1_OD_NORMAL 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_20_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -387,6 +399,12 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_7_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_9_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_9_FUNC_ALT0 0x00u
 
 /*! @name PIO1_2 (coord G12), LED_SYS_RED
   @{ */
@@ -695,6 +713,19 @@ void BOARD_InitBootPins(void);
 #define BOARD_ADC_CLK_PORT 0U /*!<@brief PORT device name: 0U */
 #define BOARD_ADC_CLK_PIN 0U  /*!<@brief 0U pin index: 0 */
                               /* @} */
+
+/*! @name PIO0_1 (coord F5), SPD_FREQ_CAP
+  @{ */
+#define BOARD_SPD_FREQ_CAP_PORT 0U /*!<@brief PORT device name: 0U */
+#define BOARD_SPD_FREQ_CAP_PIN 1U  /*!<@brief 0U pin index: 1 */
+                                   /* @} */
+
+/*! @name PIO1_9 (coord C1), selFREQ
+  @{ */
+#define BOARD_selFREQ_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_selFREQ_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_selFREQ_PIN 9U    /*!<@brief 1U pin index: 9 */
+                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

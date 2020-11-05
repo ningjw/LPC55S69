@@ -125,7 +125,7 @@ instance:
       - enableInterrupt: 'false'
       - pwmChannels:
         - 0:
-          - pwmChannelPrefixId: 'PWM_0'
+          - pwmChannelPrefixId: 'PWM0'
           - pwmChannel: 'kCTIMER_Match_0'
           - pwmDutyValueStr: '48'
           - enableInterrupt: 'false'
@@ -147,58 +147,49 @@ void CTIMER0_init(void) {
   /* CTIMER0 peripheral initialization */
   CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
   /* PWM channel 0 of CTIMER0 peripheral initialization */
-  CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM_0_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM_0_DUTY, false);
+  CTIMER_SetupPwmPeriod(CTIMER0_PERIPHERAL, CTIMER0_PWM0_CHANNEL, CTIMER0_PWM_PERIOD, CTIMER0_PWM0_DUTY, false);
 }
 
 /***********************************************************************************************************************
- * CTIMER2 initialization code
+ * CTIMER1 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 instance:
-- name: 'CTIMER2'
+- name: 'CTIMER1'
 - type: 'ctimer'
-- mode: 'PWM'
+- mode: 'Capture_Match'
 - custom_name_enabled: 'false'
 - type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
 - functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER2'
+- peripheral: 'CTIMER1'
 - config_sets:
   - fsl_ctimer:
     - ctimerConfig:
       - mode: 'kCTIMER_TimerMode'
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '1'
+      - timerPrescaler: '1000'
     - EnableTimerInInit: 'false'
-    - pwmConfig:
-      - pwmPeriodValueStr: '96'
-      - enableInterrupt: 'false'
-      - pwmChannels:
-        - 0:
-          - pwmChannelPrefixId: 'PWM_0'
-          - pwmChannel: 'kCTIMER_Match_1'
-          - pwmDutyValueStr: '48'
-          - enableInterrupt: 'false'
+    - matchChannels: []
     - interruptCallbackConfig:
       - interrupt:
         - IRQn: 'CTIMER1_IRQn'
         - enable_priority: 'false'
         - priority: '0'
-      - callback: 'kCTIMER_NoCallback'
+      - callback: 'kCTIMER_SingleCallback'
+      - singleCallback: 'ctimer1_callback'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
-const ctimer_config_t CTIMER2_config = {
+const ctimer_config_t CTIMER1_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
-  .prescale = 0
+  .prescale = 999
 };
 
-void CTIMER2_init(void) {
-  /* CTIMER2 peripheral initialization */
-  CTIMER_Init(CTIMER2_PERIPHERAL, &CTIMER2_config);
-  /* PWM channel 1 of CTIMER2 peripheral initialization */
-  CTIMER_SetupPwmPeriod(CTIMER2_PERIPHERAL, CTIMER2_PWM_0_CHANNEL, CTIMER2_PWM_PERIOD, CTIMER2_PWM_0_DUTY, false);
+void CTIMER1_init(void) {
+  /* CTIMER1 peripheral initialization */
+  CTIMER_Init(CTIMER1_PERIPHERAL, &CTIMER1_config);
 }
 
 /***********************************************************************************************************************
@@ -637,7 +628,7 @@ void BOARD_InitPeripherals(void)
   /* Initialize components */
   DMA0_init();
   CTIMER0_init();
-  CTIMER2_init();
+  CTIMER1_init();
   FLEXCOMM0_init();
   FLEXCOMM2_init();
   FLEXCOMM3_init();

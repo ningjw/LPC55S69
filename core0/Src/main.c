@@ -15,6 +15,7 @@ static void InitSysPara();
 void main(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+	ctimer_config_t config;
 	
 	BOARD_BootClockRUN();
 	BOARD_InitPins();

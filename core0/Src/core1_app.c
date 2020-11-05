@@ -4,16 +4,8 @@
 extern uint32_t Image$$CORE1_REGION$$Base;
 extern uint32_t Image$$CORE1_REGION$$Length;
 
-
 /* For the flow control */
 volatile bool g_secondary_core_started = false;
-
-
-typedef struct {  //定义结构体
-	uint32_t flag;
-	uint16_t len;
-	uint16_t spdData[1024];
-}msg_t;
 
 msg_t *spd_msg = NULL;        //定义结构体指针。
 
@@ -53,22 +45,8 @@ void stop_spd_caputer(void)
 
 void MAILBOX_IRQHandler(void)
 {
-    if (!g_secondary_core_started)
-    {
-        if (1234 == MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0))
-        {
-            g_secondary_core_started = true;
-        }
-        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
-    }
-    else
-    {
-        spd_msg = (msg_t *)MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
-        MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
-		
-        printf("spd_msg=0x%x flag=%d g_msg->len: %d\r\n",spd_msg,spd_msg->flag, spd_msg->len);
-		
-    }
+	spd_msg = (msg_t *)MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
+	MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
 }
 
 void CORE1_AppTask(void)
@@ -81,21 +59,16 @@ void CORE1_AppTask(void)
 	
 	/* Copy Secondary core application from FLASH to the target memory. */
     memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
-	printf("Copy CORE1 image to address: 0x%x, size: %d\r\n", CORE1_BOOT_ADDRESS, CORE1_IMAGE_SIZE);
 
 	/* Boot Secondary core application */
 	start_secondary_core(CORE1_BOOT_ADDRESS);
 	
 	/* Wait for start and initialization of secondary core */
-    while (!g_secondary_core_started){
+    while (spd_msg == NULL){
 		vTaskDelay(10);
 	}
-	
-	printf("core1 start ok\r\n");
-	
-    /* Write g_msg to the secondary core mailbox register - it causes interrupt on the secondary core */
-    start_spd_caputer();
-	
+	printf("core1 start, spd_msg=0x%x\r\n",spd_msg);
+
 	vTaskDelete(CORE1_TaskHandle);
 }
 

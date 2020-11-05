@@ -1,6 +1,6 @@
 #include "main.h"
 
-uint32_t SpeedADC[SPD_LEN];
+
 uint32_t ShakeADC[ADC_LEN];
 float Temperature[64];
 
@@ -42,10 +42,8 @@ void RTC_IRQHANDLER(void)
 void ADC_SampleStart(void)
 {
 	g_sys_para.tempCount = 0;
-    g_adc_set.spdCount = 0;
     g_adc_set.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
-	memset(SpeedADC,0,SPD_LEN);
 	PWR_ADC_ON;//开启ADC相关的电源
 	PWR_5V_ON;//开启5V的滤波器电源
 		//判断自动关机条件
@@ -77,10 +75,6 @@ void ADC_SampleStart(void)
 		ADC_PwmClkStart(g_adc_set.SampleRate * 512, g_sys_para.Ltc1063Clk);
 	}
 
-    
-	
-	
-	
 	vTaskDelay(100);//等待500ms
 	
 	//开始采集数据前获取一次温度
@@ -96,26 +90,22 @@ void ADC_SampleStart(void)
 		ADC_InvalidCnt++;
 		if(ADC_InvalidCnt > 100) break;
     }
+	start_spd_caputer();
 	__disable_irq();//关闭中断
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
-#if 1
 		ShakeADC[g_adc_set.shkCount++] = ADS1271_ReadData();
-#else
-		ShakeADC[g_adc_set.shkCount++] = 0xC00000;
-#endif
 		if(g_adc_set.shkCount >= g_sys_para.sampNumber){
 			g_adc_set.shkCount = g_sys_para.sampNumber;
-			SpeedADC[0] = SpeedADC[1];//采集的第一个数据可能不是一个完整的周期,所以第一个数据丢弃.
-			if(g_sys_para.sampNumber == 0){//Android发送中断采集命令后,该值为0
-				g_adc_set.spdCount = 0;
-			}
 			break;
 		}
     }
 	__enable_irq();//开启中断
-	
+	stop_spd_caputer();
+	if(g_sys_para.sampNumber == 0){//Android发送中断采集命令后,该值为0
+		spd_msg->len = 0;
+	}
 	//结束采集后获取一次温度
 	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	ADC_SampleStop();
@@ -204,11 +194,13 @@ void ADC_AppTask(void)
                 }
 				__enable_irq();
 #endif
+//				g_adc_set.spdCount = 0;
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
+				
 				//计算发送转速信号需要多少个包
-				g_sys_para.spdPacks = (g_adc_set.spdCount / ADC_NUM_ONE_PACK) +  (g_adc_set.spdCount%ADC_NUM_ONE_PACK?1:0);
-                
+				g_sys_para.spdPacks = (spd_msg->len / ADC_NUM_ONE_PACK) +  (spd_msg->len%ADC_NUM_ONE_PACK?1:0);
+				
 				g_adc_set.spdStartSid = g_sys_para.shkPacks + 3;
 				//计算将一次采集数据全部发送到Android需要多少个包
 #ifdef BLE_VERSION

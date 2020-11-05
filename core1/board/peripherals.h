@@ -6,32 +6,9 @@
 #ifndef _PERIPHERALS_H_
 #define _PERIPHERALS_H_
 
-/***********************************************************************************************************************
- * Included files
- **********************************************************************************************************************/
-#include "fsl_common.h"
-#include "fsl_ctimer.h"
-#include "fsl_clock.h"
-
 #if defined(__cplusplus)
 extern "C" {
 #endif /* __cplusplus */
-
-/***********************************************************************************************************************
- * Definitions
- **********************************************************************************************************************/
-/* Definitions for BOARD_InitPeripherals functional group */
-/* Definition of peripheral ID */
-#define CTIMER1_PERIPHERAL CTIMER1
-/* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER1_TICK_FREQ 1000000UL
-/* Timer tick period in ns (input period of the timer) */
-#define CTIMER1_TICK_PERIOD 1000UL
-
-/***********************************************************************************************************************
- * Global variables
- **********************************************************************************************************************/
-extern const ctimer_config_t CTIMER1_config;
 
 /***********************************************************************************************************************
  * Initialization functions

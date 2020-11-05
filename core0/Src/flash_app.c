@@ -124,7 +124,7 @@ void W25Q128_AddAdcData(void)
 	memcpy(adcInfo.AdcDataTime, tempTime, sizeof(adcInfo.AdcDataTime));
 	
 	//初始化 adcInfo 结构体 数据长度
-	adcInfo.AdcDataLen = sizeof(ADC_Set) + g_adc_set.shkCount*4 + g_adc_set.spdCount*4;
+	adcInfo.AdcDataLen = sizeof(ADC_Set) + g_adc_set.shkCount*4 + spd_msg->len*4;
 	//初始化 adcInfo 结构体 数据地址
 	adcInfo.AdcDataAddr = adcInfoTotal.addrOfNewData;
 	if((adcInfo.AdcDataAddr % 4) != 0){//判断地址是否四字节对齐
@@ -150,7 +150,7 @@ void W25Q128_AddAdcData(void)
 	SPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount*4);
 
 	//保存 转速数据
-	SPI_Flash_Write((uint8_t *)&SpeedADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount*4, g_adc_set.spdCount*4);
+	SPI_Flash_Write((uint8_t *)&spd_msg->spdData[0], adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount*4, spd_msg->len*4);
 	
 	//更新 adcInfoTotal 结构体中的总采样条数
 	adcInfoTotal.totalAdcInfo++;//调用该函数,表示需要增加一条adc采样数据
@@ -219,8 +219,8 @@ char W25Q128_ReadAdcData(char *adcDataTime)
 		SPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount);
 		
 		//读取 转速数据
-		if (g_adc_set.spdCount != 0){
-			SPI_Flash_Read((uint8_t *)SpeedADC, adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount, g_adc_set.spdCount);
+		if (spd_msg->len != 0 && spd_msg!= NULL){
+			SPI_Flash_Read((uint8_t *)spd_msg->spdData, adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount, spd_msg->len);
 		}
 	}
 	return ret;

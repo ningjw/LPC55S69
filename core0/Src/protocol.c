@@ -404,7 +404,7 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
         cJSON_AddNumberToObject(pJsonRoot, "Kb", adcInfoTotal.freeOfKb);
 		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_adc_set.sampPacks);
         cJSON_AddNumberToObject(pJsonRoot, "V", g_adc_set.shkCount);
-        cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.spdCount);
+        cJSON_AddNumberToObject(pJsonRoot, "S", spd_msg->len);
 		cJSON_AddNumberToObject(pJsonRoot, "SS", g_adc_set.spdStartSid);
         sendBuf = cJSON_PrintUnformatted(pJsonRoot);
         cJSON_Delete(pJsonRoot);
@@ -514,7 +514,7 @@ SEND_DATA:
 			g_flexcomm3TxBuf[i++] = 0xEC;
 			g_flexcomm3TxBuf[i++] = 0xED;
         }
-        else if(sid - 3 - g_sys_para.shkPacks < g_adc_set.spdCount)
+        else if(sid - 3 - g_sys_para.shkPacks < spd_msg->len)
         {
             g_flexcomm3TxBuf[i++] = 0xE8;
 			g_flexcomm3TxBuf[i++] = sid & 0xff;
@@ -522,9 +522,9 @@ SEND_DATA:
             index = (sid - 3 - g_sys_para.shkPacks) * ADC_NUM_ONE_PACK;
             //每个数据占用3个byte;每包可以上传58个数据. 58*3=174
             for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 0) & 0xff;
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 8) & 0xff;
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 16)& 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 8) & 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
 				index++;
 			}
 			g_flexcomm3TxBuf[i++] = 0xEA;
@@ -746,7 +746,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 		    //计算发送震动信号需要多少个包
 #ifdef BLE_VERSION
 		g_sys_para.shkPacks = (g_adc_set.shkCount / 40) +  (g_adc_set.shkCount%40?1:0);
-		g_sys_para.spdPacks = (g_adc_set.spdCount / 40) +  (g_adc_set.spdCount%40?1:0);
+		g_sys_para.spdPacks = (spd_msg->len / 40) +  (spd_msg->len%40?1:0);
 		//计算将一次采集数据全部发送到Android需要多少个包
 		g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
 #elif defined WIFI_VERSION
@@ -758,7 +758,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 	}else{
 		g_adc_set.sampPacks = 0;
 		g_adc_set.shkCount = 0;
-		g_adc_set.spdCount = 0;
+		spd_msg->len = 0;
 	}
     /*制作cjson格式的回复消息*/
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -769,7 +769,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
     cJSON_AddNumberToObject(pJsonRoot, "Sid",0);
     cJSON_AddNumberToObject(pJsonRoot, "PK",g_adc_set.sampPacks);
     cJSON_AddNumberToObject(pJsonRoot, "V", g_adc_set.shkCount);
-    cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.spdCount);
+    cJSON_AddNumberToObject(pJsonRoot, "S", spd_msg->len);
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     cJSON_Delete(pJsonRoot);
 
@@ -1070,7 +1070,7 @@ SEND_DATA:
 			g_flexcomm3TxBuf[i++] = 0xEC;
 			g_flexcomm3TxBuf[i++] = 0xED;
         }
-        else if(sid - 3 - g_sys_para.shkPacks < g_adc_set.spdCount)
+        else if(sid - 3 - g_sys_para.shkPacks < spd_msg->len)
         {
             g_flexcomm3TxBuf[i++] = 0xE9;
 			g_flexcomm3TxBuf[i++] = sid & 0xff;
@@ -1078,9 +1078,9 @@ SEND_DATA:
             index = (sid - 3 - g_sys_para.shkPacks) * 335;
             //每个数据占用3个byte;每包可以上传335个数据. 335*3=174
             for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 0) & 0xff;
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 8) & 0xff;
-				g_flexcomm3TxBuf[i++] = (SpeedADC[index] >> 16)& 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 8) & 0xff;
+				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
 				index++;
 			}
 			g_flexcomm3TxBuf[i++] = 0xEA;

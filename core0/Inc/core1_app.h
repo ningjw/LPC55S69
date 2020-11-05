@@ -6,6 +6,15 @@
 #define CORE1_IMAGE_START &Image$$CORE1_REGION$$Base
 #define CORE1_IMAGE_SIZE  (uint32_t)&Image$$CORE1_REGION$$Length
 
+typedef struct {  //定义结构体
+	uint32_t flag;
+	uint16_t len;
+	uint16_t spdData[1024];
+}msg_t;
+extern msg_t *spd_msg;
+
+void start_spd_caputer(void);
+void stop_spd_caputer(void);
 extern TaskHandle_t CORE1_TaskHandle;
 void CORE1_AppTask(void);
 

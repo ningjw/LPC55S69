@@ -9,7 +9,7 @@
 #define NOTIFY_FINISH          (1<<4)
 #define NOTIFY_SAMPLE_FINISHED (1<<5)
 #define ADC_LEN      40000
-#define SPD_LEN      100
+
 
 extern TaskHandle_t ADC_TaskHandle ;  /* ADCÈÎÎñ¾ä±ú */
 
@@ -18,7 +18,6 @@ void ADC_AppTask(void);
 void ADC_SampleStop(void);
 
 extern uint32_t ShakeADC[];
-extern uint32_t SpeedADC[];
 extern char  SpeedStrADC[];
 extern char  VibrateStrADC[];
 
