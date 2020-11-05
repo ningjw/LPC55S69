@@ -1,7 +1,10 @@
 #include "main.h"
+#include "fsl_powerquad.h"
+#include "arm_math.h"
+#include "arm_const_structs.h"
 
-
-uint32_t ShakeADC[ADC_LEN];
+int ShakeADC[ADC_LEN];
+int ShakeFFT[ADC_LEN];
 float Temperature[64];
 
 
@@ -145,7 +148,7 @@ void ADC_AppTask(void)
 {
     uint32_t r_event;
     BaseType_t xReturn = pdTRUE;
-
+	arm_rfft_instance_q31 instance;
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
 	si5351aSetAdcClk0(1000000);//给ADS1271提供时钟
@@ -181,20 +184,26 @@ void ADC_AppTask(void)
             /* 完成采样事件*/
             if(r_event & NOTIFY_FINISH) {
 				/* ---------------将震动信号转换-----------------------*/
-#if 0
-				__disable_irq();
+#if 1
+
 				float tempValue = 0;
                 for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
 					if(ShakeADC[i] < 0x800000){
-						tempValue = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
+						ShakeADC[i] = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
 					}else{
-						tempValue = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
+						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
 					}
-					printf("%01.5f,",tempValue);
+					printf("%01.5f,",ShakeADC[i]);
                 }
-				__enable_irq();
+				arm_rfft_init_q31(&instance, g_adc_set.shkCount, 0, 1);
+        arm_rfft_q31(&instance, ShakeADC, ShakeFFT);
+				printf("\r\n----------------------------------------\r\n");
+				for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
+					printf("%01.5f,",ShakeFFT[i]);
+				}
 #endif
-//				g_adc_set.spdCount = 0;
+				
+							
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
 				

@@ -257,8 +257,8 @@
         </Ww>
       </WatchWindow1>
       <ScvdPack>
-        <Filename>C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
-        <Type>Keil.ARM_Compiler.1.6.3</Type>
+        <Filename>C:\Users\Marvin.Ning\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.2</Type>
         <SubType>1</SubType>
       </ScvdPack>
       <Tracepoint>
@@ -763,7 +763,7 @@
 
   <Group>
     <GroupName>library</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
