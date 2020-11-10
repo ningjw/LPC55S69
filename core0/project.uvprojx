@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
-              <Define>DEBUG, CORE1_IMAGE_COPY_TO_RAM,CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,</Define>
+              <Define>CORE1_IMAGE_COPY_TO_RAM,CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include</IncludePath>
+              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -565,6 +565,56 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>usb</GroupName>
+          <Files>
+            <File>
+              <FileName>usb_device_lpcip3511.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\device\usb_device_lpcip3511.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_dci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\device\usb_device_dci.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\phy\usb_phy.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_cdc_acm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\usb_device_cdc_acm.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_ch9.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\usb_device_ch9.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\usb_device_class.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device_descriptor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\usb_device_descriptor.c</FilePath>
+            </File>
+            <File>
+              <FileName>virtual_com.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\virtual_com.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_os_abstraction_free_rtos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\osa\fsl_os_abstraction_free_rtos.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>cJson</GroupName>
           <Files>
             <File>
@@ -711,6 +761,11 @@
               <FileName>fsl_powerquad_matrix.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_powerquad_matrix.c</FilePath>
+            </File>
+            <File>
+              <FileName>generic_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\generic_list.c</FilePath>
             </File>
           </Files>
         </Group>
