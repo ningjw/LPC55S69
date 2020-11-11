@@ -9,6 +9,7 @@
 ".\objects\nbiot_app.o"
 ".\objects\incbin.o"
 ".\objects\core1_app.o"
+".\objects\nfc_app.o"
 ".\objects\battery_drv.o"
 ".\objects\adc_drv.o"
 ".\objects\si5351_drv.o"
@@ -58,7 +59,7 @@
 ".\objects\fsl_inputmux.o"
 ".\objects\fsl_reset.o"
 ".\objects\fsl_powerquad_basic.o"
-".\objects\fsl_powerquad_cmsis_1.o"
+".\objects\fsl_powerquad_cmsis.o"
 ".\objects\fsl_powerquad_data.o"
 ".\objects\fsl_powerquad_filter.o"
 ".\objects\fsl_powerquad_math.o"
@@ -72,4 +73,4 @@
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"
 ./keil_lib_power_cm33_core0.lib --remove --keep=*(.m0code) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list ".\Listings\core0.map" -o .\Objects\core0.out
+--list ".\Listings\core0.map" -o .\Objects\core0.axf

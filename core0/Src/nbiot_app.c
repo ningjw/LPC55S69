@@ -189,7 +189,7 @@ void NB_AppTask(void)
 		}
 		//清空接受到的数据
         memset(g_NbRxBuffer, 0, sizeof(g_NbRxBuffer));
-        g_flexcomm3RxCnt = 0;
+        g_NbRxCnt = 0;
 	}
 }
 

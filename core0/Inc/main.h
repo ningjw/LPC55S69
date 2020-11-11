@@ -39,6 +39,7 @@
 #include "battery_app.h"
 #include "nbiot_app.h"
 #include "core1_app.h"
+#include "nfc_app.h"
 
 #include "battery_drv.h"
 #include "iic_tp100_drv.h"
@@ -58,9 +59,9 @@
 #define HARD_VERSION       "1.1"
 
 #define CORE1_START_ADDR    0x00008000     // core1代码起始地址
-#define CORE1_DATA_ADDR     0x00030000     // core1升级数据地址
-
 #define CORE0_START_ADDR    0x00010000	   // core0代码起始地址
+
+#define CORE1_DATA_ADDR     0x00030000     // core1升级数据地址
 #define CORE0_DATA_ADDR     0x00038000     // core0升级数据地址
 
 #define PARA_ADDR           0x00096000

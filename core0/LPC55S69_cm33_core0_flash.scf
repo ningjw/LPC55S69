@@ -37,10 +37,10 @@
 #define  m_core1_image_start           0x00008000
 #define  m_core1_image_size            0x00008000
 
-#define  m_interrupts_start            0x00018000
+#define  m_interrupts_start            0x00010000
 #define  m_interrupts_size             0x00000200
 
-#define  m_text_start                  0x00018200
+#define  m_text_start                  0x00010200
 #define  m_text_size                   0x0001FE00
 
 #if (defined(__use_shmem__))

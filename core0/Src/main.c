@@ -41,6 +41,9 @@ void main(void)
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",1024,NULL, 3,&NB_TaskHandle);
 
+    /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",1024,NULL, 3,&NFC_TaskHandle);
+
     /* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
 #ifdef CORE1_IMAGE_COPY_TO_RAM

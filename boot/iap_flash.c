@@ -7,13 +7,13 @@
 #include "memory.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define CORE0_START_ADDR    0x00018000	   // core0代码起始地址
-#define CORE0_DATA_ADDR     0x00060000     // core0升级数据地址
-
+#define CORE0_START_ADDR    0x00010000	   // core0代码起始地址
 #define CORE1_START_ADDR    0x00008000     // core1代码起始地址
-#define CORE1_DATA_ADDR     0x00050000     // core1升级数据地址
 
-#define PARA_ADDR           0x00098000
+#define CORE0_DATA_ADDR     0x00038000     // core0升级数据地址
+#define CORE1_DATA_ADDR     0x00030000     // core1升级数据地址
+
+#define PARA_ADDR           0x00096000
 #define PAGE_SIZE           0x200
 
 #define BUFFER_LEN          128
