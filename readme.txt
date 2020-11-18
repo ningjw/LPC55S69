@@ -1,4 +1,4 @@
-内部Flash空间分配( 628 KB on-chip flash)
+内部Flash空间: 0x00000000 - 0x0009D000 (628 KB on-chip flash)
 1. boo空间:共32k
 interrupts:0x00000000 - 0x00000200
 代码空间:  0x00000200 - 0x00008000

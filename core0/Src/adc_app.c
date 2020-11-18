@@ -244,10 +244,19 @@ void ADC_AppTask(void)
 					printf("%01.5f,",ShakeADC[i]);
                 }
 				arm_rfft_init_q31(&instance, g_adc_set.shkCount, 0, 1);
-        arm_rfft_q31(&instance, ShakeADC, ShakeFFT);
-				printf("\r\n----------------------------------------\r\n");
+        		arm_rfft_q31(&instance, ShakeADC, ShakeFFT);
+
+				printf("\r\n-----arm_rfft_init_q31 ram-----------------------------------\r\n");
 				for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
 					printf("%01.5f,",ShakeFFT[i]);
+				}
+
+				Flash_WriteAdcData((uint8_t *)ShakeADC, g_adc_set.shkCount * 4);
+				memset(ShakeADC, 0, sizeof(ShakeADC));
+				arm_rfft_q31(&instance, (int *)FFT_ADC_ADDR, ShakeADC);
+				printf("\r\n----arm_rfft_init_q31 flash------------------------------------\r\n");
+				for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
+					printf("%01.5f,",ShakeADC[i]);
 				}
 #endif
 				

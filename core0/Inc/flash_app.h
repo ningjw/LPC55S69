@@ -4,7 +4,7 @@
 extern uint8_t s_buffer[512];
 void Flash_SavePara(void);
 void Flash_ReadPara(void);
-void Flash_WriteAdcData(int *buff, int len);
+void Flash_WriteAdcData(uint8_t *buff, int len);
 void FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite);
 void W25Q128_AddAdcData(void);
 char W25Q128_ReadAdcData(char *adcDataTime);

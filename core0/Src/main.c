@@ -35,21 +35,24 @@ void main(void)
     /* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
 	
-    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
+	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
 
-    /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+
+	/* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",1024,NULL, 3,&NB_TaskHandle);
 
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",1024,NULL, 3,&NFC_TaskHandle);
 
-    /* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
+    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
+
 #ifdef CORE1_IMAGE_COPY_TO_RAM
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
 #endif
+
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
     while(1);
@@ -85,7 +88,11 @@ void SystemSleep(void)
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
 	PWR_NB_OFF;
+#ifdef NB_VERSION
+	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);
+#else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
+#endif
 	printf("exit deep sleep\n");
 }
 
@@ -127,14 +134,16 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
+
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	}
-	
+#ifndef NB_VERSION
 	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
 		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
 	}
+#endif
 }
 
 int fputc(int ch, FILE* stream)

@@ -49,11 +49,16 @@
 #include "soft_iic_drv.h"
 
 
-#if 1
+#define VERSION_CONTROL 1
+
+#if VERSION_CONTROL == 1
 #define BLE_VERSION
-#else
+#elif VERSION_CONTROL == 2
 #define WIFI_VERSION 
+#elif VERSION_CONTROL == 3
+#define NB_VERSION
 #endif
+
 
 #define SOFT_VERSION       "0.16"
 #define HARD_VERSION       "1.1"

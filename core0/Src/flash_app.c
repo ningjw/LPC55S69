@@ -53,10 +53,10 @@ void Flash_ReadPara(void)
 * ÊäÈë    : 
 * ·µ»ØÖµ  :
 *******************************************************************************/
-void Flash_WriteAdcData(int *buff, int len)
+void Flash_WriteAdcData(uint8_t *buff, int len)
 {
 	memory_erase(FFT_ADC_ADDR, len);
-	memory_write(FFT_ADC_ADDR,(uint8_t *)buff, len);
+	memory_write(FFT_ADC_ADDR,(uint8_t *)buff, len*4);
 }
 
 
