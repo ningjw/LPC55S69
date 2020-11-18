@@ -2,6 +2,7 @@
 #include "fsl_powerquad.h"
 #include "arm_math.h"
 #include "arm_const_structs.h"
+#include "math.h"
 
 int ShakeADC[ADC_LEN];
 int ShakeFFT[ADC_LEN];
@@ -18,23 +19,70 @@ uint32_t ADC_ShakeValue = 0;
 uint32_t  ADC_InvalidCnt = 0;
 float ADC_VoltageValue;
 
-/***************************************************************************************
-  * @brief   
-  * @input
-  * @return
-***************************************************************************************/
-void RTC_IRQHANDLER(void)
-{
-	//在采集数据时,每间隔1S获取一次温度数据
-	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
-		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
-	}
-	
-	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
-		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
-	}
+
+
+static float GetEnegryWindowCorrected(int windowType) {
+    float NBF = 1;
+    switch (windowType) {
+        case 0://矩形窗0
+            NBF = 1;                                                 
+            break;
+        case 1:   //三角窗1
+            NBF = 1.33;
+            break;
+        case 2:   //汉宁窗2
+            NBF = 1.6339;                                            
+            break;
+        case 3:    //哈明窗3
+            NBF = 1.59;                                             
+            break;
+        case 4:    //布莱克曼窗4
+            NBF = 1.65;//待定
+            break;
+        case 5:    //Kaiser-Bessel(3.0)                      凯赛窗
+            NBF = 1.86;                                            
+            break;
+        case 6:    //top flat  平顶窗
+            NBF = 2.26;                                           
+            break;
+        case 7:    //possion(3.0)
+            NBF = 1.65;
+            break;
+        case 8:    //possion(4.0)
+            NBF = 2.08;
+            break;
+        case 9:    //cauchy(4.0)
+            NBF = 1.76;
+            break;
+        case 10:    //cauchy(5.0)
+            NBF = 2.06;
+            break;
+        case 11:    //Gaussian(3.0)
+            NBF = 1.64;
+            break;
+        case 12:    //Kaiser-Bessel(3.5)
+            NBF = 1.93;
+            break;
+
+    }
+    return NBF;
 }
 
+
+//矩形窗0，三角窗1，汉宁窗2，海明窗3，布莱克曼窗4，凯泽窗5。。。
+static float GetRMS(float data[],int len, int windowType) 
+{  
+    float rms = 0.000;
+    float sum = 0.000;
+    float EnegryCorrected = GetEnegryWindowCorrected(windowType);
+    for (int i = 0; i < len; i++) {
+        sum = sum + data[i] * data[i];
+    }
+    float average = sum / len;
+    rms = EnegryCorrected * sqrt(average);
+    rms = (float) round(rms * 1000) / 1000.0f;   //保留3位小数
+    return rms;
+}
 
 
 /***************************************************************************************

@@ -46,6 +46,20 @@ void Flash_ReadPara(void)
 	memcpy(&g_adc_set.bias,           &inFlashBuf[i++],4);
 }
 
+
+/*******************************************************************************
+* 函数名  : Flash_WriteAdcData
+* 描述    : 将adc数据写入芯片自带flash, 方便进行fft计算
+* 输入    : 
+* 返回值  :
+*******************************************************************************/
+void Flash_WriteAdcData(int *buff, int len)
+{
+	memory_erase(FFT_ADC_ADDR, len);
+	memory_write(FFT_ADC_ADDR,(uint8_t *)buff, len);
+}
+
+
 /*******************************************************************************
 * 函数名  : FLASH_SaveAppData
 * 描述    : 从指定地址开始写入指定长度的数据

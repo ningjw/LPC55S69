@@ -64,7 +64,9 @@
 #define CORE1_DATA_ADDR     0x00030000     // core1升级数据地址
 #define CORE0_DATA_ADDR     0x00038000     // core0升级数据地址
 
-#define PARA_ADDR           0x00096000
+#define FFT_ADC_ADDR        0x00058000     // fft原始数据保存
+
+#define PARA_ADDR           0x00088000     // 参数保存
 
 #define PAGE_SIZE 0x200
 

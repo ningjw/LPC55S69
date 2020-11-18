@@ -127,7 +127,14 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
+	//在采集数据时,每间隔1S获取一次温度数据
+	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
+		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
+	}
 	
+	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
+		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
+	}
 }
 
 int fputc(int ch, FILE* stream)

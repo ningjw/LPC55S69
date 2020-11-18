@@ -20,6 +20,6 @@ void ADC_SampleStop(void);
 extern int ShakeADC[];
 extern char  SpeedStrADC[];
 extern char  VibrateStrADC[];
-
+extern float Temperature[64];
 
 #endif
