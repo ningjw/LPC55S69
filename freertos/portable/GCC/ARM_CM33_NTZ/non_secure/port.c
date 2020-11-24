@@ -511,8 +511,9 @@ void SysTick_Handler( void ) /* PRIVILEGED_FUNCTION */
 uint32_t ulPreviousMask;
 
 	extern void FLEXCOMM3_TimeTick(void);
+	extern void FLEXCOMM5_TimeTick(void);
 	FLEXCOMM3_TimeTick();
-	
+	FLEXCOMM5_TimeTick();
 	extern void FLEXCOMM2_TimeTick(void);
 	FLEXCOMM2_TimeTick();
 	ulPreviousMask = portSET_INTERRUPT_MASK_FROM_ISR();

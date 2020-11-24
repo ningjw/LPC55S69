@@ -171,7 +171,7 @@ typedef struct{
     
 	uint32_t spdPacks;     //转速信号需要分多少个包发送完成
 	uint32_t shkPacks;     //震动信号需要分多少个包发送完成
-	
+	float    shkRMS;       //震动信号的时域总值
     float    voltageADS1271;
 	uint32_t periodSpdSignal;//转速信号周期(us)
     

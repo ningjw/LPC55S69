@@ -4,11 +4,8 @@
 #include "arm_const_structs.h"
 #include "math.h"
 
-int ShakeADC[ADC_LEN];
-int ShakeFFT[ADC_LEN];
+float ShakeADC[ADC_LEN];
 float Temperature[64];
-
-
 
 TaskHandle_t ADC_TaskHandle = NULL;  /* ADC任务句柄 */
 
@@ -16,10 +13,8 @@ uint32_t timeCapt = 0;
 char str[12];
 
 uint32_t ADC_ShakeValue = 0;
-uint32_t  ADC_InvalidCnt = 0;
+
 float ADC_VoltageValue;
-
-
 
 static float GetEnegryWindowCorrected(int windowType) {
     float NBF = 1;
@@ -134,13 +129,14 @@ void ADC_SampleStart(void)
 	g_sys_para.WorkStatus = true;
 	
 	//丢弃前部分数据
-	ADC_InvalidCnt = 0;
+	int ADC_InvalidCnt = 0;
 	while (1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
 		ADC_ShakeValue = ADS1271_ReadData();
 		ADC_InvalidCnt++;
 		if(ADC_InvalidCnt > 100) break;
     }
+	
 	start_spd_caputer();
 	__disable_irq();//关闭中断
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
@@ -236,31 +232,16 @@ void ADC_AppTask(void)
 
 				float tempValue = 0;
                 for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
-					if(ShakeADC[i] < 0x800000){
+					if((uint32_t)ShakeADC[i] < 0x800000){
 						ShakeADC[i] = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
 					}else{
 						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
 					}
 					printf("%01.5f,",ShakeADC[i]);
                 }
-				arm_rfft_init_q31(&instance, g_adc_set.shkCount, 0, 1);
-        		arm_rfft_q31(&instance, ShakeADC, ShakeFFT);
-
-				printf("\r\n-----arm_rfft_init_q31 ram-----------------------------------\r\n");
-				for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
-					printf("%01.5f,",ShakeFFT[i]);
-				}
-
-				Flash_WriteAdcData((uint8_t *)ShakeADC, g_adc_set.shkCount * 4);
-				memset(ShakeADC, 0, sizeof(ShakeADC));
-				arm_rfft_q31(&instance, (int *)FFT_ADC_ADDR, ShakeADC);
-				printf("\r\n----arm_rfft_init_q31 flash------------------------------------\r\n");
-				for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
-					printf("%01.5f,",ShakeADC[i]);
-				}
-#endif
 				
-							
+				g_sys_para.shkRMS = GetRMS(ShakeADC, g_adc_set.shkCount, g_adc_set.WindowsType);
+#endif
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
 				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
 				

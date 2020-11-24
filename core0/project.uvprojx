@@ -570,56 +570,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>usb</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_device_lpcip3511.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\device\usb_device_lpcip3511.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_device_dci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\device\usb_device_dci.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\phy\usb_phy.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_device_cdc_acm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\usb_device_cdc_acm.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_device_ch9.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\usb_device_ch9.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_device_class.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\usb_device_class.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_device_descriptor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\usb_device_descriptor.c</FilePath>
-            </File>
-            <File>
-              <FileName>virtual_com.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\usb\virtual_com.c</FilePath>
-            </File>
-            <File>
-              <FileName>fsl_os_abstraction_free_rtos.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\osa\fsl_os_abstraction_free_rtos.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>cJson</GroupName>
           <Files>
             <File>
@@ -829,7 +779,7 @@
       <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
         <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
         <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
         <targetInfos>
           <targetInfo name="core0"/>
         </targetInfos>

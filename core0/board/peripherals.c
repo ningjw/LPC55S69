@@ -202,6 +202,47 @@ void CTIMER2_init(void) {
 }
 
 /***********************************************************************************************************************
+ * CTIMER3 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'CTIMER3'
+- type: 'ctimer'
+- mode: 'Capture_Match'
+- custom_name_enabled: 'false'
+- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'CTIMER3'
+- config_sets:
+  - fsl_ctimer:
+    - ctimerConfig:
+      - mode: 'kCTIMER_TimerMode'
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - timerPrescaler: '1000'
+    - EnableTimerInInit: 'false'
+    - matchChannels: []
+    - interruptCallbackConfig:
+      - interrupt:
+        - IRQn: 'CTIMER1_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+      - callback: 'kCTIMER_NoCallback'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const ctimer_config_t CTIMER3_config = {
+  .mode = kCTIMER_TimerMode,
+  .input = kCTIMER_Capture_0,
+  .prescale = 999
+};
+
+void CTIMER3_init(void) {
+  /* CTIMER3 peripheral initialization */
+  CTIMER_Init(CTIMER3_PERIPHERAL, &CTIMER3_config);
+}
+
+/***********************************************************************************************************************
  * FLEXCOMM0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -390,12 +431,21 @@ void FLEXCOMM3_init(void) {
 instance:
 - name: 'FLEXCOMM5'
 - type: 'flexcomm_usart'
-- mode: 'polling'
+- mode: 'interrupts'
 - custom_name_enabled: 'false'
 - type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'FLEXCOMM5'
 - config_sets:
+  - interruptsCfg:
+    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_RxLevelInterruptEnable'
+    - interrupt_vectors:
+      - enable_rx_tx_irq: 'true'
+      - interrupt_rx_tx:
+        - IRQn: 'FLEXCOMM5_IRQn'
+        - enable_priority: 'false'
+        - priority: '0'
+        - enable_custom_name: 'false'
   - usartConfig_t:
     - usartConfig:
       - clockSource: 'FXCOMFunctionClock'
@@ -408,7 +458,7 @@ instance:
       - loopback: 'false'
       - txWatermark: 'kUSART_TxFifo0'
       - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'false'
+      - enableRx: 'true'
       - enableTx: 'true'
       - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
       - enableContinuousSCLK: 'false'
@@ -423,7 +473,7 @@ const usart_config_t FLEXCOMM5_config = {
   .loopback = false,
   .txWatermark = kUSART_TxFifo0,
   .rxWatermark = kUSART_RxFifo1,
-  .enableRx = false,
+  .enableRx = true,
   .enableTx = true,
   .clockPolarity = kUSART_RxSampleOnFallingEdge,
   .enableContinuousSCLK = false
@@ -433,6 +483,9 @@ void FLEXCOMM5_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM5_PERIPHERAL, &FLEXCOMM5_config, FLEXCOMM5_CLOCK_SOURCE);
+  USART_EnableInterrupts(FLEXCOMM5_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
+  /* Enable interrupt FLEXCOMM5_IRQn request in the NVIC */
+  EnableIRQ(FLEXCOMM5_FLEXCOMM_IRQN);
 }
 
 /***********************************************************************************************************************
@@ -638,6 +691,7 @@ void BOARD_InitPeripherals(void)
   DMA0_init();
   CTIMER0_init();
   CTIMER2_init();
+  CTIMER3_init();
   FLEXCOMM0_init();
   FLEXCOMM2_init();
   FLEXCOMM3_init();

@@ -19,7 +19,6 @@ void main(void)
 	
 	BOARD_BootClockRUN();
 	BOARD_InitPins();
-	
 	BOARD_InitPeripherals();
 	
 	memory_init();
@@ -38,13 +37,12 @@ void main(void)
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
 
-
 	/* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",1024,NULL, 3,&NB_TaskHandle);
+    xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",512,NULL, 3,&NB_TaskHandle);
 
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",1024,NULL, 3,&NFC_TaskHandle);
-
+    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
+#if 0
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
 
@@ -52,7 +50,7 @@ void main(void)
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
 #endif
-
+#endif
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 
     while(1);
@@ -148,6 +146,7 @@ void UTICK0_Callback(void)
 
 int fputc(int ch, FILE* stream)
 {
+	return ch;
     while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
 	USART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);
     return ch;

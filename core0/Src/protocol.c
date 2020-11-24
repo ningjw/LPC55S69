@@ -503,9 +503,9 @@ SEND_DATA:
 			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
 			index = ADC_NUM_ONE_PACK*(sid - 3);
 			for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 0) & 0xff;
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 8) & 0xff;
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 16)& 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
 			g_flexcomm3TxBuf[i++] = 0xEA;
@@ -1059,9 +1059,9 @@ SEND_DATA:
 			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
 			index = 335 * (sid - 3);
 			for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 0) & 0xff;
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 8) & 0xff;
-				g_flexcomm3TxBuf[i++] = (ShakeADC[index] >> 16)& 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
+				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
 			g_flexcomm3TxBuf[i++] = 0xEA;
