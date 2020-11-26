@@ -12,6 +12,8 @@ uint8_t nfc_init_down[] = {0x00 ,0x00 ,0xFF ,0x14 ,0xEC ,0xD5 ,0x8D ,0x16 ,0x11 
 
 uint8_t g_NfcTxBuffer[256] = {0};
 uint8_t g_NfcRxBuffer[256] = {0};
+uint8_t* g_NfcRxData = NULL;
+uint8_t  g_NfcRxDataLen = 0;
 uint16_t g_NfcRxCnt = 0;
 uint8_t  g_NfcStartRx = false;
 uint32_t g_NfcRxTimeCnt = 0;
@@ -179,34 +181,26 @@ void nfc_TgSetData(uint8_t *buff, uint8_t len)
 	NFC_SendData(g_NfcTxBuffer, i);
 }
 
-void NFC_Parse(uint8_t *src,uint16_t len)
+bool NFC_Parse(uint8_t *src,uint16_t len, uint8_t desiredCmd)
 {
+    bool result = false;
 	uint16_t dataLen = 0;
 	uint8_t *p = src;
-	if(src[0] != 0x00 || src[1] != 0x00 || src[2] != 0xFF)
+	if(src[0] != 0x00 || src[1] != 0x00 || src[2] != 0xFF || len <= 6)
 	{
-		return;
+		return false;
 	}
 	
 	if(memcmp(src,nfc_response,6) == 0)
 	{
-		if(len == 6){
-			return;
-		}else{
-			p = src + 6;
-		}
+		p = src + 6;
 	}
-	switch(p[6])
-	{
-		case 0x8D://初始化完成,并
-			nfc_TgGetData();
-			break;
-		case 0x8F:
-			dataLen = src[4];
-			break;
-		case 0x87:
-			break;
-	}
+
+    if(p[5]== 0xD5 && p[6] == desiredCmd){
+        result = true;
+    }
+    
+    return result;
 }
 
 void NFC_AppTask(void)
@@ -214,37 +208,73 @@ void NFC_AppTask(void)
 	uint8_t xReturn = pdFALSE;
 	while(1)
 	{
-		/*wait task notify*/
-        xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
-        if ( xReturn && nfc_event == NFC_RXIDLE_OK) {
-			NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt);
-		}
-		
-		switch(nfc_step)
-		{
-		case 0:
-			nfc_awake();
-			xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
-			nfc_step++;
-			break;
-		case 1:
-			nfc_TgInitAsTarget();
-			xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
-			nfc_step++;
-			break;
-		case 2:
-			nfc_TgGetData();
-			xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
-			nfc_step++;
-			break;
-		case 3:
-			nfc_TgSetData(NULL,0);
-			xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
-			nfc_step++;
-			break;
-		default:
-			break;
-		}
+        switch(nfc_step)
+        {
+        case 0:
+            nfc_awake();
+            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, 3000);
+            if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x15))
+            {
+                nfc_step++;
+            }else{
+                //error
+            }
+            break;
+        case 1:
+            nfc_TgInitAsTarget();
+            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
+            if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x8D))
+            {
+                //此处另外还需进行身份验证
+                nfc_step++;
+            }else{
+                //error
+            }
+            break;
+        case 2:
+            nfc_TgGetData();
+            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
+            if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x87))
+            {
+                g_NfcRxDataLen = g_NfcRxBuffer[9] - 3;
+                g_NfcRxData = g_NfcRxBuffer + 14;
+                if(g_NfcRxDataLen > 0){//获取到手机端发送的数据
+                    nfc_step++;
+                    break;
+                }
+            }
+            vTaskDelay(100);//100ms后再次获取数据
+            break;
+        case 3:
+            if(g_NfcRxData)
+            {
+                uint8_t* sendBuf = ParseProtocol(g_NfcRxData);
+                
+                /* 是否接受完成整个数据包 */
+                if( g_sys_para.firmCore0Update == true) {
+                    //将参数存入Nor Flash
+                    Flash_SavePara();
+                    //关闭所有中断,并复位系统
+                    NVIC_SystemReset();
+                }
+                
+                if( NULL != sendBuf )
+                {
+                    nfc_TgSetData(sendBuf,strlen((char *)sendBuf));
+                    xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
+                    if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x8F))
+                    {
+                        nfc_step = 2;//继续等待获取数据
+                    }
+                    free(sendBuf);
+                    sendBuf = NULL;
+                }
+            }
+            break;
+        default:
+            break;
+        }
+        
 		//清空接受到的数据
         memset(g_NfcRxBuffer, 0, sizeof(g_NfcRxBuffer));
         g_NfcRxCnt = 0;
