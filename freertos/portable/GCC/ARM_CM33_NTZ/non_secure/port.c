@@ -39,7 +39,7 @@
 
 /* Portasm includes. */
 #include "portasm.h"
-
+#include "main.h"
 #if( configENABLE_TRUSTZONE == 1 )
 	/* Secure components includes. */
 	#include "secure_context.h"
@@ -508,14 +508,20 @@ void vPortExitCritical( void ) /* PRIVILEGED_FUNCTION */
 
 void SysTick_Handler( void ) /* PRIVILEGED_FUNCTION */
 {
-uint32_t ulPreviousMask;
-
+	uint32_t ulPreviousMask;
+	
+#if defined(WIFI_VERSION) || defined(BLE_VERSION)
 	extern void FLEXCOMM3_TimeTick(void);
-	extern void FLEXCOMM5_TimeTick(void);
 	FLEXCOMM3_TimeTick();
-	FLEXCOMM5_TimeTick();
+	
 	extern void FLEXCOMM2_TimeTick(void);
 	FLEXCOMM2_TimeTick();
+#endif
+#ifdef NB_VERSION
+	extern void FLEXCOMM5_TimeTick(void);
+	FLEXCOMM5_TimeTick();
+#endif
+	
 	ulPreviousMask = portSET_INTERRUPT_MASK_FROM_ISR();
 	{
 		/* Increment the RTOS tick. */

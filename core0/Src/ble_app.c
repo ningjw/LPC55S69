@@ -14,7 +14,7 @@ uint32_t  g_flexcomm3RxTimeCnt = 0;
 uint32_t ble_event = 0;
 uint32_t BleStartFlag = false;
 
-TaskHandle_t        BLE_TaskHandle = NULL;//蓝牙任务句柄
+TaskHandle_t        BLE_WIFI_TaskHandle = NULL;//蓝牙任务句柄
 
 
 /***************************************************************************************
@@ -26,7 +26,7 @@ void FLEXCOMM3_SendStr(const char *str)
 {
 	USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, (uint8_t *)str, strlen(str));
 }
-
+#ifdef WIFI_VERSION
 /***************************************************************************************
   * @brief   设置WIFI模块为Ap工作模式
   * @input   
@@ -67,8 +67,10 @@ void WIFI_Init(void)
 	FLEXCOMM3_SendStr("AT+ENTM\r\n");
 	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
 }
+#endif
 
 
+#ifdef BLE_VERSION
 /*****************************************************************
 * 功能：发送AT指令
 * 输入: send_buf:发送的字符串
@@ -116,24 +118,24 @@ void BLE_Init(void)
 	SET_THROUGHPUT_MODE();
 	g_sys_para.BleWifiLedStatus = BLE_READY;
 }
-
+#endif
 /***********************************************************************
-  * @ 函数名  ： BLE_AppTask
+  * @ 函数名  ： BLE_WIFI_AppTask
   * @ 功能说明：
   * @ 参数    ： 无
   * @ 返回值  ： 无
   **********************************************************************/
-void BLE_AppTask(void)
+void BLE_WIFI_AppTask(void)
 {
     uint8_t xReturn = pdFALSE;
     printf("BLE/WIFI Task Create and Running\r\n");
     uint8_t* sendBuf = NULL;
 
-	#ifdef BLE_VERSION
+#ifdef BLE_VERSION
 	BLE_Init();
-	#elif defined WIFI_VERSION
+#elif defined WIFI_VERSION
 	WIFI_Init();
-	#endif
+#endif
     
 	BleStartFlag = true;
     memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
@@ -146,7 +148,7 @@ void BLE_AppTask(void)
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, portMAX_DELAY);
         if ( xReturn && ble_event == EVT_OK) {
 
-            /* 处理蓝牙数据协议 */
+            /* 处理蓝牙/wifi数据 */
             sendBuf = ParseProtocol(g_flexcomm3Buf);
 
 			/* 是否接受完成整个数据包 */
@@ -156,7 +158,7 @@ void BLE_AppTask(void)
 				//关闭所有中断,并复位系统
 				NVIC_SystemReset();
 			}
-
+			
 			if( NULL != sendBuf )
             {
                 FLEXCOMM3_SendStr((char *)sendBuf);
@@ -212,13 +214,13 @@ void FLEXCOMM3_TimeTick(void)
 				for(uint8_t i = 0;i<g_flexcomm3RxCnt; i++){
 					printf("%02x ",g_flexcomm3Buf[i]);
 				}
-				xTaskNotify(BLE_TaskHandle, EVT_OK, eSetBits);
+				xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
 			}
 		}
 		else if(g_flexcomm3RxTimeCnt >= 100) { //10ms未接受到数据,表示接受数据超时
 			g_flexcomm3RxTimeCnt = 0;
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_TaskHandle, EVT_TIMTOUT, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_TIMTOUT, eSetBits);
         }
     }
 }
@@ -249,11 +251,11 @@ void FLEXCOMM3_IRQHandler(void)
 		if(g_sys_para.BleWifiLedStatus != BLE_UPDATE && g_flexcomm3Buf[g_flexcomm3RxCnt-1] == '}'){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_TaskHandle, EVT_OK, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
 		}else if (g_sys_para.BleWifiLedStatus==BLE_UPDATE && g_flexcomm3RxCnt >= FIRM_ONE_PACKE_LEN){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_TaskHandle, EVT_OK, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
 		}
     }
     __DSB();

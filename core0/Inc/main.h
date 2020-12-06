@@ -49,7 +49,7 @@
 #include "soft_iic_drv.h"
 
 
-#define VERSION_CONTROL 1
+#define VERSION_CONTROL 2
 
 #if VERSION_CONTROL == 1
 #define BLE_VERSION

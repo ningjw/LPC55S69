@@ -8,9 +8,7 @@ ADC_Set  g_adc_set;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
 
-
 static void InitSysPara();
-
 
 void main(void)
 {
@@ -23,7 +21,7 @@ void main(void)
 	
 	memory_init();
 	SPI_Flash_Init();
-	PWR_NB_ON;
+	
 	InitSysPara();
 	PQ_Init(POWERQUAD);
 	printf("app start\n");
@@ -31,25 +29,26 @@ void main(void)
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
     
-    /* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
-	
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-
+#ifdef NB_VERSION
+	PWR_NB_ON;
+	
 	/* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",512,NULL, 3,&NB_TaskHandle);
 
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
-#if 0
+#endif
+	
+#if defined(BLE_VERSION) || defined(WIFI_VERSION)
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BLE_AppTask,"BLE_Task",1024,NULL, 3,&BLE_TaskHandle);
-
-#ifdef CORE1_IMAGE_COPY_TO_RAM
+    xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
+	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
-#endif
+
 #endif
     vTaskStartScheduler();   /* 启动任务，开启调度 */
 

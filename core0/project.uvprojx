@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
-              <Define>CORE1_IMAGE_COPY_TO_RAM,CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS,</Define>
+              <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS,</Define>
               <Undefine></Undefine>
               <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy</IncludePath>
             </VariousControls>
@@ -779,7 +779,7 @@
       <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
         <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
         <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
         <targetInfos>
           <targetInfo name="core0"/>
         </targetInfos>

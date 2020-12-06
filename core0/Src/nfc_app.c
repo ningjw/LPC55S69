@@ -4,7 +4,7 @@
 - TgSetData, to respond to the initiator.
 */
 #include "main.h"
-
+#ifdef NB_VERSION
 TaskHandle_t NFC_TaskHandle = NULL;  /* LEDÈÎÎñ¾ä±ú */
 uint8_t nfc_response[6] = {0x00, 0x00, 0xFF, 0x00, 0xFF, 0x00};
 uint8_t nfc_init_down[] = {0x00 ,0x00 ,0xFF ,0x14 ,0xEC ,0xD5 ,0x8D ,0x16 ,0x11 ,0xD4 ,0x00 ,0x01,
@@ -314,3 +314,5 @@ void FLEXCOMM5_TimeTick(void)
         }
     }
 }
+
+#endif

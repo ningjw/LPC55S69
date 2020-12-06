@@ -9,13 +9,13 @@
 
 
 extern uint16_t g_flexcomm3RxCnt;
-extern TaskHandle_t BLE_TaskHandle ;  /* 蓝牙任务句柄 */
+extern TaskHandle_t BLE_WIFI_TaskHandle ;  /* 蓝牙任务句柄 */
 extern uint8_t g_flexcomm3TxBuf[];
 extern uint8_t g_flexcomm3Buf[];
 extern uint8_t g_flexcomm3StartRx;
 extern uint32_t  g_flexcomm3RxTimeCnt;
 
-void BLE_AppTask(void);
+void BLE_WIFI_AppTask(void);
 void FLEXCOMM3_SendStr(const char *str);
 
 

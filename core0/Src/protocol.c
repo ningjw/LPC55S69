@@ -496,11 +496,11 @@ SEND_DATA:
 		memset(g_flexcomm3TxBuf, 0, FLEXCOMM3_BUFF_LEN);
 		i = 0;
 		g_flexcomm3TxBuf[i++] = 0xE7;
+		g_flexcomm3TxBuf[i++] = 0xE8;
+		g_flexcomm3TxBuf[i++] = sid & 0xff;
+		g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
         if(sid-3 < g_sys_para.shkPacks)
         {
-			g_flexcomm3TxBuf[i++] = 0xE8;
-			g_flexcomm3TxBuf[i++] = sid & 0xff;
-			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
 			index = ADC_NUM_ONE_PACK*(sid - 3);
 			for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
 				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
@@ -508,16 +508,9 @@ SEND_DATA:
 				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
-			g_flexcomm3TxBuf[i++] = 0xEA;
-			g_flexcomm3TxBuf[i++] = 0xEB;
-			g_flexcomm3TxBuf[i++] = 0xEC;
-			g_flexcomm3TxBuf[i++] = 0xED;
         }
         else if(sid - 3 - g_sys_para.shkPacks < spd_msg->len)
         {
-            g_flexcomm3TxBuf[i++] = 0xE8;
-			g_flexcomm3TxBuf[i++] = sid & 0xff;
-			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
             index = (sid - 3 - g_sys_para.shkPacks) * ADC_NUM_ONE_PACK;
             //每个数据占用3个byte;每包可以上传58个数据. 58*3=174
             for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
@@ -526,11 +519,11 @@ SEND_DATA:
 				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
 				index++;
 			}
-			g_flexcomm3TxBuf[i++] = 0xEA;
-			g_flexcomm3TxBuf[i++] = 0xEB;
-			g_flexcomm3TxBuf[i++] = 0xEC;
-			g_flexcomm3TxBuf[i++] = 0xED;
         }
+		g_flexcomm3TxBuf[i++] = 0xEA;
+		g_flexcomm3TxBuf[i++] = 0xEB;
+		g_flexcomm3TxBuf[i++] = 0xEC;
+		g_flexcomm3TxBuf[i++] = 0xED;
         break;
     }
 
@@ -555,7 +548,7 @@ SEND_DATA:
 	}
 	
 //	USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm3TxBuf, i);
-	printf("\r\nsid = %d ; len = %d\r\n",sid, i);
+//	printf("\r\nsid = %d ; len = %d\r\n",sid, i);
 	
 	//获取所有的数据包
 	g_sys_para.sampPacksCnt++;
@@ -750,7 +743,7 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 		g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
 #elif defined WIFI_VERSION
 		g_sys_para.shkPacks = (g_adc_set.shkCount / 250) +  (g_adc_set.shkCount%250?1:0);
-		g_sys_para.spdPacks = (g_adc_set.spdCount / 250) +  (g_adc_set.spdCount%250?1:0);
+		g_sys_para.spdPacks = (spd_msg->len / 250) +  (spd_msg->len%250?1:0);
 		//计算将一次采集数据全部发送到Android需要多少个包
 		g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 1;
 #endif
@@ -1052,29 +1045,22 @@ SEND_DATA:
         memset(g_flexcomm3TxBuf, 0, FLEXCOMM3_BUFF_LEN);
 		i = 0;
 		g_flexcomm3TxBuf[i++] = 0xE7;
-        if(sid-3 < g_sys_para.shkPacks)
+		g_flexcomm3TxBuf[i++] = 0xE8;
+		g_flexcomm3TxBuf[i++] = sid & 0xff;
+		g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
+        if(sid-1 < g_sys_para.shkPacks)
         {
-			g_flexcomm3TxBuf[i++] = 0xE8;
-			g_flexcomm3TxBuf[i++] = sid & 0xff;
-			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
-			index = 335 * (sid - 3);
+			index = 335 * (sid - 1);
 			for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
 				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
 				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
 				g_flexcomm3TxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
-			g_flexcomm3TxBuf[i++] = 0xEA;
-			g_flexcomm3TxBuf[i++] = 0xEB;
-			g_flexcomm3TxBuf[i++] = 0xEC;
-			g_flexcomm3TxBuf[i++] = 0xED;
         }
-        else if(sid - 3 - g_sys_para.shkPacks < spd_msg->len)
+        else if(sid - 1 - g_sys_para.shkPacks < spd_msg->len)
         {
-            g_flexcomm3TxBuf[i++] = 0xE9;
-			g_flexcomm3TxBuf[i++] = sid & 0xff;
-			g_flexcomm3TxBuf[i++] = (sid >> 8) & 0xff;
-            index = (sid - 3 - g_sys_para.shkPacks) * 335;
+            index = (sid - 1 - g_sys_para.shkPacks) * 335;
             //每个数据占用3个byte;每包可以上传335个数据. 335*3=174
             for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
 				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
@@ -1082,11 +1068,11 @@ SEND_DATA:
 				g_flexcomm3TxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
 				index++;
 			}
-			g_flexcomm3TxBuf[i++] = 0xEA;
-			g_flexcomm3TxBuf[i++] = 0xEB;
-			g_flexcomm3TxBuf[i++] = 0xEC;
-			g_flexcomm3TxBuf[i++] = 0xED;
         }
+		g_flexcomm3TxBuf[i++] = 0xEA;
+		g_flexcomm3TxBuf[i++] = 0xEB;
+		g_flexcomm3TxBuf[i++] = 0xEC;
+		g_flexcomm3TxBuf[i++] = 0xED;
         break;
     }
     
@@ -1094,17 +1080,20 @@ SEND_DATA:
 	
 	if(sid == 0){
 		FLEXCOMM3_SendStr((char *)p_reply);
+		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
 	}else{
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
 	}
-	vTaskDelay(ble_wait_time);
-	if(g_sys_para.sampPacksCnt < (g_adc_set.sampPacks-1) && flag_get_all_data) {
-		g_sys_para.sampPacksCnt++;
+	
+	//获取所有的数据包
+	g_sys_para.sampPacksCnt++;
+	if(g_sys_para.sampPacksCnt < g_adc_set.sampPacks && flag_get_all_data) {
+		vTaskDelay(ble_wait_time);
 		goto SEND_DATA;
 	}
-
+	
     return p_reply;
 }
 
