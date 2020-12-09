@@ -19,6 +19,7 @@
 
   <project>
     <PathAndName>.\core1\core1.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

@@ -246,7 +246,7 @@ static char * SetSamplePara(cJSON *pJson, cJSON * pSub)
             memset(g_adc_set.NamePath, 0, sizeof(g_adc_set.NamePath));
             strcpy(g_adc_set.NamePath, pSub->valuestring);
         }
-        pSub = cJSON_GetObjectItem(pJson, "D");
+        pSub = cJSON_GetObjectItem(pJson, "WT");
         if (NULL != pSub) {
             ble_wait_time = pSub->valueint;
         }
@@ -262,7 +262,7 @@ static char * SetSamplePara(cJSON *pJson, cJSON * pSub)
             memset(g_adc_set.ProcessUnits, 0, sizeof(g_adc_set.ProcessUnits));
             strcpy(g_adc_set.ProcessUnits, pSub->valuestring);
         }
-        pSub = cJSON_GetObjectItem(pJson, "D");
+        pSub = cJSON_GetObjectItem(pJson, "DT");
         if (NULL != pSub) {
             g_adc_set.DetectType = pSub->valueint;
         }
@@ -450,7 +450,7 @@ SEND_DATA:
 	}
     switch(sid)	{
     case 0:
-        cJSON_AddNumberToObject(pJsonRoot, "D", ble_wait_time);
+        cJSON_AddNumberToObject(pJsonRoot, "WT", ble_wait_time);
         cJSON_AddStringToObject(pJsonRoot, "DP", g_adc_set.IDPath);//硬件版本号
         cJSON_AddStringToObject(pJsonRoot, "NP", g_adc_set.NamePath);//硬件版本号
         p_reply = cJSON_PrintUnformatted(pJsonRoot);
@@ -458,7 +458,7 @@ SEND_DATA:
     case 1:
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
-        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectType);
+        cJSON_AddNumberToObject(pJsonRoot, "DT", g_adc_set.DetectType);
         cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);
@@ -866,7 +866,7 @@ static char * SetSampleParaByWifi(cJSON *pJson, cJSON * pSub)
         memset(g_adc_set.NamePath, 0, sizeof(g_adc_set.NamePath));
         strcpy(g_adc_set.NamePath, pSub->valuestring);
     }
-    pSub = cJSON_GetObjectItem(pJson, "D");
+    pSub = cJSON_GetObjectItem(pJson, "WT");
     if (NULL != pSub) {
         ble_wait_time = pSub->valueint;
     }
@@ -881,7 +881,7 @@ static char * SetSampleParaByWifi(cJSON *pJson, cJSON * pSub)
         memset(g_adc_set.ProcessUnits, 0, sizeof(g_adc_set.ProcessUnits));
         strcpy(g_adc_set.ProcessUnits, pSub->valuestring);
     }
-    pSub = cJSON_GetObjectItem(pJson, "D");
+    pSub = cJSON_GetObjectItem(pJson, "DT");
     if (NULL != pSub) {
         g_adc_set.DetectType = pSub->valueint;
     }
@@ -1004,12 +1004,12 @@ SEND_DATA:
 		}
 		cJSON_AddNumberToObject(pJsonRoot, "Id", 18);
 		cJSON_AddNumberToObject(pJsonRoot, "Sid",sid);
-        cJSON_AddNumberToObject(pJsonRoot, "D", ble_wait_time);
+        cJSON_AddNumberToObject(pJsonRoot, "WT", ble_wait_time);
         cJSON_AddStringToObject(pJsonRoot, "DP", g_adc_set.IDPath);//硬件版本号
         cJSON_AddStringToObject(pJsonRoot, "NP", g_adc_set.NamePath);//硬件版本号
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
-        cJSON_AddNumberToObject(pJsonRoot, "D", g_adc_set.DetectType);
+        cJSON_AddNumberToObject(pJsonRoot, "DT", g_adc_set.DetectType);
         cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);
