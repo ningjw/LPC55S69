@@ -3757,6 +3757,568 @@ Section Cross References
     generic_list.o(.ARM.exidx.text.LIST_AddPrevElement) refers to generic_list.o(.text.LIST_AddPrevElement) for [Anonymous Symbol]
     generic_list.o(.ARM.exidx.text.LIST_GetSize) refers to generic_list.o(.text.LIST_GetSize) for [Anonymous Symbol]
     generic_list.o(.ARM.exidx.text.LIST_GetAvailableSize) refers to generic_list.o(.text.LIST_GetAvailableSize) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioRequest) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRequest) refers to audio_unified.o(.text.USB_DeviceAudioRequest) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioSpeakerBufferSpaceUsed) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerBufferSpaceUsed) refers to audio_unified.o(.text.USB_AudioSpeakerBufferSpaceUsed) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioRecorderBufferSpaceUsed) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_AudioRecorderBufferSpaceUsed) refers to audio_unified.o(.text.USB_AudioRecorderBufferSpaceUsed) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioRecorderGetBuffer) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_AudioRecorderGetBuffer) refers to audio_unified.o(.bss.audioRecDataBuff) for audioRecDataBuff
+    audio_unified.o(.ARM.exidx.text.USB_AudioRecorderGetBuffer) refers to audio_unified.o(.text.USB_AudioRecorderGetBuffer) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioSpeakerPutBuffer) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_AudioSpeakerPutBuffer) refers to audio_unified.o(.bss.audioPlayDataBuff) for audioPlayDataBuff
+    audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerPutBuffer) refers to audio_unified.o(.text.USB_AudioSpeakerPutBuffer) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.originFeedbackValue) for USB_AudioFeedbackDataUpdate.originFeedbackValue
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.feedbackValue) for USB_AudioFeedbackDataUpdate.feedbackValue
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.audioFeedBackBuffer) for audioFeedBackBuffer
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.text.USB_AudioSpeakerBufferSpaceUsed) for USB_AudioSpeakerBufferSpaceUsed
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerUsedSpace) for USB_AudioFeedbackDataUpdate.audioSpeakerUsedSpace
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerLastUsedSpace) for USB_AudioFeedbackDataUpdate.audioSpeakerLastUsedSpace
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerUsedDiff) for USB_AudioFeedbackDataUpdate.audioSpeakerUsedDiff
+    audio_unified.o(.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerDiffThres) for USB_AudioFeedbackDataUpdate.audioSpeakerDiffThres
+    audio_unified.o(.ARM.exidx.text.USB_AudioFeedbackDataUpdate) refers to audio_unified.o(.text.USB_AudioFeedbackDataUpdate) for [Anonymous Symbol]
+    audio_unified.o(.ARM.exidx.text.USB_RecorderDataMatch) refers to audio_unified.o(.text.USB_RecorderDataMatch) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.bss.audioFeedBackBuffer) for audioFeedBackBuffer
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to usb_device_audio.o(.text.USB_DeviceAudioSend) for USB_DeviceAudioSend
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_AudioRecorderBufferSpaceUsed) for USB_AudioRecorderBufferSpaceUsed
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_RecorderDataMatch) for USB_RecorderDataMatch
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.bss.audioRecPacket) for audioRecPacket
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_AudioRecorderGetBuffer) for USB_AudioRecorderGetBuffer
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.bss.audioRecDataBuff) for audioRecDataBuff
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.bss.audioPlayPacket) for audioPlayPacket
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_AudioSpeakerPutBuffer) for USB_AudioSpeakerPutBuffer
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_AudioFeedbackDataUpdate) for USB_AudioFeedbackDataUpdate
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to usb_device_audio.o(.text.USB_DeviceAudioRecv) for USB_DeviceAudioRecv
+    audio_unified.o(.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_DeviceAudioRequest) for USB_DeviceAudioRequest
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeCallback) refers to audio_unified.o(.text.USB_DeviceAudioCompositeCallback) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRecorderStatusReset) refers to audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioSpeakerStatusReset) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioSpeakerStatusReset) refers to audio_unified.o(.text.USB_DeviceAudioSpeakerStatusReset) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioCompositeSetConfigure) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeSetConfigure) refers to audio_unified.o(.text.USB_DeviceAudioCompositeSetConfigure) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface) refers to audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset) for USB_DeviceAudioRecorderStatusReset
+    audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface) refers to audio_unified.o(.bss.audioRecDataBuff) for audioRecDataBuff
+    audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioSend) for USB_DeviceAudioSend
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRecorderSetInterface) refers to audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to audio_unified.o(.text.USB_DeviceAudioSpeakerStatusReset) for USB_DeviceAudioSpeakerStatusReset
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to audio_unified.o(.bss.audioPlayDataBuff) for audioPlayDataBuff
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioRecv) for USB_DeviceAudioRecv
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to audio_unified.o(.bss.audioFeedBackBuffer) for audioFeedBackBuffer
+    audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioSend) for USB_DeviceAudioSend
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioSpeakerSetInterface) refers to audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_DeviceAudioCompositeInit) refers to audio_unified.o(.bss.audioFeedBackBuffer) for audioFeedBackBuffer
+    audio_unified.o(.text.USB_DeviceAudioCompositeInit) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeInit) refers to audio_unified.o(.text.USB_DeviceAudioCompositeInit) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioCodecTask) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_AudioCodecTask) refers to audio_unified.o(.rodata.str1.1) for .L.str
+    audio_unified.o(.text.USB_AudioCodecTask) refers to printfa.o(i.__0printf) for printf
+    audio_unified.o(.text.USB_AudioCodecTask) refers to audio_unified.o(.bss.g_CodecMuteUnmute) for g_CodecMuteUnmute
+    audio_unified.o(.ARM.exidx.text.USB_AudioCodecTask) refers to audio_unified.o(.text.USB_AudioCodecTask) for [Anonymous Symbol]
+    audio_unified.o(.text.USB_AudioSpeakerResetTask) refers to audio_unified.o(.bss.g_deviceAudioComposite) for g_deviceAudioComposite
+    audio_unified.o(.text.USB_AudioSpeakerResetTask) refers to audio_unified.o(.text.USB_DeviceAudioSpeakerStatusReset) for USB_DeviceAudioSpeakerStatusReset
+    audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerResetTask) refers to audio_unified.o(.text.USB_AudioSpeakerResetTask) for [Anonymous Symbol]
+    usb_device_descriptor.o(.text.USB_DeviceGetDeviceDescriptor) refers to usb_device_descriptor.o(.data.g_UsbDeviceDescriptor) for g_UsbDeviceDescriptor
+    usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetDeviceDescriptor) refers to usb_device_descriptor.o(.text.USB_DeviceGetDeviceDescriptor) for [Anonymous Symbol]
+    usb_device_descriptor.o(.text.USB_DeviceGetConfigurationDescriptor) refers to usb_device_descriptor.o(.data.g_UsbDeviceConfigurationDescriptor) for g_UsbDeviceConfigurationDescriptor
+    usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetConfigurationDescriptor) refers to usb_device_descriptor.o(.text.USB_DeviceGetConfigurationDescriptor) for [Anonymous Symbol]
+    usb_device_descriptor.o(.text.USB_DeviceGetStringDescriptor) refers to usb_device_descriptor.o(.data.g_UsbDeviceLanguageList) for g_UsbDeviceLanguageList
+    usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetStringDescriptor) refers to usb_device_descriptor.o(.text.USB_DeviceGetStringDescriptor) for [Anonymous Symbol]
+    usb_device_descriptor.o(.text.USB_DeviceGetHidReportDescriptor) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidKeyboardReportDescriptor) for g_UsbDeviceHidKeyboardReportDescriptor
+    usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetHidReportDescriptor) refers to usb_device_descriptor.o(.text.USB_DeviceGetHidReportDescriptor) for [Anonymous Symbol]
+    usb_device_descriptor.o(.text.USB_DeviceSetSpeed) refers to usb_device_descriptor.o(.data.g_UsbDeviceConfigurationDescriptor) for g_UsbDeviceConfigurationDescriptor
+    usb_device_descriptor.o(.text.USB_DeviceSetSpeed) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEndpoints) for g_UsbDeviceAudioSpeakerEndpoints
+    usb_device_descriptor.o(.text.USB_DeviceSetSpeed) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidEndpoints) for g_UsbDeviceHidEndpoints
+    usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceSetSpeed) refers to usb_device_descriptor.o(.text.USB_DeviceSetSpeed) for [Anonymous Symbol]
+    usb_device_descriptor.o(.data.g_UsbDeviceHidInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidEndpoints) for g_UsbDeviceHidEndpoints
+    usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaces) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidInterface) for g_UsbDeviceHidInterface
+    usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaceList) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaces) for g_UsbDeviceHidInterfaces
+    usb_device_descriptor.o(.data.g_UsbDeviceHidMouseClass) refers to usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaceList) for g_UsbDeviceHidInterfaceList
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEntities) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEntity) for g_UsbDeviceAudioRecorderEntity
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEntities) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEntity) for g_UsbDeviceAudioSpeakerEntity
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderControInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioControlEndpoints) for g_UsbDeviceAudioControlEndpoints
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderControInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEntities) for g_UsbDeviceAudioRecorderEntities
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerControInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioControlEndpoints) for g_UsbDeviceAudioControlEndpoints
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerControInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEntities) for g_UsbDeviceAudioSpeakerEntities
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecStreamInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEndpoints) for g_UsbDeviceAudioRecorderEndpoints
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerStreamInterface) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEndpoints) for g_UsbDeviceAudioSpeakerEndpoints
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderInterfaces) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderControInterface) for g_UsbDeviceAudioRecorderControInterface
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderInterfaces) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecStreamInterface) for g_UsbDeviceAudioRecStreamInterface
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerInterfaces) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerControInterface) for g_UsbDeviceAudioSpeakerControInterface
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerInterfaces) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerStreamInterface) for g_UsbDeviceAudioSpeakerStreamInterface
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListRecorder) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderInterfaces) for g_UsbDeviceAudioRecorderInterfaces
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListSpeaker) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerInterfaces) for g_UsbDeviceAudioSpeakerInterfaces
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioClassRecorder) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListRecorder) for g_UsbDeviceAudioInterfaceListRecorder
+    usb_device_descriptor.o(.data.g_UsbDeviceAudioClassSpeaker) refers to usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListSpeaker) for g_UsbDeviceAudioInterfaceListSpeaker
+    usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorArray) refers to usb_device_descriptor.o(.data.g_UsbDeviceString0) for g_UsbDeviceString0
+    usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorArray) refers to usb_device_descriptor.o(.data.g_UsbDeviceString1) for g_UsbDeviceString1
+    usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorArray) refers to usb_device_descriptor.o(.data.g_UsbDeviceString2) for g_UsbDeviceString2
+    usb_device_descriptor.o(.data.g_UsbDeviceLanguage) refers to usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorArray) for g_UsbDeviceStringDescriptorArray
+    usb_device_descriptor.o(.data.g_UsbDeviceLanguage) refers to usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorLength) for g_UsbDeviceStringDescriptorLength
+    usb_device_descriptor.o(.data.g_UsbDeviceLanguageList) refers to usb_device_descriptor.o(.data.g_UsbDeviceString0) for g_UsbDeviceString0
+    usb_device_descriptor.o(.data.g_UsbDeviceLanguageList) refers to usb_device_descriptor.o(.data.g_UsbDeviceLanguage) for g_UsbDeviceLanguage
+    usb_phy.o(.text.USB_EhciPhyGetBase) refers to usb_phy.o(.rodata.cst4) for .L__const.USB_EhciPhyGetBase.usbphy_base_temp
+    usb_phy.o(.ARM.exidx.text.USB_EhciPhyGetBase) refers to usb_phy.o(.text.USB_EhciPhyGetBase) for [Anonymous Symbol]
+    usb_phy.o(.text.USB_EhciPhyInit) refers to usb_phy.o(.text.USB_EhciPhyGetBase) for USB_EhciPhyGetBase
+    usb_phy.o(.ARM.exidx.text.USB_EhciPhyInit) refers to usb_phy.o(.text.USB_EhciPhyInit) for [Anonymous Symbol]
+    usb_phy.o(.text.USB_EhciLowPowerPhyInit) refers to usb_phy.o(.text.USB_EhciPhyGetBase) for USB_EhciPhyGetBase
+    usb_phy.o(.ARM.exidx.text.USB_EhciLowPowerPhyInit) refers to usb_phy.o(.text.USB_EhciLowPowerPhyInit) for [Anonymous Symbol]
+    usb_phy.o(.text.USB_EhciPhyDeinit) refers to usb_phy.o(.text.USB_EhciPhyGetBase) for USB_EhciPhyGetBase
+    usb_phy.o(.ARM.exidx.text.USB_EhciPhyDeinit) refers to usb_phy.o(.text.USB_EhciPhyDeinit) for [Anonymous Symbol]
+    usb_phy.o(.text.USB_EhcihostPhyDisconnectDetectCmd) refers to usb_phy.o(.text.USB_EhciPhyGetBase) for USB_EhciPhyGetBase
+    usb_phy.o(.ARM.exidx.text.USB_EhcihostPhyDisconnectDetectCmd) refers to usb_phy.o(.text.USB_EhcihostPhyDisconnectDetectCmd) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_hid.o(.text.USB_DeviceHidEndpointsDeinit) for USB_DeviceHidEndpointsDeinit
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_hid.o(.text.USB_DeviceHidEndpointsInit) for USB_DeviceHidEndpointsInit
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_dci.o(.text.USB_DeviceStallEndpoint) for USB_DeviceStallEndpoint
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_dci.o(.text.USB_DeviceUnstallEndpoint) for USB_DeviceUnstallEndpoint
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_dci.o(.text.USB_DeviceSendRequest) for USB_DeviceSendRequest
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptIn) for USB_DeviceHidInterruptIn
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for USB_DeviceRecvRequest
+    usb_device_hid.o(.text.USB_DeviceHidEvent) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptOut) for USB_DeviceHidInterruptOut
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEvent) refers to usb_device_hid.o(.text.USB_DeviceHidEvent) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidEndpointsDeinit) refers to usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) for USB_DeviceDeinitEndpoint
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEndpointsDeinit) refers to usb_device_hid.o(.text.USB_DeviceHidEndpointsDeinit) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidEndpointsInit) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptIn) for USB_DeviceHidInterruptIn
+    usb_device_hid.o(.text.USB_DeviceHidEndpointsInit) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptOut) for USB_DeviceHidInterruptOut
+    usb_device_hid.o(.text.USB_DeviceHidEndpointsInit) refers to usb_device_dci.o(.text.USB_DeviceInitEndpoint) for USB_DeviceInitEndpoint
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEndpointsInit) refers to usb_device_hid.o(.text.USB_DeviceHidEndpointsInit) for [Anonymous Symbol]
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInterruptIn) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptIn) for [Anonymous Symbol]
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInterruptOut) refers to usb_device_hid.o(.text.USB_DeviceHidInterruptOut) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidInit) refers to usb_device_hid.o(.text.USB_DeviceHidAllocateHandle) for USB_DeviceHidAllocateHandle
+    usb_device_hid.o(.text.USB_DeviceHidInit) refers to usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) for USB_DeviceClassGetDeviceHandle
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInit) refers to usb_device_hid.o(.text.USB_DeviceHidInit) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidAllocateHandle) refers to usb_device_hid.o(.bss.s_UsbDeviceHidHandle) for s_UsbDeviceHidHandle
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidAllocateHandle) refers to usb_device_hid.o(.text.USB_DeviceHidAllocateHandle) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidDeinit) refers to usb_device_hid.o(.text.USB_DeviceHidEndpointsDeinit) for USB_DeviceHidEndpointsDeinit
+    usb_device_hid.o(.text.USB_DeviceHidDeinit) refers to usb_device_hid.o(.text.USB_DeviceHidFreeHandle) for USB_DeviceHidFreeHandle
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidDeinit) refers to usb_device_hid.o(.text.USB_DeviceHidDeinit) for [Anonymous Symbol]
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidFreeHandle) refers to usb_device_hid.o(.text.USB_DeviceHidFreeHandle) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidSend) refers to usb_device_dci.o(.text.USB_DeviceSendRequest) for USB_DeviceSendRequest
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidSend) refers to usb_device_hid.o(.text.USB_DeviceHidSend) for [Anonymous Symbol]
+    usb_device_hid.o(.text.USB_DeviceHidRecv) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for USB_DeviceRecvRequest
+    usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidRecv) refers to usb_device_hid.o(.text.USB_DeviceHidRecv) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioInterruptIn) refers to usb_device_audio.o(.text.USB_DeviceAudioInterruptIn) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioIsochronousIn) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousIn) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioIsochronousOut) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousOut) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousIn) for USB_DeviceAudioIsochronousIn
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousOut) for USB_DeviceAudioIsochronousOut
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit) refers to usb_device_dci.o(.text.USB_DeviceInitEndpoint) for USB_DeviceInitEndpoint
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioStreamEndpointsInit) refers to usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) refers to usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) for USB_DeviceDeinitEndpoint
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousIn) for USB_DeviceAudioIsochronousIn
+    usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioIsochronousOut) for USB_DeviceAudioIsochronousOut
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioStreamEndpointsDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsInit) refers to usb_device_audio.o(.text.USB_DeviceAudioInterruptIn) for USB_DeviceAudioInterruptIn
+    usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsInit) refers to usb_device_dci.o(.text.USB_DeviceInitEndpoint) for USB_DeviceInitEndpoint
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioControlEndpointsInit) refers to usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsInit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsDeinit) refers to usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) for USB_DeviceDeinitEndpoint
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioControlEndpointsDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsDeinit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetCurAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetCurAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetMinAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetMinAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetMaxAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetMaxAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetResAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetResAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetControlTerminal) refers to usb_device_audio.o(.text.USB_DeviceAudioSetControlTerminal) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetCurAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetCurAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetMinAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetMinAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetMaxAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetMaxAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetResAudioFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetResAudioFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetCurAudioFeatureUnit) for USB_DeviceAudioSetCurAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetMinAudioFeatureUnit) for USB_DeviceAudioSetMinAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetMaxAudioFeatureUnit) for USB_DeviceAudioSetMaxAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetResAudioFeatureUnit) for USB_DeviceAudioSetResAudioFeatureUnit
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetRequestEndpoint) refers to usb_device_audio.o(.text.USB_DeviceAudioSetRequestEndpoint) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetRequestEndpoint) refers to usb_device_audio.o(.text.USB_DeviceAudioGetRequestEndpoint) for [Anonymous Symbol]
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetControlTerminal) refers to usb_device_audio.o(.text.USB_DeviceAudioGetControlTerminal) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetCurAudioFeatureUnit) for USB_DeviceAudioGetCurAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetMinAudioFeatureUnit) for USB_DeviceAudioGetMinAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetMaxAudioFeatureUnit) for USB_DeviceAudioGetMaxAudioFeatureUnit
+    usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetResAudioFeatureUnit) for USB_DeviceAudioGetResAudioFeatureUnit
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetFeatureUnit) refers to usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioSetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioSetControlTerminal) for USB_DeviceAudioSetControlTerminal
+    usb_device_audio.o(.text.USB_DeviceAudioSetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit) for USB_DeviceAudioSetFeatureUnit
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioSetRequestInterface) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioGetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioGetControlTerminal) for USB_DeviceAudioGetControlTerminal
+    usb_device_audio.o(.text.USB_DeviceAudioGetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit) for USB_DeviceAudioGetFeatureUnit
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetRequestInterface) refers to usb_device_audio.o(.text.USB_DeviceAudioGetRequestInterface) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsDeinit) for USB_DeviceAudioControlEndpointsDeinit
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) for USB_DeviceAudioStreamEndpointsDeinit
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsInit) for USB_DeviceAudioControlEndpointsInit
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit) for USB_DeviceAudioStreamEndpointsInit
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_dci.o(.text.USB_DeviceStallEndpoint) for USB_DeviceStallEndpoint
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_dci.o(.text.USB_DeviceUnstallEndpoint) for USB_DeviceUnstallEndpoint
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioSetRequestEndpoint) for USB_DeviceAudioSetRequestEndpoint
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioGetRequestEndpoint) for USB_DeviceAudioGetRequestEndpoint
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioSetRequestInterface) for USB_DeviceAudioSetRequestInterface
+    usb_device_audio.o(.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioGetRequestInterface) for USB_DeviceAudioGetRequestInterface
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioEvent) refers to usb_device_audio.o(.text.USB_DeviceAudioEvent) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioInit) refers to usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle) for USB_DeviceAudioAllocateHandle
+    usb_device_audio.o(.text.USB_DeviceAudioInit) refers to usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) for USB_DeviceClassGetDeviceHandle
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioInit) refers to usb_device_audio.o(.text.USB_DeviceAudioInit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle) refers to usb_device_audio.o(.bss.s_UsbDeviceAudioHandle) for s_UsbDeviceAudioHandle
+    usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioAllocateHandle) refers to usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit) for USB_DeviceAudioStreamEndpointsDeinit
+    usb_device_audio.o(.text.USB_DeviceAudioDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsDeinit) for USB_DeviceAudioControlEndpointsDeinit
+    usb_device_audio.o(.text.USB_DeviceAudioDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioFreeHandle) for USB_DeviceAudioFreeHandle
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioDeinit) refers to usb_device_audio.o(.text.USB_DeviceAudioDeinit) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_audio.o(.text.USB_DeviceAudioFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioFreeHandle) refers to usb_device_audio.o(.text.USB_DeviceAudioFreeHandle) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioSend) refers to usb_device_dci.o(.text.USB_DeviceSendRequest) for USB_DeviceSendRequest
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSend) refers to usb_device_audio.o(.text.USB_DeviceAudioSend) for [Anonymous Symbol]
+    usb_device_audio.o(.text.USB_DeviceAudioRecv) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for USB_DeviceRecvRequest
+    usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioRecv) refers to usb_device_audio.o(.text.USB_DeviceAudioRecv) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) refers to usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct) for s_UsbDeviceCommonClassStruct
+    usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetDeviceHandle) refers to usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassEvent) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) for USB_DeviceClassGetHandleByDeviceHandle
+    usb_device_class.o(.text.USB_DeviceClassEvent) refers to usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) for s_UsbDeviceClassInterfaceMap
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassEvent) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) refers to usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct) for s_UsbDeviceCommonClassStruct
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetHandleByDeviceHandle) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassCallback) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle) for USB_DeviceClassGetHandleByDeviceHandle
+    usb_device_class.o(.text.USB_DeviceClassCallback) refers to usb_device_ch9.o(.text.USB_DeviceControlPipeInit) for USB_DeviceControlPipeInit
+    usb_device_class.o(.text.USB_DeviceClassCallback) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for USB_DeviceClassEvent
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassCallback) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_class.o(.text.USB_DeviceClassAllocateHandle) for USB_DeviceClassAllocateHandle
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_dci.o(.text.USB_DeviceInit) for USB_DeviceInit
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_dci.o(.text.USB_DeviceDeinit) for USB_DeviceDeinit
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_class.o(.text.USB_DeviceClassFreeHandle) for USB_DeviceClassFreeHandle
+    usb_device_class.o(.text.USB_DeviceClassInit) refers to usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) for s_UsbDeviceClassInterfaceMap
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassInit) refers to usb_device_class.o(.text.USB_DeviceClassInit) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_class.o(.text.USB_DeviceClassAllocateHandle) refers to usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct) for s_UsbDeviceCommonClassStruct
+    usb_device_class.o(.text.USB_DeviceClassAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_class.o(.text.USB_DeviceClassAllocateHandle) refers to usb_device_class.o(.bss.s_UsbDeviceSetupBuffer) for s_UsbDeviceSetupBuffer
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassAllocateHandle) refers to usb_device_class.o(.text.USB_DeviceClassAllocateHandle) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_class.o(.text.USB_DeviceClassFreeHandle) refers to usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct) for s_UsbDeviceCommonClassStruct
+    usb_device_class.o(.text.USB_DeviceClassFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassFreeHandle) refers to usb_device_class.o(.text.USB_DeviceClassFreeHandle) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassDeinit) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) for USB_DeviceClassGetHandleByControllerId
+    usb_device_class.o(.text.USB_DeviceClassDeinit) refers to usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) for s_UsbDeviceClassInterfaceMap
+    usb_device_class.o(.text.USB_DeviceClassDeinit) refers to usb_device_dci.o(.text.USB_DeviceDeinit) for USB_DeviceDeinit
+    usb_device_class.o(.text.USB_DeviceClassDeinit) refers to usb_device_class.o(.text.USB_DeviceClassFreeHandle) for USB_DeviceClassFreeHandle
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassDeinit) refers to usb_device_class.o(.text.USB_DeviceClassDeinit) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) refers to usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct) for s_UsbDeviceCommonClassStruct
+    usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetHandleByControllerId) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) for [Anonymous Symbol]
+    usb_device_class.o(.text.USB_DeviceClassGetSpeed) refers to usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId) for USB_DeviceClassGetHandleByControllerId
+    usb_device_class.o(.text.USB_DeviceClassGetSpeed) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetSpeed) refers to usb_device_class.o(.text.USB_DeviceClassGetSpeed) for [Anonymous Symbol]
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_hid.o(.text.USB_DeviceHidInit) for USB_DeviceHidInit
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_hid.o(.text.USB_DeviceHidDeinit) for USB_DeviceHidDeinit
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_hid.o(.text.USB_DeviceHidEvent) for USB_DeviceHidEvent
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_audio.o(.text.USB_DeviceAudioInit) for USB_DeviceAudioInit
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_audio.o(.text.USB_DeviceAudioDeinit) for USB_DeviceAudioDeinit
+    usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap) refers to usb_device_audio.o(.text.USB_DeviceAudioEvent) for USB_DeviceAudioEvent
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) for s_UsbDeviceStandardRequest
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for USB_DeviceClassEvent
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for USB_DeviceRecvRequest
+    usb_device_ch9.o(.text.USB_DeviceControlCallback) refers to usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback) for USB_DeviceControlCallbackFeedback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlCallback) refers to usb_device_ch9.o(.text.USB_DeviceControlCallback) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback) refers to usb_device_dci.o(.text.USB_DeviceStallEndpoint) for USB_DeviceStallEndpoint
+    usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback) refers to usb_device_dci.o(.text.USB_DeviceSendRequest) for USB_DeviceSendRequest
+    usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for USB_DeviceRecvRequest
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlCallbackFeedback) refers to usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceControlPipeInit) refers to usb_device_ch9.o(.text.USB_DeviceControlCallback) for USB_DeviceControlCallback
+    usb_device_ch9.o(.text.USB_DeviceControlPipeInit) refers to usb_device_dci.o(.text.USB_DeviceInitEndpoint) for USB_DeviceInitEndpoint
+    usb_device_ch9.o(.text.USB_DeviceControlPipeInit) refers to usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) for USB_DeviceDeinitEndpoint
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlPipeInit) refers to usb_device_ch9.o(.text.USB_DeviceControlPipeInit) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9GetStatus) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetStatus) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetStatus) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) refers to usb_device_dci.o(.text.USB_DeviceStallEndpoint) for USB_DeviceStallEndpoint
+    usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) refers to usb_device_dci.o(.text.USB_DeviceUnstallEndpoint) for USB_DeviceUnstallEndpoint
+    usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for USB_DeviceClassEvent
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetClearFeature) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9SetAddress) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9SetAddress) refers to usb_device_dci.o(.text.USB_DeviceSetStatus) for USB_DeviceSetStatus
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetAddress) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetAddress) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9GetDescriptor) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9GetDescriptor) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetDescriptor) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetDescriptor) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9GetConfiguration) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9GetConfiguration) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetConfiguration) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetConfiguration) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) refers to usb_device_dci.o(.text.USB_DeviceSetStatus) for USB_DeviceSetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for USB_DeviceClassEvent
+    usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetConfiguration) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9GetInterface) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9GetInterface) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetInterface) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetInterface) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9SetInterface) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.text.USB_DeviceCh9SetInterface) refers to usb_device_class.o(.text.USB_DeviceClassEvent) for USB_DeviceClassEvent
+    usb_device_ch9.o(.text.USB_DeviceCh9SetInterface) refers to usb_device_class.o(.text.USB_DeviceClassCallback) for USB_DeviceClassCallback
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetInterface) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetInterface) for [Anonymous Symbol]
+    usb_device_ch9.o(.text.USB_DeviceCh9SynchFrame) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for USB_DeviceGetStatus
+    usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SynchFrame) refers to usb_device_ch9.o(.text.USB_DeviceCh9SynchFrame) for [Anonymous Symbol]
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetStatus) for USB_DeviceCh9GetStatus
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature) for USB_DeviceCh9SetClearFeature
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetAddress) for USB_DeviceCh9SetAddress
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetDescriptor) for USB_DeviceCh9GetDescriptor
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetConfiguration) for USB_DeviceCh9GetConfiguration
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration) for USB_DeviceCh9SetConfiguration
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9GetInterface) for USB_DeviceCh9GetInterface
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9SetInterface) for USB_DeviceCh9SetInterface
+    usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest) refers to usb_device_ch9.o(.text.USB_DeviceCh9SynchFrame) for USB_DeviceCh9SynchFrame
+    usb_device_dci.o(.text.USB_DeviceNotificationTrigger) refers to usb_device_dci.o(.text.USB_DeviceNotification) for USB_DeviceNotification
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceNotificationTrigger) refers to usb_device_dci.o(.text.USB_DeviceNotificationTrigger) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceNotification) refers to usb_device_dci.o(.text.USB_DeviceResetNotification) for USB_DeviceResetNotification
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceNotification) refers to usb_device_dci.o(.text.USB_DeviceNotification) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceInit) refers to usb_device_dci.o(.text.USB_DeviceAllocateHandle) for USB_DeviceAllocateHandle
+    usb_device_dci.o(.text.USB_DeviceInit) refers to usb_device_dci.o(.text.USB_DeviceGetControllerInterface) for USB_DeviceGetControllerInterface
+    usb_device_dci.o(.text.USB_DeviceInit) refers to usb_device_dci.o(.text.USB_DeviceFreeHandle) for USB_DeviceFreeHandle
+    usb_device_dci.o(.text.USB_DeviceInit) refers to usb_device_dci.o(.text.USB_DeviceDeinit) for USB_DeviceDeinit
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceInit) refers to usb_device_dci.o(.text.USB_DeviceInit) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_dci.o(.text.USB_DeviceAllocateHandle) refers to usb_device_dci.o(.bss.s_UsbDevice) for s_UsbDevice
+    usb_device_dci.o(.text.USB_DeviceAllocateHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceAllocateHandle) refers to usb_device_dci.o(.text.USB_DeviceAllocateHandle) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceGetControllerInterface) refers to usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) for s_UsbDeviceLpc3511IpInterface
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetControllerInterface) refers to usb_device_dci.o(.text.USB_DeviceGetControllerInterface) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_dci.o(.text.USB_DeviceFreeHandle) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceFreeHandle) refers to usb_device_dci.o(.text.USB_DeviceFreeHandle) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceDeinit) refers to usb_device_dci.o(.text.USB_DeviceFreeHandle) for USB_DeviceFreeHandle
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceDeinit) refers to usb_device_dci.o(.text.USB_DeviceDeinit) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceRun) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceRun) refers to usb_device_dci.o(.text.USB_DeviceRun) for [Anonymous Symbol]
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceControl) refers to usb_device_dci.o(.text.USB_DeviceControl) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceStop) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceStop) refers to usb_device_dci.o(.text.USB_DeviceStop) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceSendRequest) refers to usb_device_dci.o(.text.USB_DeviceTransfer) for USB_DeviceTransfer
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceSendRequest) refers to usb_device_dci.o(.text.USB_DeviceSendRequest) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceTransfer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_dci.o(.text.USB_DeviceTransfer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceTransfer) refers to usb_device_dci.o(.text.USB_DeviceTransfer) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceRecvRequest) refers to usb_device_dci.o(.text.USB_DeviceTransfer) for USB_DeviceTransfer
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceRecvRequest) refers to usb_device_dci.o(.text.USB_DeviceRecvRequest) for [Anonymous Symbol]
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceCancel) refers to usb_device_dci.o(.text.USB_DeviceCancel) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceInitEndpoint) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceInitEndpoint) refers to usb_device_dci.o(.text.USB_DeviceInitEndpoint) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceDeinitEndpoint) refers to usb_device_dci.o(.text.USB_DeviceDeinitEndpoint) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceStallEndpoint) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceStallEndpoint) refers to usb_device_dci.o(.text.USB_DeviceStallEndpoint) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceUnstallEndpoint) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceUnstallEndpoint) refers to usb_device_dci.o(.text.USB_DeviceUnstallEndpoint) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceGetStatus) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetStatus) refers to usb_device_dci.o(.text.USB_DeviceGetStatus) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceSetStatus) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceSetStatus) refers to usb_device_dci.o(.text.USB_DeviceSetStatus) for [Anonymous Symbol]
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetVersion) refers to usb_device_dci.o(.text.USB_DeviceGetVersion) for [Anonymous Symbol]
+    usb_device_dci.o(.text.USB_DeviceResetNotification) refers to usb_device_dci.o(.text.USB_DeviceControl) for USB_DeviceControl
+    usb_device_dci.o(.ARM.exidx.text.USB_DeviceResetNotification) refers to usb_device_dci.o(.text.USB_DeviceResetNotification) for [Anonymous Symbol]
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) for USB_DeviceLpc3511IpInit
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDeinit) for USB_DeviceLpc3511IpDeinit
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend) for USB_DeviceLpc3511IpSend
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpRecv) for USB_DeviceLpc3511IpRecv
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for USB_DeviceLpc3511IpCancel
+    usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) for USB_DeviceLpc3511IpControl
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.main_task) refers to fsl_os_abstraction_free_rtos.o(.text.main_task) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryAllocate) refers to heap_4.o(.text.pvPortMalloc) for pvPortMalloc
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryAllocate) refers to memseta.o(.text) for memset
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MemoryAllocate) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryAllocate) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryFree) refers to heap_4.o(.text.vPortFree) for vPortFree
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MemoryFree) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryFree) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) refers to portasm.o(.text.ulSetInterruptMaskFromISR) for ulSetInterruptMaskFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) refers to port.o(.text.vPortEnterCritical) for vPortEnterCritical
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EnterCritical) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) refers to portasm.o(.text.vClearInterruptMaskFromISR) for vClearInterruptMaskFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) refers to port.o(.text.vPortExitCritical) for vPortExitCritical
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_ExitCritical) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.startup_task) refers to fsl_os_abstraction_free_rtos.o(.text.main_task) for main_task
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.startup_task) refers to fsl_os_abstraction_free_rtos.o(.text.startup_task) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_TimeDelay) refers to tasks.o(.text.vTaskDelay) for vTaskDelay
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_TimeDelay) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_TimeDelay) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_TimeGetMsec) refers to tasks.o(.text.xTaskGetTickCountFromISR) for xTaskGetTickCountFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_TimeGetMsec) refers to tasks.o(.text.xTaskGetTickCount) for xTaskGetTickCount
+    fsl_os_abstraction_free_rtos.o(.text.OSA_TimeGetMsec) refers to uldiv.o(.text) for __aeabi_uldivmod
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_TimeGetMsec) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_TimeGetMsec) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreCreate) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreCreate) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreCreate) refers to queue.o(.text.xQueueCreateCountingSemaphore) for xQueueCreateCountingSemaphore
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreCreate) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreCreate) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreDestroy) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreDestroy) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreDestroy) refers to queue.o(.text.vQueueDelete) for vQueueDelete
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreDestroy) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreDestroy) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreWait) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreWait) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreWait) refers to queue.o(.text.xQueueSemaphoreTake) for xQueueSemaphoreTake
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreWait) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreWait) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost) refers to queue.o(.text.xQueueGiveFromISR) for xQueueGiveFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost) refers to queue.o(.text.xQueueGenericSend) for xQueueGenericSend
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphorePost) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexCreate) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.2
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexCreate) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexCreate) refers to queue.o(.text.xQueueCreateMutex) for xQueueCreateMutex
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexCreate) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MutexCreate) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexLock) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.2
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexLock) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexLock) refers to queue.o(.text.xQueueTakeMutexRecursive) for xQueueTakeMutexRecursive
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexLock) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MutexLock) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexUnlock) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.2
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexUnlock) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexUnlock) refers to queue.o(.text.xQueueGiveMutexRecursive) for xQueueGiveMutexRecursive
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexUnlock) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MutexUnlock) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexDestroy) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.2
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexDestroy) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MutexDestroy) refers to queue.o(.text.vQueueDelete) for vQueueDelete
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexDestroy) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MutexDestroy) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventCreate) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.3
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventCreate) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventCreate) refers to event_groups.o(.text.xEventGroupCreate) for xEventGroupCreate
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventCreate) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EventCreate) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.3
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet) refers to event_groups.o(.text.xEventGroupSetBitsFromISR) for xEventGroupSetBitsFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet) refers to event_groups.o(.text.xEventGroupSetBits) for xEventGroupSetBits
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventSet) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.3
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear) refers to event_groups.o(.text.xEventGroupClearBitsFromISR) for xEventGroupClearBitsFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear) refers to event_groups.o(.text.xEventGroupClearBits) for xEventGroupClearBits
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventClear) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventWait) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.3
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventWait) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventWait) refers to event_groups.o(.text.xEventGroupWaitBits) for xEventGroupWaitBits
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventWait) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EventWait) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventDestroy) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.3
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventDestroy) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EventDestroy) refers to event_groups.o(.text.vEventGroupDelete) for vEventGroupDelete
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventDestroy) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EventDestroy) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQCreate) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.5
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQCreate) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQCreate) refers to queue.o(.text.xQueueGenericCreate) for xQueueGenericCreate
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQCreate) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQCreate) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.5
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut) refers to queue.o(.text.xQueueGenericSendFromISR) for xQueueGenericSendFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut) refers to queue.o(.text.xQueueGenericSend) for xQueueGenericSend
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQPut) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQGet) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.5
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQGet) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQGet) refers to queue.o(.text.xQueueReceive) for xQueueReceive
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQGet) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQGet) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQDestroy) refers to fsl_os_abstraction_free_rtos.o(.rodata.str1.1) for .L.str.5
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQDestroy) refers to retarget_io.o(.text.__aeabi_assert) for __aeabi_assert
+    fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQDestroy) refers to queue.o(.text.vQueueDelete) for vQueueDelete
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQDestroy) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQDestroy) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptEnable) refers to fsl_os_abstraction_free_rtos.o(.bss.s_osaState) for s_osaState
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptEnable) refers to portasm.o(.text.vClearInterruptMaskFromISR) for vClearInterruptMaskFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptEnable) refers to port.o(.text.vPortExitCritical) for vPortExitCritical
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InterruptEnable) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptEnable) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptDisable) refers to fsl_os_abstraction_free_rtos.o(.bss.s_osaState) for s_osaState
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptDisable) refers to portasm.o(.text.ulSetInterruptMaskFromISR) for ulSetInterruptMaskFromISR
+    fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptDisable) refers to port.o(.text.vPortEnterCritical) for vPortEnterCritical
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InterruptDisable) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptDisable) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_EnableIRQGlobal) refers to fsl_os_abstraction_free_rtos.o(.bss.s_osaState) for s_osaState
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EnableIRQGlobal) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnableIRQGlobal) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.text.OSA_DisableIRQGlobal) refers to fsl_os_abstraction_free_rtos.o(.bss.s_osaState) for s_osaState
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_DisableIRQGlobal) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_DisableIRQGlobal) for [Anonymous Symbol]
+    fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InstallIntHandler) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_InstallIntHandler) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.rodata.cst4) for .L__const.USB_DeviceLpc3511IpInit.ip3511FsBases
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.rodata..L__const.USB_DeviceLpc3511IpInit.endpointListArray) for .L__const.USB_DeviceLpc3511IpInit.endpointListArray
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.bss.s_UsbDeviceLpc3511IpState) for s_UsbDeviceLpc3511IpState
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.bss.s_SetupAndEpReservedData) for s_SetupAndEpReservedData
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MaxPacketNeedCopy) for USB_DeviceLpcIp3511MaxPacketNeedCopy
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSetDefaultState) for USB_DeviceLpc3511IpSetDefaultState
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511MaxPacketNeedCopy) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MaxPacketNeedCopy) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSetDefaultState) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) for USB_DeviceLpc3511IpControl
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpSetDefaultState) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSetDefaultState) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) for USB_DeviceLpc3511IpControl
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDeinit) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit) for USB_DeviceLpc3511IpEndpointInit
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) for USB_DeviceLpc3511IpEndpointDeinit
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointStall) for USB_DeviceLpc3511IpEndpointStall
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall) for USB_DeviceLpc3511IpEndpointUnstall
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSetDefaultState) for USB_DeviceLpc3511IpSetDefaultState
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpControl) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) for USB_DeviceLpc3511IpTransaction
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpSend) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpGetEndpointStateStruct) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetActualBufferAndPrime) for USB_DeviceLpc3511IpGetActualBufferAndPrime
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpTransaction) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpRecv) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend) for USB_DeviceLpc3511IpSend
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpRecv) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpRecv) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) refers to usb_device_dci.o(.text.USB_DeviceNotificationTrigger) for USB_DeviceNotificationTrigger
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpCancel) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MaxPacketNeedCopy) for USB_DeviceLpcIp3511MaxPacketNeedCopy
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer) for USB_DeviceLpcIp3511MallocMaxPacketBuffer
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointInit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for USB_DeviceLpc3511IpCancel
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MaxPacketNeedCopy) for USB_DeviceLpcIp3511MaxPacketNeedCopy
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer) for USB_DeviceLpcIp3511ReleaseMaxPacketBuffer
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointDeinit) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointStall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointStall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for USB_DeviceLpc3511IpCancel
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointStall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointStall) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) for USB_DeviceLpc3511IpTransaction
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for USB_DeviceLpc3511IpCancel
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointUnstall) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511IsrFunction) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptReset) for USB_DeviceLpc3511IpInterruptReset
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511IsrFunction) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) for USB_DeviceLpc3511IpInterruptToken
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511IsrFunction) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511IsrFunction) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptReset) refers to usb_device_dci.o(.text.USB_DeviceNotificationTrigger) for USB_DeviceNotificationTrigger
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInterruptReset) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptReset) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct) for USB_DeviceLpc3511IpGetEndpointStateStruct
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel) for USB_DeviceLpc3511IpCancel
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTokenUpdate) for USB_DeviceLpc3511IpTokenUpdate
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy) for USB_DeviceLpc3511IpDoPreviousTransactionMemcpy
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction) for USB_DeviceLpc3511IpTransaction
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime) for USB_DeviceLpc3511IpEndpointPrime
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_dci.o(.text.USB_DeviceNotificationTrigger) for USB_DeviceNotificationTrigger
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInterruptToken) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetActualBufferAndPrime) refers to memcpy.o(.text) for memcpy
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetActualBufferAndPrime) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime) for USB_DeviceLpc3511IpEndpointPrime
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpGetActualBufferAndPrime) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetActualBufferAndPrime) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointPrime) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical) for OSA_EnterCritical
+    usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer) refers to fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical) for OSA_ExitCritical
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpTokenUpdate) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTokenUpdate) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy) refers to memcpy.o(.text) for memcpy
+    usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy) refers to usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy) for [Anonymous Symbol]
+    usb_device_lpcip3511.o(.rodata..L__const.USB_DeviceLpc3511IpInit.endpointListArray) refers to usb_device_lpcip3511.o(.bss.s_EpCommandStatusList1) for [Anonymous Symbol]
     eventrecorder.o(.ARM.exidx.text.EventRecorderTimerSetup) refers to eventrecorder.o(.text.EventRecorderTimerSetup) for [Anonymous Symbol]
     eventrecorder.o(.text.EventRecorderTimerGetFreq) refers to system_lpc55s69_cm33_core0.o(.data.SystemCoreClock) for SystemCoreClock
     eventrecorder.o(.ARM.exidx.text.EventRecorderTimerGetFreq) refers to eventrecorder.o(.text.EventRecorderTimerGetFreq) for [Anonymous Symbol]
@@ -5874,6 +6436,407 @@ Removing Unused input sections from the image.
     Removing generic_list.o(.ARM.exidx.text.LIST_GetSize), (8 bytes).
     Removing generic_list.o(.text.LIST_GetAvailableSize), (16 bytes).
     Removing generic_list.o(.ARM.exidx.text.LIST_GetAvailableSize), (8 bytes).
+    Removing audio_unified.o(.text), (0 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioRequest), (2262 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRequest), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioSpeakerBufferSpaceUsed), (88 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerBufferSpaceUsed), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioRecorderBufferSpaceUsed), (88 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioRecorderBufferSpaceUsed), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioRecorderGetBuffer), (96 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioRecorderGetBuffer), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioSpeakerPutBuffer), (96 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerPutBuffer), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioFeedbackDataUpdate), (456 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioFeedbackDataUpdate), (8 bytes).
+    Removing audio_unified.o(.text.USB_RecorderDataMatch), (78 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_RecorderDataMatch), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioCompositeCallback), (616 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeCallback), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset), (44 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRecorderStatusReset), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioSpeakerStatusReset), (72 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioSpeakerStatusReset), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioCompositeSetConfigure), (44 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeSetConfigure), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioRecorderSetInterface), (80 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioRecorderSetInterface), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioSpeakerSetInterface), (144 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioSpeakerSetInterface), (8 bytes).
+    Removing audio_unified.o(.text.USB_DeviceAudioCompositeInit), (406 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_DeviceAudioCompositeInit), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioCodecTask), (244 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioCodecTask), (8 bytes).
+    Removing audio_unified.o(.text.USB_AudioSpeakerResetTask), (30 bytes).
+    Removing audio_unified.o(.ARM.exidx.text.USB_AudioSpeakerResetTask), (8 bytes).
+    Removing audio_unified.o(.bss.g_CodecMuteUnmute), (1 bytes).
+    Removing audio_unified.o(.bss.g_deviceAudioComposite), (4 bytes).
+    Removing audio_unified.o(.bss.audioRecDataBuff), (6144 bytes).
+    Removing audio_unified.o(.bss.audioPlayDataBuff), (6144 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerUsedDiff), (4 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerDiffThres), (4 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.feedbackValue), (4 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.originFeedbackValue), (4 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerUsedSpace), (4 bytes).
+    Removing audio_unified.o(.bss.USB_AudioFeedbackDataUpdate.audioSpeakerLastUsedSpace), (4 bytes).
+    Removing audio_unified.o(.bss.audioFeedBackBuffer), (4 bytes).
+    Removing audio_unified.o(.bss.audioRecPacket), (196 bytes).
+    Removing audio_unified.o(.bss.audioPlayPacket), (196 bytes).
+    Removing audio_unified.o(.rodata.str1.1), (42 bytes).
+    Removing usb_device_descriptor.o(.text), (0 bytes).
+    Removing usb_device_descriptor.o(.text.USB_DeviceGetDeviceDescriptor), (30 bytes).
+    Removing usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetDeviceDescriptor), (8 bytes).
+    Removing usb_device_descriptor.o(.text.USB_DeviceGetConfigurationDescriptor), (58 bytes).
+    Removing usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetConfigurationDescriptor), (8 bytes).
+    Removing usb_device_descriptor.o(.text.USB_DeviceGetStringDescriptor), (230 bytes).
+    Removing usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetStringDescriptor), (8 bytes).
+    Removing usb_device_descriptor.o(.text.USB_DeviceGetHidReportDescriptor), (60 bytes).
+    Removing usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceGetHidReportDescriptor), (8 bytes).
+    Removing usb_device_descriptor.o(.text.USB_DeviceSetSpeed), (670 bytes).
+    Removing usb_device_descriptor.o(.ARM.exidx.text.USB_DeviceSetSpeed), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidEndpoints), (6 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidInterface), (16 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaces), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidInterfaceList), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidMouseClass), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEndpoints), (6 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEndpoints), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioControlEndpoints), (6 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEntity), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEntity), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderEntities), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerEntities), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderControInterface), (16 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerControInterface), (16 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecStreamInterface), (32 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerStreamInterface), (32 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioRecorderInterfaces), (24 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioSpeakerInterfaces), (24 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListRecorder), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioInterfaceListSpeaker), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioClassRecorder), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceAudioClassSpeaker), (8 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceDescriptor), (18 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceHidKeyboardReportDescriptor), (35 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceConfigurationDescriptor), (237 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceString0), (4 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceString1), (38 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceString2), (38 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorLength), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceStringDescriptorArray), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceLanguage), (12 bytes).
+    Removing usb_device_descriptor.o(.data.g_UsbDeviceLanguageList), (16 bytes).
+    Removing usb_phy.o(.text), (0 bytes).
+    Removing usb_phy.o(.text.USB_EhciPhyGetBase), (258 bytes).
+    Removing usb_phy.o(.ARM.exidx.text.USB_EhciPhyGetBase), (8 bytes).
+    Removing usb_phy.o(.text.USB_EhciPhyInit), (190 bytes).
+    Removing usb_phy.o(.ARM.exidx.text.USB_EhciPhyInit), (8 bytes).
+    Removing usb_phy.o(.text.USB_EhciLowPowerPhyInit), (152 bytes).
+    Removing usb_phy.o(.ARM.exidx.text.USB_EhciLowPowerPhyInit), (8 bytes).
+    Removing usb_phy.o(.text.USB_EhciPhyDeinit), (48 bytes).
+    Removing usb_phy.o(.ARM.exidx.text.USB_EhciPhyDeinit), (8 bytes).
+    Removing usb_phy.o(.text.USB_EhcihostPhyDisconnectDetectCmd), (78 bytes).
+    Removing usb_phy.o(.ARM.exidx.text.USB_EhcihostPhyDisconnectDetectCmd), (8 bytes).
+    Removing usb_phy.o(.rodata.cst4), (8 bytes).
+    Removing usb_device_hid.o(.text), (0 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidEvent), (1250 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEvent), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidEndpointsDeinit), (118 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEndpointsDeinit), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidEndpointsInit), (524 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidEndpointsInit), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidInterruptIn), (108 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInterruptIn), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidInterruptOut), (108 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInterruptOut), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidInit), (146 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidInit), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidAllocateHandle), (98 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidAllocateHandle), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidDeinit), (66 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidDeinit), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidFreeHandle), (28 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidFreeHandle), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidSend), (160 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidSend), (8 bytes).
+    Removing usb_device_hid.o(.text.USB_DeviceHidRecv), (160 bytes).
+    Removing usb_device_hid.o(.ARM.exidx.text.USB_DeviceHidRecv), (8 bytes).
+    Removing usb_device_hid.o(.bss.s_UsbDeviceHidHandle), (40 bytes).
+    Removing usb_device_audio.o(.text), (0 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioInterruptIn), (100 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioInterruptIn), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioIsochronousIn), (106 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioIsochronousIn), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioIsochronousOut), (106 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioIsochronousOut), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsInit), (520 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioStreamEndpointsInit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioStreamEndpointsDeinit), (250 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioStreamEndpointsDeinit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsInit), (510 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioControlEndpointsInit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioControlEndpointsDeinit), (118 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioControlEndpointsDeinit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetCurAudioFeatureUnit), (204 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetCurAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetMinAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetMinAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetMaxAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetMaxAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetResAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetResAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetControlTerminal), (20 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetControlTerminal), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetCurAudioFeatureUnit), (204 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetCurAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetMinAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetMinAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetMaxAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetMaxAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetResAudioFeatureUnit), (170 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetResAudioFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetFeatureUnit), (106 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetRequestEndpoint), (228 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetRequestEndpoint), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetRequestEndpoint), (208 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetRequestEndpoint), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetControlTerminal), (20 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetControlTerminal), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetFeatureUnit), (106 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetFeatureUnit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSetRequestInterface), (150 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSetRequestInterface), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioGetRequestInterface), (150 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioGetRequestInterface), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioEvent), (964 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioEvent), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioInit), (150 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioInit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioAllocateHandle), (118 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioAllocateHandle), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioDeinit), (76 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioDeinit), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioFreeHandle), (48 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioFreeHandle), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioSend), (122 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioSend), (8 bytes).
+    Removing usb_device_audio.o(.text.USB_DeviceAudioRecv), (122 bytes).
+    Removing usb_device_audio.o(.ARM.exidx.text.USB_DeviceAudioRecv), (8 bytes).
+    Removing usb_device_audio.o(.bss.s_UsbDeviceAudioHandle), (48 bytes).
+    Removing usb_device_class.o(.text), (0 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassGetDeviceHandle), (144 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetDeviceHandle), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassEvent), (302 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassEvent), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassGetHandleByDeviceHandle), (114 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetHandleByDeviceHandle), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassCallback), (128 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassCallback), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassInit), (352 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassInit), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassAllocateHandle), (234 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassAllocateHandle), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassFreeHandle), (158 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassFreeHandle), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassDeinit), (268 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassDeinit), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassGetHandleByControllerId), (144 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetHandleByControllerId), (8 bytes).
+    Removing usb_device_class.o(.text.USB_DeviceClassGetSpeed), (88 bytes).
+    Removing usb_device_class.o(.ARM.exidx.text.USB_DeviceClassGetSpeed), (8 bytes).
+    Removing usb_device_class.o(.bss.s_UsbDeviceCommonClassStruct), (16 bytes).
+    Removing usb_device_class.o(.rodata.s_UsbDeviceClassInterfaceMap), (48 bytes).
+    Removing usb_device_class.o(.bss.s_UsbDeviceSetupBuffer), (64 bytes).
+    Removing usb_device_ch9.o(.text), (0 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceControlCallback), (882 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlCallback), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceControlCallbackFeedback), (216 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlCallbackFeedback), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceControlPipeInit), (148 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceControlPipeInit), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9GetStatus), (244 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetStatus), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9SetClearFeature), (286 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetClearFeature), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9SetAddress), (192 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetAddress), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9GetDescriptor), (360 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetDescriptor), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9GetConfiguration), (102 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetConfiguration), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9SetConfiguration), (154 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetConfiguration), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9GetInterface), (118 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9GetInterface), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9SetInterface), (114 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SetInterface), (8 bytes).
+    Removing usb_device_ch9.o(.text.USB_DeviceCh9SynchFrame), (116 bytes).
+    Removing usb_device_ch9.o(.ARM.exidx.text.USB_DeviceCh9SynchFrame), (8 bytes).
+    Removing usb_device_ch9.o(.rodata.s_UsbDeviceStandardRequest), (52 bytes).
+    Removing usb_device_dci.o(.text), (0 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceNotificationTrigger), (80 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceNotificationTrigger), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceNotification), (246 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceNotification), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceInit), (408 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceInit), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceAllocateHandle), (238 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceAllocateHandle), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceGetControllerInterface), (58 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetControllerInterface), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceFreeHandle), (38 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceFreeHandle), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceDeinit), (82 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceDeinit), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceRun), (22 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceRun), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceControl), (108 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceControl), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceStop), (20 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceStop), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceSendRequest), (44 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceSendRequest), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceTransfer), (332 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceTransfer), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceRecvRequest), (42 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceRecvRequest), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceCancel), (102 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceCancel), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceInitEndpoint), (214 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceInitEndpoint), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceDeinitEndpoint), (200 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceDeinitEndpoint), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceStallEndpoint), (60 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceStallEndpoint), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceUnstallEndpoint), (60 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceUnstallEndpoint), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceGetStatus), (208 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetStatus), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceSetStatus), (250 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceSetStatus), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceGetVersion), (30 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceGetVersion), (8 bytes).
+    Removing usb_device_dci.o(.text.USB_DeviceResetNotification), (148 bytes).
+    Removing usb_device_dci.o(.ARM.exidx.text.USB_DeviceResetNotification), (8 bytes).
+    Removing usb_device_dci.o(.bss.s_UsbDevice), (136 bytes).
+    Removing usb_device_dci.o(.rodata.s_UsbDeviceLpc3511IpInterface), (24 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text), (0 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.main_task), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.main_task), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryAllocate), (40 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MemoryAllocate), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MemoryFree), (16 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MemoryFree), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EnterCritical), (40 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EnterCritical), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_ExitCritical), (38 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_ExitCritical), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.startup_task), (16 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.startup_task), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_TimeDelay), (46 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_TimeDelay), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_TimeGetMsec), (60 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_TimeGetMsec), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreCreate), (92 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreCreate), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreDestroy), (58 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreDestroy), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphoreWait), (134 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphoreWait), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_SemaphorePost), (178 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_SemaphorePost), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MutexCreate), (88 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexCreate), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MutexLock), (134 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexLock), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MutexUnlock), (84 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexUnlock), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MutexDestroy), (58 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MutexDestroy), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EventCreate), (104 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventCreate), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EventSet), (186 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventSet), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EventClear), (120 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventClear), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EventWait), (210 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventWait), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EventDestroy), (88 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EventDestroy), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQCreate), (96 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQCreate), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQPut), (164 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQPut), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQGet), (138 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQGet), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_MsgQDestroy), (58 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_MsgQDestroy), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptEnable), (94 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InterruptEnable), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_InterruptDisable), (76 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InterruptDisable), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_EnableIRQGlobal), (46 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_EnableIRQGlobal), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_DisableIRQGlobal), (28 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_DisableIRQGlobal), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.text.OSA_InstallIntHandler), (10 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.ARM.exidx.text.OSA_InstallIntHandler), (8 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.rodata.gUseRtos_c), (1 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.rodata.str1.1), (106 bytes).
+    Removing fsl_os_abstraction_free_rtos.o(.bss.s_osaState), (12 bytes).
+    Removing usb_device_lpcip3511.o(.text), (0 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInit), (382 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInit), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MaxPacketNeedCopy), (10 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511MaxPacketNeedCopy), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSetDefaultState), (204 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpSetDefaultState), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDeinit), (106 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpDeinit), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpControl), (584 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpControl), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpSend), (126 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpSend), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetEndpointStateStruct), (52 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpGetEndpointStateStruct), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTransaction), (312 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpTransaction), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpRecv), (38 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpRecv), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpCancel), (438 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpCancel), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointInit), (408 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointInit), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointDeinit), (188 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointDeinit), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointStall), (144 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointStall), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointUnstall), (186 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointUnstall), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511IsrFunction), (340 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511IsrFunction), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptReset), (52 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInterruptReset), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpInterruptToken), (810 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpInterruptToken), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpGetActualBufferAndPrime), (304 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpGetActualBufferAndPrime), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpEndpointPrime), (270 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpEndpointPrime), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer), (264 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511MallocMaxPacketBuffer), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer), (156 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpcIp3511ReleaseMaxPacketBuffer), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpTokenUpdate), (168 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpTokenUpdate), (8 bytes).
+    Removing usb_device_lpcip3511.o(.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy), (140 bytes).
+    Removing usb_device_lpcip3511.o(.ARM.exidx.text.USB_DeviceLpc3511IpDoPreviousTransactionMemcpy), (8 bytes).
+    Removing usb_device_lpcip3511.o(.rodata.cst4), (4 bytes).
+    Removing usb_device_lpcip3511.o(.bss.s_EpCommandStatusList1), (80 bytes).
+    Removing usb_device_lpcip3511.o(.rodata..L__const.USB_DeviceLpc3511IpInit.endpointListArray), (4 bytes).
+    Removing usb_device_lpcip3511.o(.bss.s_UsbDeviceLpc3511IpState), (324 bytes).
+    Removing usb_device_lpcip3511.o(.bss.s_SetupAndEpReservedData), (5312 bytes).
     Removing eventrecorder.o(.text), (0 bytes).
     Removing eventrecorder.o(.text.EventRecorderTimerSetup), (36 bytes).
     Removing eventrecorder.o(.ARM.exidx.text.EventRecorderTimerSetup), (8 bytes).
@@ -5999,7 +6962,7 @@ Removing Unused input sections from the image.
     Removing fsl_power_lib.o(.ARM.exidx.text.POWER_SetXtal16mhzTrim), (8 bytes).
     Removing fsl_power_lib.o(.ARM.exidx.text.lowpower_set_system_voltage), (8 bytes).
 
-1819 unused section(s) (total 117424 bytes) removed from the image.
+2220 unused section(s) (total 169636 bytes) removed from the image.
 
 ==============================================================================
 
@@ -6107,6 +7070,7 @@ Image Symbol Table
     EventRecorder.c                          0x00000000   Number         0  eventrecorder.o ABSOLUTE
     adc_app.c                                0x00000000   Number         0  adc_app.o ABSOLUTE
     adc_drv.c                                0x00000000   Number         0  adc_drv.o ABSOLUTE
+    audio_unified.c                          0x00000000   Number         0  audio_unified.o ABSOLUTE
     battery_app.c                            0x00000000   Number         0  battery_app.o ABSOLUTE
     battery_drv.c                            0x00000000   Number         0  battery_drv.o ABSOLUTE
     ble_app.c                                0x00000000   Number         0  ble_app.o ABSOLUTE
@@ -6128,6 +7092,7 @@ Image Symbol Table
     fsl_i2c.c                                0x00000000   Number         0  fsl_i2c.o ABSOLUTE
     fsl_iap.c                                0x00000000   Number         0  fsl_iap.o ABSOLUTE
     fsl_inputmux.c                           0x00000000   Number         0  fsl_inputmux.o ABSOLUTE
+    fsl_os_abstraction_free_rtos.c           0x00000000   Number         0  fsl_os_abstraction_free_rtos.o ABSOLUTE
     fsl_pint.c                               0x00000000   Number         0  fsl_pint.o ABSOLUTE
     fsl_power.c                              0x00000000   Number         0  fsl_power.o ABSOLUTE
     fsl_power_lib.c                          0x00000000   Number         0  fsl_power_lib.o ABSOLUTE
@@ -6169,6 +7134,14 @@ Image Symbol Table
     system_LPC55S69_cm33_core0.c             0x00000000   Number         0  system_lpc55s69_cm33_core0.o ABSOLUTE
     tasks.c                                  0x00000000   Number         0  tasks.o ABSOLUTE
     timers.c                                 0x00000000   Number         0  timers.o ABSOLUTE
+    usb_device_audio.c                       0x00000000   Number         0  usb_device_audio.o ABSOLUTE
+    usb_device_ch9.c                         0x00000000   Number         0  usb_device_ch9.o ABSOLUTE
+    usb_device_class.c                       0x00000000   Number         0  usb_device_class.o ABSOLUTE
+    usb_device_dci.c                         0x00000000   Number         0  usb_device_dci.o ABSOLUTE
+    usb_device_descriptor.c                  0x00000000   Number         0  usb_device_descriptor.o ABSOLUTE
+    usb_device_hid.c                         0x00000000   Number         0  usb_device_hid.o ABSOLUTE
+    usb_device_lpcip3511.c                   0x00000000   Number         0  usb_device_lpcip3511.o ABSOLUTE
+    usb_phy.c                                0x00000000   Number         0  usb_phy.o ABSOLUTE
     w25q128_drv.c                            0x00000000   Number         0  w25q128_drv.o ABSOLUTE
     [Anonymous Symbol]                       0x00010000   Section        0  startup_lpc55s69_cm33_core0.o(.isr_vector)
     .ARM.Collect$$$$00000000                 0x00010200   Section        0  entry.o(.ARM.Collect$$$$00000000)
@@ -7834,76 +8807,76 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00010000   0x00010000   0x00000130   Data   RO         2764    .isr_vector         startup_lpc55s69_cm33_core0.o
+    0x00010000   0x00010000   0x00000130   Data   RO         3235    .isr_vector         startup_lpc55s69_cm33_core0.o
 
 
     Execution Region ER_m_text (Exec base: 0x00010200, Load base: 0x00010200, Size: 0x00012df0, Max: 0x0001fe00, ABSOLUTE, FIXED)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00010200   0x00010200   0x00000000   Code   RO         2861  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x00010200   0x00010200   0x00000004   Code   RO         2986    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
-    0x00010204   0x00010204   0x00000004   Code   RO         2989    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00010208   0x00010208   0x00000000   Code   RO         2991    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00010208   0x00010208   0x00000000   Code   RO         2993    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00010208   0x00010208   0x00000008   Code   RO         2994    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x00010210   0x00010210   0x00000000   Code   RO         2996    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x00010210   0x00010210   0x00000000   Code   RO         2998    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x00010210   0x00010210   0x00000004   Code   RO         2987    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
-    0x00010214   0x00010214   0x0000022c   Code   RO         2763    .text               startup_lpc55s69_cm33_core0.o
-    0x00010440   0x00010440   0x00000062   Code   RO         2870    .text               mc_w.l(uldiv.o)
-    0x000104a2   0x000104a2   0x0000000c   Code   RO         2872    .text               mc_w.l(tolower.o)
-    0x000104ae   0x000104ae   0x00000028   Code   RO         2874    .text               mc_w.l(memcpy.o)
-    0x000104d6   0x000104d6   0x00000024   Code   RO         2880    .text               mc_w.l(memseta.o)
-    0x000104fa   0x000104fa   0x00000018   Code   RO         2882    .text               mc_w.l(strcat.o)
-    0x00010512   0x00010512   0x0000000e   Code   RO         2886    .text               mc_w.l(strlen.o)
-    0x00010520   0x00010520   0x0000001c   Code   RO         2888    .text               mc_w.l(strcmp.o)
-    0x0001053c   0x0001053c   0x0000001a   Code   RO         2890    .text               mc_w.l(memcmp.o)
-    0x00010556   0x00010556   0x00000028   Code   RO         2892    .text               mc_w.l(strncat.o)
-    0x0001057e   0x0001057e   0x00000012   Code   RO         2894    .text               mc_w.l(strcpy.o)
-    0x00010590   0x00010590   0x0000001e   Code   RO         2896    .text               mc_w.l(strncmp.o)
+    0x00010200   0x00010200   0x00000000   Code   RO         3332  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x00010200   0x00010200   0x00000004   Code   RO         3457    .ARM.Collect$$$$00000003  mc_w.l(entry4.o)
+    0x00010204   0x00010204   0x00000004   Code   RO         3460    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00010208   0x00010208   0x00000000   Code   RO         3462    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00010208   0x00010208   0x00000000   Code   RO         3464    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00010208   0x00010208   0x00000008   Code   RO         3465    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x00010210   0x00010210   0x00000000   Code   RO         3467    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x00010210   0x00010210   0x00000000   Code   RO         3469    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x00010210   0x00010210   0x00000004   Code   RO         3458    .ARM.Collect$$$$00002714  mc_w.l(entry4.o)
+    0x00010214   0x00010214   0x0000022c   Code   RO         3234    .text               startup_lpc55s69_cm33_core0.o
+    0x00010440   0x00010440   0x00000062   Code   RO         3341    .text               mc_w.l(uldiv.o)
+    0x000104a2   0x000104a2   0x0000000c   Code   RO         3343    .text               mc_w.l(tolower.o)
+    0x000104ae   0x000104ae   0x00000028   Code   RO         3345    .text               mc_w.l(memcpy.o)
+    0x000104d6   0x000104d6   0x00000024   Code   RO         3351    .text               mc_w.l(memseta.o)
+    0x000104fa   0x000104fa   0x00000018   Code   RO         3353    .text               mc_w.l(strcat.o)
+    0x00010512   0x00010512   0x0000000e   Code   RO         3357    .text               mc_w.l(strlen.o)
+    0x00010520   0x00010520   0x0000001c   Code   RO         3359    .text               mc_w.l(strcmp.o)
+    0x0001053c   0x0001053c   0x0000001a   Code   RO         3361    .text               mc_w.l(memcmp.o)
+    0x00010556   0x00010556   0x00000028   Code   RO         3363    .text               mc_w.l(strncat.o)
+    0x0001057e   0x0001057e   0x00000012   Code   RO         3365    .text               mc_w.l(strcpy.o)
+    0x00010590   0x00010590   0x0000001e   Code   RO         3367    .text               mc_w.l(strncmp.o)
     0x000105ae   0x000105ae   0x00000002   PAD
-    0x000105b0   0x000105b0   0x00000038   Code   RO         2958    .text               mc_w.l(sscanf.o)
-    0x000105e8   0x000105e8   0x0000014e   Code   RO         2962    .text               mf_w.l(dadd.o)
-    0x00010736   0x00010736   0x000000e4   Code   RO         2964    .text               mf_w.l(dmul.o)
-    0x0001081a   0x0001081a   0x000000de   Code   RO         2966    .text               mf_w.l(ddiv.o)
-    0x000108f8   0x000108f8   0x00000036   Code   RO         2968    .text               mf_w.l(dcmplt.o)
-    0x0001092e   0x0001092e   0x00000036   Code   RO         2970    .text               mf_w.l(dcmpgt.o)
-    0x00010964   0x00010964   0x00000038   Code   RO         2972    .text               mf_w.l(dcmpeq.o)
-    0x0001099c   0x0001099c   0x00000022   Code   RO         2974    .text               mf_w.l(dflti.o)
-    0x000109be   0x000109be   0x0000001a   Code   RO         2976    .text               mf_w.l(dfltui.o)
-    0x000109d8   0x000109d8   0x0000003e   Code   RO         2978    .text               mf_w.l(dfixi.o)
-    0x00010a16   0x00010a16   0x00000032   Code   RO         2980    .text               mf_w.l(dfixui.o)
-    0x00010a48   0x00010a48   0x00000026   Code   RO         2982    .text               mf_w.l(f2d.o)
-    0x00010a6e   0x00010a6e   0x00000038   Code   RO         2984    .text               mf_w.l(d2f.o)
-    0x00010aa6   0x00010aa6   0x0000002c   Code   RO         3000    .text               mc_w.l(uidiv.o)
-    0x00010ad2   0x00010ad2   0x0000001e   Code   RO         3002    .text               mc_w.l(llshl.o)
-    0x00010af0   0x00010af0   0x00000020   Code   RO         3004    .text               mc_w.l(llushr.o)
-    0x00010b10   0x00010b10   0x00000024   Code   RO         3006    .text               mc_w.l(llsshr.o)
-    0x00010b34   0x00010b34   0x00000156   Code   RO         3017    .text               mc_w.l(_scanf_longlong.o)
-    0x00010c8a   0x00010c8a   0x0000014c   Code   RO         3019    .text               mc_w.l(_scanf_int.o)
-    0x00010dd6   0x00010dd6   0x000000e0   Code   RO         3021    .text               mc_w.l(_scanf_str.o)
+    0x000105b0   0x000105b0   0x00000038   Code   RO         3429    .text               mc_w.l(sscanf.o)
+    0x000105e8   0x000105e8   0x0000014e   Code   RO         3433    .text               mf_w.l(dadd.o)
+    0x00010736   0x00010736   0x000000e4   Code   RO         3435    .text               mf_w.l(dmul.o)
+    0x0001081a   0x0001081a   0x000000de   Code   RO         3437    .text               mf_w.l(ddiv.o)
+    0x000108f8   0x000108f8   0x00000036   Code   RO         3439    .text               mf_w.l(dcmplt.o)
+    0x0001092e   0x0001092e   0x00000036   Code   RO         3441    .text               mf_w.l(dcmpgt.o)
+    0x00010964   0x00010964   0x00000038   Code   RO         3443    .text               mf_w.l(dcmpeq.o)
+    0x0001099c   0x0001099c   0x00000022   Code   RO         3445    .text               mf_w.l(dflti.o)
+    0x000109be   0x000109be   0x0000001a   Code   RO         3447    .text               mf_w.l(dfltui.o)
+    0x000109d8   0x000109d8   0x0000003e   Code   RO         3449    .text               mf_w.l(dfixi.o)
+    0x00010a16   0x00010a16   0x00000032   Code   RO         3451    .text               mf_w.l(dfixui.o)
+    0x00010a48   0x00010a48   0x00000026   Code   RO         3453    .text               mf_w.l(f2d.o)
+    0x00010a6e   0x00010a6e   0x00000038   Code   RO         3455    .text               mf_w.l(d2f.o)
+    0x00010aa6   0x00010aa6   0x0000002c   Code   RO         3471    .text               mc_w.l(uidiv.o)
+    0x00010ad2   0x00010ad2   0x0000001e   Code   RO         3473    .text               mc_w.l(llshl.o)
+    0x00010af0   0x00010af0   0x00000020   Code   RO         3475    .text               mc_w.l(llushr.o)
+    0x00010b10   0x00010b10   0x00000024   Code   RO         3477    .text               mc_w.l(llsshr.o)
+    0x00010b34   0x00010b34   0x00000156   Code   RO         3488    .text               mc_w.l(_scanf_longlong.o)
+    0x00010c8a   0x00010c8a   0x0000014c   Code   RO         3490    .text               mc_w.l(_scanf_int.o)
+    0x00010dd6   0x00010dd6   0x000000e0   Code   RO         3492    .text               mc_w.l(_scanf_str.o)
     0x00010eb6   0x00010eb6   0x00000002   PAD
-    0x00010eb8   0x00010eb8   0x00000360   Code   RO         3023    .text               mc_w.l(scanf_fp.o)
-    0x00011218   0x00011218   0x00000028   Code   RO         3028    .text               mc_w.l(scanf_char.o)
-    0x00011240   0x00011240   0x00000040   Code   RO         3030    .text               mc_w.l(_sgetc.o)
-    0x00011280   0x00011280   0x000000a8   Code   RO         3032    .text               mc_w.l(strtod.o)
-    0x00011328   0x00011328   0x00000000   Code   RO         3036    .text               mc_w.l(iusefp.o)
-    0x00011328   0x00011328   0x0000006e   Code   RO         3037    .text               mf_w.l(fepilogue.o)
-    0x00011396   0x00011396   0x000000ba   Code   RO         3039    .text               mf_w.l(depilogue.o)
-    0x00011450   0x00011450   0x000000a2   Code   RO         3041    .text               mf_w.l(dsqrt.o)
+    0x00010eb8   0x00010eb8   0x00000360   Code   RO         3494    .text               mc_w.l(scanf_fp.o)
+    0x00011218   0x00011218   0x00000028   Code   RO         3499    .text               mc_w.l(scanf_char.o)
+    0x00011240   0x00011240   0x00000040   Code   RO         3501    .text               mc_w.l(_sgetc.o)
+    0x00011280   0x00011280   0x000000a8   Code   RO         3503    .text               mc_w.l(strtod.o)
+    0x00011328   0x00011328   0x00000000   Code   RO         3507    .text               mc_w.l(iusefp.o)
+    0x00011328   0x00011328   0x0000006e   Code   RO         3508    .text               mf_w.l(fepilogue.o)
+    0x00011396   0x00011396   0x000000ba   Code   RO         3510    .text               mf_w.l(depilogue.o)
+    0x00011450   0x00011450   0x000000a2   Code   RO         3512    .text               mf_w.l(dsqrt.o)
     0x000114f2   0x000114f2   0x00000002   PAD
-    0x000114f4   0x000114f4   0x00000088   Code   RO         3043    .text               mf_w.l(drnd.o)
-    0x0001157c   0x0001157c   0x00000030   Code   RO         3045    .text               mf_w.l(dfixul.o)
-    0x000115ac   0x000115ac   0x00000030   Code   RO         3047    .text               mf_w.l(cdcmple.o)
-    0x000115dc   0x000115dc   0x00000030   Code   RO         3049    .text               mf_w.l(cdrcmple.o)
-    0x0001160c   0x0001160c   0x00000024   Code   RO         3051    .text               mc_w.l(init.o)
-    0x00011630   0x00011630   0x00000008   Code   RO         3055    .text               mc_w.l(ctype_o.o)
-    0x00011638   0x00011638   0x00000012   Code   RO         3077    .text               mc_w.l(isspace_o.o)
-    0x0001164a   0x0001164a   0x0000001c   Code   RO         3083    .text               mc_w.l(_chval.o)
+    0x000114f4   0x000114f4   0x00000088   Code   RO         3514    .text               mf_w.l(drnd.o)
+    0x0001157c   0x0001157c   0x00000030   Code   RO         3516    .text               mf_w.l(dfixul.o)
+    0x000115ac   0x000115ac   0x00000030   Code   RO         3518    .text               mf_w.l(cdcmple.o)
+    0x000115dc   0x000115dc   0x00000030   Code   RO         3520    .text               mf_w.l(cdrcmple.o)
+    0x0001160c   0x0001160c   0x00000024   Code   RO         3522    .text               mc_w.l(init.o)
+    0x00011630   0x00011630   0x00000008   Code   RO         3526    .text               mc_w.l(ctype_o.o)
+    0x00011638   0x00011638   0x00000012   Code   RO         3548    .text               mc_w.l(isspace_o.o)
+    0x0001164a   0x0001164a   0x0000001c   Code   RO         3554    .text               mc_w.l(_chval.o)
     0x00011666   0x00011666   0x00000002   PAD
-    0x00011668   0x00011668   0x0000032c   Code   RO         3085    .text               mc_w.l(_scanf.o)
-    0x00011994   0x00011994   0x00000018   Code   RO         3089    .text               mf_w.l(dfltul.o)
+    0x00011668   0x00011668   0x0000032c   Code   RO         3556    .text               mc_w.l(_scanf.o)
+    0x00011994   0x00011994   0x00000018   Code   RO         3560    .text               mf_w.l(dfltul.o)
     0x000119ac   0x000119ac   0x000003ac   Code   RO           65    .text.ADC_AppTask   adc_app.o
     0x00011d58   0x00011d58   0x000000a2   Code   RO          345    .text.ADC_PwmClkStart  adc_drv.o
     0x00011dfa   0x00011dfa   0x00000002   PAD
@@ -8177,7 +9150,7 @@ Memory Map of the image
     0x000185ee   0x000185ee   0x00000002   PAD
     0x000185f0   0x000185f0   0x00000012   Code   RO         1424    .text.POWER_EnablePD  fsl_clock.o
     0x00018602   0x00018602   0x00000002   PAD
-    0x00018604   0x00018604   0x00000048   Code   RO         2823    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x00018604   0x00018604   0x00000048   Code   RO         3294    .text.POWER_SetVoltageForFreq  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
     0x0001864c   0x0001864c   0x00000024   Code   RO         2322    .text.PQ_Init       fsl_powerquad_basic.o
     0x00018670   0x00018670   0x000000b2   Code   RO          485    .text.PT_IIC_Read_Byte  iic_tp100_drv.o
     0x00018722   0x00018722   0x00000002   PAD
@@ -8263,8 +9236,8 @@ Memory Map of the image
     0x0001b2f8   0x0001b2f8   0x00000070   Code   RO          169    .text.StopSample    protocol.o
     0x0001b368   0x0001b368   0x00000036   Code   RO         1060    .text.SysTick_Handler  port.o
     0x0001b39e   0x0001b39e   0x00000002   PAD
-    0x0001b3a0   0x0001b3a0   0x0000005c   Code   RO         2770    .text.SystemInit    system_lpc55s69_cm33_core0.o
-    0x0001b3fc   0x0001b3fc   0x00000002   Code   RO         2772    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
+    0x0001b3a0   0x0001b3a0   0x0000005c   Code   RO         3241    .text.SystemInit    system_lpc55s69_cm33_core0.o
+    0x0001b3fc   0x0001b3fc   0x00000002   Code   RO         3243    .text.SystemInitHook  system_lpc55s69_cm33_core0.o
     0x0001b3fe   0x0001b3fe   0x00000002   PAD
     0x0001b400   0x0001b400   0x0000000c   Code   RO          493    .text.TMP101_Init   iic_tp100_drv.o
     0x0001b40c   0x0001b40c   0x00000004   PAD
@@ -8315,9 +9288,9 @@ Memory Map of the image
     0x0001c424   0x0001c424   0x00000034   Code   RO         2270    .text.__NVIC_EnableIRQ  fsl_pint.o
     0x0001c458   0x0001c458   0x00000026   Code   RO          112    .text.__NVIC_SystemReset  ble_app.o
     0x0001c47e   0x0001c47e   0x00000002   PAD
-    0x0001c480   0x0001c480   0x000000ce   Code   RO         2749    .text.__aeabi_assert  retarget_io.o
+    0x0001c480   0x0001c480   0x000000ce   Code   RO         3220    .text.__aeabi_assert  retarget_io.o
     0x0001c54e   0x0001c54e   0x00000002   PAD
-    0x0001c550   0x0001c550   0x00000004   Code   RO         2751    .text.abort         retarget_io.o
+    0x0001c550   0x0001c550   0x00000004   Code   RO         3222    .text.abort         retarget_io.o
     0x0001c554   0x0001c554   0x00000062   Code   RO         1161    .text.add_item_to_array  cjson.o
     0x0001c5b6   0x0001c5b6   0x00000002   PAD
     0x0001c5b8   0x0001c5b8   0x000000ba   Code   RO         1165    .text.add_item_to_object  cjson.o
@@ -8360,9 +9333,9 @@ Memory Map of the image
     0x0001d104   0x0001d104   0x00000004   Code   RO         1299    .text.get_decimal_point  cjson.o
     0x0001d108   0x0001d108   0x000000aa   Code   RO         1153    .text.get_object_item  cjson.o
     0x0001d1b2   0x0001d1b2   0x00000002   PAD
-    0x0001d1b4   0x0001d1b4   0x00000048   Code   RO         2825    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x0001d1fc   0x0001d1fc   0x000000d4   Code   RO         2837    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
-    0x0001d2d0   0x0001d2d0   0x00000098   Code   RO         2827    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x0001d1b4   0x0001d1b4   0x00000048   Code   RO         3296    .text.lowpower_set_dcdc_power_profile  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x0001d1fc   0x0001d1fc   0x000000d4   Code   RO         3308    .text.lowpower_set_system_voltage  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
+    0x0001d2d0   0x0001d2d0   0x00000098   Code   RO         3298    .text.lowpower_set_voltage_for_process  keil_lib_power_cm33_core0.lib(fsl_power_lib.o)
     0x0001d368   0x0001d368   0x00000148   Code   RO            4    .text.main          main.o
     0x0001d4b0   0x0001d4b0   0x00000050   Code   RO         2050    .text.memory_erase  memory.o
     0x0001d500   0x0001d500   0x00000042   Code   RO         2048    .text.memory_init   memory.o
@@ -8516,32 +9489,32 @@ Memory Map of the image
     0x0002185a   0x0002185a   0x00000002   PAD
     0x0002185c   0x0002185c   0x000000a6   Code   RO          968    .text.xTimerGenericCommand  timers.o
     0x00021902   0x00021902   0x00000002   PAD
-    0x00021904   0x00021904   0x00000020   Code   RO         2903    i.__0printf         mc_w.l(printfa.o)
-    0x00021924   0x00021924   0x00000028   Code   RO         2905    i.__0sprintf        mc_w.l(printfa.o)
-    0x0002194c   0x0002194c   0x0000005c   Code   RO         2934    i.__free$realloc$2region  mc_w.l(mallocr2.o)
-    0x000219a8   0x000219a8   0x000000e0   Code   RO         2839    i.__hardfp_round    m_wm.l(round.o)
-    0x00021a88   0x00021a88   0x0000007a   Code   RO         2843    i.__hardfp_sqrt     m_wm.l(sqrt.o)
+    0x00021904   0x00021904   0x00000020   Code   RO         3374    i.__0printf         mc_w.l(printfa.o)
+    0x00021924   0x00021924   0x00000028   Code   RO         3376    i.__0sprintf        mc_w.l(printfa.o)
+    0x0002194c   0x0002194c   0x0000005c   Code   RO         3405    i.__free$realloc$2region  mc_w.l(mallocr2.o)
+    0x000219a8   0x000219a8   0x000000e0   Code   RO         3310    i.__hardfp_round    m_wm.l(round.o)
+    0x00021a88   0x00021a88   0x0000007a   Code   RO         3314    i.__hardfp_sqrt     m_wm.l(sqrt.o)
     0x00021b02   0x00021b02   0x00000006   PAD
-    0x00021b08   0x00021b08   0x00000028   Code   RO         2855    i.__hardfp_strtod   m_wm.l(strtod.o)
-    0x00021b30   0x00021b30   0x00000050   Code   RO         2935    i.__malloc$realloc$2region  mc_w.l(mallocr2.o)
-    0x00021b80   0x00021b80   0x0000006c   Code   RO         2936    i.__realloc$2region  mc_w.l(mallocr2.o)
-    0x00021bec   0x00021bec   0x0000000e   Code   RO         3096    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00021bfa   0x00021bfa   0x00000002   Code   RO         3097    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00021bfc   0x00021bfc   0x0000000e   Code   RO         3098    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00021b08   0x00021b08   0x00000028   Code   RO         3326    i.__hardfp_strtod   m_wm.l(strtod.o)
+    0x00021b30   0x00021b30   0x00000050   Code   RO         3406    i.__malloc$realloc$2region  mc_w.l(mallocr2.o)
+    0x00021b80   0x00021b80   0x0000006c   Code   RO         3407    i.__realloc$2region  mc_w.l(mallocr2.o)
+    0x00021bec   0x00021bec   0x0000000e   Code   RO         3567    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00021bfa   0x00021bfa   0x00000002   Code   RO         3568    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00021bfc   0x00021bfc   0x0000000e   Code   RO         3569    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x00021c0a   0x00021c0a   0x00000002   PAD
-    0x00021c0c   0x00021c0c   0x0000000c   Code   RO         3012    i.__set_errno       mc_w.l(errno.o)
-    0x00021c18   0x00021c18   0x00000184   Code   RO         2910    i._fp_digits        mc_w.l(printfa.o)
-    0x00021d9c   0x00021d9c   0x0000000e   Code   RO         3026    i._is_digit         mc_w.l(scanf_fp.o)
+    0x00021c0c   0x00021c0c   0x0000000c   Code   RO         3483    i.__set_errno       mc_w.l(errno.o)
+    0x00021c18   0x00021c18   0x00000184   Code   RO         3381    i._fp_digits        mc_w.l(printfa.o)
+    0x00021d9c   0x00021d9c   0x0000000e   Code   RO         3497    i._is_digit         mc_w.l(scanf_fp.o)
     0x00021daa   0x00021daa   0x00000002   PAD
-    0x00021dac   0x00021dac   0x000006dc   Code   RO         2911    i._printf_core      mc_w.l(printfa.o)
-    0x00022488   0x00022488   0x00000024   Code   RO         2912    i._printf_post_padding  mc_w.l(printfa.o)
-    0x000224ac   0x000224ac   0x0000002e   Code   RO         2913    i._printf_pre_padding  mc_w.l(printfa.o)
-    0x000224da   0x000224da   0x0000000a   Code   RO         2915    i._sputc            mc_w.l(printfa.o)
-    0x000224e4   0x000224e4   0x00000018   Code   RO         2864    i.fputs             mc_w.l(fputs.o)
-    0x000224fc   0x000224fc   0x00000050   Code   RO         2937    i.internal_alloc    mc_w.l(mallocr2.o)
-    0x0002254c   0x0002254c   0x00000081   Data   RO         3056    .constdata          mc_w.l(ctype_o.o)
+    0x00021dac   0x00021dac   0x000006dc   Code   RO         3382    i._printf_core      mc_w.l(printfa.o)
+    0x00022488   0x00022488   0x00000024   Code   RO         3383    i._printf_post_padding  mc_w.l(printfa.o)
+    0x000224ac   0x000224ac   0x0000002e   Code   RO         3384    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x000224da   0x000224da   0x0000000a   Code   RO         3386    i._sputc            mc_w.l(printfa.o)
+    0x000224e4   0x000224e4   0x00000018   Code   RO         3335    i.fputs             mc_w.l(fputs.o)
+    0x000224fc   0x000224fc   0x00000050   Code   RO         3408    i.internal_alloc    mc_w.l(mallocr2.o)
+    0x0002254c   0x0002254c   0x00000081   Data   RO         3527    .constdata          mc_w.l(ctype_o.o)
     0x000225cd   0x000225cd   0x00000003   PAD
-    0x000225d0   0x000225d0   0x00000004   Data   RO         3057    .constdata          mc_w.l(ctype_o.o)
+    0x000225d0   0x000225d0   0x00000004   Data   RO         3528    .constdata          mc_w.l(ctype_o.o)
     0x000225d4   0x000225d4   0x00000002   Data   RO          584    .rodata..L__const.BOARD_InitPins.ADC_FORMAT_config  pin_mux.o
     0x000225d6   0x000225d6   0x00000002   Data   RO          583    .rodata..L__const.BOARD_InitPins.ADC_MODE_config  pin_mux.o
     0x000225d8   0x000225d8   0x00000002   Data   RO          588    .rodata..L__const.BOARD_InitPins.ADC_SYNC_config  pin_mux.o
@@ -8577,7 +9550,7 @@ Memory Map of the image
     0x0002262c   0x0002262c   0x00000008   Data   RO          558    .rodata.CTIMER0_config  peripherals.o
     0x00022634   0x00022634   0x00000008   Data   RO          559    .rodata.CTIMER2_config  peripherals.o
     0x0002263c   0x0002263c   0x00000008   Data   RO          560    .rodata.CTIMER3_config  peripherals.o
-    0x00022644   0x00022644   0x00000018   Data   RO         2732    .rodata.EventRecorderInfo  eventrecorder.o
+    0x00022644   0x00022644   0x00000018   Data   RO         3203    .rodata.EventRecorderInfo  eventrecorder.o
     0x0002265c   0x0002265c   0x00000018   Data   RO          561    .rodata.FLEXCOMM0_config  peripherals.o
     0x00022674   0x00022674   0x00000010   Data   RO          562    .rodata.FLEXCOMM2_config  peripherals.o
     0x00022684   0x00022684   0x00000010   Data   RO          563    .rodata.FLEXCOMM3_config  peripherals.o
@@ -8630,23 +9603,23 @@ Memory Map of the image
     0x00022f41   0x00022f41   0x0000001e   Data   RO         2198    .rodata.str1.1      fsl_rtc.o
     0x00022f5f   0x00022f5f   0x00000023   Data   RO         2274    .rodata.str1.1      fsl_pint.o
     0x00022f82   0x00022f82   0x00000024   Data   RO         2309    .rodata.str1.1      fsl_reset.o
-    0x00022fa6   0x00022fa6   0x00000027   Data   RO         2753    .rodata.str1.1      retarget_io.o
+    0x00022fa6   0x00022fa6   0x00000027   Data   RO         3224    .rodata.str1.1      retarget_io.o
     0x00022fcd   0x00022fcd   0x00000003   PAD
-    0x00022fd0   0x00022fd0   0x00000020   Data   RO         3095    Region$$Table       anon$$obj.o
+    0x00022fd0   0x00022fd0   0x00000020   Data   RO         3566    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_m_data (Exec base: 0x20000000, Load base: 0x00023000, Size: 0x0002f534, Max: 0x00032000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00023000   0x00000004   Data   RW         2868    .data               mc_w.l(stdout.o)
-    0x20000004   0x00023004   0x00000004   Data   RW         2869    .data               mc_w.l(stderr.o)
-    0x20000008   0x00023008   0x00000004   Data   RW         3008    .data               mc_w.l(mvars.o)
-    0x2000000c   0x0002300c   0x00000004   Data   RW         3009    .data               mc_w.l(mvars.o)
-    0x20000010   0x00023010   0x00000004   Data   RW         3013    .data               mc_w.l(errno.o)
+    0x20000000   0x00023000   0x00000004   Data   RW         3339    .data               mc_w.l(stdout.o)
+    0x20000004   0x00023004   0x00000004   Data   RW         3340    .data               mc_w.l(stderr.o)
+    0x20000008   0x00023008   0x00000004   Data   RW         3479    .data               mc_w.l(mvars.o)
+    0x2000000c   0x0002300c   0x00000004   Data   RW         3480    .data               mc_w.l(mvars.o)
+    0x20000010   0x00023010   0x00000004   Data   RW         3484    .data               mc_w.l(errno.o)
     0x20000014   0x00023014   0x00000002   Data   RW          422    .data.SPI_FLASH_TYPE  w25q128_drv.o
     0x20000016   0x00023016   0x00000002   PAD
-    0x20000018   0x00023018   0x00000004   Data   RW         2798    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
+    0x20000018   0x00023018   0x00000004   Data   RW         3269    .data.SystemCoreClock  system_lpc55s69_cm33_core0.o
     0x2000001c   0x0002301c   0x00000002   Data   RW          185    .data.ble_wait_time  protocol.o
     0x2000001e   0x0002301e   0x00000002   PAD
     0x20000020   0x00023020   0x0000000c   Data   RW         1318    .data.global_hooks  cjson.o
@@ -8700,7 +9673,7 @@ Memory Map of the image
     0x200293b8        -       0x00000200   Zero   RW          211    .bss.inFlashBuf     flash_app.o
     0x200295b8   0x00023054   0x00000048   PAD
     0x20029600        -       0x00000200   Zero   RW         2063    .bss.memory_write.tmp_buf  memory.o
-    0x20029800        -       0x000004a4   Zero   RW         2731    .bss.noinit         eventrecorder.o
+    0x20029800        -       0x000004a4   Zero   RW         3202    .bss.noinit         eventrecorder.o
     0x20029ca4        -       0x00000004   Zero   RW         1013    .bss.prvSampleTimeNow.xLastTime  timers.o
     0x20029ca8        -       0x00000004   Zero   RW          928    .bss.pxCurrentTCB   tasks.o
     0x20029cac        -       0x00000004   Zero   RW         1011    .bss.pxCurrentTimerList  timers.o
@@ -8804,57 +9777,57 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      2258         22         38          0     160264       5128   adc_app.o
-       400          0          0         20         12       3473   adc_drv.o
-       834         24         34          0          6       3243   battery_app.o
-       654          0          0          0          0       2874   battery_drv.o
-      1262          0        216          0       2067       5003   ble_app.o
-      8184        172         39         12          8      29022   cjson.o
-       608          0         32          0          0      12484   clock_config.o
-       728          0        120          0          8      13695   core1_app.o
-         0          0         24          0       1188       9110   eventrecorder.o
-      2546          0         23          0       1064       3580   flash_app.o
-      2252         26         23          4         12      33021   fsl_clock.o
-       142          0         59          0          0       1644   fsl_common.o
-       880          0        122          0         25      18800   fsl_ctimer.o
-      1048          0        182          8        920      24195   fsl_dma.o
-      1238          0        367          0         72      14398   fsl_flexcomm.o
-       104          0          8          0          8      15384   fsl_gint.o
-       140          0          0          0          0      10798   fsl_gpio.o
-       430          0         45          0          8       8451   fsl_iap.o
-        40          0          0          0          0      23740   fsl_inputmux.o
-      1834          0         45          0         40      20534   fsl_pint.o
-        78          0          0          0          0      11790   fsl_powerquad_basic.o
-       234          0         36          0          0       7793   fsl_reset.o
-      1170          0         56          0          0      12556   fsl_rtc.o
-      1452          0        262          0         27      16486   fsl_spi.o
-      1052          0        122          0          0      14671   fsl_usart.o
-       472          0         70          4          4      13996   fsl_utick.o
-      1000          0          0          0      20504       3045   heap_4.o
-      1174         16          2          0          0       3816   iic_tp100_drv.o
+      2258         22         38          0     160264       5135   adc_app.o
+       400          0          0         20         12       3480   adc_drv.o
+       834         24         34          0          6       3250   battery_app.o
+       654          0          0          0          0       2881   battery_drv.o
+      1262          0        216          0       2067       5010   ble_app.o
+      8184        172         39         12          8      29029   cjson.o
+       608          0         32          0          0      12491   clock_config.o
+       728          0        120          0          8      13702   core1_app.o
+         0          0         24          0       1188       9127   eventrecorder.o
+      2546          0         23          0       1064       3587   flash_app.o
+      2252         26         23          4         12      33028   fsl_clock.o
+       142          0         59          0          0       1651   fsl_common.o
+       880          0        122          0         25      18807   fsl_ctimer.o
+      1048          0        182          8        920      24202   fsl_dma.o
+      1238          0        367          0         72      14405   fsl_flexcomm.o
+       104          0          8          0          8      15391   fsl_gint.o
+       140          0          0          0          0      10805   fsl_gpio.o
+       430          0         45          0          8       8458   fsl_iap.o
+        40          0          0          0          0      23747   fsl_inputmux.o
+      1834          0         45          0         40      20541   fsl_pint.o
+        78          0          0          0          0      11797   fsl_powerquad_basic.o
+       234          0         36          0          0       7800   fsl_reset.o
+      1170          0         56          0          0      12563   fsl_rtc.o
+      1452          0        262          0         27      16493   fsl_spi.o
+      1052          0        122          0          0      14678   fsl_usart.o
+       472          0         70          4          4      14003   fsl_utick.o
+      1000          0          0          0      20504       3052   heap_4.o
+      1174         16          2          0          0       3823   iic_tp100_drv.o
       4100       4100          0          0          0          0   incbin.o
-      1318         10          0          0         21       2453   led_app.o
-       298          0          0          0          0       2062   list.o
-       780          0         63          0        732       8795   main.o
-      1080          0          0          0        572       7908   memory.o
-       236          0          0          0       1035       5202   nbiot_app.o
-       814          0        203          0         16      14754   peripherals.o
-      2380          0         56          0          0      26975   pin_mux.o
-       648          0          0          4          0       2422   port.o
-       174         16          0          0          0       1285   portasm.o
-     12164         96        237          2          8      15117   protocol.o
-      2268          0          0          0         64      12655   queue.o
-       210          0         39          0          0       1950   retarget_io.o
-      1500         12          0          0          0       2987   si5351_drv.o
-      1114          0          2          0          0       3651   soft_iic_drv.o
+      1318         10          0          0         21       2460   led_app.o
+       298          0          0          0          0       2069   list.o
+       780          0         63          0        732       8802   main.o
+      1080          0          0          0        572       7915   memory.o
+       236          0          0          0       1035       5209   nbiot_app.o
+       814          0        203          0         16      14761   peripherals.o
+      2380          0         56          0          0      26982   pin_mux.o
+       648          0          0          4          0       2429   port.o
+       174         16          0          0          0       1292   portasm.o
+     12164         96        237          2          8      15124   protocol.o
+      2268          0          0          0         64      12662   queue.o
+       210          0         39          0          0       1967   retarget_io.o
+      1500         12          0          0          0       2994   si5351_drv.o
+      1114          0          2          0          0       3658   soft_iic_drv.o
        556        272        304          0          0       2883   startup_lpc55s69_cm33_core0.o
-        94          0          0          4          0       9736   system_lpc55s69_cm33_core0.o
-      4398          6          5          0        260      20093   tasks.o
-      1580         10         13          0         60       8385   timers.o
-      1164          0          0          2       4096       5261   w25q128_drv.o
+        94          0          0          4          0       9743   system_lpc55s69_cm33_core0.o
+      4398          6          5          0        260      20100   tasks.o
+      1580         10         13          0         60       8392   timers.o
+      1164          0          0          2       4096       5268   w25q128_drv.o
 
     ----------------------------------------------------------------------
-     69516       4798       2892         64     197856     497304   Object Totals
+     69516       4798       2892         64     197856     497646   Object Totals
          0          0         32          0       4096          0   (incl. Generated)
        426         16         13          4        659          0   (incl. Padding)
 
@@ -8955,8 +9928,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     78672       5072       3028         84     197856     499428   Grand Totals
-     78672       5072       3028         84     197856     499428   ELF Image Totals
+     78672       5072       3028         84     197856     499770   Grand Totals
+     78672       5072       3028         84     197856     499770   ELF Image Totals
      78672       5072       3028         84          0          0   ROM Totals
 
 ==============================================================================

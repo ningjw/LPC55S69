@@ -46,16 +46,16 @@
  */
 
 /*! @brief HID instance count */
-#define USB_DEVICE_CONFIG_HID (0U)
+#define USB_DEVICE_CONFIG_HID (1U)
 
 /*! @brief CDC ACM instance count */
-#define USB_DEVICE_CONFIG_CDC_ACM (1U)
+#define USB_DEVICE_CONFIG_CDC_ACM (0U)
 
 /*! @brief MSC instance count */
 #define USB_DEVICE_CONFIG_MSC (0U)
 
 /*! @brief Audio instance count */
-#define USB_DEVICE_CONFIG_AUDIO (0U)
+#define USB_DEVICE_CONFIG_AUDIO (2U)
 
 /*! @brief PHDC instance count */
 #define USB_DEVICE_CONFIG_PHDC (0U)
@@ -78,7 +78,7 @@
 #define USB_DEVICE_CONFIG_SELF_POWER (1U)
 
 /*! @brief How many endpoints are supported in the stack. */
-#define USB_DEVICE_CONFIG_ENDPOINTS (4U)
+#define USB_DEVICE_CONFIG_ENDPOINTS (5U)
 
 /*! @brief Whether the device task is enabled. */
 #define USB_DEVICE_CONFIG_USE_TASK (0U)
