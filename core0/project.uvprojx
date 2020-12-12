@@ -338,7 +338,7 @@
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
               <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy</IncludePath>
+              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy;..\token\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -791,6 +791,31 @@
               <FileName>usb_device_lpcip3511.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\usb\device\usb_device_lpcip3511.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>token</GroupName>
+          <Files>
+            <File>
+              <FileName>base64.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\token\src\base64.c</FilePath>
+            </File>
+            <File>
+              <FileName>hmac_sha1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\token\src\hmac_sha1.c</FilePath>
+            </File>
+            <File>
+              <FileName>md5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\token\src\md5.c</FilePath>
+            </File>
+            <File>
+              <FileName>ota.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\token\src\ota.c</FilePath>
             </File>
           </Files>
         </Group>

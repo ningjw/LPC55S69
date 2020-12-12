@@ -60,8 +60,8 @@
 #endif
 
 
-#define SOFT_VERSION       "0.16"
-#define HARD_VERSION       "1.1"
+#define SOFT_VERSION       "1.0.0"
+#define HARD_VERSION       "1.0.0"
 
 #define CORE1_START_ADDR    0x00008000     // core1代码起始地址
 #define CORE0_START_ADDR    0x00010000	   // core0代码起始地址

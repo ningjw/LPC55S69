@@ -266,7 +266,7 @@ static char * SetSamplePara(cJSON *pJson, cJSON * pSub)
         if (NULL != pSub) {
             g_adc_set.DetectType = pSub->valueint;
         }
-        pSub = cJSON_GetObjectItem(pJson, "S");
+        pSub = cJSON_GetObjectItem(pJson, "ST");
         if (NULL != pSub) {
             g_adc_set.Senstivity = pSub->valuedouble;
         }
@@ -459,7 +459,7 @@ SEND_DATA:
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
         cJSON_AddNumberToObject(pJsonRoot, "DT", g_adc_set.DetectType);
-        cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
+        cJSON_AddNumberToObject(pJsonRoot, "ST", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);
         cJSON_AddStringToObject(pJsonRoot, "EU", g_adc_set.EU);
@@ -885,7 +885,7 @@ static char * SetSampleParaByWifi(cJSON *pJson, cJSON * pSub)
     if (NULL != pSub) {
         g_adc_set.DetectType = pSub->valueint;
     }
-    pSub = cJSON_GetObjectItem(pJson, "S");
+    pSub = cJSON_GetObjectItem(pJson, "ST");
     if (NULL != pSub) {
         g_adc_set.Senstivity = pSub->valuedouble;
     }
@@ -1010,7 +1010,7 @@ SEND_DATA:
         cJSON_AddStringToObject(pJsonRoot, "SU", g_adc_set.SpeedUnits);
         cJSON_AddStringToObject(pJsonRoot, "PU", g_adc_set.ProcessUnits);
         cJSON_AddNumberToObject(pJsonRoot, "DT", g_adc_set.DetectType);
-        cJSON_AddNumberToObject(pJsonRoot, "S", g_adc_set.Senstivity);
+        cJSON_AddNumberToObject(pJsonRoot, "ST", g_adc_set.Senstivity);
         cJSON_AddNumberToObject(pJsonRoot, "ZD", g_adc_set.Zerodrift);
         cJSON_AddNumberToObject(pJsonRoot, "ET", g_adc_set.EUType);
         cJSON_AddStringToObject(pJsonRoot, "EU", g_adc_set.EU);
