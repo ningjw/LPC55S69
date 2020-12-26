@@ -101,8 +101,7 @@
 
 #define SET_COMMOND_MODE()       GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 1);
 #define SET_THROUGHPUT_MODE()    GPIO_PinWrite(GPIO, BOARD_BT_MODE_PORT, BOARD_BT_MODE_PIN, 0);
-#define BLE_POWER_ON()           GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 1);
-#define BLE_RESET()              GPIO_PinWrite(GPIO, BOARD_BT_PWR_EN_PORT, BOARD_BT_PWR_EN_PIN, 0);
+
 #define BLE_RTS_LEVEL()          GPIO_PinRead(GPIO, BOARD_BT_RTS_PORT, BOARD_BT_RTS_PIN)
 
 #define PWR_ADC_ON               GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
@@ -111,8 +110,14 @@
 #define PWR_NB_ON                GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 0)
 #define PWR_NB_OFF               GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 1)
 
+#define PWR_WIFI_ON              GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 1);
+#define PWR_WIFI_OFF             GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 0);
+
 #define PWR_5V_ON                GPIO_PinWrite(GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, 1)
 #define PWR_5V_OFF               GPIO_PinWrite(GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, 0)
+
+#define READ_MCU_CTS             GPIO_PinRead(GPIO, BOARD_WIFI_CTS_PORT, BOARD_WIFI_CTS_PIN)
+
 
 typedef struct{
 	uint32_t totalAdcInfo;

@@ -16,6 +16,7 @@
 ".\objects\w25q128_drv.o"
 ".\objects\soft_iic_drv.o"
 ".\objects\iic_tp100_drv.o"
+".\objects\fsl_i2s_dma.o"
 ".\objects\clock_config.o"
 ".\objects\peripherals.o"
 ".\objects\pin_mux.o"
@@ -57,8 +58,11 @@
 ".\objects\fsl_powerquad_transform.o"
 ".\objects\fsl_powerquad_matrix.o"
 ".\objects\generic_list.o"
+".\objects\fsl_i2s.o"
 ".\objects\audio_unified.o"
 ".\objects\usb_device_descriptor.o"
+".\objects\composite.o"
+".\objects\hid_keyboard.o"
 ".\objects\usb_phy.o"
 ".\objects\usb_device_hid.o"
 ".\objects\usb_device_audio.o"
@@ -71,11 +75,16 @@
 ".\objects\hmac_sha1.o"
 ".\objects\md5.o"
 ".\objects\ota.o"
+".\objects\fsl_codec_common.o"
+".\objects\fsl_wm8904.o"
+".\objects\fsl_codec_adapter.o"
+".\objects\fsl_codec_i2c.o"
+".\objects\flexcomm_i2c_adapter.o"
 ".\objects\eventrecorder.o"
 ".\objects\retarget_io.o"
 ".\objects\startup_lpc55s69_cm33_core0.o"
 ".\objects\system_lpc55s69_cm33_core0.o"
 --library_type=microlib --diag_suppress 6314 --strict --scatter ".\LPC55S69_cm33_core0_flash.scf"
-./keil_lib_power_cm33_core0.lib --remove --keep=*(.m0code) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+./keil_lib_power_cm33_core0.lib --remove --keep=*(.m0code) --predefine="-D__stack_size__=0x2000" --predefine="-D__heap_size__=0x100" --predefine="-D__usb_use_usbram__=1" --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\core0.map" -o .\Objects\core0.axf

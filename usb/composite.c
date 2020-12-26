@@ -40,6 +40,15 @@
 #include "fsl_codec_adapter.h"
 #include "fsl_gint.h"
 #include "fsl_codec_common.h"
+
+#include "peripherals.h"
+#define BOARD_CODEC_I2C_BASEADDR I2C4
+#define BOARD_CODEC_I2C_CLOCK_FREQ 12000000
+#define BOARD_CODEC_I2C_INSTANCE 4
+#define BOARD_SW1_NAME "SW1"
+#define BOARD_SW1_GPIO_PORT 0U
+#define BOARD_SW1_GPIO_PIN 5U
+#define BOARD_DEBUG_UART_CLK_ATTACH kFRO12M_to_FLEXCOMM0
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -58,6 +67,8 @@
 /* Select one input, active low for GINT0 */
 #define DEMO_GINT0_POL_MASK ~(1U << BOARD_SW1_GPIO_PIN)
 #define DEMO_GINT0_ENA_MASK (1U << BOARD_SW1_GPIO_PIN)
+
+
 
 /*******************************************************************************
  * Prototypes
@@ -334,7 +345,7 @@ void Init_Board_Audio(void)
     BOARD_USB_AUDIO_KEYBOARD_Init();
 
     BOARD_USB_Audio_TxRxInit(AUDIO_SAMPLING_RATE);
-    BOARD_Codec_Init();
+    //BOARD_Codec_Init();
     BOARD_DMA_EDMA_Config();
     BOARD_DMA_EDMA_Start();
 }
@@ -592,7 +603,7 @@ void APPInit(void)
         USB_DeviceHidKeyboardInit(&g_composite);
     }
 
-    Init_Board_Audio();
+    //Init_Board_Audio();
 
     USB_DeviceIsrEnable();
 
@@ -654,8 +665,38 @@ void APPTask(void *handle)
     }
 }
 
+/*******************************************************************************
+ * Code for BOARD_BootClockFROHF96M configuration
+ ******************************************************************************/
+void BOARD_BootClockFROHF96M(void)
+{
+#ifndef SDK_SECONDARY_CORE
+    /*!< Set up the clock sources */
+    /*!< Configure FRO192M */
+    POWER_DisablePD(kPDRUNCFG_PD_FRO192M); /*!< Ensure FRO is on  */
+    CLOCK_SetupFROClocking(12000000U);     /*!< Set up FRO to the 12 MHz, just for sure */
+    CLOCK_AttachClk(kFRO12M_to_MAIN_CLK);  /*!< Switch to FRO 12MHz first to ensure we can change the clock setting */
+
+    CLOCK_SetupFROClocking(96000000U); /* Enable FRO HF(96MHz) output */
+
+    POWER_SetVoltageForFreq(
+        96000000U); /*!< Set voltage for the one of the fastest clock outputs: System clock output */
+    CLOCK_SetFLASHAccessCyclesForFreq(96000000U); /*!< Set FLASH wait states for core */
+
+    /*!< Set up dividers */
+    CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false); /*!< Set AHBCLKDIV divider to value 1 */
+
+    /*!< Set up clock selectors - Attach clocks to the peripheries */
+    CLOCK_AttachClk(kFRO_HF_to_MAIN_CLK); /*!< Switch MAIN_CLK to FRO_HF */
+
+    /*< Set SystemCoreClock variable. */
+    SystemCoreClock = 96000000U;
+#endif
+}
+extern void FLEXCOMM5_init(void);
+
 #if defined(__CC_ARM) || (defined(__ARMCC_VERSION)) || defined(__GNUC__)
-int main(void)
+int main_(void)
 #else
 void main(void)
 #endif
@@ -721,9 +762,8 @@ void main(void)
 
     /* Initialize the rest */
     BOARD_InitPins();
-    BOARD_BootClockFROHF96M();
-    BOARD_InitDebugConsole();
-
+	BOARD_BootClockFROHF96M();
+	FLEXCOMM5_init();
     /* Set shared signal set 0: SCK, WS from Flexcomm1 */
     SYSCTL->SHAREDCTRLSET[0] |= 0X77;
     ;
@@ -783,7 +823,7 @@ void main(void)
         return;
 #endif
     }
-
+	
     vTaskStartScheduler();
 
 #if (defined(__CC_ARM) || (defined(__ARMCC_VERSION)) || defined(__GNUC__))

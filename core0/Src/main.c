@@ -21,11 +21,10 @@ void main(void)
 	
 	memory_init();
 	SPI_Flash_Init();
-	
 	InitSysPara();
-	PQ_Init(POWERQUAD);
-	printf("app start\n");
 
+	printf("app start\n");
+	
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
     
@@ -40,7 +39,7 @@ void main(void)
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
 #endif
-	
+
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
@@ -131,7 +130,6 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
-
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
@@ -145,7 +143,6 @@ void UTICK0_Callback(void)
 
 int fputc(int ch, FILE* stream)
 {
-	return ch;
     while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
 	USART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);
     return ch;

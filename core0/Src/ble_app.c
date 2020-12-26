@@ -27,6 +27,34 @@ void FLEXCOMM3_SendStr(const char *str)
 	USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, (uint8_t *)str, strlen(str));
 }
 #ifdef WIFI_VERSION
+
+/*****************************************************************
+* 功能：发送AT指令
+* 输入: send_buf:发送的字符串
+		recv_str：期待回令中包含的子字符串
+        p_at_cfg：AT配置
+* 输出：执行结果代码
+******************************************************************/
+uint8_t WIFI_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
+{
+    uint8_t try_cnt = 0;
+	g_flexcomm3RxCnt = 0;
+	memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
+retry:
+    FLEXCOMM3_SendStr(cmd);//发送AT指令
+    /*wait resp_time*/
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, time_out);
+    //接收到的数据中包含响应的数据
+    if(strstr((char *)g_flexcomm3Buf, recv_str) != NULL) {
+        return true;
+    } else {
+        if(try_cnt++ > 3) {
+            return false;
+        }
+        goto retry;//重试
+    }
+}
+
 /***************************************************************************************
   * @brief   设置WIFI模块为Ap工作模式
   * @input   
@@ -34,38 +62,27 @@ void FLEXCOMM3_SendStr(const char *str)
 ***************************************************************************************/
 void WIFI_Init(void)
 {
-	FLEXCOMM3_SendStr("+++");
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 300);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("a");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 300);/*wait task notify*/
-	
-//	FLEXCOMM3_SendStr("AT+RELD\r\n");
-//	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 1000);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("AT+E=off\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);
-	
-	FLEXCOMM3_SendStr("AT+WMODE=AP\r\n");
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("AT+WAP=USR-C322-,88888888\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("AT+CHANNEL=1\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("AT+LANN=192.168.1.1,255.255.255.0\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
-	
-	FLEXCOMM3_SendStr("AT+SOCKA=TCPS,192.168.1.1,8899\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
-	
-//	FLEXCOMM3_SendStr("AT+WKMOD=TRANS\r\n");
-//	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
+	WIFI_SendCmd("+++", "a", 100);
 
-	FLEXCOMM3_SendStr("AT+ENTM\r\n");
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, 200);/*wait task notify*/
+	WIFI_SendCmd("a","OK", 100);
+
+	WIFI_SendCmd("AT+E=off\r\n","OK", 100);
+	
+	WIFI_SendCmd("AT+UART=115200,8,1,NONE,FC\r\n", "OK", 100);
+	
+	WIFI_SendCmd("AT+UARTTE\r\n", "OK", 100);
+	
+	WIFI_SendCmd("AT+WMODE=AP\r\n","OK", 100);
+
+	WIFI_SendCmd("AT+WAP=USR-C322-,88888888\r\n","OK", 100);
+	
+	WIFI_SendCmd("AT+CHANNEL=1\r\n", "OK", 100);
+
+	WIFI_SendCmd("AT+LANN=192.168.1.1,255.255.255.0\r\n", "OK", 100);
+
+	WIFI_SendCmd("AT+SOCKA=TCPS,192.168.1.1,8899\r\n", "OK", 100);
+
+	WIFI_SendCmd("AT+ENTM\r\n", "OK", 100);
 }
 #endif
 

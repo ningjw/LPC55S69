@@ -45,7 +45,8 @@ extern int DbgConsole_Printf(const char *fmt_s, ...);
 #define usb_echo printf
 #else
 //#define usb_echo DbgConsole_Printf
-#define usb_echo printf
+//#define usb_echo printf
+static void __inline usb_echo(const char *format, ... ) {return ;}
 #endif
 #else
 #define usb_echo

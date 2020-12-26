@@ -11,7 +11,7 @@
 #include "fsl_device_registers.h"
 #include "fsl_common.h"
 #include "fsl_flexcomm.h"
-
+#include "fsl_i2s.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

@@ -335,10 +335,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
-              <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS,</Define>
+              <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access</MiscControls>
+              <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=16384,</Define>
               <Undefine></Undefine>
-              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy;..\token\inc</IncludePath>
+              <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy;..\token\inc;..\codec\i2c;..\codec\wm8904;..\codec\port;..\codec</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -372,7 +372,7 @@
             <ScatterFile>.\LPC55S69_cm33_core0_flash.scf</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>./keil_lib_power_cm33_core0.lib --remove  --keep=*(.m0code)</Misc>
+            <Misc>./keil_lib_power_cm33_core0.lib --remove  --keep=*(.m0code) --predefine="-D__stack_size__=0x2000" --predefine="-D__heap_size__=0x100" --predefine="-D__usb_use_usbram__=1"</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings>6314</DisabledWarnings>
           </LDads>
@@ -476,6 +476,11 @@
               <FileName>iic_tp100_drv.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\iic_tp100_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_i2s_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_i2s_dma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -722,6 +727,11 @@
               <FileType>1</FileType>
               <FilePath>..\drivers\generic_list.c</FilePath>
             </File>
+            <File>
+              <FileName>fsl_i2s.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_i2s.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -746,6 +756,16 @@
               <FileName>usb_device_descriptor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\usb\usb_device_descriptor.c</FilePath>
+            </File>
+            <File>
+              <FileName>composite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\composite.c</FilePath>
+            </File>
+            <File>
+              <FileName>hid_keyboard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\hid_keyboard.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -820,6 +840,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>codec</GroupName>
+          <Files>
+            <File>
+              <FileName>fsl_codec_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\codec\fsl_codec_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_wm8904.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\codec\wm8904\fsl_wm8904.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_codec_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\codec\port\wm8904\fsl_codec_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_codec_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\codec\i2c\fsl_codec_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>flexcomm_i2c_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\codec\i2c\flexcomm_i2c_adapter.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
@@ -864,7 +914,7 @@
       <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
         <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
         <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" condition="Cortex-M Device"/>
-        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.2"/>
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
         <targetInfos>
           <targetInfo name="core0"/>
         </targetInfos>

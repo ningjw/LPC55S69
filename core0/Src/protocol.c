@@ -7,7 +7,7 @@ extern AdcInfo adcInfo;
 
 rtc_datetime_t sampTime;
 
-uint16_t ble_wait_time = 80;
+uint16_t ble_wait_time = 6;
 
 /***************************************************************************************
   * @brief   
@@ -1039,7 +1039,6 @@ SEND_DATA:
         cJSON_AddNumberToObject(pJsonRoot, "Min", sampTime.minute);
         cJSON_AddNumberToObject(pJsonRoot, "S", sampTime.second);
         p_reply = cJSON_PrintUnformatted(pJsonRoot);
-		cJSON_Delete(pJsonRoot);
         break;
     default:
         memset(g_flexcomm3TxBuf, 0, FLEXCOMM3_BUFF_LEN);
@@ -1075,8 +1074,10 @@ SEND_DATA:
 		g_flexcomm3TxBuf[i++] = 0xED;
         break;
     }
-    
 	g_sys_para.inactiveCount = 0;
+	printf("sid = %d\r\n",sid);
+	
+	while(READ_MCU_CTS);
 	
 	if(sid == 0){
 		FLEXCOMM3_SendStr((char *)p_reply);

@@ -20,6 +20,8 @@
 
 #include "fsl_device_registers.h"
 #include "clock_config.h"
+//#include "board.h"
+//#include "fsl_debug_console.h"
 #include <stdio.h>
 #include <stdlib.h>
 /*******************************************************************************
@@ -66,7 +68,7 @@
 usb_status_t USB_DeviceAudioCallback(class_handle_t handle, uint32_t event, void *param);
 usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *param);
 
-//extern void BOARD_SetCodecMuteUnmute(bool);
+extern void BOARD_SetCodecMuteUnmute(bool);
 #if defined(USB_DEVICE_AUDIO_USE_SYNC_MODE) && (USB_DEVICE_AUDIO_USE_SYNC_MODE > 0U)
 extern void SCTIMER_CaptureInit(void);
 #endif
@@ -626,7 +628,8 @@ usb_status_t USB_DeviceAudioCompositeCallback(class_handle_t handle, uint32_t ev
 
                         USB_AudioRecorderGetBuffer(audioRecPacket, epPacketSize);
 
-                        error = USB_DeviceAudioSend(g_deviceAudioComposite->audioUnified.audioRecorderHandle,
+                        error =
+                            USB_DeviceAudioSend(g_deviceAudioComposite->audioUnified.audioRecorderHandle,
                                                 USB_AUDIO_RECORDER_STREAM_ENDPOINT, &audioRecPacket[0], epPacketSize);
 #endif
 
@@ -875,14 +878,14 @@ void USB_AudioCodecTask(void)
     if (g_deviceAudioComposite->audioUnified.codecTask & MUTE_CODEC_TASK)
     {
         usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute);
-        //BOARD_SetCodecMuteUnmute(true);
+        BOARD_SetCodecMuteUnmute(true);
         g_deviceAudioComposite->audioUnified.codecTask &= ~MUTE_CODEC_TASK;
         g_CodecMuteUnmute = true;
     }
     if (g_deviceAudioComposite->audioUnified.codecTask & UNMUTE_CODEC_TASK)
     {
         usb_echo("Set Cur Mute : %x\r\n", g_deviceAudioComposite->audioUnified.curMute);
-        //BOARD_SetCodecMuteUnmute(false);
+        BOARD_SetCodecMuteUnmute(false);
         g_deviceAudioComposite->audioUnified.codecTask &= ~UNMUTE_CODEC_TASK;
         g_CodecMuteUnmute = true;
     }

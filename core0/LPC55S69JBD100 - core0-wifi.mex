@@ -55,8 +55,8 @@
                <pin_label pin_num="F9" pin_signal="PIO1_30/FC7_TXD_SCL_MISO_WS/SD0_D7/SCT_GPI7/USB1_OVERCURRENTN/USB1_LEDN/PLU_IN1" label="BT_STATUS" identifier="BT_STATUS"/>
                <pin_label pin_num="B11" pin_signal="PIO0_2/FC3_TXD_SCL_MISO_WS/CT_INP1/SCT0_OUT0/SCT_GPI2/SECURE_GPIO0_2" label="BT_TXD" identifier="BT_TXD"/>
                <pin_label pin_num="F8" pin_signal="PIO0_3/FC3_RXD_SDA_MOSI_DATA/CTIMER0_MAT1/SCT0_OUT1/SCT_GPI3/SECURE_GPIO0_3" label="BT_RXD" identifier="BT_RXD"/>
-               <pin_label pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5" label="BT_RTS" identifier="BT_RTS"/>
-               <pin_label pin_num="E7" pin_signal="PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4" label="BT_RTS" identifier="BT_CTS;BT_RTS"/>
+               <pin_label pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5" label="WIFI_CTS" identifier="BT_RTS;WIFI_CTS;MCU_RTS"/>
+               <pin_label pin_num="E7" pin_signal="PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4" label="WIFI_RTS" identifier="BT_CTS;BT_RTS;WIFI_RTS;MCU_CTS"/>
                <pin_label pin_num="B8" pin_signal="PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN" label="BT_RST" identifier="BT_RST"/>
                <pin_label pin_num="E8" pin_signal="PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4" label="BT_MODE" identifier="BT_MODE"/>
                <pin_label pin_num="E12" pin_signal="PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24" label="PWR_OFF" identifier="PWR_OFF"/>
@@ -371,8 +371,8 @@
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 4" pin_num="E7" pin_signal="PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4">
                      <pin_features>
-                        <pin_feature name="identifier" value="BT_RTS"/>
-                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="identifier" value="WIFI_RTS"/>
+                        <pin_feature name="direction" value="OUTPUT"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="FLEXCOMM0" signal="TXD_SCL_MISO_WS" pin_num="E5" pin_signal="PIO0_30/FC0_TXD_SCL_MISO_WS/SD1_D3/CTIMER0_MAT0/SCT0_OUT9/SECURE_GPIO0_30">
@@ -424,6 +424,13 @@
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
                         <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIO" signal="PIO0, 5" pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5">
+                     <pin_features>
+                        <pin_feature name="identifier" value="WIFI_CTS"/>
+                        <pin_feature name="direction" value="INPUT"/>
+                        <pin_feature name="mode" value="pullDown"/>
                      </pin_features>
                   </pin>
                </pins>
@@ -717,6 +724,16 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="ClockOutput" resourceId="FXCOM5_clock" description="FXCOM5 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="frequency" evaluation="greaterThan">
+                        <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM5.usart_txd" description="Signal TX of the peripheral FLEXCOMM5 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM6.spi_miso" description="Signal SPI master data in, slave data out of the peripheral FLEXCOMM6 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
@@ -755,16 +772,6 @@
                   <dependency resourceType="ClockOutput" resourceId="UTICK_clock" description="UTICK_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="FXCOM5_clock" description="FXCOM5 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM5.usart_txd" description="Signal TX of the peripheral FLEXCOMM5 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
                      </feature>
                   </dependency>
                </dependencies>
@@ -975,6 +982,26 @@
                         </struct>
                      </config_set>
                   </instance>
+                  <instance name="FLEXCOMM5" uuid="23004517-4fe0-4cf1-a889-342324ea2999" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM5" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="usartConfig_t">
+                        <struct name="usartConfig">
+                           <setting name="clockSource" value="FXCOMFunctionClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                           <setting name="baudRate_Bps" value="115200"/>
+                           <setting name="syncMode" value="kUSART_SyncModeDisabled"/>
+                           <setting name="parityMode" value="kUSART_ParityDisabled"/>
+                           <setting name="stopBitCount" value="kUSART_OneStopBit"/>
+                           <setting name="bitCountPerChar" value="kUSART_8BitsPerChar"/>
+                           <setting name="loopback" value="false"/>
+                           <setting name="txWatermark" value="kUSART_TxFifo0"/>
+                           <setting name="rxWatermark" value="kUSART_RxFifo1"/>
+                           <setting name="enableRx" value="false"/>
+                           <setting name="enableTx" value="true"/>
+                           <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
+                           <setting name="enableContinuousSCLK" value="false"/>
+                        </struct>
+                     </config_set>
+                  </instance>
                   <instance name="FLEXCOMM6" uuid="cec43cb7-6788-45fa-9b4c-5cd0a429de7b" type="flexcomm_spi" type_id="flexcomm_spi_481dadba00035f986f31ed9ac95af181" mode="SPI_Polling" peripheral="FLEXCOMM6" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="fsl_spi">
                         <setting name="spi_mode" value="kSPI_Master"/>
@@ -1076,26 +1103,6 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="FLEXCOMM5" uuid="23004517-4fe0-4cf1-a889-342324ea2999" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM5" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="usartConfig_t">
-                        <struct name="usartConfig">
-                           <setting name="clockSource" value="FXCOMFunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="baudRate_Bps" value="115200"/>
-                           <setting name="syncMode" value="kUSART_SyncModeDisabled"/>
-                           <setting name="parityMode" value="kUSART_ParityDisabled"/>
-                           <setting name="stopBitCount" value="kUSART_OneStopBit"/>
-                           <setting name="bitCountPerChar" value="kUSART_8BitsPerChar"/>
-                           <setting name="loopback" value="false"/>
-                           <setting name="txWatermark" value="kUSART_TxFifo0"/>
-                           <setting name="rxWatermark" value="kUSART_RxFifo1"/>
-                           <setting name="enableRx" value="false"/>
-                           <setting name="enableTx" value="true"/>
-                           <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
-                           <setting name="enableContinuousSCLK" value="false"/>
-                        </struct>
-                     </config_set>
-                  </instance>
                </instances>
             </functional_group>
          </functional_groups>
@@ -1103,7 +1110,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="6c12b347-b4a5-476c-8445-3faa516d975d" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="82a285ff-58da-400f-8fc5-c41446e9ed07" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

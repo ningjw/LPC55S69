@@ -107,12 +107,8 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 3. */
 #define PIO0_1_FUNC_ALT3 0x03u
 /*!
- * @brief
- * Selects function mode (on-chip pull-up/pull-down resistor control).
- * : Inactive.
- * Inactive (no pull-down/pull-up resistor enabled).
- */
-#define PIO0_1_MODE_INACTIVE 0x00u
+ * @brief Selects function mode (on-chip pull-up/pull-down resistor control).: Pull-up. Pull-up resistor enabled. */
+#define PIO0_1_MODE_PULL_UP 0x02u
 /*!
  * @brief Controls open-drain mode.: Normal. Normal push-pull output */
 #define PIO0_1_OD_NORMAL 0x00u
@@ -225,6 +221,12 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_4_FUNC_ALT0 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO0_5_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO0_5_FUNC_ALT0 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_7_DIGIMODE_DIGITAL 0x01u
@@ -668,12 +670,12 @@ void BOARD_InitBootPins(void);
 #define BOARD_FLASH_WP_PIN 17U   /*!<@brief 1U pin index: 17 */
                                  /* @} */
 
-/*! @name PIO0_4 (coord E7), BT_RTS
+/*! @name PIO0_4 (coord E7), WIFI_RTS
   @{ */
-#define BOARD_BT_RTS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_BT_RTS_PORT 0U   /*!<@brief PORT device name: 0U */
-#define BOARD_BT_RTS_PIN 4U    /*!<@brief 0U pin index: 4 */
-                               /* @} */
+#define BOARD_WIFI_RTS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_WIFI_RTS_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_WIFI_RTS_PIN 4U    /*!<@brief 0U pin index: 4 */
+                                 /* @} */
 
 /*! @name PIO0_30 (coord E5), ADC_MISO
   @{ */
@@ -730,6 +732,13 @@ void BOARD_InitBootPins(void);
 #define BOARD_selFREQ_PORT 1U   /*!<@brief PORT device name: 1U */
 #define BOARD_selFREQ_PIN 9U    /*!<@brief 1U pin index: 9 */
                                 /* @} */
+
+/*! @name PIO0_5 (coord A7), WIFI_CTS
+  @{ */
+#define BOARD_WIFI_CTS_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_WIFI_CTS_PORT 0U   /*!<@brief PORT device name: 0U */
+#define BOARD_WIFI_CTS_PIN 5U    /*!<@brief 0U pin index: 5 */
+                                 /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

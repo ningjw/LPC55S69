@@ -228,8 +228,7 @@ void ADC_AppTask(void)
             /* 完成采样事件*/
             if(r_event & NOTIFY_FINISH) {
 				/* ---------------将震动信号转换-----------------------*/
-#if 1
-
+#if 0
 				float tempValue = 0;
                 for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
 					if((uint32_t)ShakeADC[i] < 0x800000){

@@ -30,9 +30,9 @@
 #define usb_bdt_size                   0x0
 /* Sizes */
 
-#define Stack_Size                   0x800
+#define Stack_Size                   0x1000
 
-#define Heap_Size                    0x800
+#define Heap_Size                    0x1800
 
 #define  m_core1_image_start           0x00008000
 #define  m_core1_image_size            0x00008000
