@@ -228,13 +228,6 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_5_FUNC_ALT0 0x00u
 /*!
- * @brief
- * Selects function mode (on-chip pull-up/pull-down resistor control).
- * : Pull-down.
- * Pull-down resistor enabled.
- */
-#define PIO0_5_MODE_PULL_DOWN 0x01u
-/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_7_DIGIMODE_DIGITAL 0x01u
 /*!

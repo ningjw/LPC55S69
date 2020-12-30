@@ -424,6 +424,59 @@ void FLEXCOMM3_init(void) {
 }
 
 /***********************************************************************************************************************
+ * FLEXCOMM5 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'FLEXCOMM5'
+- type: 'flexcomm_usart'
+- mode: 'polling'
+- custom_name_enabled: 'false'
+- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'FLEXCOMM5'
+- config_sets:
+  - usartConfig_t:
+    - usartConfig:
+      - clockSource: 'FXCOMFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+      - baudRate_Bps: '115200'
+      - syncMode: 'kUSART_SyncModeDisabled'
+      - parityMode: 'kUSART_ParityDisabled'
+      - stopBitCount: 'kUSART_OneStopBit'
+      - bitCountPerChar: 'kUSART_8BitsPerChar'
+      - loopback: 'false'
+      - txWatermark: 'kUSART_TxFifo0'
+      - rxWatermark: 'kUSART_RxFifo1'
+      - enableRx: 'false'
+      - enableTx: 'true'
+      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
+      - enableContinuousSCLK: 'false'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+const usart_config_t FLEXCOMM5_config = {
+  .baudRate_Bps = 115200,
+  .syncMode = kUSART_SyncModeDisabled,
+  .parityMode = kUSART_ParityDisabled,
+  .stopBitCount = kUSART_OneStopBit,
+  .bitCountPerChar = kUSART_8BitsPerChar,
+  .loopback = false,
+  .txWatermark = kUSART_TxFifo0,
+  .rxWatermark = kUSART_RxFifo1,
+  .enableRx = false,
+  .enableTx = true,
+  .clockPolarity = kUSART_RxSampleOnFallingEdge,
+  .enableContinuousSCLK = false
+};
+
+void FLEXCOMM5_init(void) {
+  /* Reset FLEXCOMM device */
+  RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
+  USART_Init(FLEXCOMM5_PERIPHERAL, &FLEXCOMM5_config, FLEXCOMM5_CLOCK_SOURCE);
+}
+
+/***********************************************************************************************************************
  * FLEXCOMM6 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -615,59 +668,6 @@ void UTICK0_init(void) {
 }
 
 /***********************************************************************************************************************
- * FLEXCOMM5 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM5'
-- type: 'flexcomm_usart'
-- mode: 'polling'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM5'
-- config_sets:
-  - usartConfig_t:
-    - usartConfig:
-      - clockSource: 'FXCOMFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - baudRate_Bps: '115200'
-      - syncMode: 'kUSART_SyncModeDisabled'
-      - parityMode: 'kUSART_ParityDisabled'
-      - stopBitCount: 'kUSART_OneStopBit'
-      - bitCountPerChar: 'kUSART_8BitsPerChar'
-      - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
-      - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'false'
-      - enableTx: 'true'
-      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
-      - enableContinuousSCLK: 'false'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const usart_config_t FLEXCOMM5_config = {
-  .baudRate_Bps = 115200,
-  .syncMode = kUSART_SyncModeDisabled,
-  .parityMode = kUSART_ParityDisabled,
-  .stopBitCount = kUSART_OneStopBit,
-  .bitCountPerChar = kUSART_8BitsPerChar,
-  .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
-  .rxWatermark = kUSART_RxFifo1,
-  .enableRx = false,
-  .enableTx = true,
-  .clockPolarity = kUSART_RxSampleOnFallingEdge,
-  .enableContinuousSCLK = false
-};
-
-void FLEXCOMM5_init(void) {
-  /* Reset FLEXCOMM device */
-  RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
-  USART_Init(FLEXCOMM5_PERIPHERAL, &FLEXCOMM5_config, FLEXCOMM5_CLOCK_SOURCE);
-}
-
-/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
@@ -683,11 +683,11 @@ void BOARD_InitPeripherals(void)
   FLEXCOMM0_init();
   FLEXCOMM2_init();
   FLEXCOMM3_init();
+  FLEXCOMM5_init();
   FLEXCOMM6_init();
   PINT_init();
   RTC_init();
   UTICK0_init();
-  FLEXCOMM5_init();
 }
 
 /***********************************************************************************************************************

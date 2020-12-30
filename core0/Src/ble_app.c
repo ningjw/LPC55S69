@@ -49,8 +49,10 @@ retry:
         return true;
     } else {
         if(try_cnt++ > 3) {
+			DEBUG_PRINTF("send AT cmd fail\r\n");
             return false;
         }
+		DEBUG_PRINTF("retry: %s\r\n",cmd);
         goto retry;//重试
     }
 }
@@ -62,6 +64,8 @@ retry:
 ***************************************************************************************/
 void WIFI_Init(void)
 {
+	vTaskDelay(2000);
+	
 	WIFI_SendCmd("+++", "a", 100);
 
 	WIFI_SendCmd("a","OK", 100);
@@ -73,7 +77,7 @@ void WIFI_Init(void)
 	WIFI_SendCmd("AT+UARTTE\r\n", "OK", 100);
 	
 	WIFI_SendCmd("AT+WMODE=AP\r\n","OK", 100);
-
+	
 	WIFI_SendCmd("AT+WAP=USR-C322-,88888888\r\n","OK", 100);
 	
 	WIFI_SendCmd("AT+CHANNEL=1\r\n", "OK", 100);
@@ -81,7 +85,7 @@ void WIFI_Init(void)
 	WIFI_SendCmd("AT+LANN=192.168.1.1,255.255.255.0\r\n", "OK", 100);
 
 	WIFI_SendCmd("AT+SOCKA=TCPS,192.168.1.1,8899\r\n", "OK", 100);
-
+	
 	WIFI_SendCmd("AT+ENTM\r\n", "OK", 100);
 }
 #endif
@@ -145,7 +149,7 @@ void BLE_Init(void)
 void BLE_WIFI_AppTask(void)
 {
     uint8_t xReturn = pdFALSE;
-    printf("BLE/WIFI Task Create and Running\r\n");
+    DEBUG_PRINTF("BLE/WIFI Task Create and Running\r\n");
     uint8_t* sendBuf = NULL;
 
 #ifdef BLE_VERSION
@@ -179,7 +183,7 @@ void BLE_WIFI_AppTask(void)
 			if( NULL != sendBuf )
             {
                 FLEXCOMM3_SendStr((char *)sendBuf);
-                printf("%s",sendBuf);
+                DEBUG_PRINTF("%s",sendBuf);
                 free(sendBuf);
                 sendBuf = NULL;
             }
@@ -200,7 +204,7 @@ void BLE_WIFI_AppTask(void)
 			cJSON_AddNumberToObject(pJsonRoot, "Id", id);
 			char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
 			FLEXCOMM3_SendStr(p_reply);
-			printf("%s", p_reply);
+			DEBUG_PRINTF("%s", p_reply);
 			
 			cJSON_Delete(pJsonRoot);
 			free(p_reply);
@@ -227,9 +231,9 @@ void FLEXCOMM3_TimeTick(void)
 		if(g_sys_para.BleWifiLedStatus == BLE_UPDATE){
 			if(g_flexcomm3RxTimeCnt >= 1000 ){
 				g_flexcomm3RxTimeCnt = 0;
-				printf("\nReceive time out\n", g_flexcomm3RxCnt);
+				DEBUG_PRINTF("\nReceive time out\n", g_flexcomm3RxCnt);
 				for(uint8_t i = 0;i<g_flexcomm3RxCnt; i++){
-					printf("%02x ",g_flexcomm3Buf[i]);
+					DEBUG_PRINTF("%02x ",g_flexcomm3Buf[i]);
 				}
 				xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
 			}
@@ -257,6 +261,10 @@ void FLEXCOMM3_IRQHandler(void)
     {
         /*读取数据*/
         ucTemp = USART_ReadByte(FLEXCOMM3_PERIPHERAL);
+		
+		while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
+		USART_WriteByte(FLEXCOMM5_PERIPHERAL, ucTemp);
+		
 		g_flexcomm3StartRx = true;
 		g_flexcomm3RxTimeCnt = 0;
 		g_sys_para.inactiveCount = 0;/* 接受到蓝牙数据就清0计数器*/

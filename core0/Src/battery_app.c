@@ -17,6 +17,9 @@ uint16_t temp;
   **********************************************************************/
 void BAT_AppTask(void)
 {
+	printf("delay>>");
+	vTaskDelay(3000);
+	printf("delay>>");
     // Enable auto measurement of battery voltage and temperature
     LTC2942_SetADCMode(LTC2942_ADC_AUTO);
 	
@@ -37,7 +40,7 @@ void BAT_AppTask(void)
 //		g_sys_para.batLedStatus = BAT_CHARGING;
 	}
 	
-    printf("Battery Task Create and Running\r\n");
+    DEBUG_PRINTF("Battery Task Create and Running\r\n");
 
     while(1)
     {

@@ -57,7 +57,7 @@ extern "C" {
 
 #include <stdint.h>
 
-#define DEFAULT_SYSTEM_CLOCK 12000000u /* Default System clock value */
+#define DEFAULT_SYSTEM_CLOCK 96000000u /* Default System clock value */
 #define CLK_RTC_32K_CLK 32768u         /* RTC oscillator 32 kHz output (32k_clk */
 #define CLK_FRO_12MHZ 12000000u        /* FRO 12 MHz (fro_12m) */
 #define CLK_FRO_48MHZ 48000000u        /* FRO 48 MHz (fro_48m) */

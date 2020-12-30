@@ -87,6 +87,8 @@ static float GetRMS(float data[],int len, int windowType)
 ***************************************************************************************/
 void ADC_SampleStart(void)
 {
+	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
+				g_sys_para.sampNumber,g_adc_set.SampleRate);
 	g_sys_para.tempCount = 0;
     g_adc_set.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
@@ -121,7 +123,7 @@ void ADC_SampleStart(void)
 		ADC_PwmClkStart(g_adc_set.SampleRate * 512, g_sys_para.Ltc1063Clk);
 	}
 
-	vTaskDelay(100);//等待500ms
+	vTaskDelay(1);//等待500ms
 	
 	//开始采集数据前获取一次温度
 	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
@@ -166,6 +168,7 @@ void ADC_SampleStart(void)
 ***************************************************************************************/
 void ADC_SampleStop(void)
 {
+	DEBUG_PRINTF("ADC_SampleStop \r\n");
 	/* Stop get temperature*/
 	g_sys_para.WorkStatus = false;
 	
@@ -216,7 +219,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
-    printf("ADC Task Create and Running\r\n");
+    DEBUG_PRINTF("ADC Task Create and Running\r\n");
 	TMP101_Init();
     while(1)
     {
@@ -236,7 +239,7 @@ void ADC_AppTask(void)
 					}else{
 						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
 					}
-					printf("%01.5f,",ShakeADC[i]);
+					DEBUG_PRINTF("%01.5f,",ShakeADC[i]);
                 }
 				
 				g_sys_para.shkRMS = GetRMS(ShakeADC, g_adc_set.shkCount, g_adc_set.WindowsType);

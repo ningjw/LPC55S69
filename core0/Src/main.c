@@ -23,7 +23,7 @@ void main(void)
 	SPI_Flash_Init();
 	InitSysPara();
 
-	printf("app start\n");
+	DEBUG_PRINTF("app start\n");
 	
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
@@ -39,7 +39,7 @@ void main(void)
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
 #endif
-
+ 
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
@@ -80,7 +80,7 @@ static void InitSysPara()
 
 void SystemSleep(void)
 {
-	printf("enter deep sleep\n");
+	DEBUG_PRINTF("enter deep sleep\n");
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
 	PWR_NB_OFF;
@@ -89,7 +89,7 @@ void SystemSleep(void)
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
-	printf("exit deep sleep\n");
+	DEBUG_PRINTF("exit deep sleep\n");
 }
 
 

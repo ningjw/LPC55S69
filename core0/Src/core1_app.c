@@ -67,7 +67,7 @@ void CORE1_AppTask(void)
     while (spd_msg == NULL){
 		vTaskDelay(10);
 	}
-	printf("core1 start, spd_msg=0x%x\r\n",spd_msg);
+	DEBUG_PRINTF("core1 start, spd_msg=0x%x\r\n",spd_msg);
 
 	vTaskDelete(CORE1_TaskHandle);
 }

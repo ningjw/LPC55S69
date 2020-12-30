@@ -7,7 +7,7 @@ extern AdcInfo adcInfo;
 
 rtc_datetime_t sampTime;
 
-uint16_t ble_wait_time = 6;
+uint16_t ble_wait_time = 8;
 
 /***************************************************************************************
   * @brief   
@@ -1211,7 +1211,7 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
         g_sys_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
         g_sys_para.firmCurrentAddr = app_data_addr+g_sys_para.firmPacksCount * FIRM_ONE_LEN;//
-//        printf("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
+        DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
         FLASH_SaveAppData(pMsg+4, g_sys_para.firmCurrentAddr, FIRM_ONE_LEN);
     }
 
@@ -1230,12 +1230,12 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 //		}
 
         crc = CRC16((uint8_t *)app_data_addr, g_sys_para.firmCore0Size);
-        printf("\nCRC=%d",crc);
+        DEBUG_PRINTF("\nCRC=%d",crc);
         if(crc != g_sys_para.firmCrc16) {
             g_sys_para.firmCore0Update = false;
             err_code = 2;
         } else {
-            printf("\nCRC Verify OK\n");
+            DEBUG_PRINTF("\nCRC Verify OK\n");
             g_sys_para.firmCore0Update = true;
         }
     }

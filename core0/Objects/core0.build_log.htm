@@ -22,11 +22,15 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69\core0\project.uvprojx
-Project File Date:  12/22/2020
+Project File Date:  12/29/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
-Build Project 'project' - Target 'core0'
+Build target 'core0'
+compiling battery_app.c...
+linking...
+Program Size: Code=55180 RO-data=1620 RW-data=72 ZI-data=204524  
+FromELF: creating hex file...
 After Build - User command #1: fromelf --bin ".\Objects\core0.axf" --output ".\core0.bin"
 ".\Objects\core0.axf" - 0 Error(s), 0 Warning(s).
 
@@ -64,21 +68,21 @@ Package Vendor: Keil
       Include file:  CMSIS\Core\Include\tz_context.h
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
+      Include file:  Include\EventRecorder.h
       Include file:  Config\EventRecorderConf.h
       Source file:   Source\EventRecorder.c
-      Include file:  Include\EventRecorder.h
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:Startup:1.0.0
       Source file:   arm\startup_LPC55S69_cm33_core0.s
-      Include file:  fsl_device_registers.h
       Include file:  LPC55S69_cm33_core0_features.h
+      Include file:  system_LPC55S69_cm33_core0.h
       Source file:   system_LPC55S69_cm33_core0.c
       Include file:  LPC55S69_cm33_core0.h
-      Include file:  system_LPC55S69_cm33_core0.h
-Build Time Elapsed:  00:00:01
+      Include file:  fsl_device_registers.h
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

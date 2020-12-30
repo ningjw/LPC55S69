@@ -123,6 +123,7 @@ void W25Q128_AddAdcData(void)
 	
 	//判断为首次上电运行
 	if(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){
+		DEBUG_PRINTF("%s: init adcInfoTotal\r\n",__func__);
 		//总数为初始化为0
 		adcInfoTotal.totalAdcInfo = 0;
 		//本次 AdcInfo 结构体保存地址
@@ -130,6 +131,9 @@ void W25Q128_AddAdcData(void)
 		//本次数据的开始地址
 		adcInfoTotal.addrOfNewData = ADC_DATA_ADDR;
 	}
+	
+	DEBUG_PRINTF("%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\r\n",__func__,
+	               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);
 	
 	//初始化 adcInfo 结构体 数据时间
 	sprintf(tempTime, "%d%02d%02d%02d%02d%02d", 
@@ -147,6 +151,8 @@ void W25Q128_AddAdcData(void)
 	if((adcInfo.AdcDataAddr + adcInfo.AdcDataLen) > SPI_FLASH_SIZE_BYTE){//判断地址是否超过flash范围
 		adcInfo.AdcDataAddr = ADC_DATA_ADDR;
 	}
+	
+	DEBUG_PRINTF("%s: AdcDataLen=%d, \r\n",__func__,adcInfo.AdcDataLen);
 	
 	//保存 adcInfo 结构体
 	SPI_Flash_Write((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
