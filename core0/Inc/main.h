@@ -186,7 +186,7 @@ typedef struct{
     
 	uint32_t tempCount;  //当前记录的温度个数
 	bool     WorkStatus; //用于指示当前是否正在采集.
-	uint8_t  BleInitFlag;
+	uint8_t  WifiBleInitFlag;
     char     fileName[20];
     char     earliestFile[20];
 }SysPara;

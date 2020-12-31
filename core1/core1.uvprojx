@@ -388,11 +388,6 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>clock_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\board\clock_config.c</FilePath>
-            </File>
-            <File>
               <FileName>pin_mux.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\board\pin_mux.c</FilePath>
@@ -839,11 +834,6 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>clock_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\board\clock_config.c</FilePath>
             </File>
             <File>
               <FileName>pin_mux.c</FileName>

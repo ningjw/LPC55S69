@@ -55,7 +55,6 @@ void main()
 	mcmgr_status_t status;
 	ctimer_config_t config;
 	
-	BOARD_InitBootClocks();
 	BOARD_InitPins();
 	
     config.input = kCTIMER_Capture_0;

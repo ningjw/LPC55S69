@@ -1077,7 +1077,7 @@ SEND_DATA:
 	g_sys_para.inactiveCount = 0;
 	printf("sid = %d\r\n",sid);
 	
-	while(READ_MCU_CTS);
+//	while(READ_MCU_CTS);
 	
 	if(sid == 0){
 		FLEXCOMM3_SendStr((char *)p_reply);
@@ -1269,10 +1269,11 @@ uint8_t* ParseProtocol(uint8_t *pMsg)
     if(NULL == pMsg) {
         return NULL;
     }
-
+	
     if(pMsg[0] == 0xE7 && pMsg[1] == 0xE7 ) { //为固件升级包
         return ParseFirmPacket(pMsg);
     } else { //为json数据包
+		DEBUG_PRINTF("%s: rev wifi data:\r\n%s\r\n",__func__,pMsg);
         return ParseJson((char *)pMsg);
     }
 }

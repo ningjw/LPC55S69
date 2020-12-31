@@ -42,11 +42,12 @@ void stop_spd_caputer(void)
 	MAILBOX_SetValue(MAILBOX, kMAILBOX_CM33_Core1, 2);
 }
 
-
 void MAILBOX_IRQHandler(void)
 {
 	spd_msg = (msg_t *)MAILBOX_GetValue(MAILBOX, kMAILBOX_CM33_Core0);
 	MAILBOX_ClearValueBits(MAILBOX, kMAILBOX_CM33_Core0, 0xffffffff);
+	DEBUG_PRINTF("rev core1 msg, len=%d, D[0]=%d, D[1]=%d \r\n",
+				spd_msg->len,spd_msg->spdData[0],spd_msg->spdData[1]);
 }
 
 void CORE1_AppTask(void)
@@ -59,7 +60,7 @@ void CORE1_AppTask(void)
 	
 	/* Copy Secondary core application from FLASH to the target memory. */
     memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, CORE1_IMAGE_SIZE);
-
+	
 	/* Boot Secondary core application */
 	start_secondary_core(CORE1_BOOT_ADDRESS);
 	

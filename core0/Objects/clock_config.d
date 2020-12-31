@@ -16,4 +16,5 @@
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \
   ..\drivers\fsl_clock.h ..\drivers\fsl_reset.h ..\drivers\fsl_clock.h \
-  board\clock_config.h ..\drivers\fsl_common.h
+  board\clock_config.h ..\drivers\fsl_common.h board\board.h \
+  ..\drivers\fsl_reset.h ..\drivers\fsl_gpio.h ..\drivers\fsl_iocon.h

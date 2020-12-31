@@ -206,6 +206,7 @@ bool NFC_Parse(uint8_t *src,uint16_t len, uint8_t desiredCmd)
 void NFC_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
+	DEBUG_PRINTF("NFC_AppTask Running\r\n");
 	while(1)
 	{
         switch(nfc_step)

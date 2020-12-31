@@ -517,6 +517,11 @@
               <FileType>5</FileType>
               <FilePath>.\board\pin_mux.h</FilePath>
             </File>
+            <File>
+              <FileName>board.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\board\board.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

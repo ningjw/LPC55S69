@@ -114,11 +114,8 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="7.0" enabled="true" update_project_code="true">
-         <generated_project_files>
-            <file path="board/clock_config.c" update_enabled="true"/>
-            <file path="board/clock_config.h" update_enabled="true"/>
-         </generated_project_files>
+      <clocks name="Clocks" version="7.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
          <clocks_profile>
             <processor_version>7.0.1</processor_version>
          </clocks_profile>
@@ -183,8 +180,8 @@
                   <clock_source id="SYSCON.XTAL32M.outFreq" value="16 MHz" locked="false" enabled="true"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="CTIMER1_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
-                  <clock_output id="System_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                </clock_outputs>
                <clock_settings>
                   <setting id="PLL0_Mode" value="Normal" locked="false"/>
@@ -194,7 +191,7 @@
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.FRGCTRL1_DIV.scale" value="256" locked="true"/>
                   <setting id="SYSCON.FROHFDIV.scale" value="2" locked="false"/>
-                  <setting id="SYSCON.MAINCLKSELA.sel" value="SYSCON.CLK_IN_EN" locked="false"/>
+                  <setting id="SYSCON.MAINCLKSELA.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.PLL0DIV.scale" value="7" locked="false"/>
                   <setting id="SYSCON.PLL0M_MULT.scale" value="24" locked="false"/>
                   <setting id="SYSCON.SYSTICKCLKSEL0.sel" value="SYSCON.fro_1m" locked="false"/>
@@ -230,7 +227,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="6c04afa3-a6ed-4e58-a854-959f5c680755" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="2587abeb-4ba9-4067-ab57-0f8b727b4edd" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

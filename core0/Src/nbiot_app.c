@@ -152,6 +152,7 @@ void NB_AppTask(void)
 	NbXfer.data = g_NbRxBuffer;
 	NbXfer.dataSize = sizeof(g_NbRxBuffer);
 	NB_Init();
+	DEBUG_PRINTF("NB_AppTask Running\r\n");
 	while(1)
 	{
 		/*wait task notify*/

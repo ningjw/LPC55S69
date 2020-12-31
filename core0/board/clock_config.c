@@ -28,7 +28,7 @@ processor_version: 7.0.1
 #include "fsl_power.h"
 #include "fsl_clock.h"
 #include "clock_config.h"
-
+#include "board.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -57,6 +57,7 @@ name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
+- {id: CTIMER1_clock.outFreq, value: 96 MHz}
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: CTIMER3_clock.outFreq, value: 1 MHz}
 - {id: FXCOM0_clock.outFreq, value: 48 MHz}
@@ -76,6 +77,7 @@ settings:
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
+- {id: SYSCON.CTIMERCLKSEL1.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL3.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
@@ -180,6 +182,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
+    CLOCK_AttachClk(kFRO_HF_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO_HF */
     CLOCK_AttachClk(kFRO_HF_to_CTIMER2);                 /*!< Switch CTIMER2 to FRO_HF */
     CLOCK_AttachClk(kFRO1M_to_CTIMER3);                 /*!< Switch CTIMER3 to FRO1M */
     SYSCON->MAINCLKSELA = ((SYSCON->MAINCLKSELA & ~SYSCON_MAINCLKSELA_SEL_MASK) | SYSCON_MAINCLKSELA_SEL(1U));    /*!< Switch MAINCLKSELA to EXT_CLK even it is not used for MAINCLKSELB */

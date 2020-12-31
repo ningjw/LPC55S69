@@ -219,7 +219,7 @@ void ADC_AppTask(void)
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
-    DEBUG_PRINTF("ADC Task Create and Running\r\n");
+    DEBUG_PRINTF("ADC_AppTask Running\r\n");
 	TMP101_Init();
     while(1)
     {

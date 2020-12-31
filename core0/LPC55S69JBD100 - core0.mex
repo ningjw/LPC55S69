@@ -507,6 +507,7 @@
                </clock_sources>
                <clock_outputs>
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER3_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
@@ -527,6 +528,7 @@
                   <setting id="ENABLE_CLKIN_ENA" value="Enabled" locked="false"/>
                   <setting id="ENABLE_SYSTEM_CLK_OUT" value="Enabled" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
@@ -1131,7 +1133,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="eba57b12-0a81-4727-96cf-99af79ea1f5d" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="e9694893-0462-4b79-b4fc-cb206e82c5f9" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

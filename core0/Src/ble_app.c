@@ -68,11 +68,15 @@ void WIFI_Init(void)
 	
 	WIFI_SendCmd("+++", "a", 100);
 
-	WIFI_SendCmd("a","OK", 100);
+	if(WIFI_SendCmd("a","OK", 100)==false)
+	{
+		DEBUG_PRINTF("********** WIFI Init error \r\n");
+		return;
+	}
 
 	WIFI_SendCmd("AT+E=off\r\n","OK", 100);
 	
-	WIFI_SendCmd("AT+UART=115200,8,1,NONE,FC\r\n", "OK", 100);
+	WIFI_SendCmd("AT+UART=115200,8,1,NONE,NFC\r\n", "OK", 100);
 	
 	WIFI_SendCmd("AT+UARTTE\r\n", "OK", 100);
 	
@@ -87,6 +91,10 @@ void WIFI_Init(void)
 	WIFI_SendCmd("AT+SOCKA=TCPS,192.168.1.1,8899\r\n", "OK", 100);
 	
 	WIFI_SendCmd("AT+ENTM\r\n", "OK", 100);
+	
+	DEBUG_PRINTF("USR-C322 Init OK\r\n");
+	g_sys_para.WifiBleInitFlag++;
+	Flash_SavePara();
 }
 #endif
 
@@ -125,7 +133,7 @@ retry:
 ***************************************************************************************/
 void BLE_Init(void)
 {
-	if(g_sys_para.BleInitFlag != 1){
+	if(g_sys_para.WifiBleInitFlag != 1){
 		SET_COMMOND_MODE();
 		BLE_SendCmd("AT\r\n","OK",500);
 		BLE_SendCmd("AT+BAUD=115200\r\n","OK",300);
@@ -133,7 +141,7 @@ void BLE_Init(void)
 		BLE_SendCmd("AT+VER\r\n","OK",300);/* 读取版本号 */
 		BLE_SendCmd("AT+LPM=0\r\n","OK",300);/*关闭低功耗模式*/
 		BLE_SendCmd("AT+TPMODE=1\r\n","OK",300);/* 开启透传模式 */
-		g_sys_para.BleInitFlag = 1;
+		g_sys_para.WifiBleInitFlag = 1;
 		Flash_SavePara();
 	}
 	SET_THROUGHPUT_MODE();
@@ -149,7 +157,7 @@ void BLE_Init(void)
 void BLE_WIFI_AppTask(void)
 {
     uint8_t xReturn = pdFALSE;
-    DEBUG_PRINTF("BLE/WIFI Task Create and Running\r\n");
+    DEBUG_PRINTF("BLE_WIFI_AppTask Running\r\n");
     uint8_t* sendBuf = NULL;
 
 #ifdef BLE_VERSION
@@ -171,7 +179,7 @@ void BLE_WIFI_AppTask(void)
 
             /* 处理蓝牙/wifi数据 */
             sendBuf = ParseProtocol(g_flexcomm3Buf);
-
+			
 			/* 是否接受完成整个数据包 */
 			if( g_sys_para.firmCore0Update == true) {
 				//将参数存入Nor Flash
@@ -183,7 +191,7 @@ void BLE_WIFI_AppTask(void)
 			if( NULL != sendBuf )
             {
                 FLEXCOMM3_SendStr((char *)sendBuf);
-                DEBUG_PRINTF("%s",sendBuf);
+                DEBUG_PRINTF("reply wifi data:\r\n%s\r\n",sendBuf);
                 free(sendBuf);
                 sendBuf = NULL;
             }
@@ -204,7 +212,7 @@ void BLE_WIFI_AppTask(void)
 			cJSON_AddNumberToObject(pJsonRoot, "Id", id);
 			char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
 			FLEXCOMM3_SendStr(p_reply);
-			DEBUG_PRINTF("%s", p_reply);
+			DEBUG_PRINTF("%s: reply wifi data:\r\n%s\r\n", __func__,p_reply);
 			
 			cJSON_Delete(pJsonRoot);
 			free(p_reply);
@@ -261,9 +269,6 @@ void FLEXCOMM3_IRQHandler(void)
     {
         /*读取数据*/
         ucTemp = USART_ReadByte(FLEXCOMM3_PERIPHERAL);
-		
-		while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
-		USART_WriteByte(FLEXCOMM5_PERIPHERAL, ucTemp);
 		
 		g_flexcomm3StartRx = true;
 		g_flexcomm3RxTimeCnt = 0;
