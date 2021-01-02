@@ -66,32 +66,32 @@ void WIFI_Init(void)
 {
 	vTaskDelay(2000);
 	
-	WIFI_SendCmd("+++", "a", 100);
+	WIFI_SendCmd("+++", "a", 1000);
 
-	if(WIFI_SendCmd("a","OK", 100)==false)
+	if(WIFI_SendCmd("a","OK", 1000)==false)
 	{
 		DEBUG_PRINTF("********** WIFI Init error \r\n");
 		g_sys_para.sampLedStatus = WORK_FATAL_ERR;
 		return;
 	}
 
-	WIFI_SendCmd("AT+E=off\r\n","OK", 100);
+	WIFI_SendCmd("AT+E=off\r\n","OK", 300);
 	
-	WIFI_SendCmd("AT+UART=115200,8,1,NONE,NFC\r\n", "OK", 100);
+	WIFI_SendCmd("AT+UART=115200,8,1,NONE,NFC\r\n", "OK", 300);
 	
-	WIFI_SendCmd("AT+UARTTE\r\n", "OK", 100);
+	WIFI_SendCmd("AT+UARTTE\r\n", "OK", 300);
 	
-	WIFI_SendCmd("AT+WMODE=AP\r\n","OK", 100);
+	WIFI_SendCmd("AT+WMODE=AP\r\n","OK", 300);
 	
-	WIFI_SendCmd("AT+WAP=USR-C322-,88888888\r\n","OK", 100);
+	WIFI_SendCmd("AT+WAP=USR-C322-,88888888\r\n","OK", 300);
 	
-	WIFI_SendCmd("AT+CHANNEL=1\r\n", "OK", 100);
+	WIFI_SendCmd("AT+CHANNEL=1\r\n", "OK", 300);
 
-	WIFI_SendCmd("AT+LANN=192.168.1.1,255.255.255.0\r\n", "OK", 100);
+	WIFI_SendCmd("AT+LANN=192.168.1.1,255.255.255.0\r\n", "OK", 300);
 
-	WIFI_SendCmd("AT+SOCKA=TCPS,192.168.1.1,8899\r\n", "OK", 100);
+	WIFI_SendCmd("AT+SOCKA=TCPS,192.168.1.1,8899\r\n", "OK", 300);
 	
-	WIFI_SendCmd("AT+ENTM\r\n", "OK", 100);
+	WIFI_SendCmd("AT+ENTM\r\n", "OK", 300);
 	
 	DEBUG_PRINTF("USR-C322 Init OK\r\n");
 	g_sys_para.WifiBleInitFlag++;

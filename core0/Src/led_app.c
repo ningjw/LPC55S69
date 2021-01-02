@@ -18,6 +18,10 @@ float T = 0;
 ***************************************************************************************/
 void LED_AppTask(void)
 {
+#ifdef DEBUG_USB_AUDIO
+	extern void USB_AudioInit(void);
+	USB_AudioInit();
+#endif
     while(1)
     {
 		RTC_GetDatetime(RTC, &sysTime);

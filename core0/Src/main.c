@@ -10,7 +10,7 @@ flash_config_t flashInstance;
 
 static void InitSysPara();
 
-void main_(void)
+void main(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
 	ctimer_config_t config;
@@ -26,7 +26,7 @@ void main_(void)
 	DEBUG_PRINTF("app start\n");
 	
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",256,NULL, 1,&LED_TaskHandle);
+    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",1024,NULL, 1,&LED_TaskHandle);
     
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
@@ -47,17 +47,9 @@ void main_(void)
     xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
-
 #endif
-
-#ifdef DEBUG_USB_AUDIO
-	//extern void USB_Audio_TaskCreate(void);
-	//USB_Audio_TaskCreate();
-#endif
-
+	
     vTaskStartScheduler();   /* 启动任务，开启调度 */
-
-
     while(1);
 }
 

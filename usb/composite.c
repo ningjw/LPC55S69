@@ -626,7 +626,7 @@ void USB_DeviceTask(void *handle)
  *
  * @return None.
  */
-void APPTask(void *handle)
+void USB_AudioInit(void)
 {
 	NVIC_ClearPendingIRQ(USB0_IRQn);
     NVIC_ClearPendingIRQ(USB0_NEEDCLK_IRQn);
@@ -658,109 +658,5 @@ void APPTask(void *handle)
 #endif
 	
     APPInit();
-	
-    while (1)
-    {
-		vTaskDelay(1000);
-    }
-}
-
-void main(void)
-//void USB_Audio_TaskCreate(void)
-{
-	    CLOCK_EnableClock(kCLOCK_InputMux);
-    CLOCK_EnableClock(kCLOCK_Iocon);
-    CLOCK_EnableClock(kCLOCK_Gpio0);
-    CLOCK_EnableClock(kCLOCK_Gpio1);
-    /* USART0 clock */
-    CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
-    /* I2C clock */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);
-    PMC->PDRUNCFGCLR0 |= PMC_PDRUNCFG0_PDEN_XTAL32M_MASK;   /*!< Ensure XTAL16M is on  */
-    PMC->PDRUNCFGCLR0 |= PMC_PDRUNCFG0_PDEN_LDOXO32M_MASK;  /*!< Ensure XTAL16M is on  */
-    SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_CLKIN_ENA_MASK; /*!< Ensure CLK_IN is on  */
-    ANACTRL->XO32M_CTRL |= ANACTRL_XO32M_CTRL_ENABLE_SYSTEM_CLK_OUT_MASK;
-
-    /*!< Switch PLL0 clock source selector to XTAL16M */
-    CLOCK_AttachClk(kEXT_CLK_to_PLL0);
-
-    const pll_setup_t pll0Setup = {
-        .pllctrl = SYSCON_PLL0CTRL_CLKEN_MASK | SYSCON_PLL0CTRL_SELI(2U) | SYSCON_PLL0CTRL_SELP(31U),
-        .pllndec = SYSCON_PLL0NDEC_NDIV(125U),
-        .pllpdec = SYSCON_PLL0PDEC_PDIV(8U),
-        .pllsscg = {0x0U, (SYSCON_PLL0SSCG1_MDIV_EXT(3072U) | SYSCON_PLL0SSCG1_SEL_EXT_MASK)},
-        .pllRate = 24576000U,
-        .flags   = PLL_SETUPFLAG_WAITLOCK};
-    /*!< Configure PLL to the desired values */
-    CLOCK_SetPLL0Freq(&pll0Setup);
-
-    CLOCK_SetClkDiv(kCLOCK_DivPll0Clk, 0U, true);
-    CLOCK_SetClkDiv(kCLOCK_DivPll0Clk, 1U, false);
-
-    /* SYSCTL clocks */
-    CLOCK_EnableClock(kCLOCK_Sysctl);
-
-    /* I2S clocks */
-    CLOCK_AttachClk(kPLL0_DIV_to_FLEXCOMM6);
-    CLOCK_AttachClk(kPLL0_DIV_to_FLEXCOMM7);
-
-    /* Attach PLL clock to MCLK for I2S, no divider */
-    CLOCK_AttachClk(kPLL0_to_MCLK);
-    SYSCON->MCLKDIV = SYSCON_MCLKDIV_DIV(0U);
-    SYSCON->MCLKIO  = 1U;
-
-    /* reset FLEXCOMM for I2C */
-    RESET_PeripheralReset(kFC4_RST_SHIFT_RSTn);
-
-    /* reset FLEXCOMM for DMA0 */
-    RESET_PeripheralReset(kDMA0_RST_SHIFT_RSTn);
-
-    /* reset FLEXCOMM for I2S */
-    RESET_PeripheralReset(kFC6_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kFC7_RST_SHIFT_RSTn);
-
-    /* reset NVIC for FLEXCOMM6 and FLEXCOMM7 */
-    NVIC_ClearPendingIRQ(FLEXCOMM6_IRQn);
-    NVIC_ClearPendingIRQ(FLEXCOMM7_IRQn);
-
-    /* Enable interrupts for I2S */
-    EnableIRQ(FLEXCOMM6_IRQn);
-    EnableIRQ(FLEXCOMM7_IRQn);
-
-    /* Set shared signal set 0: SCK, WS from Flexcomm1 */
-    SYSCTL->SHAREDCTRLSET[0] |= 0X77;
-    ;
-    /* Set flexcomm3 SCK, WS from shared signal set 0 */
-    SYSCTL->FCCTRLSEL[6] |= 0X101;
-
-    NVIC_ClearPendingIRQ(USB0_IRQn);
-    NVIC_ClearPendingIRQ(USB0_NEEDCLK_IRQn);
-    NVIC_ClearPendingIRQ(USB1_IRQn);
-    NVIC_ClearPendingIRQ(USB1_NEEDCLK_IRQn);
-
-    POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB0 Phy */
-    POWER_DisablePD(kPDRUNCFG_PD_USB1_PHY); /*< Turn on USB1 Phy */
-
-    /* reset the IP to make sure it's in reset state. */
-    RESET_PeripheralReset(kUSB0D_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB0HSL_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB0HMR_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB1H_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB1D_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB1_RST_SHIFT_RSTn);
-    RESET_PeripheralReset(kUSB1RAM_RST_SHIFT_RSTn);
-	
-	BOARD_BootClockRUN();
-	BOARD_InitPins();
-    if (xTaskCreate(APPTask,                           /* pointer to the task */
-                    (char const *)"usb device task",   /* task name for kernel awareness debugging */
-                    1024,    /* task stack size */
-                    &g_composite,                      /* optional task startup argument */
-                    4,                                 /* initial priority */
-                    &g_composite.applicationTaskHandle /* optional task handle to create */
-                    ) != pdPASS)
-    {
-        usb_echo("app task create failed!\r\n");
-    }
-	vTaskStartScheduler();   /* 启动任务，开启调度 */
+	usb_echo("usb audio running\r\n");
 }

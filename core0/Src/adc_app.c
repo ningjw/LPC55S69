@@ -204,7 +204,9 @@ void ADC_AppTask(void)
 	PWR_ADC_ON;
 #if 1
     /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
-    while (ADC_READY == 1){};  //wait ads1271 ready
+    while (ADC_READY == 1){ //wait ads1271 ready
+		vTaskDelay(10);
+	};
     if(ADS1271_ReadData() == 0) {
         g_sys_para.sampLedStatus = WORK_FATAL_ERR;
     }

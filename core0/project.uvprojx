@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access</MiscControls>
-              <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1, __SEMIHOST_HARDFAULT_DISABLE=1, MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=16384,</Define>
+              <Define>CPU_LPC55S69JBD100_cm33_core0, ARM_MATH_CM33,MCMGR_HANDLE_EXCEPTIONS=1,  MULTICORE_APP=1,FSL_RTOS_FREE_RTOS,USB_STACK_FREERTOS, USB_STACK_FREERTOS_HEAP_SIZE=16384,</Define>
               <Undefine></Undefine>
               <IncludePath>.\board;.\Inc;..\freertos\include;..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure;..\cjson;..\drivers;..\mcmgr;..\CMSIS\Include;..\libnfc\include;..\libnfc\libnfc;..\libnfc\libnfc\drivers;..\libnfc\libnfc\chips;..\libnfc\libnfc\buses;..\usb;..\usb\include;..\usb\device;..\osa;..\usb\phy;..\token\inc;..\codec\i2c;..\codec\wm8904;..\codec\port;..\codec</IncludePath>
             </VariousControls>

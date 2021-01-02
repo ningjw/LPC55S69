@@ -60,8 +60,8 @@
 #endif
 
 #define DEBUG_USB_AUDIO
-//#define DEBUG_PRINTF printf
-#define DEBUG_PRINTF(...)  
+#define DEBUG_PRINTF printf
+//#define DEBUG_PRINTF(...)  
 
 #define SOFT_VERSION       "21010211"
 #define HARD_VERSION       "1.0.0"
