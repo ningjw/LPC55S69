@@ -59,10 +59,11 @@
 #define NB_VERSION
 #endif
 
-#define DEBUG_PRINTF printf
-//#define DEBUG_PRINTF(...)  
+#define DEBUG_USB_AUDIO
+//#define DEBUG_PRINTF printf
+#define DEBUG_PRINTF(...)  
 
-#define SOFT_VERSION       "1.0.0"
+#define SOFT_VERSION       "21010211"
 #define HARD_VERSION       "1.0.0"
 
 #define CORE1_START_ADDR    0x00008000     // core1代码起始地址

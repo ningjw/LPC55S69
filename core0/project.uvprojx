@@ -772,6 +772,11 @@
               <FileType>1</FileType>
               <FilePath>..\usb\hid_keyboard.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_device_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\usb\usb_device_config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

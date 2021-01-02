@@ -170,7 +170,6 @@ BOARD_InitPins:
   - {pin_num: C1, peripheral: GPIO, signal: 'PIO1, 9', pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, direction: OUTPUT, gpio_init_state: 'true'}
   - {pin_num: A7, peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, identifier: WIFI_CTS,
     direction: INPUT}
-  - {pin_num: E9, peripheral: USBFSH, signal: USB_VBUS, pin_signal: PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -730,19 +729,6 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO0_21_DIGIMODE_DIGITAL));
-
-    IOCON->PIO[0][22] = ((IOCON->PIO[0][22] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
-
-                         /* Selects pin function.
-                          * : PORT022 (pin E9) is configured as USB0_VBUS. */
-                         | IOCON_PIO_FUNC(PIO0_22_FUNC_ALT7)
-
-                         /* Select Digital mode.
-                          * : Enable Digital mode.
-                          * Digital input is enabled. */
-                         | IOCON_PIO_DIGIMODE(PIO0_22_DIGIMODE_DIGITAL));
 
     IOCON->PIO[0][24] = ((IOCON->PIO[0][24] &
                           /* Mask bits to zero which are setting */

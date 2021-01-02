@@ -10,7 +10,7 @@ flash_config_t flashInstance;
 
 static void InitSysPara();
 
-void main(void)
+void main_(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
 	ctimer_config_t config;
@@ -49,7 +49,14 @@ void main(void)
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
 
 #endif
+
+#ifdef DEBUG_USB_AUDIO
+	//extern void USB_Audio_TaskCreate(void);
+	//USB_Audio_TaskCreate();
+#endif
+
     vTaskStartScheduler();   /* 启动任务，开启调度 */
+
 
     while(1);
 }

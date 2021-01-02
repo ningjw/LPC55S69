@@ -138,6 +138,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="USBFSH" description="Peripheral USBFSH is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="cm33_core1">
                         <data>true</data>
@@ -432,6 +437,7 @@
                         <pin_feature name="direction" value="INPUT"/>
                      </pin_features>
                   </pin>
+                  <pin peripheral="USBFSH" signal="USB_VBUS" pin_num="E9" pin_signal="PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22"/>
                </pins>
             </function>
          </functions_list>
@@ -546,6 +552,7 @@
                   <setting id="SYSCON.PLL0DIV.scale" value="7" locked="false"/>
                   <setting id="SYSCON.PLL0M_MULT.scale" value="24" locked="false"/>
                   <setting id="SYSCON.SYSTICKCLKSEL0.sel" value="SYSCON.fro_1m" locked="false"/>
+                  <setting id="SYSCON.USB0CLKDIV.scale" value="2" locked="true"/>
                   <setting id="SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG" value="Enabled" locked="false"/>
                   <setting id="UTICK_EN_CFG" value="Enable" locked="false"/>
                </clock_settings>
@@ -1133,7 +1140,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="e9694893-0462-4b79-b4fc-cb206e82c5f9" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="e0a38c20-dec1-4695-a800-35c430a23692" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

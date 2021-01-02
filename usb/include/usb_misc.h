@@ -8,7 +8,7 @@
 
 #ifndef __USB_MISC_H__
 #define __USB_MISC_H__
-
+#include "main.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -45,8 +45,7 @@ extern int DbgConsole_Printf(const char *fmt_s, ...);
 #define usb_echo printf
 #else
 //#define usb_echo DbgConsole_Printf
-//#define usb_echo printf
-static void __inline usb_echo(const char *format, ... ) {return ;}
+#define usb_echo DEBUG_PRINTF
 #endif
 #else
 #define usb_echo

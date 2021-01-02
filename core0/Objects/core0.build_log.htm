@@ -22,15 +22,23 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 E:\LPC55S69\core0\project.uvprojx
-Project File Date:  01/01/2021
+Project File Date:  01/02/2021
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build Project 'project' - Target 'core0'
-compiling main.c...
+compiling usb_device_descriptor.c...
+compiling usb_device_hid.c...
+compiling usb_device_ch9.c...
+compiling audio_unified.c...
+compiling usb_device_audio.c...
+compiling hid_keyboard.c...
 compiling composite.c...
+compiling usb_device_class.c...
+compiling usb_device_dci.c...
+compiling usb_device_lpcip3511.c...
 linking...
-Program Size: Code=54348 RO-data=1680 RW-data=72 ZI-data=204524  
+Program Size: Code=37420 RO-data=1204 RW-data=972 ZI-data=57148  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin ".\Objects\core0.axf" --output ".\core0.bin"
 ".\Objects\core0.axf" - 0 Error(s), 0 Warning(s).
@@ -69,8 +77,8 @@ Package Vendor: Keil
       Include file:  CMSIS\Core\Include\tz_context.h
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
-      Include file:  Config\EventRecorderConf.h
       Include file:  Include\EventRecorder.h
+      Include file:  Config\EventRecorderConf.h
       Source file:   Source\EventRecorder.c
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
@@ -78,12 +86,12 @@ Package Vendor: Keil
 
    * Component: NXP::Device:Startup:1.0.0
       Source file:   arm\startup_LPC55S69_cm33_core0.s
+      Include file:  system_LPC55S69_cm33_core0.h
+      Source file:   system_LPC55S69_cm33_core0.c
       Include file:  LPC55S69_cm33_core0_features.h
       Include file:  LPC55S69_cm33_core0.h
       Include file:  fsl_device_registers.h
-      Include file:  system_LPC55S69_cm33_core0.h
-      Source file:   system_LPC55S69_cm33_core0.c
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

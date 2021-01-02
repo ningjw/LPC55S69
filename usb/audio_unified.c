@@ -447,12 +447,13 @@ uint32_t USB_AudioRecorderBufferSpaceUsed(void)
     return g_deviceAudioComposite->audioUnified.recorderReservedSpace;
 }
 
+uint8_t dataval = 0;
 /* The USB_AudioRecorderGetBuffer() function gets audioRecPacket from the audioRecDataBuff in every callback*/
 void USB_AudioRecorderGetBuffer(uint8_t *buffer, uint32_t size)
 {
     while (size)
     {
-        *buffer = audioRecDataBuff[g_deviceAudioComposite->audioUnified.tdWriteNumberRec];
+        *buffer = dataval;//audioRecDataBuff[g_deviceAudioComposite->audioUnified.tdWriteNumberRec];
         g_deviceAudioComposite->audioUnified.tdWriteNumberRec++;
         buffer++;
         size--;
@@ -463,6 +464,7 @@ void USB_AudioRecorderGetBuffer(uint8_t *buffer, uint32_t size)
             g_deviceAudioComposite->audioUnified.tdWriteNumberRec = 0;
         }
     }
+	dataval++;
 }
 
 /* The USB_AudioSpeakerPutBuffer() function fills the audioRecDataBuff with audioPlayPacket in every callback*/
@@ -637,9 +639,15 @@ usb_status_t USB_DeviceAudioCompositeCallback(class_handle_t handle, uint32_t ev
                     }
                     else
                     {
+						USB_AudioRecorderGetBuffer(audioRecPacket, epPacketSize);
+
                         error = USB_DeviceAudioSend(g_deviceAudioComposite->audioUnified.audioRecorderHandle,
+                                                USB_AUDIO_RECORDER_STREAM_ENDPOINT, &audioRecPacket[0], epPacketSize);
+                        #if 0
+						error = USB_DeviceAudioSend(g_deviceAudioComposite->audioUnified.audioRecorderHandle,
                                                     USB_AUDIO_RECORDER_STREAM_ENDPOINT, &audioRecDataBuff[0],
                                                     FS_ISO_IN_ENDP_PACKET_SIZE);
+						#endif
                     }
                 }
             }
