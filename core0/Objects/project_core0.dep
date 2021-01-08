@@ -1,7 +1,7 @@
 Dependencies for Project 'project', Target 'core0': (DO NOT MODIFY !)
 CompilerVersion: 6130001::V6.13.1::.\ARMCLANG
-F (.\Src\main.c)(0x5FF0A4C3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/main.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+F (.\Src\main.c)(0x5FF19CCF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/main.o -MD)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -75,9 +75,9 @@ I (Inc\si5351_drv.h)(0x5F6227D7)
 I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
-F (.\Inc\main.h)(0x5FF0A1C3)()
+F (.\Inc\main.h)(0x5FF854FB)()
 F (.\Src\led_app.c)(0x5FF0A4CD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/led_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -151,8 +151,8 @@ I (Inc\si5351_drv.h)(0x5F6227D7)
 I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
-F (.\Src\adc_app.c)(0x5FF0A67B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/adc_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+F (.\Src\adc_app.c)(0x5FF196E9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/adc_app.o -MD)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -231,7 +231,7 @@ I (D:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x5DB34DA0)
 I (..\CMSIS\Include\arm_const_structs.h)(0x5F5E0836)
 I (..\CMSIS\Include\arm_common_tables.h)(0x5F5E0836)
 F (.\Src\battery_app.c)(0x5FEDDA8F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/battery_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -306,7 +306,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\ble_app.c)(0x5FF0A3FF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/ble_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -381,7 +381,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\protocol.c)(0x5FEDF218)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/protocol.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -456,7 +456,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\flash_app.c)(0x5FEDDEC5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/flash_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -531,7 +531,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\nbiot_app.c)(0x5FEDF405)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/nbiot_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -607,7 +607,7 @@ I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\incbin.S)(0x5F5E0837)(-x assembler-with-cpp --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-gdwarf-3 -D__MICROLIB -I ./core1/Objects-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DDEBUG -DKEIL -DDEBUG-o ./objects/incbin.o)
 F (.\Src\core1_app.c)(0x5FEDCFC6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/core1_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -682,7 +682,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\nfc_app.c)(0x5FEDF419)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/nfc_app.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -757,7 +757,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\battery_drv.c)(0x5F5F89F7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/battery_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -832,7 +832,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\adc_drv.c)(0x5F98395D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/adc_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -907,7 +907,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\si5351_drv.c)(0x5FECA98A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/si5351_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -982,7 +982,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\w25q128_drv.c)(0x5FECA98A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/w25q128_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -1057,7 +1057,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\soft_iic_drv.c)(0x5FECA98A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/soft_iic_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -1132,7 +1132,7 @@ I (Inc\adc_drv.h)(0x5F9440CD)
 I (Inc\w25q128_drv.h)(0x5F635C4A)
 I (Inc\soft_iic_drv.h)(0x5F6CADA3)
 F (.\Src\iic_tp100_drv.c)(0x5FECA98A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/iic_tp100_drv.o -MD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -1426,7 +1426,7 @@ I (..\freertos\include\mpu_wrappers.h)(0x5F5E0837)
 I (..\freertos\include\task.h)(0x5F5E0837)
 I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.h)(0x5F5E0837)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5DB34DA0)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
@@ -2150,7 +2150,7 @@ I (..\drivers\fsl_clock.h)(0x5F5E0837)
 I (..\drivers\fsl_reset.h)(0x5F5E0837)
 I (..\drivers\fsl_flexcomm.h)(0x5F5E0837)
 F (..\readme.txt)(0x5FEFE346)()
-F (..\usb\audio_unified.c)(0x5FF098DD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/audio_unified.o -MD)
+F (..\usb\audio_unified.c)(0x5FF8727D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./board -I ./Inc -I ../freertos/include -I ../freertos/portable/GCC/ARM_CM33_NTZ/non_secure -I ../cjson -I ../drivers -I ../mcmgr -I ../CMSIS/Include -I ../libnfc/include -I ../libnfc/libnfc -I ../libnfc/libnfc/drivers -I ../libnfc/libnfc/chips -I ../libnfc/libnfc/buses -I ../usb -I ../usb/include -I ../usb/device -I ../osa -I ../usb/phy -I ../token/inc -I ../codec/i2c -I ../codec/wm8904 -I ../codec/port -I ../codec -fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb -mno-unaligned-access-I./RTE/Compiler-I./RTE/Device/LPC55S69JEV98_cm33_core0-I./RTE/_core0-IC:/Users/ningjw/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/Keil/ARM_Compiler/1.6.3/Include-IC:/Users/ningjw/AppData/Local/Arm/Packs/NXP/LPC55S69_DFP/12.1.1-D__UVISION_VERSION="529" -D_RTE_ -DCPU_LPC55S69JEV98_cm33_core0 -DCPU_LPC55S69JBD100_cm33_core0 -DARM_MATH_CM33 -DMCMGR_HANDLE_EXCEPTIONS="1" -DMULTICORE_APP="1" -DFSL_RTOS_FREE_RTOS -DUSB_STACK_FREERTOS -DUSB_STACK_FREERTOS_HEAP_SIZE="16384"-o ./objects/audio_unified.o -MD)
 I (..\usb\usb_device_config.h)(0x5FF098DD)
 I (..\usb\include\usb.h)(0x5FF098DD)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5DB34DA0)
@@ -2192,7 +2192,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2283,7 +2283,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2370,7 +2370,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2473,7 +2473,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2564,7 +2564,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2647,7 +2647,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2732,7 +2732,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2817,7 +2817,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2904,7 +2904,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -2990,7 +2990,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)
@@ -3115,7 +3115,7 @@ I (..\freertos\include\list.h)(0x5F5E0837)
 I (..\freertos\include\event_groups.h)(0x5F5E0837)
 I (..\freertos\include\timers.h)(0x5F5E0837)
 I (..\usb\include\usb_misc.h)(0x5FF098DD)
-I (Inc\main.h)(0x5FF0A1C3)
+I (Inc\main.h)(0x5FF854FB)
 I (board\pin_mux.h)(0x5FF06F94)
 I (board\peripherals.h)(0x5FEC9123)
 I (..\drivers\fsl_dma.h)(0x5F5E0837)

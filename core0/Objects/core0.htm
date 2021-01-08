@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\core0.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\core0.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6130100: Last Updated: Sun Jan  3 01:01:41 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6130100: Last Updated: Fri Jan  8 22:56:01 2021
 <BR><P>
 <H3>Maximum Stack Usage =        496 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1046,7 +1046,7 @@ Global Symbols
 
 <P><STRONG><a name="[30e]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[a1]"></a>ADC_AppTask</STRONG> (Thumb, 476 bytes, Stack size 8 bytes, adc_app.o(.text.ADC_AppTask))
+<P><STRONG><a name="[a1]"></a>ADC_AppTask</STRONG> (Thumb, 468 bytes, Stack size 8 bytes, adc_app.o(.text.ADC_AppTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = ADC_AppTask &rArr; W25Q128_AddAdcData &rArr; SPI_Flash_Write &rArr; SPI_Flash_Write_NoCheck &rArr; SPI_Flash_Write_Page &rArr; SPI_Flash_Wait_Busy &rArr; SPI_Flash_ReadSR &rArr; SPI_ReadWriteByte &rArr; SPI_FlashMasterTransfer
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskNotifyWait
@@ -2225,10 +2225,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_AudioInit
-<LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetDatetime
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PortToggle
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinWrite
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TMP101_ReadTemp
+<LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetDatetime
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.main)
 </UL>
@@ -2669,7 +2669,8 @@ Global Symbols
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetSecondsTimerCount
 <LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_ConvertSecondsToDatetime
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_AppTask
+<BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_AppTask
 </UL>
 
 <P><STRONG><a name="[202]"></a>RTC_Init</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, fsl_rtc.o(.text.RTC_Init))
@@ -3053,8 +3054,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_DeviceAudioCompositeCallback
 </UL>
 
-<P><STRONG><a name="[22d]"></a>USB_AudioRecorderGetBuffer</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, audio_unified.o(.text.USB_AudioRecorderGetBuffer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = USB_AudioRecorderGetBuffer
+<P><STRONG><a name="[22d]"></a>USB_AudioRecorderGetBuffer</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, audio_unified.o(.text.USB_AudioRecorderGetBuffer))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = USB_AudioRecorderGetBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_DeviceAudioCompositeCallback
 </UL>
@@ -3202,7 +3203,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_DeviceCallback
 </UL>
 
-<P><STRONG><a name="[243]"></a>USB_DeviceAudioRecorderStatusReset</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset))
+<P><STRONG><a name="[243]"></a>USB_DeviceAudioRecorderStatusReset</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, audio_unified.o(.text.USB_DeviceAudioRecorderStatusReset))
 <BR><BR>[Called By]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_DeviceAudioRecorderSetInterface
 </UL>
 
@@ -4083,14 +4084,15 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
-<P><STRONG><a name="[4e]"></a>main</STRONG> (Thumb, 284 bytes, Stack size 8 bytes, main.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
+<P><STRONG><a name="[4e]"></a>main</STRONG> (Thumb, 364 bytes, Stack size 16 bytes, main.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = main &rArr; vTaskStartScheduler &rArr; xTimerCreateTimerTask &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[29e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
 <LI><a href="#[29f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[29d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memory_init
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Flash_Init
+<LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetDatetime
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BOARD_InitPins
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BOARD_InitPeripherals
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BOARD_BootClockRUN

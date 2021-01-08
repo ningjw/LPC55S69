@@ -208,7 +208,7 @@ void ADC_AppTask(void)
 		vTaskDelay(10);
 	};
     if(ADS1271_ReadData() == 0) {
-        g_sys_para.sampLedStatus = WORK_FATAL_ERR;
+//        g_sys_para.sampLedStatus = WORK_FATAL_ERR;
     }
 #else
 	while (1) { //wait ads1271 ready

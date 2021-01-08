@@ -22,9 +22,12 @@ void main(void)
 	memory_init();
 	SPI_Flash_Init();
 	InitSysPara();
-
-	DEBUG_PRINTF("app start\n");
 	
+	DEBUG_PRINTF("app start\n");
+	RTC_GetDatetime(RTC, &sysTime);
+	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
+				sysTime.year,sysTime.month,sysTime.day,
+				sysTime.hour,sysTime.minute,sysTime.second);
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",1024,NULL, 1,&LED_TaskHandle);
     
