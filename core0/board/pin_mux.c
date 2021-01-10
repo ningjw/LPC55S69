@@ -13,7 +13,7 @@ package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
 processor_version: 7.0.1
 pin_labels:
-- {pin_num: L7, pin_signal: PIO1_14/UTICK_CAP2/CTIMER1_MAT2/FC5_CTS_SDA_SSEL0/USB0_LEDN/SD1_CMD/ACMP0_D, label: LED_BAT_RED, identifier: LED3;LED_BAT_RED}
+- {pin_num: L7, pin_signal: PIO1_14/UTICK_CAP2/CTIMER1_MAT2/FC5_CTS_SDA_SSEL0/USB0_LEDN/SD1_CMD/ACMP0_D, label: LED_BAT_GREEN, identifier: LED3;LED_BAT_RED;LED_BAT_GREEN}
 - {pin_num: J7, pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, label: PWR_ADC, identifier: PWR_EN2;PWR_3V;PWR_ADC}
 - {pin_num: F6, pin_signal: PIO1_24/FC2_RXD_SDA_MOSI_DATA/SCT0_OUT1/SD1_D1/FC3_SSEL3/PLU_OUT6, label: NB_PWR_EN, identifier: NB_PWR_EN;PWR_NB;NB_PWR}
 - {pin_num: E13, pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, label: BT_PWR, identifier: BT_PWR_EN;PWR_BT;BT_PWR}
@@ -34,9 +34,8 @@ pin_labels:
 - {pin_num: A8, pin_signal: PIO1_28/FC7_SCK/SD0_D5/CT_INP2/PLU_IN3, label: NB_RST, identifier: NB_RST}
 - {pin_num: N2, pin_signal: PIO0_27/FC2_TXD_SCL_MISO_WS/CTIMER3_MAT2/SCT0_OUT6/FC7_RXD_SDA_MOSI_DATA/PLU_OUT0/SECURE_GPIO0_27, label: NB_RXD, identifier: NB_RXD}
 - {pin_num: H12, pin_signal: PIO0_26/FC2_RXD_SDA_MOSI_DATA/CLKOUT/CT_INP14/SCT0_OUT5/USB0_IDVALUE/FC0_SCK/HS_SPI_MOSI/SECURE_GPIO0_26, label: NB_TXD, identifier: NB_TXD}
-- {pin_num: G12, pin_signal: PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5, label: LED_SYS_RED, identifier: LED1;LED_PWR_RED;LED_SYS_RED}
-- {pin_num: G13, pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6, label: LED_SYS_GREEN, identifier: LED2;LED_PWR_GREEN;LED_SYS_GREEN}
-- {pin_num: B6, pin_signal: PIO1_15/UTICK_CAP3/CT_INP7/FC5_RTS_SCL_SSEL1/FC4_RTS_SCL_SSEL1/SD1_D2, label: LED_BAT_GREEN, identifier: LED4;LED_BAT_GREEN}
+- {pin_num: G12, pin_signal: PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5, label: LED_SYS_GREEN, identifier: LED1;LED_PWR_RED;LED_SYS_RED;LED_SYS_GREEN}
+- {pin_num: G13, pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6, label: LED_SYS_RED, identifier: LED2;LED_PWR_GREEN;LED_SYS_GREEN;LED_SYS_RED}
 - {pin_num: H13, pin_signal: PIO1_19/SCT0_OUT7/CTIMER3_MAT1/SCT_GPI7/FC4_SCK/PLU_OUT1/ACMPVREF, label: PWR_NB, identifier: LED5;LED_BLE_RED;NB_PWR_EN;PWR_NB}
 - {pin_num: C2, pin_signal: PIO1_20/FC7_RTS_SCL_SSEL1/CT_INP14/FC4_TXD_SCL_MISO_WS/PLU_OUT2, label: PWR_SCL, identifier: LED6;LED_BLE_GREEN;PWR_SCL}
 - {pin_num: G9, pin_signal: PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0, label: KEY_WAKE, identifier: KEY_WAKE}
@@ -66,6 +65,7 @@ pin_labels:
 - {pin_num: B3, pin_signal: PIO1_13/FC6_RXD_SDA_MOSI_DATA/CT_INP6/USB0_OVERCURRENTN/USB0_FRAME/SD0_CARD_DET_N, label: FLASH_MOSI, identifier: FLASH_MOSI}
 - {pin_num: C7, pin_signal: PIO1_16/FC6_TXD_SCL_MISO_WS/CTIMER1_MAT3/SD0_CMD, label: FLASH_MISO, identifier: FLASH_MISO}
 - {pin_num: C1, pin_signal: PIO1_9/FC1_SCK/CT_INP4/SCT0_OUT2/FC4_CTS_SDA_SSEL0/ADC0_12, label: selFREQ, identifier: selFREQ}
+- {pin_num: B6, pin_signal: PIO1_15/UTICK_CAP3/CT_INP7/FC5_RTS_SCL_SSEL1/FC4_RTS_SCL_SSEL1/SD1_D2, label: LED_BAT_RED, identifier: LED_BAT_RED}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -92,12 +92,11 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: cm33_core0, enableClock: 'true'}
 - pin_list:
-  - {pin_num: G12, peripheral: GPIO, signal: 'PIO1, 2', pin_signal: PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5, identifier: LED_SYS_RED, direction: OUTPUT}
-  - {pin_num: G13, peripheral: GPIO, signal: 'PIO1, 3', pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6, identifier: LED_SYS_GREEN, direction: OUTPUT}
-  - {pin_num: L7, peripheral: GPIO, signal: 'PIO1, 14', pin_signal: PIO1_14/UTICK_CAP2/CTIMER1_MAT2/FC5_CTS_SDA_SSEL0/USB0_LEDN/SD1_CMD/ACMP0_D, identifier: LED_BAT_RED,
+  - {pin_num: G12, peripheral: GPIO, signal: 'PIO1, 2', pin_signal: PIO1_2/CTIMER0_MAT3/SCT_GPI6/HS_SPI_SCK/USB1_PORTPWRN/PLU_OUT5, identifier: LED_SYS_GREEN, direction: OUTPUT}
+  - {pin_num: G13, peripheral: GPIO, signal: 'PIO1, 3', pin_signal: PIO1_3/SCT0_OUT4/HS_SPI_MISO/USB0_PORTPWRN/PLU_OUT6, identifier: LED_SYS_RED, direction: OUTPUT}
+  - {pin_num: L7, peripheral: GPIO, signal: 'PIO1, 14', pin_signal: PIO1_14/UTICK_CAP2/CTIMER1_MAT2/FC5_CTS_SDA_SSEL0/USB0_LEDN/SD1_CMD/ACMP0_D, identifier: LED_BAT_GREEN,
     direction: OUTPUT}
-  - {pin_num: B6, peripheral: GPIO, signal: 'PIO1, 15', pin_signal: PIO1_15/UTICK_CAP3/CT_INP7/FC5_RTS_SCL_SSEL1/FC4_RTS_SCL_SSEL1/SD1_D2, identifier: LED_BAT_GREEN,
-    direction: OUTPUT}
+  - {pin_num: B6, peripheral: GPIO, signal: 'PIO1, 15', pin_signal: PIO1_15/UTICK_CAP3/CT_INP7/FC5_RTS_SCL_SSEL1/FC4_RTS_SCL_SSEL1/SD1_D2, direction: OUTPUT}
   - {pin_num: E6, peripheral: GPIO, signal: 'PIO0, 19', pin_signal: PIO0_19/FC4_RTS_SCL_SSEL1/UTICK_CAP0/CTIMER0_MAT2/SCT0_OUT2/FC7_TXD_SCL_MISO_WS/PLU_IN4/SECURE_GPIO0_19,
     identifier: LED_BLE_GREEN, direction: OUTPUT}
   - {pin_num: B12, peripheral: GPIO, signal: 'PIO0, 20', pin_signal: PIO0_20/FC3_CTS_SDA_SSEL0/CTIMER1_MAT1/CT_INP15/SCT_GPI2/FC7_RXD_SDA_MOSI_DATA/HS_SPI_SSEL0/PLU_IN5/SECURE_GPIO0_20/FC4_TXD_SCL_MISO_WS,
@@ -321,19 +320,19 @@ void BOARD_InitPins(void)
     /* Initialize GPIO functionality on pin PIO1_1 (pin G11)  */
     GPIO_PinInit(BOARD_TEMP_ALT_GPIO, BOARD_TEMP_ALT_PORT, BOARD_TEMP_ALT_PIN, &TEMP_ALT_config);
 
-    gpio_pin_config_t LED_SYS_RED_config = {
-        .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO1_2 (pin G12)  */
-    GPIO_PinInit(BOARD_LED_SYS_RED_GPIO, BOARD_LED_SYS_RED_PORT, BOARD_LED_SYS_RED_PIN, &LED_SYS_RED_config);
-
     gpio_pin_config_t LED_SYS_GREEN_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
-    /* Initialize GPIO functionality on pin PIO1_3 (pin G13)  */
+    /* Initialize GPIO functionality on pin PIO1_2 (pin G12)  */
     GPIO_PinInit(BOARD_LED_SYS_GREEN_GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, &LED_SYS_GREEN_config);
+
+    gpio_pin_config_t LED_SYS_RED_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO1_3 (pin G13)  */
+    GPIO_PinInit(BOARD_LED_SYS_RED_GPIO, BOARD_LED_SYS_RED_PORT, BOARD_LED_SYS_RED_PIN, &LED_SYS_RED_config);
 
     gpio_pin_config_t PWR_CHG_COMPLETE_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -356,19 +355,19 @@ void BOARD_InitPins(void)
     /* Initialize GPIO functionality on pin PIO1_10 (pin J7)  */
     GPIO_PinInit(BOARD_PWR_ADC_GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, &PWR_ADC_config);
 
-    gpio_pin_config_t LED_BAT_RED_config = {
-        .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO1_14 (pin L7)  */
-    GPIO_PinInit(BOARD_LED_BAT_RED_GPIO, BOARD_LED_BAT_RED_PORT, BOARD_LED_BAT_RED_PIN, &LED_BAT_RED_config);
-
     gpio_pin_config_t LED_BAT_GREEN_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
-    /* Initialize GPIO functionality on pin PIO1_15 (pin B6)  */
+    /* Initialize GPIO functionality on pin PIO1_14 (pin L7)  */
     GPIO_PinInit(BOARD_LED_BAT_GREEN_GPIO, BOARD_LED_BAT_GREEN_PORT, BOARD_LED_BAT_GREEN_PIN, &LED_BAT_GREEN_config);
+
+    gpio_pin_config_t LED_BAT_RED_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO1_15 (pin B6)  */
+    GPIO_PinInit(BOARD_LED_BAT_RED_GPIO, BOARD_LED_BAT_RED_PORT, BOARD_LED_BAT_RED_PIN, &LED_BAT_RED_config);
 
     gpio_pin_config_t FLASH_WP_config = {
         .pinDirection = kGPIO_DigitalOutput,

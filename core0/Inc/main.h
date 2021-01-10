@@ -56,7 +56,7 @@
 #elif VERSION_CONTROL == 2
 #define WIFI_VERSION 
 #elif VERSION_CONTROL == 3
-#define NB_VERSION
+#define CAT1_VERSION
 #endif
 
 #define DEBUG_USB_AUDIO

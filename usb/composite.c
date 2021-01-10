@@ -334,8 +334,6 @@ void BOARD_Transfer_Mode_Config()
 /*Initialize audio interface and codec.*/
 void Init_Board_Audio(void)
 {
-    usb_echo("Init Audio I2S and CODEC\r\n");
-
     BOARD_USB_Audio_TxRxInit(AUDIO_SAMPLING_RATE);
 
     BOARD_DMA_EDMA_Config();
@@ -585,8 +583,6 @@ void APPInit(void)
     else
     {
         usb_echo("USB device composite demo\r\n");
-        usb_echo("Please Press  switch(%s) to mute/unmute device audio speaker.\r\n", SW_GetName());
-
         g_composite.hidKeyboard.hidHandle            = g_UsbDeviceCompositeConfigList.config[0].classHandle;
         g_composite.audioUnified.audioRecorderHandle = g_UsbDeviceCompositeConfigList.config[1].classHandle;
         g_composite.audioUnified.audioSpeakerHandle  = g_UsbDeviceCompositeConfigList.config[2].classHandle;

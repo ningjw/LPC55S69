@@ -22,6 +22,7 @@ void LED_AppTask(void)
 	extern void USB_AudioInit(void);
 	USB_AudioInit();
 #endif
+	LED_CheckSelf();
     while(1)
     {
 		RTC_GetDatetime(RTC, &sysTime);
@@ -88,17 +89,17 @@ void LED_AppTask(void)
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_RED_PORT,  BOARD_LED_BLE_RED_PIN, OFF);
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_GREEN_PORT, BOARD_LED_BLE_GREEN_PIN, OFF);
                 break;
-            case BLE_READY://ºìµÆÃð,ÂÌµÆ0.6ÃëÉÁ
+            case BLE_WIFI_READY://ºìµÆÃð,ÂÌµÆ0.6ÃëÉÁ
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_RED_PORT,  BOARD_LED_BLE_RED_PIN, OFF);
                 if(ble_led_cnt++ % 3 == 0) {
 					GPIO_PortToggle(GPIO, BOARD_LED_BLE_GREEN_PORT, 1 << BOARD_LED_BLE_GREEN_PIN);
                 }
                 break;
-            case BLE_CONNECT:  //ºìµÆÃð,ÂÌµÆÁÁ
+            case BLE_WIFI_CONNECT:  //ºìµÆÃð,ÂÌµÆÁÁ
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_RED_PORT,  BOARD_LED_BLE_RED_PIN, OFF);
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_GREEN_PORT, BOARD_LED_BLE_GREEN_PIN, ON);
                 break;
-            case BLE_UPDATE://ºìÂÌµÆ½»ÌæÉÁË¸
+            case BLE_WIFI_UPDATE://ºìÂÌµÆ½»ÌæÉÁË¸
 //				GPIO_PinWrite(BOARD_LED_BLE_RED_GPIO,  BOARD_LED_BLE_RED_PIN, OFF);
 //                BOARD_LED_BLE_GREEN_GPIO->DR ^= (1 << BOARD_LED_BLE_GREEN_PIN);
                 if(ble_led_cnt++ % 2 == 0) {

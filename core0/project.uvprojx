@@ -408,9 +408,9 @@
               <FilePath>.\Src\battery_app.c</FilePath>
             </File>
             <File>
-              <FileName>ble_app.c</FileName>
+              <FileName>ble_wifi_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\ble_app.c</FilePath>
+              <FilePath>.\Src\ble_wifi_app.c</FilePath>
             </File>
             <File>
               <FileName>protocol.c</FileName>

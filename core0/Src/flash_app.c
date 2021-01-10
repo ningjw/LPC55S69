@@ -46,6 +46,23 @@ void Flash_ReadPara(void)
 	memcpy(&g_adc_set.bias,           &inFlashBuf[i++],4);
 	DEBUG_PRINTF("%s: batRegAC=0x%x, bias=%f, WifiBleInitFlag=%d\r\n",
 				__func__,g_sys_para.batRegAC,g_adc_set.bias,g_sys_para.WifiBleInitFlag);
+	
+	//前12字节保存的是 adcInfoTotal 结构体
+	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
+	
+	//判断为首次上电运行
+	if(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){
+		DEBUG_PRINTF("%s: First run, init adcInfoTotal**************\r\n",__func__);
+		//总数为初始化为0
+		adcInfoTotal.totalAdcInfo = 0;
+		//本次 AdcInfo 结构体保存地址
+		adcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);
+		//本次数据的开始地址
+		adcInfoTotal.addrOfNewData = ADC_DATA_ADDR;
+	}
+	DEBUG_PRINTF("%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\r\n",__func__,
+	               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);
+	
 }
 
 

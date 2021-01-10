@@ -514,7 +514,7 @@ void SysTick_Handler( void ) /* PRIVILEGED_FUNCTION */
 	extern void FLEXCOMM3_TimeTick(void);
 	FLEXCOMM3_TimeTick();
 #endif
-#ifdef NB_VERSION
+#ifdef CAT1_VERSION
 	extern void FLEXCOMM5_TimeTick(void);
 	FLEXCOMM5_TimeTick();
 	

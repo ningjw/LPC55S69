@@ -95,6 +95,7 @@ void WIFI_Init(void)
 	
 	DEBUG_PRINTF("USR-C322 Init OK\r\n");
 	g_sys_para.WifiBleInitFlag++;
+	g_sys_para.BleWifiLedStatus = BLE_WIFI_READY;
 	Flash_SavePara();
 }
 #endif
@@ -146,7 +147,7 @@ void BLE_Init(void)
 		Flash_SavePara();
 	}
 	SET_THROUGHPUT_MODE();
-	g_sys_para.BleWifiLedStatus = BLE_READY;
+	g_sys_para.BleWifiLedStatus = BLE_WIFI_READY;
 }
 #endif
 /***********************************************************************
@@ -237,7 +238,7 @@ void FLEXCOMM3_TimeTick(void)
     if(g_flexcomm3StartRx && BleStartFlag)
     {
         g_flexcomm3RxTimeCnt++;
-		if(g_sys_para.BleWifiLedStatus == BLE_UPDATE){
+		if(g_sys_para.BleWifiLedStatus == BLE_WIFI_UPDATE){
 			if(g_flexcomm3RxTimeCnt >= 1000 ){
 				g_flexcomm3RxTimeCnt = 0;
 				DEBUG_PRINTF("\nReceive time out\n", g_flexcomm3RxCnt);
@@ -279,11 +280,11 @@ void FLEXCOMM3_IRQHandler(void)
 			g_flexcomm3Buf[g_flexcomm3RxCnt++] = ucTemp;
 		}
 		
-		if(g_sys_para.BleWifiLedStatus != BLE_UPDATE && g_flexcomm3Buf[g_flexcomm3RxCnt-1] == '}'){
+		if(g_sys_para.BleWifiLedStatus != BLE_WIFI_UPDATE && g_flexcomm3Buf[g_flexcomm3RxCnt-1] == '}'){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
 			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
-		}else if (g_sys_para.BleWifiLedStatus==BLE_UPDATE && g_flexcomm3RxCnt >= FIRM_ONE_PACKE_LEN){
+		}else if (g_sys_para.BleWifiLedStatus==BLE_WIFI_UPDATE && g_flexcomm3RxCnt >= FIRM_ONE_PACKE_LEN){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
 			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);

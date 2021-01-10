@@ -418,33 +418,33 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_9_FUNC_ALT0 0x00u
 
-/*! @name PIO1_2 (coord G12), LED_SYS_RED
-  @{ */
-#define BOARD_LED_SYS_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED_SYS_RED_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_LED_SYS_RED_PIN 2U    /*!<@brief 1U pin index: 2 */
-                                    /* @} */
-
-/*! @name PIO1_3 (coord G13), LED_SYS_GREEN
+/*! @name PIO1_2 (coord G12), LED_SYS_GREEN
   @{ */
 #define BOARD_LED_SYS_GREEN_GPIO GPIO /*!<@brief GPIO device name: GPIO */
 #define BOARD_LED_SYS_GREEN_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_LED_SYS_GREEN_PIN 3U    /*!<@brief 1U pin index: 3 */
+#define BOARD_LED_SYS_GREEN_PIN 2U    /*!<@brief 1U pin index: 2 */
                                       /* @} */
 
-/*! @name PIO1_14 (coord L7), LED_BAT_RED
+/*! @name PIO1_3 (coord G13), LED_SYS_RED
   @{ */
-#define BOARD_LED_BAT_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
-#define BOARD_LED_BAT_RED_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_LED_BAT_RED_PIN 14U   /*!<@brief 1U pin index: 14 */
+#define BOARD_LED_SYS_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_LED_SYS_RED_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_LED_SYS_RED_PIN 3U    /*!<@brief 1U pin index: 3 */
                                     /* @} */
 
-/*! @name PIO1_15 (coord B6), LED_BAT_GREEN
+/*! @name PIO1_14 (coord L7), LED_BAT_GREEN
   @{ */
 #define BOARD_LED_BAT_GREEN_GPIO GPIO /*!<@brief GPIO device name: GPIO */
 #define BOARD_LED_BAT_GREEN_PORT 1U   /*!<@brief PORT device name: 1U */
-#define BOARD_LED_BAT_GREEN_PIN 15U   /*!<@brief 1U pin index: 15 */
+#define BOARD_LED_BAT_GREEN_PIN 14U   /*!<@brief 1U pin index: 14 */
                                       /* @} */
+
+/*! @name PIO1_15 (coord B6), LED_BAT_RED
+  @{ */
+#define BOARD_LED_BAT_RED_GPIO GPIO /*!<@brief GPIO device name: GPIO */
+#define BOARD_LED_BAT_RED_PORT 1U   /*!<@brief PORT device name: 1U */
+#define BOARD_LED_BAT_RED_PIN 15U   /*!<@brief 1U pin index: 15 */
+                                    /* @} */
 
 /*! @name PIO0_19 (coord E6), LED_BLE_GREEN
   @{ */

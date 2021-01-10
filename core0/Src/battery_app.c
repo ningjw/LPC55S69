@@ -38,9 +38,16 @@ void BAT_AppTask(void)
 		//要正常看到电池亮红灯,还需要注释掉while(1)中对电池状态的检测代码
 //		g_sys_para.batLedStatus = BAT_CHARGING;
 	}
-#endif
-#ifdef NB_VERSION
 	
+#elif defined(CAT1_VERSION)
+//根据电压计算电池容量
+    if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
+        remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
+    } else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)
+        remain = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
+    } else { // (3.5 - 3.68)
+        remain = 55.556f * g_sys_para.batVoltage - 194.44f;
+    }
 #endif
     DEBUG_PRINTF("BAT_AppTask Running\r\n");
 	
@@ -83,9 +90,9 @@ void BAT_AppTask(void)
 				g_sys_para.batRemainPercent = 99;
 			}
         } else 
-#endif
-#ifdef NB_VERSION
-	
+#elif defined CAT1_VERSION
+
+
 #endif
 		if(READ_CHARGE_STA == 1 && READ_STDBY_STA == 0) { //充电完成
 //			DEBUG_PRINTF("%s: Battery full \r\n",__func__);
@@ -106,7 +113,6 @@ void BAT_AppTask(void)
         } else {
             g_sys_para.batLedStatus = BAT_NORMAL;
         }
-		
         vTaskDelay(2000);
 	}
 }

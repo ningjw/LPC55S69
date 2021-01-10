@@ -3,7 +3,7 @@
 ".\objects\led_app.o"
 ".\objects\adc_app.o"
 ".\objects\battery_app.o"
-".\objects\ble_app.o"
+".\objects\ble_wifi_app.o"
 ".\objects\protocol.o"
 ".\objects\flash_app.o"
 ".\objects\nbiot_app.o"
