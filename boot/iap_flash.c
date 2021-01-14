@@ -13,7 +13,7 @@
 #define CORE0_DATA_ADDR     0x00038000     // core0升级数据地址
 #define CORE1_DATA_ADDR     0x00030000     // core1升级数据地址
 
-#define PARA_ADDR           0x00096000
+#define PARA_ADDR           0x00088000
 #define PAGE_SIZE           0x200
 
 #define BUFFER_LEN          128
@@ -42,7 +42,6 @@ void Flash_SavePara(void)
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Size, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCrc16, 4);
-
 
 	memory_erase(PARA_ADDR,PAGE_SIZE);
 	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);

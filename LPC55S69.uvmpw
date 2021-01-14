@@ -9,12 +9,11 @@
 
   <project>
     <PathAndName>.\boot\flashiap1.uvprojx</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
   </project>
 
   <project>
     <PathAndName>.\core0\project.uvprojx</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>

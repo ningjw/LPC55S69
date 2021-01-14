@@ -46,6 +46,7 @@ retry:
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, time_out);
     //接收到的数据中包含响应的数据
     if(strstr((char *)g_flexcomm3Buf, recv_str) != NULL) {
+		DEBUG_PRINTF("%s\r\n",g_flexcomm3Buf);
         return true;
     } else {
         if(try_cnt++ > 3) {
@@ -66,8 +67,10 @@ void WIFI_Init(void)
 {
 	vTaskDelay(2000);
 	
-	WIFI_SendCmd("+++", "a", 1000);
-
+	while(WIFI_SendCmd("+++", "a", 1000) == false){
+		vTaskDelay(10);
+	}
+	
 	if(WIFI_SendCmd("a","OK", 1000)==false)
 	{
 		DEBUG_PRINTF("********** WIFI Init error \r\n");
@@ -178,7 +181,7 @@ void BLE_WIFI_AppTask(void)
         /*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, portMAX_DELAY);
         if ( xReturn && ble_event == EVT_OK) {
-
+		
             /* 处理蓝牙/wifi数据 */
             sendBuf = ParseProtocol(g_flexcomm3Buf);
 			
@@ -241,6 +244,7 @@ void FLEXCOMM3_TimeTick(void)
 		if(g_sys_para.BleWifiLedStatus == BLE_WIFI_UPDATE){
 			if(g_flexcomm3RxTimeCnt >= 1000 ){
 				g_flexcomm3RxTimeCnt = 0;
+				g_flexcomm3StartRx = false;
 				DEBUG_PRINTF("\nReceive time out\n", g_flexcomm3RxCnt);
 				for(uint8_t i = 0;i<g_flexcomm3RxCnt; i++){
 					DEBUG_PRINTF("%02x ",g_flexcomm3Buf[i]);

@@ -594,6 +594,9 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
     if (NULL != pSub)
         g_sys_para.firmCoreIndex = pSub->valueint;
 	
+	g_sys_para.firmPacksTotal = g_sys_para.firmCore0Size % 1000 ? 
+	                            g_sys_para.firmCore0Size/1000 + 1: 
+	                            g_sys_para.firmCore0Size/1000;
 	g_sys_para.firmCoreIndex = 0;
     g_sys_para.firmPacksCount = 0;
     g_sys_para.firmSizeCurrent = 0;
@@ -1244,11 +1247,7 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
     if(NULL == pJsonRoot) {
         return NULL;
     }
-#ifdef BLE_VERSION
     cJSON_AddNumberToObject(pJsonRoot, "Id", 10);
-#elif defined WIFI_VERSION
-	cJSON_AddNumberToObject(pJsonRoot, "Id", 19);
-#endif
     cJSON_AddNumberToObject(pJsonRoot, "Sid",1);
     cJSON_AddNumberToObject(pJsonRoot, "P", g_sys_para.firmPacksCount);
     cJSON_AddNumberToObject(pJsonRoot, "E", err_code);

@@ -23,7 +23,7 @@ void main(void)
 	SPI_Flash_Init();
 	InitSysPara();
 	
-	DEBUG_PRINTF("app start\n");
+	DEBUG_PRINTF("app start, version = %s\n",SOFT_VERSION);
 	RTC_GetDatetime(RTC, &sysTime);
 	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
 				sysTime.year,sysTime.month,sysTime.day,
