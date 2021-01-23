@@ -273,8 +273,12 @@ void ADC_AppTask(void)
 				g_adc_set.ProcessMin = Temperature[min_i];
 				
 				W25Q128_AddAdcData();
+#ifdef CAT1_VERSION
+				
+#else
                 /* 发送任务通知，并解锁阻塞在该任务通知下的任务 */
                 xTaskNotifyGive( BLE_WIFI_TaskHandle);
+#endif
             }
         }
     }

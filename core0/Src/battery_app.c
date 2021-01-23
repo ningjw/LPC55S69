@@ -40,7 +40,15 @@ void BAT_AppTask(void)
 	}
 	
 #elif defined(CAT1_VERSION)
-//根据电压计算电池容量
+	lpadc_conv_result_t batVoltage;
+	
+	POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
+	
+	LPADC_DoSoftwareTrigger(ADC0_PERIPHERAL, 1U); /* 1U对应触发0*/
+	
+//	while (!LPADC_GetConvResult(ADC0_PERIPHERAL, &batVoltage, 0U)) {}
+	
+	//根据电压计算电池容量
     if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
         remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
     } else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)

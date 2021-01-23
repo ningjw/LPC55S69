@@ -1,7 +1,9 @@
 #include "main.h"
 
-#define DEVICE_BLE_NAME "BLE Communication"
 
+#if defined(BLE_VERSION) || defined(WIFI_VERSION)
+
+#define DEVICE_BLE_NAME "BLE Communication"
 
 extern void LPUART2_init(void);
 
@@ -297,4 +299,4 @@ void FLEXCOMM3_IRQHandler(void)
     __DSB();
 }
 
-
+#endif

@@ -103,7 +103,7 @@ BOARD_InitPins:
     identifier: LED_BLE_RED, direction: OUTPUT}
   - {pin_num: G9, peripheral: PINT, signal: 'PINT, 0', pin_signal: PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0}
   - {pin_num: J7, peripheral: GPIO, signal: 'PIO1, 10', pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, identifier: PWR_ADC, direction: OUTPUT}
-  - {pin_num: A11, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25, direction: OUTPUT, gpio_init_state: 'false'}
+  - {pin_num: A11, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25, direction: OUTPUT, gpio_init_state: 'true'}
   - {pin_num: E12, peripheral: GPIO, signal: 'PIO0, 24', pin_signal: PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24, direction: OUTPUT}
   - {pin_num: G3, peripheral: GPIO, signal: 'PIO0, 17', pin_signal: PIO0_17/FC4_SSEL2/SD0_CARD_DET_N/SCT_GPI7/SCT0_OUT0/SD0_CARD_INT_N/PLU_IN2/SECURE_GPIO0_17, direction: INPUT}
   - {pin_num: E1, peripheral: GPIO, signal: 'PIO1, 0', pin_signal: PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11, direction: INPUT}
@@ -170,6 +170,7 @@ BOARD_InitPins:
   - {pin_num: A7, peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, identifier: WIFI_CTS,
     direction: INPUT}
   - {pin_num: E9, peripheral: USBFSH, signal: USB_VBUS, pin_signal: PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22}
+  - {pin_num: J1, peripheral: ADC0, signal: 'CH, 0', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -285,6 +286,13 @@ void BOARD_InitPins(void)
     /* Initialize GPIO functionality on pin PIO0_21 (pin A12)  */
     GPIO_PinInit(BOARD_ADC_RDY_GPIO, BOARD_ADC_RDY_PORT, BOARD_ADC_RDY_PIN, &ADC_RDY_config);
 
+    gpio_pin_config_t gpio0_pinJ1_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PIO0_23 (pin J1)  */
+    GPIO_PinInit(GPIO, 0U, 23U, &gpio0_pinJ1_config);
+
     gpio_pin_config_t PWR_OFF_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
@@ -294,7 +302,7 @@ void BOARD_InitPins(void)
 
     gpio_pin_config_t PWR_5V_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
+        .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO0_25 (pin A11)  */
     GPIO_PinInit(BOARD_PWR_5V_GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, &PWR_5V_config);
@@ -742,6 +750,29 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO0_22_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[0][23] = ((IOCON->PIO[0][23] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK | IOCON_PIO_ASW_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT023 (pin J1) is configured as ADC0_0. */
+                         | IOCON_PIO_FUNC(PIO0_23_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Inactive.
+                          * Inactive (no pull-down/pull-up resistor enabled). */
+                         | IOCON_PIO_MODE(PIO0_23_MODE_INACTIVE)
+
+                         /* Select Digital mode.
+                          * : Disable digital mode.
+                          * Digital input set to 0. */
+                         | IOCON_PIO_DIGIMODE(PIO0_23_DIGIMODE_ANALOG)
+
+                         /* Analog switch input control.
+                          * : For all pins except PIO0_9, PIO0_11, PIO0_12, PIO0_15, PIO0_18, PIO0_31, PIO1_0 and
+                          * PIO1_9 analog switch is closed (enabled). */
+                         | IOCON_PIO_ASW(PIO0_23_ASW_VALUE1));
 
     IOCON->PIO[0][24] = ((IOCON->PIO[0][24] &
                           /* Mask bits to zero which are setting */

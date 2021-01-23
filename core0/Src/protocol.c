@@ -381,7 +381,11 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
     cJSON_AddNumberToObject(pJsonReply, "Sid", 0);
     char *sendBuf = cJSON_PrintUnformatted(pJsonReply);
     cJSON_Delete(pJsonReply);
+#ifdef CAT1_VERSION
+//	FLEXCOMM5_SendStr((char *)sendBuf);
+#else
     FLEXCOMM3_SendStr((char *)sendBuf);
+#endif
     free(sendBuf);
     sendBuf = NULL;
     sampTime = sysTime;
@@ -493,6 +497,7 @@ SEND_DATA:
         p_reply = cJSON_PrintUnformatted(pJsonRoot);
         break;
     default:
+#ifdef WIFI_VERSION
 		memset(g_flexcomm3TxBuf, 0, FLEXCOMM3_BUFF_LEN);
 		i = 0;
 		g_flexcomm3TxBuf[i++] = 0xE7;
@@ -524,6 +529,7 @@ SEND_DATA:
 		g_flexcomm3TxBuf[i++] = 0xEB;
 		g_flexcomm3TxBuf[i++] = 0xEC;
 		g_flexcomm3TxBuf[i++] = 0xED;
+#endif
         break;
     }
 
@@ -539,12 +545,20 @@ SEND_DATA:
 #endif
 	
 	if(sid <= 2){
+#ifdef CAT1_VERSION
+//		FLEXCOMM5_SendStr((char *)p_reply);
+#else
 		FLEXCOMM3_SendStr((char *)p_reply);
+#endif
 		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
 	}else{
+#ifdef CAT1_VERSION
+//		USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm5TxBuf, i);
+#else
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
+#endif
 	}
 	
 //	USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm3TxBuf, i);
@@ -571,6 +585,7 @@ SEND_DATA:
 ***************************************************************************************/
 static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 {
+#ifdef WIFI_VERSION
     /* 开始升级固件后, 初始化一些必要的变量*/
     g_sys_para.firmCore0Update = false;
     g_sys_para.firmPacksCount = 0;
@@ -616,6 +631,9 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
     g_sys_para.BleWifiLedStatus = BLE_WIFI_UPDATE;
     g_flexcomm3StartRx = true;//开始超市检测,5s中未接受到数据则超时
     return p_reply;
+#else
+	return NULL;
+#endif
 }
 
 /***************************************************************************************
@@ -1044,6 +1062,7 @@ SEND_DATA:
         p_reply = cJSON_PrintUnformatted(pJsonRoot);
         break;
     default:
+#ifdef WIFI_VERSION
         memset(g_flexcomm3TxBuf, 0, FLEXCOMM3_BUFF_LEN);
 		i = 0;
 		g_flexcomm3TxBuf[i++] = 0xE7;
@@ -1075,6 +1094,7 @@ SEND_DATA:
 		g_flexcomm3TxBuf[i++] = 0xEB;
 		g_flexcomm3TxBuf[i++] = 0xEC;
 		g_flexcomm3TxBuf[i++] = 0xED;
+#endif
         break;
     }
 	g_sys_para.inactiveCount = 0;
@@ -1083,12 +1103,20 @@ SEND_DATA:
 //	while(READ_MCU_CTS);
 	
 	if(sid == 0){
+#ifdef CAT1_VERSION
+//		FLEXCOMM5_SendStr((char *)p_reply);
+#else
 		FLEXCOMM3_SendStr((char *)p_reply);
+#endif
 		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
 	}else{
+#ifdef CAT1_VERSION
+//		USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm5TxBuf, i);
+#else
 		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_flexcomm3TxBuf, i);
+#endif
 	}
 	
 	//获取所有的数据包
@@ -1196,6 +1224,7 @@ uint8_t* ParseJson(char *pMsg)
 ***************************************************************************************/
 uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 {
+#ifdef WIFI_VERSION
     uint16_t crc = 0;
     uint8_t  err_code = 0;
 	uint32_t app_data_addr = 0;
@@ -1255,6 +1284,9 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
     cJSON_Delete(pJsonRoot);
     g_sys_para.firmPacksCount++;
     return (uint8_t*)p_reply;
+#else
+	return NULL;
+#endif
 }
 
 

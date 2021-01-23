@@ -37,6 +37,9 @@ uint32_t inFlashBuf[BUFFER_LEN] = {0};
 void Flash_SavePara(void)
 {
 	uint16_t i = 0;
+	//读取1page数据
+	memory_read(PARA_ADDR, (uint8_t *)inFlashBuf, PAGE_SIZE);
+	
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Update, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Update, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
@@ -83,11 +86,13 @@ int main()
 	if (g_sys_para.firmCore0Update == true){//需要更新core0系统
 		memory_copy(CORE0_START_ADDR, CORE0_DATA_ADDR, g_sys_para.firmCore0Size);
 		g_sys_para.firmCore0Update = false;
+		Flash_SavePara();
 	}
 	
 	if (g_sys_para.firmCore1Update == true){//需要更新core1系统
 		memory_copy(CORE1_START_ADDR, CORE1_DATA_ADDR, g_sys_para.firmCore1Size);
 		g_sys_para.firmCore1Update = false;
+		Flash_SavePara();
 	}
 	
 //    printf("Jump to app\n");

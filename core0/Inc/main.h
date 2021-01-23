@@ -37,7 +37,7 @@
 #include "adc_app.h"
 #include "flash_app.h"
 #include "battery_app.h"
-#include "nbiot_app.h"
+#include "cat1_app.h"
 #include "core1_app.h"
 #include "nfc_app.h"
 
@@ -49,7 +49,7 @@
 #include "soft_iic_drv.h"
 
 
-#define VERSION_CONTROL 2
+#define VERSION_CONTROL 3
 
 #if VERSION_CONTROL == 1
 #define BLE_VERSION
@@ -59,9 +59,9 @@
 #define CAT1_VERSION
 #endif
 
-#define DEBUG_USB_AUDIO
-#define DEBUG_PRINTF printf
-//#define DEBUG_PRINTF(...)  
+//#define DEBUG_USB_AUDIO
+//#define DEBUG_PRINTF printf
+#define DEBUG_PRINTF(...)  
 
 #define SOFT_VERSION       "21010200"
 #define HARD_VERSION       "1.0.0"
@@ -87,7 +87,7 @@
     #define ADC_NUM_ONE_PACK   58
 	#define FIRM_ONE_PACKE_LEN 166 
 	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
-#elif defined WIFI_VERSION
+#elif defined (WIFI_VERSION) || defined(CAT1_VERSION)
 	#define ADC_NUM_ONE_PACK   335
 	#define FIRM_ONE_PACKE_LEN 1006
 	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
@@ -110,8 +110,8 @@
 #define PWR_ADC_ON               GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
 #define PWR_ADC_OFF              GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 1)
 
-#define PWR_NB_ON                GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 0)
-#define PWR_NB_OFF               GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 1)
+#define PWR_CAT1_ON              GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 0)
+#define PWR_CAT1_OFF             GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 1)
 
 #define PWR_WIFI_ON              GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 1)
 #define PWR_WIFI_OFF             GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 0)
@@ -188,6 +188,8 @@ typedef struct{
 	uint32_t tempCount;  //当前记录的温度个数
 	bool     WorkStatus; //用于指示当前是否正在采集.
 	uint8_t  WifiBleInitFlag;
+	uint8_t  Cat1InitFlag;
+	uint8_t  Cat1LinkStatus;
     char     fileName[20];
     char     earliestFile[20];
 }SysPara;

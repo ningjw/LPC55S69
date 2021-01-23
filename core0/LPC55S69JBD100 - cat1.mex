@@ -143,6 +143,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="ADC0" description="Peripheral ADC0 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="cm33_core1">
                         <data>true</data>
@@ -205,7 +210,7 @@
                   <pin peripheral="GPIO" signal="PIO0, 25" pin_num="A11" pin_signal="PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
-                        <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 24" pin_num="E12" pin_signal="PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24">
@@ -437,6 +442,7 @@
                      </pin_features>
                   </pin>
                   <pin peripheral="USBFSH" signal="USB_VBUS" pin_num="E9" pin_signal="PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22"/>
+                  <pin peripheral="ADC0" signal="CH, 0" pin_num="J1" pin_signal="PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0"/>
                </pins>
             </function>
          </functions_list>
@@ -518,7 +524,6 @@
                   <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM1_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM2_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM3_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM4_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM5_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM6_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
@@ -532,6 +537,9 @@
                   <setting id="ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG" value="Enable" locked="false"/>
                   <setting id="ENABLE_CLKIN_ENA" value="Enabled" locked="false"/>
                   <setting id="ENABLE_SYSTEM_CLK_OUT" value="Enabled" locked="false"/>
+                  <setting id="PMC_PDRUNCFG_PDEN_XTAL32K_CFG" value="Power_up" locked="false"/>
+                  <setting id="RTC.RTCOSC32KSEL.sel" value="RTC.XTAL32K" locked="false"/>
+                  <setting id="RTC_EN_CFG" value="Enable" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
@@ -539,7 +547,6 @@
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL1.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL3.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL4.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL5.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL6.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
@@ -568,6 +575,16 @@
       </dcdx>
       <periphs name="Peripherals" version="7.0" enabled="true" update_project_code="true">
          <dependencies>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="在工具链/IDE 工程中未找到LPADC Driver。该工程不会被编译！" problem_level="2" source="Peripherals">
+               <feature name="enabled" evaluation="equal">
+                  <data type="Boolean">true</data>
+               </feature>
+            </dependency>
+            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="该工具链/IDE 工程不支持LPADC Driver版本。所需：${required_value}, 实际：${actual_value}. 工程编译可能不正确。" problem_level="1" source="Peripherals">
+               <feature name="version" evaluation="equivalent">
+                  <data type="Version">2.2.0</data>
+               </feature>
+            </dependency>
             <dependency resourceType="SWComponent" resourceId="platform.drivers.ctimer" description="在工具链/IDE 工程中未找到CTimer Driver。该工程不会被编译！" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
@@ -651,6 +668,11 @@
                <description></description>
                <options/>
                <dependencies>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="ADC0.adc_se.0" description="Signal channel 0 of the peripheral ADC0 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="">
+                        <data type="Boolean">true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="CTIMER0_clock" description="CTIMER0_clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
@@ -716,21 +738,6 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="FXCOM3_clock" description="FXCOM3 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM3.usart_rxd" description="Signal RX of the peripheral FLEXCOMM3 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM3.usart_txd" description="Signal TX of the peripheral FLEXCOMM3 is not routed.问题必须在其它工具中被解决。" problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="FXCOM5_clock" description="FXCOM5 clock is inactive.问题必须在其它工具中被解决。" problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
@@ -788,6 +795,67 @@
                   </dependency>
                </dependencies>
                <instances>
+                  <instance name="ADC0" uuid="22093c4d-5695-400c-a370-8b4a00602d63" type="lpadc" type_id="lpadc_37e603c0367b4bb173ded9b76a178984" mode="LPADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="false">
+                     <config_set name="fsl_lpadc">
+                        <struct name="lpadcConfig">
+                           <setting name="enableInDozeMode" value="true"/>
+                           <setting name="conversionAverageMode" value="kLPADC_ConversionAverage16"/>
+                           <setting name="offsetCalibration" value="no"/>
+                           <setting name="autoCalibrate" value="false"/>
+                           <setting name="enableAnalogPreliminary" value="false"/>
+                           <setting name="powerUpDelay" value="0x80"/>
+                           <setting name="referenceVoltageSource" value="kLPADC_ReferenceVoltageAlt3"/>
+                           <setting name="powerLevelMode" value="kLPADC_PowerLevelAlt1"/>
+                           <setting name="triggerPriorityPolicy" value="kLPADC_TriggerPriorityPreemptImmediately"/>
+                           <setting name="enableConvPause" value="false"/>
+                           <setting name="convPauseDelay" value="0"/>
+                           <setting name="FIFO0Watermark" value="0"/>
+                           <setting name="FIFO1Watermark" value="0"/>
+                           <setting name="FIFO0WatermarkDMA" value="false"/>
+                           <setting name="FIFO1WatermarkDMA" value="false"/>
+                        </struct>
+                        <array name="lpadcConvCommandConfig">
+                           <struct name="0">
+                              <setting name="commandId" value="1"/>
+                              <setting name="chainedNextCommandNumber" value="0"/>
+                              <setting name="sampleChannelMode" value="kLPADC_SampleChannelSingleEndSideA"/>
+                              <setting name="channelNumber" value="CH.0"/>
+                              <setting name="enableAutoChannelIncrement" value="false"/>
+                              <setting name="loopCount" value="0"/>
+                              <setting name="hardwareAverageMode" value="kLPADC_HardwareAverageCount1"/>
+                              <setting name="sampleTimeMode" value="kLPADC_SampleTimeADCK3"/>
+                              <setting name="hardwareCompareMode" value="kLPADC_HardwareCompareDisabled"/>
+                              <setting name="hardwareCompareValueHigh" value="0"/>
+                              <setting name="hardwareCompareValueLow" value="0"/>
+                              <setting name="conversionResoultuionMode" value="kLPADC_ConversionResolutionStandard"/>
+                              <setting name="enableWaitTrigger" value="false"/>
+                           </struct>
+                        </array>
+                        <array name="lpadcConvTriggerConfig">
+                           <struct name="0">
+                              <setting name="triggerId" value="0"/>
+                              <setting name="targetCommandId" value="1"/>
+                              <setting name="delayPower" value="0"/>
+                              <setting name="priority" value="false"/>
+                              <setting name="channelAFIFOSelect" value="0"/>
+                              <setting name="channelBFIFOSelect" value="0"/>
+                              <setting name="enableHardwareTrigger" value="false"/>
+                           </struct>
+                        </array>
+                        <struct name="IRQ_cfg">
+                           <set name="interrupt_type">
+                              <selected/>
+                           </set>
+                           <setting name="enable_irq" value="false"/>
+                           <struct name="adc_interrupt">
+                              <setting name="IRQn" value="ADC0_IRQn"/>
+                              <setting name="enable_priority" value="false"/>
+                              <setting name="priority" value="0"/>
+                              <setting name="enable_custom_name" value="false"/>
+                           </struct>
+                        </struct>
+                     </config_set>
+                  </instance>
                   <instance name="CTIMER0" uuid="11d1ed24-2ec6-4596-937d-eb44a8403920" type="ctimer" type_id="ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a" mode="PWM" peripheral="CTIMER0" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="fsl_ctimer">
                         <struct name="ctimerConfig">
@@ -937,27 +1005,7 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="polling" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
-                     <config_set name="usartConfig_t">
-                        <struct name="usartConfig">
-                           <setting name="clockSource" value="FXCOMFunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="baudRate_Bps" value="9600"/>
-                           <setting name="syncMode" value="kUSART_SyncModeDisabled"/>
-                           <setting name="parityMode" value="kUSART_ParityDisabled"/>
-                           <setting name="stopBitCount" value="kUSART_OneStopBit"/>
-                           <setting name="bitCountPerChar" value="kUSART_8BitsPerChar"/>
-                           <setting name="loopback" value="false"/>
-                           <setting name="txWatermark" value="kUSART_TxFifo0"/>
-                           <setting name="rxWatermark" value="kUSART_RxFifo1"/>
-                           <setting name="enableRx" value="true"/>
-                           <setting name="enableTx" value="true"/>
-                           <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
-                           <setting name="enableContinuousSCLK" value="false"/>
-                        </struct>
-                     </config_set>
-                  </instance>
-                  <instance name="FLEXCOMM3" uuid="70940862-4305-4f25-b532-aa45cb5cb6bd" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="interrupts" peripheral="FLEXCOMM3" enabled="true" comment="" custom_name_enabled="false">
+                  <instance name="FLEXCOMM2" uuid="35c30d5a-e878-486f-9b96-de98263a14cf" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="interrupts" peripheral="FLEXCOMM2" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="interruptsCfg">
                         <set name="interrupts">
                            <selected>
@@ -968,7 +1016,7 @@
                         <struct name="interrupt_vectors">
                            <setting name="enable_rx_tx_irq" value="true"/>
                            <struct name="interrupt_rx_tx">
-                              <setting name="IRQn" value="FLEXCOMM3_IRQn"/>
+                              <setting name="IRQn" value="FLEXCOMM2_IRQn"/>
                               <setting name="enable_priority" value="false"/>
                               <setting name="priority" value="0"/>
                               <setting name="enable_custom_name" value="false"/>
@@ -1139,7 +1187,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="a9f4ce36-c46e-4f5b-9af9-d573ddca5c0d" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="feba8315-29f0-497d-a256-bac4c116914a" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>

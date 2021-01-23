@@ -23,7 +23,8 @@ void Flash_SavePara(void)
 	memcpy(&inFlashBuf[i++],&g_sys_para.batRegAC, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.WifiBleInitFlag, 4);
 	memcpy(&inFlashBuf[i++],&g_adc_set.bias, 4);
-
+	memcpy(&inFlashBuf[i++],&g_sys_para.Cat1InitFlag, 4);
+	
 	memory_erase(PARA_ADDR,PAGE_SIZE);
 	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
 	g_sys_para.batRemainPercentBak = g_sys_para.batRemainPercent;
@@ -44,6 +45,7 @@ void Flash_ReadPara(void)
 	memcpy(&g_sys_para.batRegAC,      &inFlashBuf[i++],4);
 	memcpy(&g_sys_para.WifiBleInitFlag,&inFlashBuf[i++],4);
 	memcpy(&g_adc_set.bias,           &inFlashBuf[i++],4);
+	memcpy(&g_sys_para.Cat1InitFlag,  &inFlashBuf[i++],4);
 	DEBUG_PRINTF("%s: batRegAC=0x%x, bias=%f, WifiBleInitFlag=%d\r\n",
 				__func__,g_sys_para.batRegAC,g_adc_set.bias,g_sys_para.WifiBleInitFlag);
 	

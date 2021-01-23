@@ -69,7 +69,6 @@ outputs:
 - {id: FXCOM6_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
 - {id: System_clock.outFreq, value: 96 MHz, locked: true, accuracy: '0.001'}
-- {id: USB0_clock.outFreq, value: 48 MHz}
 - {id: UTICK_clock.outFreq, value: 1 MHz}
 - {id: WDT_clock.outFreq, value: 1 MHz}
 settings:
@@ -77,6 +76,9 @@ settings:
 - {id: ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG, value: Enable}
 - {id: ENABLE_CLKIN_ENA, value: Enabled}
 - {id: ENABLE_SYSTEM_CLK_OUT, value: Enabled}
+- {id: PMC_PDRUNCFG_PDEN_XTAL32K_CFG, value: Power_up}
+- {id: RTC.RTCOSC32KSEL.sel, value: RTC.XTAL32K}
+- {id: RTC_EN_CFG, value: Enable}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
@@ -97,7 +99,6 @@ settings:
 - {id: SYSCON.PLL0M_MULT.scale, value: '24'}
 - {id: SYSCON.SYSTICKCLKSEL0.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.USB0CLKDIV.scale, value: '2', locked: true}
-- {id: SYSCON.USB0CLKSEL.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG, value: Enabled}
 - {id: UTICK_EN_CFG, value: Enable}
 sources:
@@ -173,12 +174,9 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetClkDiv(kCLOCK_DivFrohfClk, 2U, false);         /*!< Set FROHFDIV divider to value 2 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
-    CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 0U, true);               /*!< Reset USB0CLKDIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivUsb0Clk, 2U, false);         /*!< Set USB0CLKDIV divider to value 2 */
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
-    CLOCK_AttachClk(kMAIN_CLK_to_USB0_CLK);                 /*!< Switch USB0_CLK to MAIN_CLK */
     CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */

@@ -17,8 +17,8 @@
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \
   ..\drivers\fsl_clock.h ..\drivers\fsl_reset.h ..\drivers\fsl_common.h \
-  ..\drivers\fsl_ctimer.h ..\drivers\fsl_clock.h ..\drivers\fsl_spi.h \
-  ..\drivers\fsl_flexcomm.h ..\drivers\fsl_reset.h \
+  ..\drivers\fsl_lpadc.h ..\drivers\fsl_ctimer.h ..\drivers\fsl_clock.h \
+  ..\drivers\fsl_spi.h ..\drivers\fsl_flexcomm.h ..\drivers\fsl_reset.h \
   ..\drivers\fsl_usart.h ..\drivers\fsl_pint.h ..\drivers\fsl_rtc.h \
   ..\drivers\fsl_utick.h board\clock_config.h ..\drivers\fsl_gpio.h \
   ..\drivers\fsl_i2c.h D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
@@ -36,6 +36,6 @@
   ..\freertos\include\queue.h ..\freertos\include\timers.h \
   ..\mcmgr\mcmgr.h ..\mcmgr\mcmgr_internal_core_api.h ..\cjson\cJSON.h \
   Inc\protocol.h Inc\led_app.h Inc\ble_app.h Inc\adc_app.h \
-  Inc\flash_app.h Inc\battery_app.h Inc\nbiot_app.h Inc\core1_app.h \
+  Inc\flash_app.h Inc\battery_app.h Inc\cat1_app.h Inc\core1_app.h \
   Inc\nfc_app.h Inc\battery_drv.h Inc\iic_tp100_drv.h Inc\si5351_drv.h \
   Inc\adc_drv.h Inc\w25q128_drv.h Inc\soft_iic_drv.h

@@ -268,7 +268,7 @@ function device_data_analyze(dev)
     add_val(t,"ds_test",0,dev:bytes(1,s))
 
     dev:response()
-    dev:send("received")  --发送应答
+    dev:send("OK")  --发送应答
     
     -- return $1,$2 --
     -- 例如： --

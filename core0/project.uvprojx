@@ -423,9 +423,9 @@
               <FilePath>.\Src\flash_app.c</FilePath>
             </File>
             <File>
-              <FileName>nbiot_app.c</FileName>
+              <FileName>cat1_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\nbiot_app.c</FilePath>
+              <FilePath>.\Src\cat1_app.c</FilePath>
             </File>
             <File>
               <FileName>incbin.S</FileName>
@@ -736,6 +736,11 @@
               <FileName>fsl_i2s.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\fsl_i2s.c</FilePath>
+            </File>
+            <File>
+              <FileName>fsl_lpadc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\fsl_lpadc.c</FilePath>
             </File>
           </Files>
         </Group>

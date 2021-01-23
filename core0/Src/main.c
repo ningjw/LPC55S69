@@ -22,7 +22,7 @@ void main(void)
 	memory_init();
 	SPI_Flash_Init();
 	InitSysPara();
-	
+	PWR_5V_ON;
 	DEBUG_PRINTF("app start, version = %s\n",SOFT_VERSION);
 	RTC_GetDatetime(RTC, &sysTime);
 	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
@@ -33,11 +33,13 @@ void main(void)
     
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-#ifdef CAT1_VERSION
-	PWR_NB_ON;
 	
-	/* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )NB_AppTask,"NB_Task",512,NULL, 3,&NB_TaskHandle);
+	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
+	
+#ifdef CAT1_VERSION
+	/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",512,NULL, 3,&CAT1_TaskHandle);
 
     /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
@@ -46,8 +48,7 @@ void main(void)
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
-	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
+	
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
 #endif
@@ -85,7 +86,6 @@ void SystemSleep(void)
 	DEBUG_PRINTF("enter deep sleep\n");
 	PWR_ADC_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
-	PWR_NB_OFF;
 #ifdef CAT1_VERSION
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);
 #else
@@ -146,9 +146,11 @@ void UTICK0_Callback(void)
 #endif
 }
 
+#ifndef CAT1_VERSION
 int fputc(int ch, FILE* stream)
 {
     while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}
 	USART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);
     return ch;
 }
+#endif
