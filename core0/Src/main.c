@@ -3,10 +3,12 @@
 
 #define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
 
-SysPara  g_sys_para;
-ADC_Set  g_adc_set;
+SysPara        g_sys_para;
+SysFlashPara   g_sys_flash_para;
+SysSamplePara  g_sample_para;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
+uint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区
 
 static void InitSysPara();
 
@@ -66,19 +68,25 @@ void main(void)
 static void InitSysPara()
 {
 	Flash_ReadPara();
-	
-    g_sys_para.inactiveCondition = 1;//默认蓝牙没有通信是开始计时
-    g_sys_para.inactiveTime = 15;    //默认15分钟没有活动后，自动关机。
-    g_sys_para.batAlarmValue = 10;   //电池电量报警值
-	
-    g_adc_set.SampleRate = 100000;     //取样频率
-    g_sys_para.sampNumber = 3000;    //12288;    //取样点数,
+	if(g_sys_flash_para.firstPoweron != 0xAA)
+    {
+        g_sys_flash_para.firstPoweron = 0xAA;
+        g_sys_flash_para.inactiveCondition = 1;//默认蓝牙没有通信是开始计时
+        g_sys_flash_para.inactiveTime = 15;    //默认15分钟没有活动后，自动关机。
+        g_sys_flash_para.batAlarmValue = 10;   //电池电量报警值
+        g_sys_flash_para.bias = 2.043f;           //震动传感器的偏置电压默认为2.43V
+        g_sys_flash_para.refV = 3.3f;             //参考电压
+        
+        g_sample_para.SampleRate = 100000;     //取样频率
+        g_sample_para.sampNumber = 3000;       //12288;    //取样点数,
+        
+        SPI_Flash_Erase_Sector(0);
+        Flash_SavePara();
+    }
     g_sys_para.inactiveCount = 0;    //
     g_sys_para.sampLedStatus = WORK_FINE;
     g_sys_para.batLedStatus = BAT_NORMAL;
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
-    g_adc_set.bias = 2.043f;//震动传感器的偏置电压默认为2.43V
-    g_adc_set.refV = 3.3f;  //参考电压
 }
 
 void SystemSleep(void)

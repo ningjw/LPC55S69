@@ -7,8 +7,8 @@
 
 extern void LPUART2_init(void);
 
-uint8_t g_flexcomm3TxBuf[FLEXCOMM3_BUFF_LEN] = {0};//串口发送缓冲区
-uint8_t g_flexcomm3Buf[FLEXCOMM3_BUFF_LEN] = {0};//串口接收缓冲区
+
+uint8_t g_flexcomm3Buf[FLEXCOMM_BUFF_LEN] = {0};//串口接收缓冲区
 
 uint16_t g_flexcomm3RxCnt = 0;
 uint8_t g_flexcomm3StartRx = false;
@@ -41,7 +41,7 @@ uint8_t WIFI_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
 {
     uint8_t try_cnt = 0;
 	g_flexcomm3RxCnt = 0;
-	memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
+	memset(g_flexcomm3Buf, 0, FLEXCOMM_BUFF_LEN);
 retry:
     FLEXCOMM3_SendStr(cmd);//发送AT指令
     /*wait resp_time*/
@@ -118,7 +118,7 @@ uint8_t BLE_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
 {
     uint8_t try_cnt = 0;
 	g_flexcomm3RxCnt = 0;
-	memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
+	memset(g_flexcomm3Buf, 0, FLEXCOMM_BUFF_LEN);
 retry:
     FLEXCOMM3_SendStr(cmd);//发送AT指令
     /*wait resp_time*/
@@ -140,7 +140,7 @@ retry:
 ***************************************************************************************/
 void BLE_Init(void)
 {
-	if(g_sys_para.WifiBleInitFlag != 1){
+	if(g_sys_para.WifiBleInitFlag != 0xAA){
 		SET_COMMOND_MODE();
 		BLE_SendCmd("AT\r\n","OK",500);
 		BLE_SendCmd("AT+BAUD=115200\r\n","OK",300);
@@ -148,7 +148,7 @@ void BLE_Init(void)
 		BLE_SendCmd("AT+VER\r\n","OK",300);/* 读取版本号 */
 		BLE_SendCmd("AT+LPM=0\r\n","OK",300);/*关闭低功耗模式*/
 		BLE_SendCmd("AT+TPMODE=1\r\n","OK",300);/* 开启透传模式 */
-		g_sys_para.WifiBleInitFlag = 1;
+		g_sys_para.WifiBleInitFlag = 0xAA;
 		Flash_SavePara();
 	}
 	SET_THROUGHPUT_MODE();
@@ -174,7 +174,7 @@ void BLE_WIFI_AppTask(void)
 #endif
     
 	BleStartFlag = true;
-    memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
+    memset(g_flexcomm3Buf, 0, FLEXCOMM_BUFF_LEN);
     g_flexcomm3RxCnt = 0;
 	g_flexcomm3RxTimeCnt = 0;
 	g_flexcomm3StartRx = false;
@@ -227,7 +227,7 @@ void BLE_WIFI_AppTask(void)
         }
 #endif
         //清空接受到的数据
-        memset(g_flexcomm3Buf, 0, FLEXCOMM3_BUFF_LEN);
+        memset(g_flexcomm3Buf, 0, FLEXCOMM_BUFF_LEN);
         g_flexcomm3RxCnt = 0;
     }
 }
@@ -281,7 +281,7 @@ void FLEXCOMM3_IRQHandler(void)
 		g_flexcomm3StartRx = true;
 		g_flexcomm3RxTimeCnt = 0;
 		g_sys_para.inactiveCount = 0;/* 接受到蓝牙数据就清0计数器*/
-		if(g_flexcomm3RxCnt < FLEXCOMM3_BUFF_LEN) {
+		if(g_flexcomm3RxCnt < FLEXCOMM_BUFF_LEN) {
 			/* 将接受到的数据保存到数组*/
 			g_flexcomm3Buf[g_flexcomm3RxCnt++] = ucTemp;
 		}

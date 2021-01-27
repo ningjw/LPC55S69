@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "..\\CMSIS"
+		},
+		{
+			"path": "..\\core0"
+		},
+		{
+			"path": "..\\drivers"
+		},
+		{
+			"path": "..\\freertos"
+		},
+		{
+			"path": "..\\mcmgr"
+		},
+		{
+			"path": "..\\osa"
+		},
+		{
+			"path": "..\\token"
+		}
+	]
+}

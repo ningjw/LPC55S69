@@ -77,7 +77,7 @@ void CAT1_Init()
 		return;
 	}
 	
-	if(g_sys_para.Cat1InitFlag != 0xAA)
+	if(g_sys_flash_para.Cat1InitFlag != 0xAA)
 	{
 		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
 
@@ -95,7 +95,7 @@ void CAT1_Init()
 #endif
 		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
 		CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-		g_sys_para.Cat1InitFlag = 0xAA;
+		g_sys_flash_para.Cat1InitFlag = 0xAA;
 		Flash_SavePara();
 		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
 	}
@@ -108,8 +108,6 @@ void CAT1_Init()
 	{
 		g_sys_para.Cat1LinkStatus = false;
 	}
-	
-	
 }
 
 

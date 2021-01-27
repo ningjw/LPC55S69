@@ -78,6 +78,8 @@
 
 #define PAGE_SIZE 0x200
 
+#define FLEXCOMM_BUFF_LEN 1024
+
 //有5个sector用于管理ADC采样数据, 每个采样数据占用20byte, 共可以保存20480/20=1024个
 #define ADC_MAX_NUM    1023
 #define ADC_INFO_ADDR  0
@@ -140,6 +142,31 @@ typedef struct{
 
 //该结构体定义了需要保存到EEPROM中的参数
 typedef struct{
+	uint32_t inactiveCount;  //用于统计当前活动时间
+
+    uint8_t  batLedStatus;     //电池状态
+    uint8_t  BleWifiLedStatus; //蓝牙状态
+    uint8_t  sampLedStatus;    //采样状态
+    bool     WorkStatus;       //用于指示当前是否正在采集.
+    
+	float    batVoltage;   //电池电压
+    float    batTemp;      //电池温度
+    float    objTemp;      //物体温度
+	float    envTemp;      //环境温度
+    uint32_t batRemainPercent;//充电百分比
+	uint32_t batRegAC;        //电池管理芯片AC寄存器值
+    
+	uint32_t sampPacksCnt; //计数器
+    
+	uint32_t spdPacks;     //转速信号需要分多少个包发送完成
+	uint32_t shkPacks;     //震动信号需要分多少个包发送完成
+	uint32_t tempCount;   //当前记录的温度个数
+
+	uint8_t  Cat1LinkStatus;//用于指示cat1是否已经连接上服务器
+}SysPara;
+
+
+typedef struct{
     uint32_t firmCore0Update;//Core0固件更新
 	uint32_t firmCore1Update;//Core1固件更新
     uint32_t firmCore0Size;  //Core0固件总大小
@@ -148,52 +175,23 @@ typedef struct{
     uint32_t firmCrc16;      //固件校验码
     uint32_t firmPacksTotal; //固件总包数
 	uint32_t firmCoreIndex;  //判断是升级core0,还是升级core1
-	
     uint32_t firmPacksCount; //当前接受的固件包数
-    uint32_t firmSizeCurrent;//当前接受到的固件大小
     uint32_t firmCurrentAddr;//下一次数据需要保存的地址
-	uint32_t firmByteCount;  //当前接受到的字节数
-	
-	uint32_t inactiveCount;  //用于设置活动时间
-    uint8_t  inactiveTime;   //用于设置活动时间
+    uint32_t firmSizeCurrent;
+    
+    uint32_t batRemainPercentBak;//保存在flash中的电池电量百分比
     uint8_t  batAlarmValue;  //电池电量报警值
-    uint8_t  inactiveCondition;//用于设置触发条件
 
-    uint8_t  batLedStatus; //电池状态
-    uint8_t  BleWifiLedStatus; //蓝牙状态
-	uint8_t  NbNetStatus;  //NB-IoT网络状态指示灯
-    uint8_t  sampLedStatus;//采样状态
-    bool     ads1271IsOk;  //ADC芯片是否完好
-    bool     emmcIsOk;     //eMMC文件系统是否完好
-	float    batVoltage;   //电池电压
-    float    batTemp;      //电池温度
-    float    objTemp;      //物体温度
-	float    envTemp;      //环境温度
-    uint32_t batRemainPercent;//充电百分比
-	uint32_t batRegAC;     //电池管理芯片AC寄存器值
-	uint32_t batRemainPercentBak;//保存在flash中的电池电量百分比
-	
-    uint32_t sampNumber;  //取样时间
-    uint32_t Ltc1063Clk;  //取样时钟频率
-    char*    sampJson;     //已经打包成json格式的数据的首地址
-	
-	uint32_t sampPacksCnt; //计数器
+    uint8_t  inactiveTime;   //多少分钟不活动后,自动关机
+    uint8_t  inactiveCondition;//用于设置触发自动关机的条件
     
-	uint32_t spdPacks;     //转速信号需要分多少个包发送完成
-	uint32_t shkPacks;     //震动信号需要分多少个包发送完成
-	float    shkRMS;       //震动信号的时域总值
-    float    voltageADS1271;
-	uint32_t periodSpdSignal;//转速信号周期(us)
+    float    bias;       //震动传感器偏置电压
+    float    refV;       //1052的参考电压值
     
-	uint32_t tempCount;  //当前记录的温度个数
-	bool     WorkStatus; //用于指示当前是否正在采集.
-	uint8_t  WifiBleInitFlag;
-	uint8_t  Cat1InitFlag;
-	uint8_t  Cat1LinkStatus;
-    char     fileName[20];
-    char     earliestFile[20];
-}SysPara;
-
+    uint8_t  firstPoweron;   //首次开机
+    uint8_t  WifiBleInitFlag;//用于指示蓝牙/wifi模块是否已经初始化过
+	uint8_t  Cat1InitFlag   ;//用于指示cat1是否已经初始化过
+}SysFlashPara;
 
 typedef struct{
 	char  DetectType;//手动检测0,定时检测1
@@ -226,18 +224,19 @@ typedef struct{
     int   StorageReson;//采集方式
     char  MeasurementComment[128];
     char  DAUID[20];
-    char  Content[4];//保留
+    uint32_t interval;//cat1版本采样周期
 	
-	float    bias;       //震动传感器偏置电压
-    float    refV;       //1052的参考电压值
-	uint32_t sampPacks;	   //总共采集道的数据,需要分多少个包发给Android
+	uint32_t sampPacks;	 //总共采集道的数据,需要分多少个包发给Android
     uint32_t shkCount;   //震动信号采集到的个数
-	uint32_t spdStartSid;//转速信号从那个sid开始.
-}ADC_Set;
+	uint32_t spdStartSid;//转速信号从哪个sid开始.
+    uint32_t sampNumber;  //取样时间
+    uint32_t Ltc1063Clk;  //取样时钟频率
+	float    shkRMS;       //震动信号的时域总值
+}SysSamplePara;//该结构体总长度不能轻易变动
 
-
-extern SysPara g_sys_para;
-extern ADC_Set g_adc_set;
+extern SysPara        g_sys_para;
+extern SysFlashPara   g_sys_flash_para;
+extern SysSamplePara  g_sample_para;
 extern rtc_datetime_t sysTime;
 extern flash_config_t flashInstance;
 

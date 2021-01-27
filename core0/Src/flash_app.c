@@ -11,43 +11,18 @@ AdcInfo adcInfo;
 uint32_t inFlashBuf[128] = {0};
 void Flash_SavePara(void)
 {
-	uint16_t i = 0;
-	g_adc_set.bias = 2.04;
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Update, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Update, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Size, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCrc16, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmPacksTotal, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCoreIndex, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.batRegAC, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.WifiBleInitFlag, 4);
-	memcpy(&inFlashBuf[i++],&g_adc_set.bias, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.Cat1InitFlag, 4);
-	
 	memory_erase(PARA_ADDR,PAGE_SIZE);
-	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
-	g_sys_para.batRemainPercentBak = g_sys_para.batRemainPercent;
+	memory_write(PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
+	g_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;
 }
 
 void Flash_ReadPara(void)
 {
 	uint16_t i = 0;
-	memory_read(PARA_ADDR, (uint8_t *)inFlashBuf, PAGE_SIZE);
+	memory_read(PARA_ADDR, (uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
 	
-	memcpy(&g_sys_para.firmCore0Update,&inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCore1Update,&inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCore0Size, &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCore1Size, &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmPacksTotal,&inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCoreIndex, &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.batRegAC,      &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.WifiBleInitFlag,&inFlashBuf[i++],4);
-	memcpy(&g_adc_set.bias,           &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.Cat1InitFlag,  &inFlashBuf[i++],4);
 	DEBUG_PRINTF("%s: batRegAC=0x%x, bias=%f, WifiBleInitFlag=%d\r\n",
-				__func__,g_sys_para.batRegAC,g_adc_set.bias,g_sys_para.WifiBleInitFlag);
+				__func__,g_sys_para.batRegAC,g_sample_para.bias,g_sys_para.WifiBleInitFlag);
 	
 	//前12字节保存的是 adcInfoTotal 结构体
 	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
@@ -163,7 +138,7 @@ void W25Q128_AddAdcData(void)
 	memcpy(adcInfo.AdcDataTime, tempTime, sizeof(adcInfo.AdcDataTime));
 	
 	//初始化 adcInfo 结构体 数据长度
-	adcInfo.AdcDataLen = sizeof(ADC_Set) + g_adc_set.shkCount*4 + spd_msg->len*4;
+	adcInfo.AdcDataLen = sizeof(SysSamplePara) + g_sample_para.shkCount*4 + spd_msg->len*4;
 	//初始化 adcInfo 结构体 数据地址
 	adcInfo.AdcDataAddr = adcInfoTotal.addrOfNewData;
 	if((adcInfo.AdcDataAddr % 4) != 0){//判断地址是否四字节对齐
@@ -179,19 +154,19 @@ void W25Q128_AddAdcData(void)
 	SPI_Flash_Write((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
 	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
 	
-	//保存 ADC_Set 结构体
-	SPI_Flash_Write((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+	//保存 SysSamplePara 结构体
+	SPI_Flash_Write((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));
 	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
 	
-	SPI_Flash_Read((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+	SPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));
 	SPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));
 	
 	//保存 震动数据
-	SPI_Flash_Write((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount*4);
-	SPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount*4);
+	SPI_Flash_Write((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);
+	SPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);
 
 	//保存 转速数据
-	SPI_Flash_Write((uint8_t *)&spd_msg->spdData[0], adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount*4, spd_msg->len*4);
+	SPI_Flash_Write((uint8_t *)&spd_msg->spdData[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount*4, spd_msg->len*4);
 	
 	//更新 adcInfoTotal 结构体中的总采样条数
 	adcInfoTotal.totalAdcInfo++;//调用该函数,表示需要增加一条adc采样数据
@@ -253,15 +228,15 @@ char W25Q128_ReadAdcData(char *adcDataTime)
 		}
 	}
 	if ( ret == true){
-		//读取 ADC_Set 结构体数据
-		SPI_Flash_Read((uint8_t *)&g_adc_set.DetectType, adcInfo.AdcDataAddr, sizeof(ADC_Set));
+		//读取 SysSamplePara 结构体数据
+		SPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));
 		
 		//读取 震动数据
-		SPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(ADC_Set), g_adc_set.shkCount);
+		SPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount);
 		
 		//读取 转速数据
 		if (spd_msg->len != 0 && spd_msg!= NULL){
-			SPI_Flash_Read((uint8_t *)spd_msg->spdData, adcInfo.AdcDataAddr+sizeof(ADC_Set)+g_adc_set.shkCount, spd_msg->len);
+			SPI_Flash_Read((uint8_t *)spd_msg->spdData, adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount, spd_msg->len);
 		}
 	}
 	return ret;

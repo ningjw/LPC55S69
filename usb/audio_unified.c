@@ -460,9 +460,9 @@ void USB_AudioRecorderGetBuffer(uint8_t *buffer, uint32_t size)
 		voltage = voltage >> 8;
 		/*
 		if((uint32_t)ShakeADC[g_dataindex] < 0x800000){
-			voltage = ShakeADC[g_dataindex] * g_adc_set.bias * 1000.0f / 0x800000;
+			voltage = ShakeADC[g_dataindex] * g_sample_para.bias * 1000.0f / 0x800000;
 		}else{
-			voltage = ((ShakeADC[g_dataindex] - 0x800000) * g_adc_set.bias * 1.0000f / 0x800000) - g_adc_set.bias;
+			voltage = ((ShakeADC[g_dataindex] - 0x800000) * g_sample_para.bias * 1.0000f / 0x800000) - g_sample_para.bias;
 		}
 		*/
         *buffer = voltage & 0xFF;
@@ -492,7 +492,7 @@ void USB_AudioRecorderGetBuffer(uint8_t *buffer, uint32_t size)
             g_deviceAudioComposite->audioUnified.tdWriteNumberRec = 0;
         }
     }
-	if(g_dataindex < g_adc_set.shkCount)
+	if(g_dataindex < g_sample_para.shkCount)
 		g_dataindex++;
 }
 

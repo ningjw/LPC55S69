@@ -88,39 +88,39 @@ static float GetRMS(float data[],int len, int windowType)
 void ADC_SampleStart(void)
 {
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
-				g_sys_para.sampNumber,g_adc_set.SampleRate);
+				g_sys_para.sampNumber,g_sample_para.SampleRate);
 	g_sys_para.tempCount = 0;
-    g_adc_set.shkCount = 0;
+    g_sample_para.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
 	PWR_ADC_ON;//开启ADC相关的电源
 	PWR_5V_ON;//开启5V的滤波器电源
 		//判断自动关机条件
-    if(g_sys_para.inactiveCondition != 1) {
+    if(g_sys_flash_para.inactiveCondition != 1) {
         g_sys_para.inactiveCount = 0;
     }
 	
 	//判断点数是否超出数组界限
-	if(g_sys_para.sampNumber > ADC_LEN){
-		g_sys_para.sampNumber = ADC_LEN;
+	if(g_sample_para.sampNumber > ADC_LEN){
+		g_sample_para.sampNumber = ADC_LEN;
 	}
 	
 	/* 输出PWM 用于LTC1063FA的时钟输入,控制采样带宽*/
-	g_sys_para.Ltc1063Clk = 1000 * g_adc_set.SampleRate / 25;
+	g_sample_para.Ltc1063Clk = 1000 * g_sample_para.SampleRate / 25;
 	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
-	si5351aSetFilterClk1(g_sys_para.Ltc1063Clk);
+	si5351aSetFilterClk1(g_sample_para.Ltc1063Clk);
 	
 	//配置ADC芯片时钟
 	SI5351a_SetPDN(SI_CLK1_CONTROL,true);
-	if(g_adc_set.SampleRate > 45000){
+	if(g_sample_para.SampleRate > 45000){
 		ADC_MODE_HIGH_SPEED;//使用高速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
-		si5351aSetAdcClk0(g_adc_set.SampleRate * 256);
-		ADC_PwmClkStart(g_adc_set.SampleRate * 256, g_sys_para.Ltc1063Clk);
+		si5351aSetAdcClk0(g_sample_para.SampleRate * 256);
+		ADC_PwmClkStart(g_sample_para.SampleRate * 256, g_sample_para.Ltc1063Clk);
 	}else{
 		ADC_MODE_LOW_POWER;//使用低速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
-		si5351aSetAdcClk0(g_adc_set.SampleRate * 512);
-		ADC_PwmClkStart(g_adc_set.SampleRate * 512, g_sys_para.Ltc1063Clk);
+		si5351aSetAdcClk0(g_sample_para.SampleRate * 512);
+		ADC_PwmClkStart(g_sample_para.SampleRate * 512, g_sample_para.Ltc1063Clk);
 	}
 
 	vTaskDelay(1);//等待500ms
@@ -144,15 +144,15 @@ void ADC_SampleStart(void)
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
-		ShakeADC[g_adc_set.shkCount++] = ADS1271_ReadData();
-		if(g_adc_set.shkCount >= g_sys_para.sampNumber){
-			g_adc_set.shkCount = g_sys_para.sampNumber;
+		ShakeADC[g_sample_para.shkCount++] = ADS1271_ReadData();
+		if(g_sample_para.shkCount >= g_sample_para.sampNumber){
+			g_sample_para.shkCount = g_sample_para.sampNumber;
 			break;
 		}
     }
 	__enable_irq();//开启中断
 	stop_spd_caputer();
-	if(g_sys_para.sampNumber == 0){//Android发送中断采集命令后,该值为0
+	if(g_sample_para.sampNumber == 0){//Android发送中断采集命令后,该值为0
 		spd_msg->len = 0;
 	}
 	//结束采集后获取一次温度
@@ -235,29 +235,29 @@ void ADC_AppTask(void)
 				/* ---------------将震动信号转换-----------------------*/
 #if 0
 				float tempValue = 0;
-                for(uint32_t i = 0; i < g_adc_set.shkCount; i++) {
+                for(uint32_t i = 0; i < g_sample_para.shkCount; i++) {
 					if((uint32_t)ShakeADC[i] < 0x800000){
-						ShakeADC[i] = ShakeADC[i] * g_adc_set.bias * 1.0f / 0x800000;
+						ShakeADC[i] = ShakeADC[i] * g_sample_para.bias * 1.0f / 0x800000;
 					}else{
-						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_adc_set.bias * 1.0f / 0x800000) - g_adc_set.bias;
+						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_sample_para.bias * 1.0f / 0x800000) - g_sample_para.bias;
 					}
 					DEBUG_PRINTF("%01.5f,",ShakeADC[i]);
                 }
 				
-				g_sys_para.shkRMS = GetRMS(ShakeADC, g_adc_set.shkCount, g_adc_set.WindowsType);
+				g_sys_para.shkRMS = GetRMS(ShakeADC, g_sample_para.shkCount, g_sample_para.WindowsType);
 #endif
 				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
-				g_sys_para.shkPacks = (g_adc_set.shkCount / ADC_NUM_ONE_PACK) +  (g_adc_set.shkCount%ADC_NUM_ONE_PACK?1:0);
+				g_sys_para.shkPacks = (g_sample_para.shkCount / ADC_NUM_ONE_PACK) +  (g_sample_para.shkCount%ADC_NUM_ONE_PACK?1:0);
 				
 				//计算发送转速信号需要多少个包
 				g_sys_para.spdPacks = (spd_msg->len / ADC_NUM_ONE_PACK) +  (spd_msg->len%ADC_NUM_ONE_PACK?1:0);
 				
-				g_adc_set.spdStartSid = g_sys_para.shkPacks + 3;
+				g_sample_para.spdStartSid = g_sys_para.shkPacks + 3;
 				//计算将一次采集数据全部发送到Android需要多少个包
 #ifdef BLE_VERSION
-				g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
+				g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
 #elif defined WIFI_VERSION
-				g_adc_set.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 1;
+				g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 1;
 #endif
                 /* ------------------统计平均温度,最小温度,最大温度--------------------*/
 			    float sum = 0;
@@ -268,9 +268,9 @@ void ADC_AppTask(void)
 					min_i = Temperature[i] < Temperature[min_i] ? i : min_i;
 					max_i = Temperature[i] > Temperature[max_i] ? i : max_i;
 				}
-				g_adc_set.Process = sum / g_sys_para.tempCount;
-				g_adc_set.ProcessMax = Temperature[max_i];
-				g_adc_set.ProcessMin = Temperature[min_i];
+				g_sample_para.Process = sum / g_sys_para.tempCount;
+				g_sample_para.ProcessMax = Temperature[max_i];
+				g_sample_para.ProcessMin = Temperature[min_i];
 				
 				W25Q128_AddAdcData();
 #ifdef CAT1_VERSION

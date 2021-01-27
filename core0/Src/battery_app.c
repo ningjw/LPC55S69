@@ -106,7 +106,7 @@ void BAT_AppTask(void)
 //			DEBUG_PRINTF("%s: Battery full \r\n",__func__);
             g_sys_para.batLedStatus = BAT_FULL;
             LTC2942_SetAC(0xFFFF);
-        } else if(g_sys_para.batRemainPercent <= g_sys_para.batAlarmValue) { //电量低于报警值
+        } else if(g_sys_para.batRemainPercent <= g_sys_flash_para.batAlarmValue) { //电量低于报警值
             DEBUG_PRINTF("%s: Percent <= AlarmValue \r\n",__func__);
 			g_sys_para.batLedStatus = BAT_ALARM;
 			if(g_sys_para.batRemainPercent == 0){//放电当中,电量为0,手动改为1
