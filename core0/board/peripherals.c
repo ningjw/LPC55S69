@@ -167,7 +167,7 @@ instance:
 const lpadc_config_t ADC0_config = {
   .enableInDozeMode = true,
   .conversionAverageMode = kLPADC_ConversionAverage16,
-  .enableAnalogPreliminary = false,
+  .enableAnalogPreliminary = true,
   .powerUpDelay = 0x80,
   .referenceVoltageSource = kLPADC_ReferenceVoltageAlt3,
   .powerLevelMode = kLPADC_PowerLevelAlt1,
@@ -199,7 +199,7 @@ lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
     .delayPower = 0,
     .channelAFIFOSelect = 0,
     .channelBFIFOSelect = 0,
-    .priority = 1,
+    .priority = 0,
     .enableHardwareTrigger = false
   }
 };

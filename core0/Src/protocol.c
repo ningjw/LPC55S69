@@ -201,12 +201,12 @@ static char * SetSysPara(cJSON *pJson, cJSON * pSub)
     /*解析消息内容,*/
     pSub = cJSON_GetObjectItem(pJson, "OffT");
     if (NULL != pSub)
-        g_sys_flash_para.inactiveTime = pSub->valueint;//触发自动关机时间
+        g_sys_flash_para.autoPwrOffIdleTime = pSub->valueint;//触发自动关机时间
 
     pSub = cJSON_GetObjectItem(pJson, "OffC");
     if (NULL != pSub)
-        g_sys_flash_para.inactiveCondition = pSub->valueint;//触发自动关机条件
-
+        g_sys_flash_para.autoPwrOffCondition = pSub->valueint;//触发自动关机条件
+    
     pSub = cJSON_GetObjectItem(pJson, "BatL");
     if (NULL != pSub)
         g_sys_flash_para.batAlarmValue = pSub->valueint;//电池电量报警值
@@ -345,7 +345,7 @@ static char * SetSamplePara(cJSON *pJson, cJSON * pSub)
         }
         pSub = cJSON_GetObjectItem(pJson, "interval");
         if (NULL != pSub) {
-            g_sample_para.interval = pSub->valueint;
+            g_sample_para.sampleInterval = pSub->valueint;
         }
         //计算采样点数
         g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)
@@ -397,7 +397,7 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
     sendBuf = NULL;
     sampTime = sysTime;
     /*start sample*/
-    ADC_SampleStart();
+    ADC_SampleStart(HAND_SAMPLE);
 
     /*wait task notify*/
     ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
@@ -409,14 +409,43 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
         if(NULL == pJsonRoot) {
             return NULL;
         }
+#if defined(BLE_VERSION) || defined(CAT1_VERSION)
+        //计算通过蓝牙(NFC)发送震动信号需要多少个包
+        g_sys_para.shkPacksByBleNfc = (g_sample_para.shkCount / ADC_NUM_BLE_NFC) +  (g_sample_para.shkCount % ADC_NUM_BLE_NFC ? 1 : 0);
+        
+        //计算通过蓝牙(NFC)发送转速信号需要多少个包
+        g_sys_para.spdPacksByBleNfc = (g_sample_para.spdCount / ADC_NUM_BLE_NFC) +  (g_sample_para.spdCount % ADC_NUM_BLE_NFC ? 1 : 0);
+        
+        //计算将所有数据通过通过蓝牙(NFC)发送需要多少个包
+        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByBleNfc + g_sys_para.spdPacksByBleNfc + 3;//wifi需要加上3个采样参数包
+        
+        //转速信号从哪个sid开始发送
+        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 3;//需要加上3个采样参数包
+#elif defined(WIFI_VERSION)
+        //计算通过WIFI发送震动信号需要多少个包
+        g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+        
+        //计算通过WIFI发送转速信号需要多少个包
+        g_sys_para.spdPacksByWifiCat1 = (g_sample_para.spdCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.spdCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+        
+        //计算将所有数据通过WIFI上传需要多少个包
+        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByWifiCat1 + g_sys_para.spdPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
+        
+        //转速信号从哪个sid开始发送
+        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
+#endif
         cJSON_AddNumberToObject(pJsonRoot, "Id",  8);
         cJSON_AddNumberToObject(pJsonRoot, "Sid", 1);
         cJSON_AddStringToObject(pJsonRoot, "F", dataTime);
         cJSON_AddNumberToObject(pJsonRoot, "Kb", adcInfoTotal.freeOfKb);
-		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sample_para.sampPacks);
+#if defined(BLE_VERSION) || defined(CAT1_VERSION)
+		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByBleNfc);
+#else 
+        cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByWifiCat1);
+#endif
         cJSON_AddNumberToObject(pJsonRoot, "V", g_sample_para.shkCount);
-        cJSON_AddNumberToObject(pJsonRoot, "S", spd_msg->len);
-		cJSON_AddNumberToObject(pJsonRoot, "SS", g_sample_para.spdStartSid);
+        cJSON_AddNumberToObject(pJsonRoot, "S", g_sample_para.spdCount);
+		cJSON_AddNumberToObject(pJsonRoot, "SS", g_sys_para.spdStartSid);
         sendBuf = cJSON_PrintUnformatted(pJsonRoot);
         cJSON_Delete(pJsonRoot);
     }
@@ -430,7 +459,7 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
   * @input
   * @return
 ***************************************************************************************/
-char * GetSampleData(cJSON *pJson, cJSON * pSub)
+char * GetSampleDataByBleNfc(cJSON *pJson, cJSON * pSub)
 {
     uint32_t sid = 0, i = 0;
     uint32_t index = 0;
@@ -441,7 +470,8 @@ char * GetSampleData(cJSON *pJson, cJSON * pSub)
     /*解析消息内容,并打包需要回复的内容*/
     pSub = cJSON_GetObjectItem(pJson, "Sid");
     sid = pSub->valueint;
-    if(sid == g_sample_para.sampPacks) {
+    if(sid == g_sys_para.sampPacksByBleNfc) 
+    {
         flag_get_all_data = 1;
     }else{
 		flag_get_all_data = 0;
@@ -496,7 +526,7 @@ SEND_DATA:
         cJSON_AddNumberToObject(pJsonRoot, "P", g_sample_para.Process);
         cJSON_AddNumberToObject(pJsonRoot, "PL", g_sample_para.ProcessMin);
         cJSON_AddNumberToObject(pJsonRoot, "PH", g_sample_para.ProcessMax);
-        cJSON_AddNumberToObject(pJsonRoot, "PK", g_sample_para.sampPacks);
+		cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByBleNfc);
         cJSON_AddNumberToObject(pJsonRoot, "Y", sampTime.year);
         cJSON_AddNumberToObject(pJsonRoot, "M", sampTime.month);
         cJSON_AddNumberToObject(pJsonRoot, "D", sampTime.day);
@@ -506,27 +536,30 @@ SEND_DATA:
         p_reply = cJSON_PrintUnformatted(pJsonRoot);
         break;
     default:
+    {
 		memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
 		i = 0;
 		g_commTxBuf[i++] = 0xE7;
 		g_commTxBuf[i++] = 0xE8;
 		g_commTxBuf[i++] = sid & 0xff;
 		g_commTxBuf[i++] = (sid >> 8) & 0xff;
-        if(sid-3 < g_sys_para.shkPacks)
+
+        if(sid < g_sys_para.shkPacksByBleNfc + 3)
         {
-			index = ADC_NUM_ONE_PACK*(sid - 3);
-			for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
+			index = ADC_NUM_BLE_NFC*(sid - 3);
+            for(uint16_t j =0; j<ADC_NUM_BLE_NFC; j++)//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
+            {
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
         }
-        else if(sid - 3 - g_sys_para.shkPacks < spd_msg->len)
+        else if(sid < g_sys_para.sampPacksByBleNfc)
         {
-            index = (sid - 3 - g_sys_para.shkPacks) * ADC_NUM_ONE_PACK;
-            //每个数据占用3个byte;每包可以上传58个数据. 58*3=174
-            for(uint16_t j =0; j<ADC_NUM_ONE_PACK; j++){//每个数据占用3个byte;每包可以上传58个数据. 58*3=174
+            index = (sid - 3 - g_sys_para.shkPacksByBleNfc) * ADC_NUM_BLE_NFC;
+            for(uint16_t j=0; j<ADC_NUM_BLE_NFC; j++)
+            {
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 8) & 0xff;
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
@@ -539,8 +572,9 @@ SEND_DATA:
 		g_commTxBuf[i++] = 0xED;
         break;
     }
+    }
 
-	g_sys_para.inactiveCount = 0;
+	g_sys_para.sysIdleCount = 0;
 	
 #if 0
 	int timeOut = 0;
@@ -551,7 +585,8 @@ SEND_DATA:
 	}
 #endif
 	
-	if(sid <= 2){
+	if(sid <= 2)
+    {
 #ifdef CAT1_VERSION
 //		FLEXCOMM5_SendStr((char *)p_reply);
 #else
@@ -560,7 +595,9 @@ SEND_DATA:
 		cJSON_Delete(pJsonRoot);
 		free(p_reply);
 		p_reply = NULL;
-	}else{
+	}
+    else
+    {
 #ifdef CAT1_VERSION
 //		USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_flexcomm5TxBuf, i);
 #else
@@ -568,19 +605,15 @@ SEND_DATA:
 #endif
 	}
 	
-//	USART_WriteBlocking(FLEXCOMM5_PERIPHERAL, g_commTxBuf, i);
-//	printf("\r\nsid = %d ; len = %d\r\n",sid, i);
+	DEBUG_PRINTF("\r\nsid = %d ; len = %d\r\n",sid, i);
 	
 	//获取所有的数据包
 	g_sys_para.sampPacksCnt++;
-	if(g_sys_para.sampPacksCnt < g_sample_para.sampPacks && flag_get_all_data) {
+	if(g_sys_para.sampPacksCnt < g_sys_para.sampPacksByBleNfc && flag_get_all_data) 
+    {
 		vTaskDelay(ble_wait_time);
 		goto SEND_DATA;
 	}
-	
-//	if(sid > 2 && flag_get_all_data){
-//		USART_WriteBlocking(FLEXCOMM3_PERIPHERAL, g_commTxBuf, i);
-//	}
     return p_reply;
 }
 
@@ -761,33 +794,53 @@ static char* GetSampleDataInFlash(cJSON *pJson, cJSON * pSub)
 		sampTime.hour = (fileName[6] - '0')*10 + (fileName[7]-'0');
 		sampTime.minute=(fileName[8] - '0')*10 + (fileName[9]-'0');
 		sampTime.second=(fileName[10] - '0')*10 + (fileName[11]-'0');
-		    //计算发送震动信号需要多少个包
-#ifdef BLE_VERSION
-		g_sys_para.shkPacks = (g_sample_para.shkCount / 40) +  (g_sample_para.shkCount%40?1:0);
-		g_sys_para.spdPacks = (spd_msg->len / 40) +  (spd_msg->len%40?1:0);
-		//计算将一次采集数据全部发送到Android需要多少个包
-		g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
-#elif defined WIFI_VERSION || defined CAT1_VERSION
-		g_sys_para.shkPacks = (g_sample_para.shkCount / 250) +  (g_sample_para.shkCount%250?1:0);
-		g_sys_para.spdPacks = (spd_msg->len / 250) +  (spd_msg->len%250?1:0);
-		//计算将一次采集数据全部发送到Android需要多少个包
-		g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 1;
+
+#if defined(BLE_VERSION) || defined(CAT1_VERSION)
+        //计算通过蓝牙(NFC)发送震动信号需要多少个包
+        g_sys_para.shkPacksByBleNfc = (g_sample_para.shkCount / ADC_NUM_BLE_NFC) +  (g_sample_para.shkCount % ADC_NUM_BLE_NFC ? 1 : 0);
+        
+        //计算通过蓝牙(NFC)发送转速信号需要多少个包
+        g_sys_para.spdPacksByBleNfc = (g_sample_para.spdCount / ADC_NUM_BLE_NFC) +  (g_sample_para.spdCount % ADC_NUM_BLE_NFC ? 1 : 0);
+        
+        //计算将所有数据通过通过蓝牙(NFC)发送需要多少个包
+        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByBleNfc + g_sys_para.spdPacksByBleNfc + 3;//wifi需要加上3个采样参数包
+        
+        //转速信号从哪个sid开始发送
+        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 3;//需要加上3个采样参数包
+#elif defined(WIFI_VERSION)
+        //计算通过WIFI发送震动信号需要多少个包
+        g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+        
+        //计算通过WIFI发送转速信号需要多少个包
+        g_sys_para.spdPacksByWifiCat1 = (g_sample_para.spdCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.spdCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+        
+        //计算将所有数据通过WIFI上传需要多少个包
+        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByWifiCat1 + g_sys_para.spdPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
+        
+        //转速信号从哪个sid开始发送
+        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
 #endif
 	}else{
-		g_sample_para.sampPacks = 0;
+		g_sys_para.sampPacksByBleNfc = 0;
+        g_sys_para.sampPacksByWifiCat1 = 0;
 		g_sample_para.shkCount = 0;
+        g_sample_para.spdCount = 0;
 		spd_msg->len = 0;
 	}
     /*制作cjson格式的回复消息*/
     cJSON *pJsonRoot = cJSON_CreateObject();
     if(NULL == pJsonRoot) return NULL;
 
-    
     cJSON_AddNumberToObject(pJsonRoot, "Id", 14);
     cJSON_AddNumberToObject(pJsonRoot, "Sid",0);
-    cJSON_AddNumberToObject(pJsonRoot, "PK",g_sample_para.sampPacks);
+#if defined(BLE_VERSION) || defined(CAT1_VERSION)
+	cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByBleNfc);
+#else
+    cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByWifiCat1);
+#endif
     cJSON_AddNumberToObject(pJsonRoot, "V", g_sample_para.shkCount);
-    cJSON_AddNumberToObject(pJsonRoot, "S", spd_msg->len);
+    cJSON_AddNumberToObject(pJsonRoot, "S", g_sample_para.spdCount);
+    cJSON_AddNumberToObject(pJsonRoot, "SS", g_sys_para.spdStartSid);
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     cJSON_Delete(pJsonRoot);
 
@@ -983,7 +1036,7 @@ static char * SetSampleParaByWifi(cJSON *pJson, cJSON * pSub)
     }
     pSub = cJSON_GetObjectItem(pJson, "interval");
     if (NULL != pSub) {
-        g_sample_para.interval = pSub->valueint;
+        g_sample_para.sampleInterval = pSub->valueint;
     }
     //计算采样点数
     g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)
@@ -1017,7 +1070,7 @@ char * GetSampleDataByWifi(cJSON *pJson, cJSON * pSub)
     /*解析消息内容,并打包需要回复的内容*/
     pSub = cJSON_GetObjectItem(pJson, "Sid");
     sid = pSub->valueint;
-    if(sid == g_sample_para.sampPacks) {
+    if(sid == g_sys_para.sampPacksByWifiCat1){
         flag_get_all_data = true;
     }
 
@@ -1061,7 +1114,7 @@ SEND_DATA:
         cJSON_AddNumberToObject(pJsonRoot, "P", g_sample_para.Process);
         cJSON_AddNumberToObject(pJsonRoot, "PL", g_sample_para.ProcessMin);
         cJSON_AddNumberToObject(pJsonRoot, "PH", g_sample_para.ProcessMax);
-        cJSON_AddNumberToObject(pJsonRoot, "PK", g_sample_para.sampPacks);
+        cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByWifiCat1);
         cJSON_AddNumberToObject(pJsonRoot, "Y", sampTime.year);
         cJSON_AddNumberToObject(pJsonRoot, "M", sampTime.month);
         cJSON_AddNumberToObject(pJsonRoot, "D", sampTime.day);
@@ -1077,21 +1130,21 @@ SEND_DATA:
 		g_commTxBuf[i++] = 0xE8;
 		g_commTxBuf[i++] = sid & 0xff;
 		g_commTxBuf[i++] = (sid >> 8) & 0xff;
-        if(sid-1 < g_sys_para.shkPacks)
+        if(sid-1 < g_sys_para.shkPacksByWifiCat1)
         {
-			index = 335 * (sid - 1);
-			for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
+			index = ADC_NUM_WIFI_CAT1 * (sid - 1);
+			for(uint16_t j =0; j<ADC_NUM_WIFI_CAT1; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
 				g_commTxBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
 				index++;
 			}
         }
-        else if(sid - 1 - g_sys_para.shkPacks < spd_msg->len)
+        else if(sid < g_sys_para.sampPacksByWifiCat1)
         {
-            index = (sid - 1 - g_sys_para.shkPacks) * 335;
+            index = (sid - 1 - g_sys_para.shkPacksByWifiCat1) * ADC_NUM_WIFI_CAT1;
             //每个数据占用3个byte;每包可以上传335个数据. 335*3=174
-            for(uint16_t j =0; j<335; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
+            for(uint16_t j =0; j<ADC_NUM_WIFI_CAT1; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 8) & 0xff;
 				g_commTxBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
@@ -1104,10 +1157,8 @@ SEND_DATA:
 		g_commTxBuf[i++] = 0xED;
         break;
     }
-	g_sys_para.inactiveCount = 0;
+	g_sys_para.sysIdleCount = 0;
 	printf("sid = %d\r\n",sid);
-	
-//	while(READ_MCU_CTS);
 	
 	if(sid == 0){
 #ifdef CAT1_VERSION
@@ -1128,7 +1179,7 @@ SEND_DATA:
 	
 	//获取所有的数据包
 	g_sys_para.sampPacksCnt++;
-	if(g_sys_para.sampPacksCnt < g_sample_para.sampPacks && flag_get_all_data) {
+	if(g_sys_para.sampPacksCnt < g_sys_para.sampPacksByWifiCat1 && flag_get_all_data) {
 		vTaskDelay(ble_wait_time);
 		goto SEND_DATA;
 	}
@@ -1201,7 +1252,7 @@ uint8_t* ParseJson(char *pMsg)
         p_reply = StartSample(pJson, pSub);//开始采样
         break;
     case 9:
-        p_reply = GetSampleData(pJson, pSub);//获取采样结果
+        p_reply = GetSampleDataByBleNfc(pJson, pSub);//获取采样结果
         break;
     case 10:
         p_reply = StartUpgrade(pJson, pSub);//升级
@@ -1263,19 +1314,31 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 	}else{
 		app_data_addr = CORE0_DATA_ADDR;
 	}
-
-    crc = CRC16(pMsg+4, FIRM_ONE_LEN);//自己计算出的CRC16
-    if(pMsg[FIRM_ONE_PACKE_LEN-2] != (uint8_t)crc || pMsg[FIRM_ONE_PACKE_LEN-1] != (crc>>8)) {
+#if defined(BLE_VERSION) || defined(CAT1_VERSION)
+    crc = CRC16(pMsg+4, FIRM_DATA_LEN_BLE_NFC);//自己计算出的CRC16
+    if(pMsg[FIRM_TOTAL_LEN_BLE_NFC-2] != (uint8_t)crc || pMsg[FIRM_TOTAL_LEN_BLE_NFC-1] != (crc>>8)) {
         err_code = 1;
     } else {
         /* 包id */
         g_sys_flash_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
-        g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_ONE_LEN;//
+        g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_DATA_LEN_BLE_NFC;//
         DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
-        FLASH_SaveAppData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_ONE_LEN);
+        FLASH_SaveAppData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_BLE_NFC);
     }
+#elif defined(WIFI_VERSION)
+    crc = CRC16(pMsg+4, FIRM_DATA_LEN_WIFI_CAT1);//自己计算出的CRC16
+    if(pMsg[FIRM_TOTAL_LEN_WIFI_CAT1-2] != (uint8_t)crc || pMsg[FIRM_TOTAL_LEN_WIFI_CAT1-1] != (crc>>8)) {
+        err_code = 1;
+    } else {
+        /* 包id */
+        g_sys_flash_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
+        g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_DATA_LEN_WIFI_CAT1;//
+        DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
+        FLASH_SaveAppData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_WIFI_CAT1);
+    }
+#endif
     /* 当前为最后一包,计算整个固件的crc16码 */
     if(g_sys_flash_para.firmPacksCount == g_sys_flash_para.firmPacksTotal - 1) {
 		

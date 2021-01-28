@@ -71,19 +71,20 @@ static void InitSysPara()
 	if(g_sys_flash_para.firstPoweron != 0xAA)
     {
         g_sys_flash_para.firstPoweron = 0xAA;
-        g_sys_flash_para.inactiveCondition = 1;//默认蓝牙没有通信是开始计时
-        g_sys_flash_para.inactiveTime = 15;    //默认15分钟没有活动后，自动关机。
+        g_sys_flash_para.autoPwrOffCondition = 1;//默认蓝牙没有通信是开始计时
+        g_sys_flash_para.autoPwrOffIdleTime = 15;    //默认15分钟没有活动后，自动关机。
         g_sys_flash_para.batAlarmValue = 10;   //电池电量报警值
-        g_sys_flash_para.bias = 2.043f;           //震动传感器的偏置电压默认为2.43V
-        g_sys_flash_para.refV = 3.3f;             //参考电压
+        g_sys_flash_para.bias = 2.043f;        //震动传感器的偏置电压默认为2.43V
+        g_sys_flash_para.refV = 3.3f;          //参考电压
         
         g_sample_para.SampleRate = 100000;     //取样频率
         g_sample_para.sampNumber = 3000;       //12288;    //取样点数,
+        g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.
         
         SPI_Flash_Erase_Sector(0);
         Flash_SavePara();
     }
-    g_sys_para.inactiveCount = 0;    //
+    g_sys_para.sysIdleCount = 0;    //
     g_sys_para.sampLedStatus = WORK_FINE;
     g_sys_para.batLedStatus = BAT_NORMAL;
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
@@ -148,7 +149,7 @@ void UTICK0_Callback(void)
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	}
 #ifndef CAT1_VERSION
-	if(g_sys_para.inactiveCount++ >= (g_sys_para.inactiveTime + 1)*60-5) { //定时时间到
+	if(g_sys_para.sysIdleCount++ >= (g_sys_para.autoPwrOffIdleTime + 1)*60-5) { //定时时间到
 		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
 	}
 #endif

@@ -66,6 +66,9 @@
 #define SOFT_VERSION       "21010200"
 #define HARD_VERSION       "1.0.0"
 
+#define PAGE_SIZE 0x200
+#define FLEXCOMM_BUFF_LEN 1024
+
 #define CORE1_START_ADDR    0x00008000     // core1代码起始地址
 #define CORE0_START_ADDR    0x00010000	   // core0代码起始地址
 
@@ -74,17 +77,15 @@
 
 #define FFT_ADC_ADDR        0x00058000     // fft原始数据保存
 
-#define PARA_ADDR           0x00088000     // 参数保存
-
-#define PAGE_SIZE 0x200
-
-#define FLEXCOMM_BUFF_LEN 1024
+#define SYS_PARA_ADDR       0x00088000     // 参数保存
+#define SAMPLE_PARA_ADDR    (SYS_PARA_ADDR + PAGE_SIZE)
 
 //有5个sector用于管理ADC采样数据, 每个采样数据占用20byte, 共可以保存20480/20=1024个
 #define ADC_MAX_NUM    1023
 #define ADC_INFO_ADDR  0
 #define ADC_DATA_ADDR  20480
 
+#if 0
 #ifdef BLE_VERSION
     #define ADC_NUM_ONE_PACK   58
 	#define FIRM_ONE_PACKE_LEN 166 
@@ -94,6 +95,15 @@
 	#define FIRM_ONE_PACKE_LEN 1006
 	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
 #endif
+#endif
+
+#define ADC_NUM_BLE_NFC           58  //一个数据包中包含了多少个ADC数据点
+#define FIRM_TOTAL_LEN_BLE_NFC    166 //一个升级包的总长度
+#define FIRM_DATA_LEN_BLE_NFC    (FIRM_TOTAL_LEN_BLE_NFC - 6)//一个升级包中有效数据长度
+
+#define ADC_NUM_WIFI_CAT1         335//一个数据包中包含了多少个ADC数据点
+#define FIRM_TOTAL_LEN_WIFI_CAT1  1006//一个升级包的总长度
+#define FIRM_DATA_LEN_WIFI_CAT1   (FIRM_TOTAL_LEN_WIFI_CAT1 - 6)//一个升级包中有效数据长度
 
 #define ULONG_MAX     0xFFFFFFFF
 
@@ -142,7 +152,7 @@ typedef struct{
 
 //该结构体定义了需要保存到EEPROM中的参数
 typedef struct{
-	uint32_t inactiveCount;  //用于统计当前活动时间
+	uint32_t sysIdleCount;  //用于统计当前活动时间
 
     uint8_t  batLedStatus;     //电池状态
     uint8_t  BleWifiLedStatus; //蓝牙状态
@@ -158,11 +168,17 @@ typedef struct{
     
 	uint32_t sampPacksCnt; //计数器
     
-	uint32_t spdPacks;     //转速信号需要分多少个包发送完成
-	uint32_t shkPacks;     //震动信号需要分多少个包发送完成
+	uint32_t spdPacksByWifiCat1;     //转速信号需要分多少个包发送完成
+	uint32_t shkPacksByWifiCat1;     //震动信号需要分多少个包发送完成
+    uint32_t spdPacksByBleNfc;       //转速信号需要分多少个包发送完成
+	uint32_t shkPacksByBleNfc;       //震动信号需要分多少个包发送完成
 	uint32_t tempCount;   //当前记录的温度个数
-
+    
 	uint8_t  Cat1LinkStatus;//用于指示cat1是否已经连接上服务器
+    
+    uint32_t sampPacksByBleNfc;	 //总共采集道的数据,需要分多少个包上传
+    uint32_t sampPacksByWifiCat1;//总共采集道的数据,需要分多少个包上传
+    uint32_t spdStartSid;//转速信号从哪个sid开始.
 }SysPara;
 
 
@@ -182,8 +198,8 @@ typedef struct{
     uint32_t batRemainPercentBak;//保存在flash中的电池电量百分比
     uint8_t  batAlarmValue;  //电池电量报警值
 
-    uint8_t  inactiveTime;   //多少分钟不活动后,自动关机
-    uint8_t  inactiveCondition;//用于设置触发自动关机的条件
+    uint8_t  autoPwrOffIdleTime;   //多少分钟不活动后,自动关机
+    uint8_t  autoPwrOffCondition;//用于设置触发自动关机的条件
     
     float    bias;       //震动传感器偏置电压
     float    refV;       //1052的参考电压值
@@ -221,17 +237,17 @@ typedef struct{
     float ProcessMin;//最小值
     float ProcessMax;//最大值
     
-    int   StorageReson;//采集方式
     char  MeasurementComment[128];
     char  DAUID[20];
-    uint32_t interval;//cat1版本采样周期
-	
-	uint32_t sampPacks;	 //总共采集道的数据,需要分多少个包发给Android
+    
     uint32_t shkCount;   //震动信号采集到的个数
-	uint32_t spdStartSid;//转速信号从哪个sid开始.
+	uint32_t spdCount;   //转速信号采集到的个数.
+    
+    uint8_t  sampleReason;//采集方式
+    uint32_t sampleInterval;//cat1版本采样周期
     uint32_t sampNumber;  //取样时间
     uint32_t Ltc1063Clk;  //取样时钟频率
-	float    shkRMS;       //震动信号的时域总值
+	float    shkRMS;      //震动信号的时域总值
 }SysSamplePara;//该结构体总长度不能轻易变动
 
 extern SysPara        g_sys_para;

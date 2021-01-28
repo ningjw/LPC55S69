@@ -38,16 +38,26 @@ void BAT_AppTask(void)
 		//要正常看到电池亮红灯,还需要注释掉while(1)中对电池状态的检测代码
 //		g_sys_para.batLedStatus = BAT_CHARGING;
 	}
-	
 #elif defined(CAT1_VERSION)
 	lpadc_conv_result_t batVoltage;
 	
+    /* Disable LDOGPADC power down */
 	POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
-	
+    
+    /* Request offset calibration. */
+    LPADC_SetOffsetValue(ADC0_PERIPHERAL, 10U, 10U);
+    
+    /* Request gain calibration. */
+	LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
+    
 	LPADC_DoSoftwareTrigger(ADC0_PERIPHERAL, 1U); /* 1U对应触发0*/
 	
-//	while (!LPADC_GetConvResult(ADC0_PERIPHERAL, &batVoltage, 0U)) {}
+	while (!LPADC_GetConvResult(ADC0_PERIPHERAL, &batVoltage, 0U)) {
+        vTaskDelay(1000);
+    }
 	
+    DEBUG_PRINTF("ADC value: %d\r\n", ((batVoltage.convValue) >> 3U));
+    
 	//根据电压计算电池容量
     if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
         remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;

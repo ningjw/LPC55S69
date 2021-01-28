@@ -85,18 +85,19 @@ static float GetRMS(float data[],int len, int windowType)
   * @input
   * @return
 ***************************************************************************************/
-void ADC_SampleStart(void)
+void ADC_SampleStart(uint8_t reason)
 {
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
 				g_sys_para.sampNumber,g_sample_para.SampleRate);
+    g_sample_para.sampleReason = reason;
 	g_sys_para.tempCount = 0;
     g_sample_para.shkCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
 	PWR_ADC_ON;//开启ADC相关的电源
 	PWR_5V_ON;//开启5V的滤波器电源
 		//判断自动关机条件
-    if(g_sys_flash_para.inactiveCondition != 1) {
-        g_sys_para.inactiveCount = 0;
+    if(g_sys_flash_para.autoPwrOffCondition != 1) {
+        g_sys_para.sysIdleCount = 0;
     }
 	
 	//判断点数是否超出数组界限
@@ -179,7 +180,27 @@ void ADC_SampleStop(void)
 	//关闭电源
 	PWR_ADC_OFF;
 	PWR_5V_OFF;//开启5V的滤波器电源
-	
+#ifdef CAT1_VERSION
+    g_sample_para.spdCount = 0;//无线产品不采集转速信号
+#else
+    g_sample_para.spdCount = spd_msg->len;
+#endif
+    /* 统计平均温度,最小温度,最大温度 */
+    float sum = 0;
+    int min_i = 0;
+    int max_i = 0;
+    for(int i=0;i<g_sys_para.tempCount;i++){
+        sum += Temperature[g_sys_para.tempCount];
+        min_i = Temperature[i] < Temperature[min_i] ? i : min_i;
+        max_i = Temperature[i] > Temperature[max_i] ? i : max_i;
+    }
+    g_sample_para.Process = sum / g_sys_para.tempCount;
+    g_sample_para.ProcessMax = Temperature[max_i];
+    g_sample_para.ProcessMin = Temperature[min_i];
+    
+    /*将采样数据保存到spi flash*/
+	W25Q128_AddAdcData();
+    
     /* 触发ADC采样完成事件  */
     xTaskNotify(ADC_TaskHandle, NOTIFY_FINISH, eSetBits);
 }
@@ -245,39 +266,22 @@ void ADC_AppTask(void)
                 }
 				
 				g_sys_para.shkRMS = GetRMS(ShakeADC, g_sample_para.shkCount, g_sample_para.WindowsType);
-#endif
-				//计算发送震动信号需要多少个包,蓝牙数据一次发送182个Byte的数据, 而一个采样点需要3Byte表示, 则一次传送58个采样点
-				g_sys_para.shkPacks = (g_sample_para.shkCount / ADC_NUM_ONE_PACK) +  (g_sample_para.shkCount%ADC_NUM_ONE_PACK?1:0);
-				
-				//计算发送转速信号需要多少个包
-				g_sys_para.spdPacks = (spd_msg->len / ADC_NUM_ONE_PACK) +  (spd_msg->len%ADC_NUM_ONE_PACK?1:0);
-				
-				g_sample_para.spdStartSid = g_sys_para.shkPacks + 3;
-				//计算将一次采集数据全部发送到Android需要多少个包
-#ifdef BLE_VERSION
-				g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 3;
-#elif defined WIFI_VERSION
-				g_sample_para.sampPacks = g_sys_para.spdPacks + g_sys_para.shkPacks + 1;
-#endif
-                /* ------------------统计平均温度,最小温度,最大温度--------------------*/
-			    float sum = 0;
-				int min_i = 0;
-				int max_i = 0;
-				for(int i=0;i<g_sys_para.tempCount;i++){
-					sum += Temperature[g_sys_para.tempCount];
-					min_i = Temperature[i] < Temperature[min_i] ? i : min_i;
-					max_i = Temperature[i] > Temperature[max_i] ? i : max_i;
-				}
-				g_sample_para.Process = sum / g_sys_para.tempCount;
-				g_sample_para.ProcessMax = Temperature[max_i];
-				g_sample_para.ProcessMin = Temperature[min_i];
-				
-				W25Q128_AddAdcData();
-#ifdef CAT1_VERSION
-				
-#else
-                /* 发送任务通知，并解锁阻塞在该任务通知下的任务 */
+#endif          
+                
+#if defined(BLE_VERSION) || defined(WIFI_VERSION)
+                /*通知线程采样完成, 可以获取采样数据了*/
                 xTaskNotifyGive( BLE_WIFI_TaskHandle);
+#elif defined(CAT1_VERSION)
+                if(HAND_SAMPLE == g_sample_para.sampleReason)
+                {
+                    /*通知线程采样完成, 可以通过nfc获取采样数据了*/
+                    xTaskNotifyGive(NFC_TaskHandle);
+                }
+                else if(AUTO_SAMPLE == g_sample_para.sampleReason)
+                {
+                    /*需要通知CAT1线程,将数据自动上传服务器*/
+                    
+                }
 #endif
             }
         }

@@ -27,9 +27,9 @@ Project File Date:  01/27/2021
 <h2>Output:</h2>
 *** Using Compiler 'V6.13.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build Project 'project' - Target 'core0'
-compiling protocol.c...
+compiling adc_app.c...
 linking...
-Program Size: Code=54740 RO-data=1540 RW-data=96 ZI-data=174816  
+Program Size: Code=55140 RO-data=1628 RW-data=96 ZI-data=174816  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin ".\Objects\core0.axf" --output ".\core0.bin"
 ".\Objects\core0.axf" - 0 Error(s), 0 Warning(s).
@@ -65,25 +65,25 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.3.0
+      Source file:   CMSIS\Core\Template\ARMv8-M\main_s.c
       Source file:   CMSIS\Core\Template\ARMv8-M\tz_context.c
       Include file:  CMSIS\Core\Include\tz_context.h
-      Source file:   CMSIS\Core\Template\ARMv8-M\main_s.c
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
-      Source file:   Source\EventRecorder.c
       Include file:  Config\EventRecorderConf.h
       Include file:  Include\EventRecorder.h
+      Source file:   Source\EventRecorder.c
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:EVR:1.2.0
       Source file:   Source\retarget_io.c
 
    * Component: NXP::Device:Startup:1.0.0
+      Source file:   arm\startup_LPC55S69_cm33_core0.s
       Include file:  fsl_device_registers.h
       Include file:  LPC55S69_cm33_core0.h
       Include file:  LPC55S69_cm33_core0_features.h
       Source file:   system_LPC55S69_cm33_core0.c
       Include file:  system_LPC55S69_cm33_core0.h
-      Source file:   arm\startup_LPC55S69_cm33_core0.s
 Build Time Elapsed:  00:00:02
 </pre>
 </body>

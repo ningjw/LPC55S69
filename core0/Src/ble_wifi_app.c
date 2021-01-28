@@ -280,7 +280,7 @@ void FLEXCOMM3_IRQHandler(void)
 		
 		g_flexcomm3StartRx = true;
 		g_flexcomm3RxTimeCnt = 0;
-		g_sys_para.inactiveCount = 0;/* 接受到蓝牙数据就清0计数器*/
+		g_sys_para.sysIdleCount = 0;/* 接受到蓝牙数据就清0计数器*/
 		if(g_flexcomm3RxCnt < FLEXCOMM_BUFF_LEN) {
 			/* 将接受到的数据保存到数组*/
 			g_flexcomm3Buf[g_flexcomm3RxCnt++] = ucTemp;

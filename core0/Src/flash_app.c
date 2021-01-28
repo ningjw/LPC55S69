@@ -11,19 +11,21 @@ AdcInfo adcInfo;
 uint32_t inFlashBuf[128] = {0};
 void Flash_SavePara(void)
 {
-	memory_erase(PARA_ADDR,PAGE_SIZE);
-	memory_write(PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
+	memory_erase(SYS_PARA_ADDR,PAGE_SIZE);
+	memory_write(SYS_PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
 	g_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;
+    
+    memory_erase(SAMPLE_PARA_ADDR, PAGE_SIZE);
+    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));
 }
 
 void Flash_ReadPara(void)
 {
 	uint16_t i = 0;
-	memory_read(PARA_ADDR, (uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
+	memory_read(SYS_PARA_ADDR, (uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
 	
-	DEBUG_PRINTF("%s: batRegAC=0x%x, bias=%f, WifiBleInitFlag=%d\r\n",
-				__func__,g_sys_para.batRegAC,g_sample_para.bias,g_sys_para.WifiBleInitFlag);
-	
+    memory_read(SAMPLE_PARA_ADDR, (uint8_t *)&g_sample_para, sizeof(g_sample_para));
+    
 	//前12字节保存的是 adcInfoTotal 结构体
 	SPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));
 	

@@ -10,10 +10,12 @@
 #define NOTIFY_SAMPLE_FINISHED (1<<5)
 #define ADC_LEN      32768
 
+#define AUTO_SAMPLE 0  //周期性自动采样
+#define HAND_SAMPLE 1  //手动采样
 
 extern TaskHandle_t ADC_TaskHandle ;  /* ADC任务句柄 */
 
-void ADC_SampleStart(void);
+void ADC_SampleStart(uint8_t reason);
 void ADC_AppTask(void);
 void ADC_SampleStop(void);
 
