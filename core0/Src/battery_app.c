@@ -9,6 +9,7 @@ TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
 uint8_t status = 0;
 float remain;
 uint16_t temp;
+lpadc_conv_result_t         mLpadcResult;
 /***********************************************************************
   * @ 函数名  ： BAT_AppTask
   * @ 功能说明：
@@ -38,34 +39,6 @@ void BAT_AppTask(void)
 		//要正常看到电池亮红灯,还需要注释掉while(1)中对电池状态的检测代码
 //		g_sys_para.batLedStatus = BAT_CHARGING;
 	}
-#elif defined(CAT1_VERSION)
-	lpadc_conv_result_t batVoltage;
-	
-    /* Disable LDOGPADC power down */
-	POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
-    
-    /* Request offset calibration. */
-    LPADC_SetOffsetValue(ADC0_PERIPHERAL, 10U, 10U);
-    
-    /* Request gain calibration. */
-	LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
-    
-	LPADC_DoSoftwareTrigger(ADC0_PERIPHERAL, 1U); /* 1U对应触发0*/
-	
-	while (!LPADC_GetConvResult(ADC0_PERIPHERAL, &batVoltage, 0U)) {
-        vTaskDelay(1000);
-    }
-	
-    DEBUG_PRINTF("ADC value: %d\r\n", ((batVoltage.convValue) >> 3U));
-    
-	//根据电压计算电池容量
-    if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
-        remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
-    } else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)
-        remain = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
-    } else { // (3.5 - 3.68)
-        remain = 55.556f * g_sys_para.batVoltage - 194.44f;
-    }
 #endif
     DEBUG_PRINTF("BAT_AppTask Running\r\n");
 	
@@ -109,8 +82,20 @@ void BAT_AppTask(void)
 			}
         } else 
 #elif defined CAT1_VERSION
-
-
+		LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U对应触发0*/
+		while (!LPADC_GetConvResult(ADC0, &mLpadcResult, 0U)) {
+			vTaskDelay(1000);
+		}
+		
+		float voltage = mLpadcResult.convValue*g_sys_flash_para.refV / 65536;
+		//根据电压计算电池容量
+		if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
+			remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
+		} else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)
+			remain = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
+		} else { // (3.5 - 3.68)
+			remain = 55.556f * g_sys_para.batVoltage - 194.44f;
+		}
 #endif
 		if(READ_CHARGE_STA == 1 && READ_STDBY_STA == 0) { //充电完成
 //			DEBUG_PRINTF("%s: Battery full \r\n",__func__);

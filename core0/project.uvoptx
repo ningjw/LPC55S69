@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>227</LineNumber>
+          <LineNumber>220</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>88012</Address>
+          <Address>97992</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,14 +163,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\nfc_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/nfc_app.c\227</Expression>
+          <Expression>\\core0\Src/nfc_app.c\220</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>236</LineNumber>
+          <LineNumber>233</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>87844</Address>
+          <Address>98090</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -179,41 +179,44 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\nfc_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/nfc_app.c\236</Expression>
+          <Expression>\\core0\Src/nfc_app.c\233</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>237</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>98148</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\Src\nfc_app.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\core0\Src/nfc_app.c\237</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Cat1RxCnt</ItemText>
+          <ItemText>g_NfcRxBuffer</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Cat1RxBuffer,0x10</ItemText>
-        </Ww>
-        <Ww>
-          <count>2</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>g_sys_para.Cat1InitFlag</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>batVoltage,0x10</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>nfc_step</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>g_NfcRxBuffer</ItemText>
+          <ItemText>g_NfcTxBuffer</ItemText>
         </Ww>
       </WatchWindow1>
+      <WatchWindow2>
+        <Ww>
+          <count>0</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>voltage</ItemText>
+        </Ww>
+      </WatchWindow2>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
@@ -223,8 +226,8 @@
         </Mm>
       </MemoryWindow1>
       <ScvdPack>
-        <Filename>C:\Users\Marvin.Ning\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\EventRecorder.scvd</Filename>
-        <Type>Keil.ARM_Compiler.1.6.2</Type>
+        <Filename>C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.3</Type>
         <SubType>1</SubType>
       </ScvdPack>
       <Tracepoint>

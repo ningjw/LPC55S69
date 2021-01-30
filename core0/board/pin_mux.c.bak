@@ -103,7 +103,7 @@ BOARD_InitPins:
     identifier: LED_BLE_RED, direction: OUTPUT}
   - {pin_num: G9, peripheral: PINT, signal: 'PINT, 0', pin_signal: PIO1_18/SD1_POW_EN/SCT0_OUT5/PLU_OUT0}
   - {pin_num: J7, peripheral: GPIO, signal: 'PIO1, 10', pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, identifier: PWR_ADC, direction: OUTPUT}
-  - {pin_num: A11, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25, direction: OUTPUT, gpio_init_state: 'false'}
+  - {pin_num: A11, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25, direction: OUTPUT, gpio_init_state: 'true'}
   - {pin_num: E12, peripheral: GPIO, signal: 'PIO0, 24', pin_signal: PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24, direction: OUTPUT}
   - {pin_num: G3, peripheral: GPIO, signal: 'PIO0, 17', pin_signal: PIO0_17/FC4_SSEL2/SD0_CARD_DET_N/SCT_GPI7/SCT0_OUT0/SD0_CARD_INT_N/PLU_IN2/SECURE_GPIO0_17, direction: INPUT}
   - {pin_num: E1, peripheral: GPIO, signal: 'PIO1, 0', pin_signal: PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11, direction: INPUT}
@@ -302,7 +302,7 @@ void BOARD_InitPins(void)
 
     gpio_pin_config_t PWR_5V_config = {
         .pinDirection = kGPIO_DigitalOutput,
-        .outputLogic = 0U
+        .outputLogic = 1U
     };
     /* Initialize GPIO functionality on pin PIO0_25 (pin A11)  */
     GPIO_PinInit(BOARD_PWR_5V_GPIO, BOARD_PWR_5V_PORT, BOARD_PWR_5V_PIN, &PWR_5V_config);
@@ -416,6 +416,7 @@ void BOARD_InitPins(void)
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
+	for(uint32_t delay = 0; delay < 100000; delay++){__NOP();};
     /* Initialize GPIO functionality on pin PIO1_26 (pin E13)  */
     GPIO_PinInit(BOARD_BT_PWR_GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, &BT_PWR_config);
 

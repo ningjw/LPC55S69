@@ -212,24 +212,30 @@ void NFC_AppTask(void)
         switch(nfc_step)
         {
         case 0:
-            nfc_awake();
-            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, 3000);
-            if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x15))
+            nfc_awake();//发送指令唤醒NFC
+            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, 3000);//等待NFC模块回复
+            if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x15))//判断是否唤醒成功
             {
+				//唤醒NFC成功, 跳转到case 1
                 nfc_step++;
             }else{
                 //error
             }
             break;
         case 1:
-            nfc_TgInitAsTarget();
-            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
+            nfc_TgInitAsTarget();//将NFC模块初始化为Target
+            xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);//等待NFC模块回复
             if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x8D))
             {
-                //此处另外还需进行身份验证
+				//在发送nfc_TgInitAsTarget指令时, nfc已经是靠近的状态,直接跳转case2
                 nfc_step++;
             }else{
-                //error
+                xTaskNotifyWait(pdFALSE, ULONG_MAX, &nfc_event, portMAX_DELAY);
+				if(NFC_Parse(g_NfcRxBuffer,g_NfcRxCnt,0x8D))
+				{
+					//android靠近,会执行到此处
+					nfc_step++;
+				}
             }
             break;
         case 2:

@@ -1,7 +1,7 @@
 ./objects/port.o: ..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure\port.c \
   ..\freertos\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\freertos\include\FreeRTOSConfig.h ..\freertos\include\projdefs.h \
   ..\freertos\include\portable.h \
   ..\freertos\include\deprecated_definitions.h \
@@ -9,19 +9,19 @@
   ..\freertos\include\mpu_wrappers.h ..\freertos\include\task.h \
   ..\freertos\include\list.h ..\freertos\include\mpu_wrappers.h \
   ..\freertos\portable\GCC\ARM_CM33_NTZ\non_secure\portasm.h Inc\main.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h board\pin_mux.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h board\pin_mux.h \
   board\peripherals.h ..\drivers\fsl_dma.h ..\drivers\fsl_common.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\assert.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   RTE\_core0\RTE_Components.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\fsl_device_registers.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0.h \
   ..\CMSIS\Include\core_cm33.h ..\CMSIS\Include\cmsis_version.h \
   ..\CMSIS\Include\cmsis_compiler.h ..\CMSIS\Include\cmsis_armclang.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
   ..\CMSIS\Include\mpu_armv8.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\system_LPC55S69_cm33_core0.h \
   RTE\Device\LPC55S69JEV98_cm33_core0\LPC55S69_cm33_core0_features.h \

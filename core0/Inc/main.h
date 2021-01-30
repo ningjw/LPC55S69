@@ -19,6 +19,7 @@
 #include "fsl_iap.h"
 #include "fsl_powerquad.h"
 #include "fsl_mailbox.h"
+#include "fsl_lpadc.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -179,6 +180,7 @@ typedef struct{
     uint32_t sampPacksByBleNfc;	 //总共采集道的数据,需要分多少个包上传
     uint32_t sampPacksByWifiCat1;//总共采集道的数据,需要分多少个包上传
     uint32_t spdStartSid;//转速信号从哪个sid开始.
+    char     CSQ[8];
 }SysPara;
 
 
@@ -207,6 +209,9 @@ typedef struct{
     uint8_t  firstPoweron;   //首次开机
     uint8_t  WifiBleInitFlag;//用于指示蓝牙/wifi模块是否已经初始化过
 	uint8_t  Cat1InitFlag   ;//用于指示cat1是否已经初始化过
+    char     SN[20];
+    char     IMEI[20];
+    char     ICCID[20];
 }SysFlashPara;
 
 typedef struct{

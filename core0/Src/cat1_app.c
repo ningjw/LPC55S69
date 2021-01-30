@@ -1,7 +1,6 @@
 #include "main.h"
 
 TaskHandle_t CAT1_TaskHandle = NULL;
-usart_transfer_t Cat1Xfer;
 
 uint8_t g_Cat1RxBuffer[1024] = {0};
 uint8_t g_Cat1TxBuffer[1024] = {0};
@@ -51,16 +50,22 @@ nb_retry:
     }
 }
 
-void NB_Reset(void)
+//从CAT1返回的结果中截取需要的字符串
+char* substr(char *src, char* head)
 {
-	GPIO_PinWrite(GPIO, BOARD_NB_RST_PORT, BOARD_NB_RST_PIN, 0);
-	vTaskDelay(300);
-	GPIO_PinWrite(GPIO, BOARD_NB_RST_PORT, BOARD_NB_RST_PIN, 1);
-	vTaskDelay(200);
+    uint8_t len = strlen(head);
+    char *p = NULL;
+    p = strchr(src+len, '\r');
+    if(p != NULL){
+        *p = 0x00;
+    }else{
+        return NULL;
+    }
+    return src+len;
 }
 
 
-/* NB-IoT 模块初始化 */
+/* CAT1-IoT 模块初始化 */
 void CAT1_Init()
 {
 	//wait "WH-GM5"
@@ -76,29 +81,63 @@ void CAT1_Init()
 		g_sys_para.sampLedStatus = WORK_FATAL_ERR;
 		return;
 	}
-	
+
 	if(g_sys_flash_para.Cat1InitFlag != 0xAA)
 	{
 		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
-
-		CAT1_SendCmd("AT+HEARTEN=OFF\r\n" ,"OK", 200);//恢复出厂设置
-		
-		CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 1000);
-		
+        
+        FLEXCOMM2_SendStr("AT+SN?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
+            char *s = substr((char *)g_Cat1RxBuffer,"+SN:");
+            if(s){
+                strncpy(g_sys_flash_para.SN, s, sizeof(g_sys_flash_para.SN));
+            }
+        }
+        
+        FLEXCOMM2_SendStr("AT+AT+IMEI?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
+            char *s = substr((char *)g_Cat1RxBuffer,"+IMEI:");
+            if(s){
+                strncpy(g_sys_flash_para.IMEI, s, sizeof(g_sys_flash_para.IMEI));
+            }
+        }
+        
+        FLEXCOMM2_SendStr("AT+AT+ICCID?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
+            char *s = substr((char *)g_Cat1RxBuffer,"+ICCID:");
+            if(s){
+                strncpy(g_sys_flash_para.ICCID, s, sizeof(g_sys_flash_para.ICCID));
+            }
+        }
+        
 		CAT1_SendCmd("AT+WKMOD=NET\r\n", "OK", 200);//检查网络
 		
 		CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
 #if 0
+        CAT1_SendCmd("AT+HEARTEN=OFF\r\n" ,"OK", 200);//恢复出厂设置
 		CAT1_SendCmd("AT+REGEN=ON\r\n" ,"OK", 200);//注册包功能
 		CAT1_SendCmd("AT+REGTP=USER\r\n" ,"OK", 200);//自定义数据
 		CAT1_SendCmd("AT+REGSND=LINK\r\n" ,"OK", 200);//为建立连接时发送
 #endif
 		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
 		CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        
 		g_sys_flash_para.Cat1InitFlag = 0xAA;
 		Flash_SavePara();
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
 		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
 	}
+    
+    FLEXCOMM2_SendStr("AT+CSQ\r\n");
+    if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
+        char *s = substr((char *)g_Cat1RxBuffer,"+CSQ:");
+        if(s){
+            strncpy(g_sys_flash_para.ICCID, s, sizeof(g_sys_flash_para.ICCID));
+        }
+    }
 	if(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == true)
 	{
 		g_sys_para.Cat1LinkStatus = true;
@@ -122,16 +161,7 @@ void CAT1_UploadData(void)
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
-	uint32_t mid;
-	uint32_t oid;
-	uint32_t eid;
-	uint8_t  value;
-	
-	NB_Reset();
-	
-	Cat1Xfer.data = g_Cat1RxBuffer;
-	Cat1Xfer.dataSize = sizeof(g_Cat1RxBuffer);
-	CAT1_Init();
+	//CAT1_Init();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{

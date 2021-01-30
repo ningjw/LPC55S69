@@ -371,71 +371,6 @@ void FLEXCOMM2_init(void) {
 }
 
 /***********************************************************************************************************************
- * FLEXCOMM3 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'FLEXCOMM3'
-- type: 'flexcomm_usart'
-- mode: 'interrupts'
-- custom_name_enabled: 'false'
-- type_id: 'flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'FLEXCOMM3'
-- config_sets:
-  - interruptsCfg:
-    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_RxLevelInterruptEnable'
-    - interrupt_vectors:
-      - enable_rx_tx_irq: 'true'
-      - interrupt_rx_tx:
-        - IRQn: 'FLEXCOMM3_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-        - enable_custom_name: 'false'
-  - usartConfig_t:
-    - usartConfig:
-      - clockSource: 'FXCOMFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - baudRate_Bps: '115200'
-      - syncMode: 'kUSART_SyncModeDisabled'
-      - parityMode: 'kUSART_ParityDisabled'
-      - stopBitCount: 'kUSART_OneStopBit'
-      - bitCountPerChar: 'kUSART_8BitsPerChar'
-      - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
-      - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'true'
-      - enableTx: 'true'
-      - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
-      - enableContinuousSCLK: 'false'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const usart_config_t FLEXCOMM3_config = {
-  .baudRate_Bps = 115200,
-  .syncMode = kUSART_SyncModeDisabled,
-  .parityMode = kUSART_ParityDisabled,
-  .stopBitCount = kUSART_OneStopBit,
-  .bitCountPerChar = kUSART_8BitsPerChar,
-  .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
-  .rxWatermark = kUSART_RxFifo1,
-  .enableRx = true,
-  .enableTx = true,
-  .clockPolarity = kUSART_RxSampleOnFallingEdge,
-  .enableContinuousSCLK = false
-};
-
-void FLEXCOMM3_init(void) {
-  /* Reset FLEXCOMM device */
-  RESET_PeripheralReset(kFC3_RST_SHIFT_RSTn);
-  USART_Init(FLEXCOMM3_PERIPHERAL, &FLEXCOMM3_config, FLEXCOMM3_CLOCK_SOURCE);
-  USART_EnableInterrupts(FLEXCOMM3_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
-  /* Enable interrupt FLEXCOMM3_IRQn request in the NVIC */
-  EnableIRQ(FLEXCOMM3_FLEXCOMM_IRQN);
-}
-
-/***********************************************************************************************************************
  * FLEXCOMM5 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -708,10 +643,10 @@ instance:
   - fsl_lpadc:
     - lpadcConfig:
       - enableInDozeMode: 'true'
-      - conversionAverageMode: 'kLPADC_ConversionAverage16'
+      - conversionAverageMode: 'kLPADC_ConversionAverage128'
       - offsetCalibration: 'no'
-      - autoCalibrate: 'false'
-      - enableAnalogPreliminary: 'false'
+      - autoCalibrate: 'true'
+      - enableAnalogPreliminary: 'true'
       - powerUpDelay: '0x80'
       - referenceVoltageSource: 'kLPADC_ReferenceVoltageAlt3'
       - powerLevelMode: 'kLPADC_PowerLevelAlt1'
@@ -758,8 +693,8 @@ instance:
 /* clang-format on */
 const lpadc_config_t ADC0_config = {
   .enableInDozeMode = true,
-  .conversionAverageMode = kLPADC_ConversionAverage16,
-  .enableAnalogPreliminary = false,
+  .conversionAverageMode = kLPADC_ConversionAverage128,
+  .enableAnalogPreliminary = true,
   .powerUpDelay = 0x80,
   .referenceVoltageSource = kLPADC_ReferenceVoltageAlt3,
   .powerLevelMode = kLPADC_PowerLevelAlt1,
@@ -799,6 +734,8 @@ lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
 void ADC0_init(void) {
   /* Initialize LPADC converter */
   LPADC_Init(ADC0_PERIPHERAL, &ADC0_config);
+  /* Perform auto calibration */
+  LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
   /* Configure conversion command 1. */
   LPADC_SetConvCommandConfig(ADC0_PERIPHERAL, 1, &ADC0_commandsConfig[0]);
   /* Configure trigger 0. */
@@ -820,7 +757,6 @@ void BOARD_InitPeripherals(void)
   CTIMER3_init();
   FLEXCOMM0_init();
   FLEXCOMM2_init();
-  FLEXCOMM3_init();
   FLEXCOMM5_init();
   FLEXCOMM6_init();
   PINT_init();

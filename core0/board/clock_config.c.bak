@@ -63,7 +63,6 @@ outputs:
 - {id: FXCOM0_clock.outFreq, value: 48 MHz}
 - {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
-- {id: FXCOM3_clock.outFreq, value: 12 MHz}
 - {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: FXCOM5_clock.outFreq, value: 12 MHz}
 - {id: FXCOM6_clock.outFreq, value: 12 MHz}
@@ -79,6 +78,7 @@ settings:
 - {id: PMC_PDRUNCFG_PDEN_XTAL32K_CFG, value: Power_up}
 - {id: RTC.RTCOSC32KSEL.sel, value: RTC.XTAL32K}
 - {id: RTC_EN_CFG, value: Enable}
+- {id: SYSCON.ADCCLKDIV.scale, value: '8', locked: true}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
@@ -86,7 +86,6 @@ settings:
 - {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
 - {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
-- {id: SYSCON.FCCLKSEL3.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL5.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL6.sel, value: ANACTRL.fro_12m_clk}
@@ -161,8 +160,6 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 256U, false);         /*!< Set FRGCTRL1_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 0U, true);               /*!< Reset FRGCTRL2_DIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 256U, false);         /*!< Set FRGCTRL2_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg3, 0U, true);               /*!< Reset FRGCTRL3_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg3, 256U, false);         /*!< Set FRGCTRL3_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 0U, true);               /*!< Reset FRGCTRL4_DIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 256U, false);         /*!< Set FRGCTRL4_DIV divider to value 256 */
     CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 0U, true);               /*!< Reset FRGCTRL5_DIV divider counter and halt it */
@@ -180,7 +177,6 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM3);                 /*!< Switch FLEXCOMM3 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM5);                 /*!< Switch FLEXCOMM5 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */

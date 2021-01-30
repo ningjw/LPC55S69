@@ -56,6 +56,7 @@ void BOARD_InitBootClocks(void)
 name: BOARD_BootClockRUN
 called_from_default_init: true
 outputs:
+- {id: ASYNCADC_clock.outFreq, value: 96 MHz}
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
 - {id: CTIMER1_clock.outFreq, value: 96 MHz}
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
@@ -78,6 +79,7 @@ settings:
 - {id: PMC_PDRUNCFG_PDEN_XTAL32K_CFG, value: Power_up}
 - {id: RTC.RTCOSC32KSEL.sel, value: RTC.XTAL32K}
 - {id: RTC_EN_CFG, value: Enable}
+- {id: SYSCON.ADCCLKSEL.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
@@ -170,9 +172,12 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetClkDiv(kCLOCK_DivFrohfClk, 2U, false);         /*!< Set FROHFDIV divider to value 2 */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 0U, true);               /*!< Reset WDTCLKDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivWdtClk, 1U, false);         /*!< Set WDTCLKDIV divider to value 1 */
+    CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 0U, true);               /*!< Reset ADCCLKDIV divider counter and halt it */
+    CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 1U, false);         /*!< Set ADCCLKDIV divider to value 1 */
 
     /*!< Set up clock selectors - Attach clocks to the peripheries */
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
+    CLOCK_AttachClk(kMAIN_CLK_to_ADC_CLK);                 /*!< Switch ADC_CLK to MAIN_CLK */
     CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */

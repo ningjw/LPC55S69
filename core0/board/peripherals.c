@@ -116,10 +116,10 @@ instance:
   - fsl_lpadc:
     - lpadcConfig:
       - enableInDozeMode: 'true'
-      - conversionAverageMode: 'kLPADC_ConversionAverage16'
+      - conversionAverageMode: 'kLPADC_ConversionAverage128'
       - offsetCalibration: 'no'
-      - autoCalibrate: 'false'
-      - enableAnalogPreliminary: 'false'
+      - autoCalibrate: 'true'
+      - enableAnalogPreliminary: 'true'
       - powerUpDelay: '0x80'
       - referenceVoltageSource: 'kLPADC_ReferenceVoltageAlt3'
       - powerLevelMode: 'kLPADC_PowerLevelAlt1'
@@ -166,7 +166,7 @@ instance:
 /* clang-format on */
 const lpadc_config_t ADC0_config = {
   .enableInDozeMode = true,
-  .conversionAverageMode = kLPADC_ConversionAverage16,
+  .conversionAverageMode = kLPADC_ConversionAverage128,
   .enableAnalogPreliminary = true,
   .powerUpDelay = 0x80,
   .referenceVoltageSource = kLPADC_ReferenceVoltageAlt3,
@@ -199,7 +199,7 @@ lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
     .delayPower = 0,
     .channelAFIFOSelect = 0,
     .channelBFIFOSelect = 0,
-    .priority = 0,
+    .priority = 1,
     .enableHardwareTrigger = false
   }
 };
@@ -207,6 +207,8 @@ lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
 void ADC0_init(void) {
   /* Initialize LPADC converter */
   LPADC_Init(ADC0_PERIPHERAL, &ADC0_config);
+  /* Perform auto calibration */
+  LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
   /* Configure conversion command 1. */
   LPADC_SetConvCommandConfig(ADC0_PERIPHERAL, 1, &ADC0_commandsConfig[0]);
   /* Configure trigger 0. */

@@ -108,7 +108,7 @@ BOARD_InitPins:
   - {pin_num: G3, peripheral: GPIO, signal: 'PIO0, 17', pin_signal: PIO0_17/FC4_SSEL2/SD0_CARD_DET_N/SCT_GPI7/SCT0_OUT0/SD0_CARD_INT_N/PLU_IN2/SECURE_GPIO0_17, direction: INPUT}
   - {pin_num: E1, peripheral: GPIO, signal: 'PIO1, 0', pin_signal: PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11, direction: INPUT}
   - {pin_num: E13, peripheral: GPIO, signal: 'PIO1, 26', pin_signal: PIO1_26/FC2_CTS_SDA_SSEL0/SCT0_OUT3/CT_INP3/UTICK_CAP1/HS_SPI_SSEL3/PLU_IN5, identifier: BT_PWR,
-    direction: OUTPUT}
+    direction: OUTPUT, mode: pullUp}
   - {pin_num: F9, peripheral: PINT, signal: 'PINT, 1', pin_signal: PIO1_30/FC7_TXD_SCL_MISO_WS/SD0_D7/SCT_GPI7/USB1_OVERCURRENTN/USB1_LEDN/PLU_IN1, direction: INPUT}
   - {pin_num: E8, peripheral: GPIO, signal: 'PIO1, 27', pin_signal: PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4, direction: OUTPUT}
   - {pin_num: B8, peripheral: GPIO, signal: 'PIO1, 25', pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN, direction: OUTPUT, gpio_init_state: 'true'}
@@ -416,6 +416,7 @@ void BOARD_InitPins(void)
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
+	for(uint32_t i=0; i<1000000; i++){}
     /* Initialize GPIO functionality on pin PIO1_26 (pin E13)  */
     GPIO_PinInit(BOARD_BT_PWR_GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, &BT_PWR_config);
 
@@ -1269,11 +1270,16 @@ void BOARD_InitPins(void)
 
     IOCON->PIO[1][26] = ((IOCON->PIO[1][26] &
                           /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_DIGIMODE_MASK)))
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
 
                          /* Selects pin function.
                           * : PORT126 (pin E13) is configured as PIO1_26. */
                          | IOCON_PIO_FUNC(PIO1_26_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Pull-up.
+                          * Pull-up resistor enabled. */
+                         | IOCON_PIO_MODE(PIO1_26_MODE_PULL_UP)
 
                          /* Select Digital mode.
                           * : Enable Digital mode.

@@ -232,6 +232,7 @@
                      <pin_features>
                         <pin_feature name="identifier" value="BT_PWR"/>
                         <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="mode" value="pullUp"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="PINT" signal="PINT, 1" pin_num="F9" pin_signal="PIO1_30/FC7_TXD_SCL_MISO_WS/SD0_D7/SCT_GPI7/USB1_OVERCURRENTN/USB1_LEDN/PLU_IN1">
@@ -517,6 +518,7 @@
                   <clock_source id="SYSCON.fro_1m.outFreq" value="1 MHz" locked="false" enabled="false"/>
                </clock_sources>
                <clock_outputs>
+                  <clock_output id="ASYNCADC_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
@@ -540,6 +542,7 @@
                   <setting id="PMC_PDRUNCFG_PDEN_XTAL32K_CFG" value="Power_up" locked="false"/>
                   <setting id="RTC.RTCOSC32KSEL.sel" value="RTC.XTAL32K" locked="false"/>
                   <setting id="RTC_EN_CFG" value="Enable" locked="false"/>
+                  <setting id="SYSCON.ADCCLKSEL.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
@@ -795,14 +798,14 @@
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="ADC0" uuid="22093c4d-5695-400c-a370-8b4a00602d63" type="lpadc" type_id="lpadc_37e603c0367b4bb173ded9b76a178984" mode="LPADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="false">
+                  <instance name="ADC0" uuid="aa840913-3a09-49be-88e6-26fce2a69f55" type="lpadc" type_id="lpadc_37e603c0367b4bb173ded9b76a178984" mode="LPADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="false">
                      <config_set name="fsl_lpadc">
                         <struct name="lpadcConfig">
                            <setting name="enableInDozeMode" value="true"/>
-                           <setting name="conversionAverageMode" value="kLPADC_ConversionAverage16"/>
+                           <setting name="conversionAverageMode" value="kLPADC_ConversionAverage128"/>
                            <setting name="offsetCalibration" value="no"/>
-                           <setting name="autoCalibrate" value="false"/>
-                           <setting name="enableAnalogPreliminary" value="false"/>
+                           <setting name="autoCalibrate" value="true"/>
+                           <setting name="enableAnalogPreliminary" value="true"/>
                            <setting name="powerUpDelay" value="0x80"/>
                            <setting name="referenceVoltageSource" value="kLPADC_ReferenceVoltageAlt3"/>
                            <setting name="powerLevelMode" value="kLPADC_PowerLevelAlt1"/>
@@ -1187,7 +1190,7 @@
             <component name="system" uuid="21b0fe91-a828-4377-8af4-95f586e2dda4" type_id="system_54b53072540eeeb8f8e9343e71f28176">
                <config_set_global name="global_system_definitions"/>
             </component>
-            <component name="msg" uuid="feba8315-29f0-497d-a256-bac4c116914a" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
+            <component name="msg" uuid="5bbef91e-ac1a-434a-8f51-9c40771053e4" type_id="msg_6e2baaf3b97dbeef01c0043275f9a0e7">
                <config_set_global name="global_messages"/>
             </component>
          </components>
