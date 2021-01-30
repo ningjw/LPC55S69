@@ -21,7 +21,7 @@ product: Clocks v7.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 7.0.1
+processor_version: 9.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -62,9 +62,7 @@ outputs:
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: CTIMER3_clock.outFreq, value: 1 MHz}
 - {id: FXCOM0_clock.outFreq, value: 48 MHz}
-- {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
-- {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: FXCOM5_clock.outFreq, value: 12 MHz}
 - {id: FXCOM6_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
@@ -85,9 +83,7 @@ settings:
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL3.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
-- {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
-- {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL5.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL6.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
@@ -155,18 +151,26 @@ void BOARD_BootClockRUN(void)
     CLOCK_SetPLL0Freq(&pll0Setup);                       /*!< Configure PLL0 to the desired values */
 
     /*!< Set up dividers */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 0U, true);               /*!< Reset FRGCTRL0_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 256U, false);         /*!< Set FRGCTRL0_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 0U, true);               /*!< Reset FRGCTRL1_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 256U, false);         /*!< Set FRGCTRL1_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 0U, true);               /*!< Reset FRGCTRL2_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 256U, false);         /*!< Set FRGCTRL2_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 0U, true);               /*!< Reset FRGCTRL4_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 256U, false);         /*!< Set FRGCTRL4_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 0U, true);               /*!< Reset FRGCTRL5_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 256U, false);         /*!< Set FRGCTRL5_DIV divider to value 256 */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 0U, true);               /*!< Reset FRGCTRL6_DIV divider counter and halt it */
-    CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 256U, false);         /*!< Set FRGCTRL6_DIV divider to value 256 */
+    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #else
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #endif
+    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #else
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #endif
+    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #else
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #endif
+    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #else
+      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg6, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
+    #endif
     CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false);         /*!< Set AHBCLKDIV divider to value 1 */
     CLOCK_SetClkDiv(kCLOCK_DivFrohfClk, 0U, true);               /*!< Reset FROHFDIV divider counter and halt it */
     CLOCK_SetClkDiv(kCLOCK_DivFrohfClk, 2U, false);         /*!< Set FROHFDIV divider to value 2 */
@@ -179,9 +183,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
     CLOCK_AttachClk(kMAIN_CLK_to_ADC_CLK);                 /*!< Switch ADC_CLK to MAIN_CLK */
     CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM5);                 /*!< Switch FLEXCOMM5 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */

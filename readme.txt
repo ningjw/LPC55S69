@@ -48,10 +48,18 @@ for(uint32_t i=0; i<1000000; i++){}
 /* Initialize GPIO functionality on pin PIO1_26 (pin E13)  */
 --------------------------------------------------------------------
 FLEXCOMM0 -> SPI -> ADS1271
-FLEXCOMM1 -> 
+FLEXCOMM1 -> IIC ->  温度传感器(采用io模拟)
 FLEXCOMM2 -> UART -> CAT1模块
 FLEXCOMM3 -> UART -> wifi模块
+FLEXCOMM4 -> IIC  -> 电池管理芯片/SI5351A-B时钟产生芯片 (采用io模拟)
+FLEXCOMM5 -> UART -> NFC模块
+FLEXCOMM6 -> SPI  -> W25Q128JVPIQTR
 
+TIMER0 -> PIO0_0  -> 用于产生ADS1271时钟
+TIMER2 -> PIO1_4  -> 滤波器芯片时钟
+
+-------------------------------------------------------------------
+电源控制芯片使用AP2281-1WG-7芯片,该芯片的EN引脚为高电平有效.
 
 
 

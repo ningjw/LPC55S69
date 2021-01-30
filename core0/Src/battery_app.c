@@ -87,7 +87,7 @@ void BAT_AppTask(void)
 			vTaskDelay(1000);
 		}
 		
-		float voltage = mLpadcResult.convValue*g_sys_flash_para.refV / 65536;
+		float voltage = (mLpadcResult.convValue>>3) * g_sys_flash_para.refV / 65536;
 		//根据电压计算电池容量
 		if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
 			remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
