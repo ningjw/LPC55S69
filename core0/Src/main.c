@@ -24,7 +24,6 @@ void main(void)
 	memory_init();
 	SPI_Flash_Init();
 	InitSysPara();
-	PWR_5V_ON;
 	DEBUG_PRINTF("app start, version = %s\n",SOFT_VERSION);
 	RTC_GetDatetime(RTC, &sysTime);
 	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
@@ -93,8 +92,9 @@ static void InitSysPara()
 void SystemSleep(void)
 {
 	DEBUG_PRINTF("enter deep sleep\n");
-	PWR_ADC_OFF;//关闭ADC采集相关的电源
+	PWR_3V3A_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
+	PWR_CAT1_OFF;
 #ifdef CAT1_VERSION
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);
 #else
@@ -103,7 +103,7 @@ void SystemSleep(void)
 	DEBUG_PRINTF("exit deep sleep\n");
 }
 
-
+#ifndef CAT1_VERSION
 /***************************************************************************************
   * @brief  BLE/wifi连接状态引脚中断回调函数
   * @input   
@@ -136,7 +136,7 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 	}
 	#endif
 }
-
+#endif
 /***************************************************************************************
   * @brief   utick0回调函数
   * @input   
@@ -144,15 +144,39 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
+	uint32_t static sleep_time_cnt = 0;
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
+	}else if(sleep_time_cnt++ > 10){
+//		SystemSleep();
 	}
+	
 #ifndef CAT1_VERSION
 	if(g_sys_para.sysIdleCount++ >= (g_sys_para.autoPwrOffIdleTime + 1)*60-5) { //定时时间到
 		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
 	}
 #endif
+}
+
+void delay_us(uint32_t nus)
+{
+	uint32_t ticks;
+	uint32_t told,tnow,tcnt=0;
+	uint32_t reload=SysTick->LOAD;				//LOAD的值	    	 
+	ticks=nus*1; 						//需要的节拍数 
+	told=SysTick->VAL;        				//刚进入时的计数器值
+	while(1)
+	{
+		tnow=SysTick->VAL;	
+		if(tnow!=told)
+		{	    
+			if(tnow<told)tcnt+=told-tnow;	//这里注意一下SYSTICK是一个递减的计数器就可以了.
+			else tcnt+=reload-tnow+told;	    
+			told=tnow;
+			if(tcnt>=ticks)break;			//时间超过/等于要延迟的时间,则退出.
+		}  
+	};
 }
 
 #ifndef CAT1_VERSION

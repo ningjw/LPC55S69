@@ -8,7 +8,6 @@
 TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
 uint8_t status = 0;
 float remain;
-uint16_t temp;
 lpadc_conv_result_t         mLpadcResult;
 /***********************************************************************
   * @ 函数名  ： BAT_AppTask
@@ -44,8 +43,6 @@ void BAT_AppTask(void)
 	
     while(1)
     {
-		temp = TMP101_ReadTemp();
-		
 #if defined( WIFI_VERSION) || defined(BLE_VERSION)
         // 获取电池电压
         g_sys_para.batVoltage = LTC2942_GetVoltage() / 1000.0;
@@ -80,6 +77,10 @@ void BAT_AppTask(void)
 			if (g_sys_para.batRemainPercent == 100){//充电当中检测到电量为100%, 改为99%
 				g_sys_para.batRemainPercent = 99;
 			}
+        } else if(READ_CHARGE_STA == 1 && READ_STDBY_STA == 0) { //充电完成
+//			DEBUG_PRINTF("%s: Battery full \r\n",__func__);
+            g_sys_para.batLedStatus = BAT_FULL;
+            LTC2942_SetAC(0xFFFF);
         } else 
 #elif defined CAT1_VERSION
 		LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U对应触发0*/
@@ -87,7 +88,7 @@ void BAT_AppTask(void)
 			vTaskDelay(1000);
 		}
 		
-		float voltage = (mLpadcResult.convValue>>3) * g_sys_flash_para.refV / 65536;
+		float voltage = mLpadcResult.convValue*g_sys_flash_para.refV / 65536;
 		//根据电压计算电池容量
 		if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
 			remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
@@ -97,11 +98,7 @@ void BAT_AppTask(void)
 			remain = 55.556f * g_sys_para.batVoltage - 194.44f;
 		}
 #endif
-		if(READ_CHARGE_STA == 1 && READ_STDBY_STA == 0) { //充电完成
-//			DEBUG_PRINTF("%s: Battery full \r\n",__func__);
-            g_sys_para.batLedStatus = BAT_FULL;
-            LTC2942_SetAC(0xFFFF);
-        } else if(g_sys_para.batRemainPercent <= g_sys_flash_para.batAlarmValue) { //电量低于报警值
+		if(g_sys_para.batRemainPercent <= g_sys_flash_para.batAlarmValue) { //电量低于报警值
             DEBUG_PRINTF("%s: Percent <= AlarmValue \r\n",__func__);
 			g_sys_para.batLedStatus = BAT_ALARM;
 			if(g_sys_para.batRemainPercent == 0){//放电当中,电量为0,手动改为1

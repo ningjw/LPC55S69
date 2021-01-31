@@ -139,6 +139,13 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_25_FUNC_ALT0 0x00u
 /*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO0_25_MODE_INACTIVE 0x00u
+/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_26_DIGIMODE_DIGITAL 0x01u
 /*!
@@ -203,6 +210,13 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO0_5_FUNC_ALT0 0x00u
 /*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO0_5_MODE_INACTIVE 0x00u
+/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_7_DIGIMODE_DIGITAL 0x01u
 /*!
@@ -232,6 +246,13 @@ void BOARD_InitBootPins(void);
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
 #define PIO1_10_FUNC_ALT0 0x00u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO1_10_MODE_INACTIVE 0x00u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_12_DIGIMODE_DIGITAL 0x01u
@@ -578,16 +599,16 @@ void BOARD_InitBootPins(void);
 #define BOARD_SPD_FREQ_CAP_PIN_MASK (1U << 1U)      /*!<@brief PORT pin mask */
                                                     /* @} */
 
-/*! @name PIO0_5 (coord A7), PWR_CAT1_EN
+/*! @name PIO0_5 (coord A7), PWR_CAT1
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define BOARD_PWR_CAT1_EN_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
-#define BOARD_PWR_CAT1_EN_GPIO_PIN_MASK (1U << 5U) /*!<@brief GPIO pin mask */
-#define BOARD_PWR_CAT1_EN_PORT 0U                  /*!<@brief PORT peripheral base pointer */
-#define BOARD_PWR_CAT1_EN_PIN 5U                   /*!<@brief PORT pin number */
-#define BOARD_PWR_CAT1_EN_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
-                                                   /* @} */
+#define BOARD_PWR_CAT1_GPIO GPIO                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_PWR_CAT1_GPIO_PIN_MASK (1U << 5U) /*!<@brief GPIO pin mask */
+#define BOARD_PWR_CAT1_PORT 0U                  /*!<@brief PORT peripheral base pointer */
+#define BOARD_PWR_CAT1_PIN 5U                   /*!<@brief PORT pin number */
+#define BOARD_PWR_CAT1_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
+                                                /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

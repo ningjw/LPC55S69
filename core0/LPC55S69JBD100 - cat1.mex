@@ -54,7 +54,7 @@
                <pin_label pin_num="F9" pin_signal="PIO1_30/FC7_TXD_SCL_MISO_WS/SD0_D7/SCT_GPI7/USB1_OVERCURRENTN/USB1_LEDN/PLU_IN1" label="NFC_IRQ" identifier="BT_STATUS;NFC_IRQ"/>
                <pin_label pin_num="B11" pin_signal="PIO0_2/FC3_TXD_SCL_MISO_WS/CT_INP1/SCT0_OUT0/SCT_GPI2/SECURE_GPIO0_2" label="BT_TXD" identifier="BT_TXD"/>
                <pin_label pin_num="F8" pin_signal="PIO0_3/FC3_RXD_SDA_MOSI_DATA/CTIMER0_MAT1/SCT0_OUT1/SCT_GPI3/SECURE_GPIO0_3" label="BT_RXD" identifier="BT_RXD"/>
-               <pin_label pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5" label="PWR_CAT1_EN" identifier="BT_RTS;WIFI_CTS;PWR_CAT1_EN"/>
+               <pin_label pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5" label="PWR_CAT1" identifier="BT_RTS;WIFI_CTS;PWR_CAT1_EN;PWR_CAT1"/>
                <pin_label pin_num="E7" pin_signal="PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4" label="WIFI_RTS" identifier="BT_CTS;BT_RTS;FC3_CTS;WIFI_CTS;WIFI_RTS"/>
                <pin_label pin_num="B8" pin_signal="PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN" label="BT_RST" identifier="BT_RST"/>
                <pin_label pin_num="E8" pin_signal="PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4" label="BT_MODE" identifier="BT_MODE"/>
@@ -183,12 +183,15 @@
                      <pin_features>
                         <pin_feature name="identifier" value="PWR_3V3A"/>
                         <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="mode" value="inactive"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 25" pin_num="A11" pin_signal="PIO0_25/FC0_TXD_SCL_MISO_WS/SD0_D1/CT_INP9/SCT_GPI1/SECURE_GPIO0_25">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
                         <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="mode" value="inactive"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="GPIO" signal="PIO1, 0" pin_num="E1" pin_signal="PIO1_0/FC0_RTS_SCL_SSEL1/SD0_D3/CT_INP2/SCT_GPI4/PLU_OUT3/ADC0_11">
@@ -334,8 +337,10 @@
                   </pin>
                   <pin peripheral="GPIO" signal="PIO0, 5" pin_num="A7" pin_signal="PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5">
                      <pin_features>
-                        <pin_feature name="identifier" value="PWR_CAT1_EN"/>
+                        <pin_feature name="identifier" value="PWR_CAT1"/>
                         <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="false"/>
+                        <pin_feature name="mode" value="inactive"/>
                      </pin_features>
                   </pin>
                   <pin peripheral="USBFSH" signal="USB_VBUS" pin_num="E9" pin_signal="PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22"/>
@@ -520,16 +525,6 @@
                   <data type="Version">2.1.0</data>
                </feature>
             </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.pint" description="工具链/IDE工程中未找到PINT Driver。工程不会被编译！" problem_level="2" source="Peripherals">
-               <feature name="enabled" evaluation="equal">
-                  <data type="Boolean">true</data>
-               </feature>
-            </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.pint" description="工具链/IDE工程不支持PINT Driver版本。所需值: ${required_value}, 实际值: ${actual_value}. 工程可能没有被正确编译。" problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="equivalent">
-                  <data type="Version">2.1.3</data>
-               </feature>
-            </dependency>
             <dependency resourceType="SWComponent" resourceId="platform.drivers.lpc_rtc" description="工具链/IDE工程中未找到RTC Driver。工程不会被编译！" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
@@ -671,16 +666,6 @@
                   <dependency resourceType="ClockOutput" resourceId="FXCOM6_clock" description="FXCOM6 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="PINT.pint.1" description="Signal PINT, 1 of the peripheral PINT is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="PINT.pint.2" description="Signal PINT, 2 of the peripheral PINT is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="ClockOutput" resourceId="UTICK_clock" description="UTICK_clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
@@ -1003,36 +988,6 @@
                               <setting name="transferDelay" value="0"/>
                            </struct>
                         </struct>
-                     </config_set>
-                  </instance>
-                  <instance name="PINT" uuid="37a36e94-ce75-4198-954d-afb707839b1d" type="pint" type_id="pint_cf4a806bb2a6c1ffced58ae2ed7b43af" mode="interrupt_mode" peripheral="PINT" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="general">
-                        <array name="interrupt_array">
-                           <struct name="0">
-                              <setting name="interrupt_id" value="INT_1"/>
-                              <setting name="interrupt_selection" value="PINT.1"/>
-                              <setting name="interrupt_type" value="kPINT_PinIntEnableBothEdges"/>
-                              <setting name="callback_function" value="PINT1_CallBack"/>
-                              <setting name="enable_callback" value="true"/>
-                              <struct name="interrupt">
-                                 <setting name="IRQn" value="PIN_INT1_IRQn"/>
-                                 <setting name="enable_priority" value="false"/>
-                                 <setting name="priority" value="0"/>
-                              </struct>
-                           </struct>
-                           <struct name="1">
-                              <setting name="interrupt_id" value="INT_2"/>
-                              <setting name="interrupt_selection" value="PINT.2"/>
-                              <setting name="interrupt_type" value="kPINT_PinIntEnableNone"/>
-                              <setting name="callback_function" value="PINT2_CallBack"/>
-                              <setting name="enable_callback" value="false"/>
-                              <struct name="interrupt">
-                                 <setting name="IRQn" value="PIN_INT0_IRQn"/>
-                                 <setting name="enable_priority" value="false"/>
-                                 <setting name="priority" value="0"/>
-                              </struct>
-                           </struct>
-                        </array>
                      </config_set>
                   </instance>
                   <instance name="RTC" uuid="05064fcd-74b4-484c-a02d-a35d3d620ecf" type="lpc_rtc" type_id="lpc_rtc_607bd7331c2c81c0037fe4624be881b6" mode="general" peripheral="RTC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">

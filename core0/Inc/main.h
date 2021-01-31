@@ -120,11 +120,11 @@
 
 #define BLE_RTS_LEVEL()          GPIO_PinRead(GPIO, BOARD_BT_RTS_PORT, BOARD_BT_RTS_PIN)
 
-#define PWR_ADC_ON               GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 0)
-#define PWR_ADC_OFF              GPIO_PinWrite(GPIO, BOARD_PWR_ADC_PORT, BOARD_PWR_ADC_PIN, 1)
+#define PWR_3V3A_ON               GPIO_PinWrite(GPIO, BOARD_PWR_3V3A_PORT, BOARD_PWR_3V3A_PIN, 1)
+#define PWR_3V3A_OFF              GPIO_PinWrite(GPIO, BOARD_PWR_3V3A_PORT, BOARD_PWR_3V3A_PIN, 0)
 
-#define PWR_CAT1_ON              GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 0)
-#define PWR_CAT1_OFF             GPIO_PinWrite(GPIO, BOARD_PWR_NB_PORT, BOARD_PWR_NB_PIN, 1)
+#define PWR_CAT1_ON              GPIO_PinWrite(GPIO, BOARD_PWR_CAT1_PORT, BOARD_PWR_CAT1_PIN, 1)
+#define PWR_CAT1_OFF             GPIO_PinWrite(GPIO, BOARD_PWR_CAT1_PORT, BOARD_PWR_CAT1_PIN, 0)
 
 #define PWR_WIFI_ON              GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 1)
 #define PWR_WIFI_OFF             GPIO_PinWrite(GPIO, BOARD_BT_PWR_PORT, BOARD_BT_PWR_PIN, 0)
@@ -262,5 +262,5 @@ extern rtc_datetime_t sysTime;
 extern flash_config_t flashInstance;
 
 void SystemSleep();
-
+void delay_us(uint32_t nus);
 #endif

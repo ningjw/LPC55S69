@@ -6,11 +6,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v7.0
+product: Peripherals v9.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 7.0.1
+processor_version: 9.0.0
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 6d318e78-2ce5-461a-85f3-e18610602d0a
@@ -21,14 +21,9 @@ functionalGroups:
 component:
 - type: 'system'
 - type_id: 'system_54b53072540eeeb8f8e9343e71f28176'
-- global_system_definitions: []
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-component:
-- type: 'msg'
-- type_id: 'msg_6e2baaf3b97dbeef01c0043275f9a0e7'
-- global_messages: []
+- global_system_definitions:
+  - user_definitions: ''
+  - user_includes: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
@@ -90,7 +85,7 @@ instance:
   /* Channel CH0 global variables */
 dma_handle_t DMA0_CH0_Handle;
 
-void DMA0_init(void) {
+static void DMA0_init(void) {
 
   /* Channel CH0 initialization */
   /* Enable the DMA 0channel in the DMA */
@@ -159,6 +154,7 @@ instance:
       - enable_irq: 'false'
       - adc_interrupt:
         - IRQn: 'ADC0_IRQn'
+        - enable_interrrupt: 'enabled'
         - enable_priority: 'false'
         - priority: '0'
         - enable_custom_name: 'false'
@@ -168,14 +164,14 @@ const lpadc_config_t ADC0_config = {
   .enableInDozeMode = true,
   .conversionAverageMode = kLPADC_ConversionAverage128,
   .enableAnalogPreliminary = true,
-  .powerUpDelay = 0x80,
+  .powerUpDelay = 0x80UL,
   .referenceVoltageSource = kLPADC_ReferenceVoltageAlt3,
   .powerLevelMode = kLPADC_PowerLevelAlt1,
   .triggerPriorityPolicy = kLPADC_TriggerPriorityPreemptImmediately,
   .enableConvPause = false,
-  .convPauseDelay = 0,
-  .FIFO0Watermark = 0,
-  .FIFO1Watermark = 0
+  .convPauseDelay = 0UL,
+  .FIFO0Watermark = 0UL,
+  .FIFO1Watermark = 0UL
 };
 lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
   {
@@ -183,12 +179,12 @@ lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
     .channelNumber = 0U,
     .chainedNextCommandNumber = 0,
     .enableAutoChannelIncrement = false,
-    .loopCount = 0,
+    .loopCount = 0UL,
     .hardwareAverageMode = kLPADC_HardwareAverageCount1,
     .sampleTimeMode = kLPADC_SampleTimeADCK3,
     .hardwareCompareMode = kLPADC_HardwareCompareDisabled,
-    .hardwareCompareValueHigh = 0,
-    .hardwareCompareValueLow = 0,
+    .hardwareCompareValueHigh = 0UL,
+    .hardwareCompareValueLow = 0UL,
     .conversionResolutionMode = kLPADC_ConversionResolutionStandard,
     .enableWaitTrigger = false
   }
@@ -196,7 +192,7 @@ lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
 lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
   {
     .targetCommandId = 1,
-    .delayPower = 0,
+    .delayPower = 0UL,
     .channelAFIFOSelect = 0,
     .channelBFIFOSelect = 0,
     .priority = 1,
@@ -204,7 +200,7 @@ lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
   }
 };
 
-void ADC0_init(void) {
+static void ADC0_init(void) {
   /* Initialize LPADC converter */
   LPADC_Init(ADC0_PERIPHERAL, &ADC0_config);
   /* Perform auto calibration */
@@ -259,7 +255,7 @@ const ctimer_config_t CTIMER0_config = {
   .prescale = 0
 };
 
-void CTIMER0_init(void) {
+static void CTIMER0_init(void) {
   /* CTIMER0 peripheral initialization */
   CTIMER_Init(CTIMER0_PERIPHERAL, &CTIMER0_config);
   /* PWM channel 0 of CTIMER0 peripheral initialization */
@@ -310,7 +306,7 @@ const ctimer_config_t CTIMER2_config = {
   .prescale = 0
 };
 
-void CTIMER2_init(void) {
+static void CTIMER2_init(void) {
   /* CTIMER2 peripheral initialization */
   CTIMER_Init(CTIMER2_PERIPHERAL, &CTIMER2_config);
   /* PWM channel 1 of CTIMER2 peripheral initialization */
@@ -353,7 +349,7 @@ const ctimer_config_t CTIMER3_config = {
   .prescale = 999
 };
 
-void CTIMER3_init(void) {
+static void CTIMER3_init(void) {
   /* CTIMER3 peripheral initialization */
   CTIMER_Init(CTIMER3_PERIPHERAL, &CTIMER3_config);
 }
@@ -401,21 +397,21 @@ const spi_master_config_t FLEXCOMM0_config = {
   .polarity = kSPI_ClockPolarityActiveHigh,
   .phase = kSPI_ClockPhaseFirstEdge,
   .direction = kSPI_MsbFirst,
-  .baudRate_Bps = 24000000,
+  .baudRate_Bps = 24000000UL,
   .dataWidth = kSPI_Data8Bits,
   .sselNum = kSPI_Ssel0,
   .sselPol = kSPI_SpolActiveAllLow,
   .txWatermark = kSPI_TxFifo0,
   .rxWatermark = kSPI_RxFifo1,
   .delayConfig = {
-    .preDelay = 0,
-    .postDelay = 0,
-    .frameDelay = 0,
-    .transferDelay = 0
+    .preDelay = 0U,
+    .postDelay = 0U,
+    .frameDelay = 0U,
+    .transferDelay = 0U
   }
 };
 
-void FLEXCOMM0_init(void) {
+static void FLEXCOMM0_init(void) {
   RESET_PeripheralReset(kFC0_RST_SHIFT_RSTn);
   /* Initialization function */
   SPI_MasterInit(FLEXCOMM0_PERIPHERAL, &FLEXCOMM0_config, FLEXCOMM0_CLOCK_SOURCE);
@@ -441,6 +437,7 @@ instance:
       - enable_rx_tx_irq: 'true'
       - interrupt_rx_tx:
         - IRQn: 'FLEXCOMM2_IRQn'
+        - enable_interrrupt: 'enabled'
         - enable_priority: 'false'
         - priority: '0'
         - enable_custom_name: 'false'
@@ -463,7 +460,7 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const usart_config_t FLEXCOMM2_config = {
-  .baudRate_Bps = 115200,
+  .baudRate_Bps = 115200UL,
   .syncMode = kUSART_SyncModeDisabled,
   .parityMode = kUSART_ParityDisabled,
   .stopBitCount = kUSART_OneStopBit,
@@ -477,12 +474,12 @@ const usart_config_t FLEXCOMM2_config = {
   .enableContinuousSCLK = false
 };
 
-void FLEXCOMM2_init(void) {
+static void FLEXCOMM2_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC2_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM2_PERIPHERAL, &FLEXCOMM2_config, FLEXCOMM2_CLOCK_SOURCE);
   USART_EnableInterrupts(FLEXCOMM2_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
-  /* Enable interrupt FLEXCOMM2_IRQn request in the NVIC */
+  /* Enable interrupt FLEXCOMM2_IRQn request in the NVIC. */
   EnableIRQ(FLEXCOMM2_FLEXCOMM_IRQN);
 }
 
@@ -506,6 +503,7 @@ instance:
       - enable_rx_tx_irq: 'true'
       - interrupt_rx_tx:
         - IRQn: 'FLEXCOMM5_IRQn'
+        - enable_interrrupt: 'enabled'
         - enable_priority: 'false'
         - priority: '0'
         - enable_custom_name: 'false'
@@ -528,7 +526,7 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 const usart_config_t FLEXCOMM5_config = {
-  .baudRate_Bps = 115200,
+  .baudRate_Bps = 115200UL,
   .syncMode = kUSART_SyncModeDisabled,
   .parityMode = kUSART_ParityDisabled,
   .stopBitCount = kUSART_OneStopBit,
@@ -542,12 +540,12 @@ const usart_config_t FLEXCOMM5_config = {
   .enableContinuousSCLK = false
 };
 
-void FLEXCOMM5_init(void) {
+static void FLEXCOMM5_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM5_PERIPHERAL, &FLEXCOMM5_config, FLEXCOMM5_CLOCK_SOURCE);
   USART_EnableInterrupts(FLEXCOMM5_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
-  /* Enable interrupt FLEXCOMM5_IRQn request in the NVIC */
+  /* Enable interrupt FLEXCOMM5_IRQn request in the NVIC. */
   EnableIRQ(FLEXCOMM5_FLEXCOMM_IRQN);
 }
 
@@ -594,21 +592,21 @@ const spi_master_config_t FLEXCOMM6_config = {
   .polarity = kSPI_ClockPolarityActiveHigh,
   .phase = kSPI_ClockPhaseFirstEdge,
   .direction = kSPI_MsbFirst,
-  .baudRate_Bps = 12000000,
+  .baudRate_Bps = 12000000UL,
   .dataWidth = kSPI_Data8Bits,
   .sselNum = kSPI_Ssel0,
   .sselPol = kSPI_SpolActiveAllLow,
   .txWatermark = kSPI_TxFifo0,
   .rxWatermark = kSPI_RxFifo1,
   .delayConfig = {
-    .preDelay = 0,
-    .postDelay = 0,
-    .frameDelay = 0,
-    .transferDelay = 0
+    .preDelay = 0U,
+    .postDelay = 0U,
+    .frameDelay = 0U,
+    .transferDelay = 0U
   }
 };
 
-void FLEXCOMM6_init(void) {
+static void FLEXCOMM6_init(void) {
   RESET_PeripheralReset(kFC6_RST_SHIFT_RSTn);
   /* Initialization function */
   SPI_MasterInit(FLEXCOMM6_PERIPHERAL, &FLEXCOMM6_config, FLEXCOMM6_CLOCK_SOURCE);
@@ -653,7 +651,7 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
-void PINT_init(void) {
+static void PINT_init(void) {
   /* PINT initiation  */
   PINT_Init(PINT_PERIPHERAL);
   /* PINT PINT.1 configuration */
@@ -691,13 +689,14 @@ instance:
         - enable_irq: 'false'
         - interrupt:
           - IRQn: 'RTC_IRQn'
+          - enable_interrrupt: 'enabled'
           - enable_priority: 'false'
           - priority: '0'
           - enable_custom_name: 'false'
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
-void RTC_init(void) {
+static void RTC_init(void) {
   /* RTC initialization */
   RTC_Init(RTC_PERIPHERAL);
   /* Start RTC timer */
@@ -735,7 +734,7 @@ instance:
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 
-void UTICK0_init(void) {
+static void UTICK0_init(void) {
   /* UTICK0 peripheral initialization */
   UTICK_Init(UTICK0_PERIPHERAL);
   /* Configuration of UTICK0 peripheral initialization */

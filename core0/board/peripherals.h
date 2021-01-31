@@ -17,7 +17,6 @@
 #include "fsl_spi.h"
 #include "fsl_reset.h"
 #include "fsl_usart.h"
-#include "fsl_pint.h"
 #include "fsl_rtc.h"
 #include "fsl_utick.h"
 
@@ -95,15 +94,6 @@ extern "C" {
 #define FLEXCOMM6_PERIPHERAL ((SPI_Type *)FLEXCOMM6)
 /* Definition of the clock source frequency */
 #define FLEXCOMM6_CLOCK_SOURCE 12000000UL
-/* BOARD_InitPeripherals defines for PINT */
-/* Definition of peripheral ID */
-#define PINT_PERIPHERAL ((PINT_Type *) PINT_BASE)
-/* PINT interrupt vector ID (number). */
-#define PINT_PINT_1_IRQN PIN_INT1_IRQn
-/* Definition of PINT interrupt ID for interrupt 1  */
-#define PINT_INT_1 kPINT_PinInt1
-/* Definition of PINT interrupt ID for interrupt 2  */
-#define PINT_INT_2 kPINT_PinInt2
 /* Definition of peripheral ID */
 #define RTC_PERIPHERAL RTC
 /* BOARD_InitPeripherals defines for UTICK0 */
@@ -138,10 +128,6 @@ extern const spi_master_config_t FLEXCOMM6_config;
 /***********************************************************************************************************************
  * Callback functions
  **********************************************************************************************************************/
-/* INT_1 callback function for the PINT component */
-extern void PINT1_CallBack(pint_pin_int_t pintr ,uint32_t pmatch_status);
-/* INT_2 callback function for the PINT component */
-extern void PINT2_CallBack(pint_pin_int_t pintr ,uint32_t pmatch_status);
 /* UTICK0 callback function */
 extern void UTICK0_Callback(void);
 

@@ -872,7 +872,7 @@ char *EraseAdcDataInFlash(void)
 }
 
 
-
+#ifndef CAT1_VERSION
 /***************************************************************************************
   * @brief   处理消息id为16的消息, 该消息为设置电池电量
   * @input
@@ -925,7 +925,7 @@ static char *SetBatCapacity(cJSON *pJson, cJSON * pSub)
     return p_reply;
 }
 
-
+#endif
 
 /***************************************************************************************
   * @brief   处理消息id为17的消息, 该消息为通过wifi设置采集参数
@@ -1272,9 +1272,11 @@ uint8_t* ParseJson(char *pMsg)
     case 15:
         p_reply = EraseAdcDataInFlash();//擦除flash中的采样数据
         break;
+#ifndef	CAT1_VERSION
     case 16:
         p_reply = SetBatCapacity(pJson, pSub);//校正电池容量
         break;
+
 	case 17:
 		p_reply = SetSampleParaByWifi(pJson, pSub);//通过wifi设置采样参数
 		break;
@@ -1283,7 +1285,7 @@ uint8_t* ParseJson(char *pMsg)
 		break;
 	case 19:
 		break;
-#ifdef CAT1_VERSION
+
     case 20:
         p_reply = GetIdentityInfoByNfc(pJson, pSub);
 		break;

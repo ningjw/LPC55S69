@@ -67,13 +67,13 @@ uint8_t PT_IIC_Wait_Ack(void)
 		ucErrTime++;
 		if(ucErrTime>250)
 		{
-			IIC_Stop();
+			PT_IIC_Stop();
 			return 1;
 		}
 	}
 	IIC_TMP_SCL(0);//时钟输出0 	   
 	return 0;  
-} 
+}
 //产生ACK应答
 void PT_IIC_Ack(void)
 {
@@ -115,7 +115,7 @@ void PT_IIC_Send_Byte(uint8_t txd)
 		IIC_TMP_SCL(0);	
 		delay_us(2);
     }	 
-} 	    
+}
 //读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
 uint8_t PT_IIC_Read_Byte(unsigned char ack)
 {
@@ -131,9 +131,9 @@ uint8_t PT_IIC_Read_Byte(unsigned char ack)
 		delay_us(1); 
     }					 
     if (!ack)
-        IIC_NAck();//发送nACK
+        PT_IIC_NAck();//发送nACK
     else
-        IIC_Ack(); //发送ACK   
+        PT_IIC_Ack(); //发送ACK   
     return receive;
 }
 

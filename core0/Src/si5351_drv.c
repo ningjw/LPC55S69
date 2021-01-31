@@ -1,5 +1,7 @@
 #include "main.h"
 
+#ifndef CAT1_VERSION
+
 #define SI5351_ADDR 0x60
 
 
@@ -269,4 +271,4 @@ void SI5351a_SetPDN(unsigned char clkCtrlReg, unsigned char flag)
 		SI5351_WriteReg(clkCtrlReg, value&0x7F);//bit7…Ë÷√Œ™0,power on
 	}
 }
-
+#endif

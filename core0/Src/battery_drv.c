@@ -5,7 +5,7 @@
  *
 **************************************************************/
 #include "main.h"
-
+#ifndef CAT1_VERSION
 const float LTC2942_CHARGE_lsb = 0.085E-3;
 const float LTC2942_VOLTAGE_lsb = .3662E-3;
 const float LTC2942_TEMPERATURE_lsb = 0.25;
@@ -251,4 +251,4 @@ void LTC2942_SetAnalog(uint8_t state) {
 	// Write new CONTROL register value
 	LTC2942_WriteReg(LTC2942_REG_CONTROL,reg);
 }
-
+#endif

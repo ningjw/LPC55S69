@@ -89,13 +89,17 @@ void ADC_SampleStart(uint8_t reason)
 {
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
 				g_sys_para.sampNumber,g_sample_para.SampleRate);
-    g_sample_para.sampleReason = reason;
+    
+	g_sample_para.sampleReason = reason;
 	g_sys_para.tempCount = 0;
     g_sample_para.shkCount = 0;
+	g_sample_para.spdCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
-	PWR_ADC_ON;//开启ADC相关的电源
+	memset(Temperature, 0, sizeof(ShakeADC));
+	
+	PWR_3V3A_ON;//开启ADC相关的电源
 	PWR_5V_ON;//开启5V的滤波器电源
-		//判断自动关机条件
+	//判断自动关机条件
     if(g_sys_flash_para.autoPwrOffCondition != 1) {
         g_sys_para.sysIdleCount = 0;
     }
@@ -107,20 +111,26 @@ void ADC_SampleStart(uint8_t reason)
 	
 	/* 输出PWM 用于LTC1063FA的时钟输入,控制采样带宽*/
 	g_sample_para.Ltc1063Clk = 1000 * g_sample_para.SampleRate / 25;
+
+#ifndef CAT1_VERSION
 	SI5351a_SetPDN(SI_CLK0_CONTROL,true);
 	si5351aSetFilterClk1(g_sample_para.Ltc1063Clk);
-	
-	//配置ADC芯片时钟
-	SI5351a_SetPDN(SI_CLK1_CONTROL,true);
+	SI5351a_SetPDN(SI_CLK1_CONTROL,true);//配置ADC芯片时钟
+#endif
 	if(g_sample_para.SampleRate > 45000){
 		ADC_MODE_HIGH_SPEED;//使用高速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
+#ifndef CAT1_VERSION
 		si5351aSetAdcClk0(g_sample_para.SampleRate * 256);
+#else	
 		ADC_PwmClkStart(g_sample_para.SampleRate * 256, g_sample_para.Ltc1063Clk);
+#endif
 	}else{
 		ADC_MODE_LOW_POWER;//使用低速模式
 		//使用PWM作为ADS1271的时钟, 其范围为37ns - 10000ns (10us)
+#ifndef CAT1_VERSION
 		si5351aSetAdcClk0(g_sample_para.SampleRate * 512);
+#endif
 		ADC_PwmClkStart(g_sample_para.SampleRate * 512, g_sample_para.Ltc1063Clk);
 	}
 
@@ -174,11 +184,14 @@ void ADC_SampleStop(void)
 	g_sys_para.WorkStatus = false;
 	
 	//关闭时钟输出
+#ifndef CAT1_VERSION
 	SI5351a_SetPDN(SI_CLK0_CONTROL,false);
 	SI5351a_SetPDN(SI_CLK1_CONTROL,false);
+#else
 	ADC_PwmClkStop();
+#endif
 	//关闭电源
-	PWR_ADC_OFF;
+	PWR_3V3A_OFF;
 	PWR_5V_OFF;//开启5V的滤波器电源
 #ifdef CAT1_VERSION
     g_sample_para.spdCount = 0;//无线产品不采集转速信号
@@ -217,33 +230,32 @@ void ADC_AppTask(void)
     uint32_t r_event;
     BaseType_t xReturn = pdTRUE;
 	arm_rfft_instance_q31 instance;
+#if 1
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
+	PWR_5V_ON;
+	PWR_3V3A_ON;
+#ifndef CAT1_VERSION
 	si5351aSetAdcClk0(1000000);//给ADS1271提供时钟
 	si5351aSetFilterClk1(1000000);//设置滤波器时钟
-	PWR_5V_ON;
-	PWR_ADC_ON;
-#if 1
-    /* 等待ADS1271 ready,并读取电压值,如果没有成功获取电压值, 则闪灯提示 */
-    while (ADC_READY == 1){ //wait ads1271 ready
-		vTaskDelay(10);
-	};
-    if(ADS1271_ReadData() == 0) {
-//        g_sys_para.sampLedStatus = WORK_FATAL_ERR;
-    }
 #else
+	ADC_PwmClkStart(100000, 100000);
+#endif
+
 	while (1) { //wait ads1271 ready
         while(ADC_READY == 1){};//等待ADC_READY为低电平
 		ADC_ShakeValue = ADS1271_ReadData();
 		ADC_VoltageValue = ADC_ShakeValue * 2.048 / 0x800000;
     }
-#endif
+#ifndef CAT1_VERSION
 	SI5351a_SetPDN(SI_CLK0_CONTROL, false);
 	SI5351a_SetPDN(SI_CLK1_CONTROL, false);
-	PWR_ADC_OFF;//关闭ADC采集相关的电源
+#endif
+	PWR_3V3A_OFF;//关闭ADC采集相关的电源
 	PWR_5V_OFF;
+#endif
+	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
-	TMP101_Init();
     while(1)
     {
         /*等待ADC完成采样事件*/

@@ -1,5 +1,7 @@
 #include "main.h"
 
+#ifndef CAT1_VERSION
+
 #define IIC_SDA(a) GPIO_PinWrite(GPIO,BOARD_PWR_SDA_PORT,BOARD_PWR_SDA_PIN,a)
 #define IIC_SCL(a) GPIO_PinWrite(GPIO,BOARD_PWR_SCL_PORT,BOARD_PWR_SCL_PIN,a)
 #define READ_SDA   GPIO_PinRead(GPIO,BOARD_PWR_SDA_PORT,BOARD_PWR_SDA_PIN)
@@ -25,25 +27,7 @@ static __inline__ void SDA_IN(void)
     GPIO_PinInit(BOARD_PWR_SDA_GPIO, BOARD_PWR_SDA_PORT, BOARD_PWR_SDA_PIN, &PWR_SDA_config);
 }
 
-void delay_us(uint32_t nus)
-{
-	uint32_t ticks;
-	uint32_t told,tnow,tcnt=0;
-	uint32_t reload=SysTick->LOAD;				//LOAD的值	    	 
-	ticks=nus*1; 						//需要的节拍数 
-	told=SysTick->VAL;        				//刚进入时的计数器值
-	while(1)
-	{
-		tnow=SysTick->VAL;	
-		if(tnow!=told)
-		{	    
-			if(tnow<told)tcnt+=told-tnow;	//这里注意一下SYSTICK是一个递减的计数器就可以了.
-			else tcnt+=reload-tnow+told;	    
-			told=tnow;
-			if(tcnt>=ticks)break;			//时间超过/等于要延迟的时间,则退出.
-		}  
-	};
-}
+
 
 
 //产生IIC起始信号
@@ -156,6 +140,6 @@ uint8_t IIC_Read_Byte(unsigned char ack)
     return receive;
 }
 
-
+#endif
 
 
