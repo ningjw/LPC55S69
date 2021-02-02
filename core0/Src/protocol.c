@@ -1187,7 +1187,104 @@ SEND_DATA:
     return p_reply;
 }
 
-
+/***************************************************************************************
+  * @brief   cat1上传采样数据是,通过该函数封装数据包
+  * @input
+  * @return
+***************************************************************************************/
+uint32_t PacketUploadSampleData(uint8_t *txBuf, uint32_t sid)
+{
+    uint32_t i = 0,index = 0;
+    cJSON *pJsonRoot = NULL;
+    char *p_reply = NULL;
+    
+    switch(sid)	{
+    case 0:
+		pJsonRoot = cJSON_CreateObject();
+		if(NULL == pJsonRoot) {
+			return 0;
+		}
+		cJSON_AddNumberToObject(pJsonRoot, "Id", 18);
+		cJSON_AddNumberToObject(pJsonRoot, "Sid",sid);
+        cJSON_AddNumberToObject(pJsonRoot, "WT", ble_wait_time);
+        cJSON_AddStringToObject(pJsonRoot, "DP", g_sample_para.IDPath);//硬件版本号
+        cJSON_AddStringToObject(pJsonRoot, "NP", g_sample_para.NamePath);//硬件版本号
+        cJSON_AddStringToObject(pJsonRoot, "SU", g_sample_para.SpeedUnits);
+        cJSON_AddStringToObject(pJsonRoot, "PU", g_sample_para.ProcessUnits);
+        cJSON_AddNumberToObject(pJsonRoot, "DT", g_sample_para.DetectType);
+        cJSON_AddNumberToObject(pJsonRoot, "ST", g_sample_para.Senstivity);
+        cJSON_AddNumberToObject(pJsonRoot, "ZD", g_sample_para.Zerodrift);
+        cJSON_AddNumberToObject(pJsonRoot, "ET", g_sample_para.EUType);
+        cJSON_AddStringToObject(pJsonRoot, "EU", g_sample_para.EU);
+        cJSON_AddNumberToObject(pJsonRoot, "W", g_sample_para.WindowsType);
+        cJSON_AddNumberToObject(pJsonRoot, "SF", g_sample_para.StartFrequency);
+        cJSON_AddNumberToObject(pJsonRoot, "EF", g_sample_para.EndFrequency);
+        cJSON_AddNumberToObject(pJsonRoot, "SR", g_sample_para.SampleRate);
+        cJSON_AddNumberToObject(pJsonRoot, "L", g_sample_para.Lines);
+        cJSON_AddNumberToObject(pJsonRoot, "B", g_sys_flash_para.bias);
+        cJSON_AddNumberToObject(pJsonRoot, "RV", g_sys_flash_para.refV);
+        cJSON_AddNumberToObject(pJsonRoot, "A", g_sample_para.Averages);
+        cJSON_AddNumberToObject(pJsonRoot, "OL", g_sample_para.AverageOverlap);
+        cJSON_AddNumberToObject(pJsonRoot, "AT", g_sample_para.AverageType);
+        cJSON_AddNumberToObject(pJsonRoot, "EFL", g_sample_para.EnvFilterLow);
+        cJSON_AddNumberToObject(pJsonRoot, "EFH", g_sample_para.EnvFilterHigh);
+        cJSON_AddNumberToObject(pJsonRoot, "IM", g_sample_para.IncludeMeasurements);
+        cJSON_AddNumberToObject(pJsonRoot, "SP", g_sample_para.Speed);
+        cJSON_AddNumberToObject(pJsonRoot, "P", g_sample_para.Process);
+        cJSON_AddNumberToObject(pJsonRoot, "PL", g_sample_para.ProcessMin);
+        cJSON_AddNumberToObject(pJsonRoot, "PH", g_sample_para.ProcessMax);
+        cJSON_AddNumberToObject(pJsonRoot,"PK",  g_sys_para.sampPacksByWifiCat1);
+        cJSON_AddNumberToObject(pJsonRoot, "Y", sampTime.year);
+        cJSON_AddNumberToObject(pJsonRoot, "M", sampTime.month);
+        cJSON_AddNumberToObject(pJsonRoot, "D", sampTime.day);
+        cJSON_AddNumberToObject(pJsonRoot, "H", sampTime.hour);
+        cJSON_AddNumberToObject(pJsonRoot, "Min", sampTime.minute);
+        cJSON_AddNumberToObject(pJsonRoot, "S", sampTime.second);
+        p_reply = cJSON_PrintUnformatted(pJsonRoot);
+        
+        i = strlen(p_reply);
+        memcpy(txBuf, p_reply, i);
+        if(p_reply){
+            free(p_reply);
+            p_reply = NULL;
+        }
+        break;
+    default:
+        memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+		i = 0;
+		txBuf[i++] = 0xE7;
+		txBuf[i++] = 0xE8;
+		txBuf[i++] = sid & 0xff;
+		txBuf[i++] = (sid >> 8) & 0xff;
+        if(sid-1 < g_sys_para.shkPacksByWifiCat1)
+        {
+			index = ADC_NUM_WIFI_CAT1 * (sid - 1);
+			for(uint16_t j =0; j<ADC_NUM_WIFI_CAT1; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
+				txBuf[i++] = ((uint32_t)ShakeADC[index] >> 0) & 0xff;
+				txBuf[i++] = ((uint32_t)ShakeADC[index] >> 8) & 0xff;
+				txBuf[i++] = ((uint32_t)ShakeADC[index] >> 16)& 0xff;
+				index++;
+			}
+        }
+        else if(sid < g_sys_para.sampPacksByWifiCat1)
+        {
+            index = (sid - 1 - g_sys_para.shkPacksByWifiCat1) * ADC_NUM_WIFI_CAT1;
+            //每个数据占用3个byte;每包可以上传335个数据. 335*3=174
+            for(uint16_t j =0; j<ADC_NUM_WIFI_CAT1; j++){//每个数据占用3个byte;每包可以上传335个数据. 335*3=1005
+				txBuf[i++] = (spd_msg->spdData[index] >> 0) & 0xff;
+				txBuf[i++] = (spd_msg->spdData[index] >> 8) & 0xff;
+				txBuf[i++] = (spd_msg->spdData[index] >> 16)& 0xff;
+				index++;
+			}
+        }
+		txBuf[i++] = 0xEA;
+		txBuf[i++] = 0xEB;
+		txBuf[i++] = 0xEC;
+		txBuf[i++] = 0xED;
+        break;
+    }
+    return i;
+}
 
 char *GetIdentityInfoByNfc(cJSON *pJson, cJSON * pSub)
 {
@@ -1203,6 +1300,48 @@ char *GetIdentityInfoByNfc(cJSON *pJson, cJSON * pSub)
     cJSON_Delete(pJsonRoot);
     return p_reply;
 }
+
+uint32_t PacketBatteryInfo(uint8_t *txBuf)
+{
+    uint32_t len = 0;
+    cJSON *pJsonRoot = cJSON_CreateObject();
+    if(NULL == pJsonRoot) {
+        return len;
+    }
+    cJSON_AddNumberToObject(pJsonRoot, "Id", 23);
+    cJSON_AddNumberToObject(pJsonRoot, "BatC", g_sys_para.batRemainPercent);
+    cJSON_AddNumberToObject(pJsonRoot, "BatV", g_sys_para.batVoltage);
+    char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
+    cJSON_Delete(pJsonRoot);
+    len = strlen(p_reply);
+    if(p_reply){
+        free(p_reply);
+        p_reply = NULL;
+    }
+    return len;
+}
+
+uint32_t PacketVersionInfo(uint8_t *txBuf)
+{
+    uint32_t len = 0;
+    cJSON *pJsonRoot = cJSON_CreateObject();
+    if(NULL == pJsonRoot) {
+        return len;
+    }
+    cJSON_AddNumberToObject(pJsonRoot, "Id", 26);
+    cJSON_AddStringToObject(pJsonRoot, "HV", HARD_VERSION);//硬件版本号
+    cJSON_AddStringToObject(pJsonRoot, "SV", SOFT_VERSION);//软件版本号
+    char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
+    cJSON_Delete(pJsonRoot);
+    len = strlen(p_reply);
+    if(p_reply){
+        free(p_reply);
+        p_reply = NULL;
+    }
+    return len;
+}
+
+
 /***************************************************************************************
   * @brief   解析json数据包
   * @input

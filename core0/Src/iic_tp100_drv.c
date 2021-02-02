@@ -181,15 +181,9 @@ float TMP101_ReadTemp(void)
 	return tmp;
 }
 
-void TMP101_ShutDown(void) 
-{
-	/* 写Configuration Register  12位温度 连续转换*/
-	TMP101_WriteReg(0x01, 0xFF);
-}
-
 void TMP101_Init(void) 
 {
 	/* 写Configuration Register  12位温度 连续转换*/
-	TMP101_WriteReg(0x01, 0xFE);
+	TMP101_WriteReg(0x01, 0xFF);//0xFE, 非shutdown模式
 }
 

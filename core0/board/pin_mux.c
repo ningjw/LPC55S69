@@ -45,7 +45,7 @@ pin_labels:
 - {pin_num: F8, pin_signal: PIO0_3/FC3_RXD_SDA_MOSI_DATA/CTIMER0_MAT1/SCT0_OUT1/SCT_GPI3/SECURE_GPIO0_3, label: BT_RXD, identifier: BT_RXD}
 - {pin_num: A7, pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, label: PWR_CAT1, identifier: BT_RTS;WIFI_CTS;PWR_CAT1_EN;PWR_CAT1}
 - {pin_num: E7, pin_signal: PIO0_4/FC4_SCK/CT_INP12/SCT_GPI4/FC3_CTS_SDA_SSEL0/SECURE_GPIO0_4, label: WIFI_RTS, identifier: BT_CTS;BT_RTS;FC3_CTS;WIFI_CTS;WIFI_RTS}
-- {pin_num: B8, pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN, label: BT_RST, identifier: BT_RST}
+- {pin_num: B8, pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN, label: NFC_RSTPD, identifier: BT_RST;NFC_RSTPD}
 - {pin_num: E8, pin_signal: PIO1_27/FC2_RTS_SCL_SSEL1/SD0_D4/CTIMER0_MAT3/CLKOUT/PLU_IN4, label: BT_MODE, identifier: BT_MODE}
 - {pin_num: E12, pin_signal: PIO0_24/FC0_RXD_SDA_MOSI_DATA/SD0_D0/CT_INP8/SCT_GPI0/SECURE_GPIO0_24, label: PWR_OFF, identifier: PWR_OFF}
 - {pin_num: E6, pin_signal: PIO0_19/FC4_RTS_SCL_SSEL1/UTICK_CAP0/CTIMER0_MAT2/SCT0_OUT2/FC7_TXD_SCL_MISO_WS/PLU_IN4/SECURE_GPIO0_19, label: LINKA, identifier: LED_BLE_RED;LED_BLE_GREEN;LINKA}
@@ -148,6 +148,8 @@ BOARD_InitPins:
     direction: OUTPUT, gpio_init_state: 'false', mode: inactive}
   - {pin_num: E9, peripheral: USBFSH, signal: USB_VBUS, pin_signal: PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22}
   - {pin_num: J1, peripheral: ADC0, signal: 'CH, 0', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0}
+  - {pin_num: B8, peripheral: GPIO, signal: 'PIO1, 25', pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN, identifier: NFC_RSTPD, direction: OUTPUT,
+    gpio_init_state: 'true', mode: inactive}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -290,6 +292,13 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PIO1_21 (pin M7)  */
     GPIO_PinInit(BOARD_PWR_SDA_GPIO, BOARD_PWR_SDA_PORT, BOARD_PWR_SDA_PIN, &PWR_SDA_config);
+
+    gpio_pin_config_t NFC_RSTPD_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PIO1_25 (pin B8)  */
+    GPIO_PinInit(BOARD_NFC_RSTPD_GPIO, BOARD_NFC_RSTPD_PORT, BOARD_NFC_RSTPD_PIN, &NFC_RSTPD_config);
     /* PIO1_18 is selected for PINT input 0 */
     INPUTMUX_AttachSignal(INPUTMUX, 0U, kINPUTMUX_GpioPort1Pin18ToPintsel);
     /* PIO1_30 is selected for PINT input 1 */
@@ -901,6 +910,24 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO1_21_DIGIMODE_DIGITAL));
+
+    IOCON->PIO[1][25] = ((IOCON->PIO[1][25] &
+                          /* Mask bits to zero which are setting */
+                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK)))
+
+                         /* Selects pin function.
+                          * : PORT125 (pin B8) is configured as PIO1_25. */
+                         | IOCON_PIO_FUNC(PIO1_25_FUNC_ALT0)
+
+                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
+                          * : Inactive.
+                          * Inactive (no pull-down/pull-up resistor enabled). */
+                         | IOCON_PIO_MODE(PIO1_25_MODE_INACTIVE)
+
+                         /* Select Digital mode.
+                          * : Enable Digital mode.
+                          * Digital input is enabled. */
+                         | IOCON_PIO_DIGIMODE(PIO1_25_DIGIMODE_DIGITAL));
 
     IOCON->PIO[1][3] = ((IOCON->PIO[1][3] &
                          /* Mask bits to zero which are setting */

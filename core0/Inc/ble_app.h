@@ -1,8 +1,6 @@
 #ifndef __BLE_APP_H
 #define __BLE_APP_H
 
-#define EVT_OK       (1 << 0)
-#define EVT_TIMTOUT  (1 << 1)
 
 
 extern uint16_t g_flexcomm3RxCnt;

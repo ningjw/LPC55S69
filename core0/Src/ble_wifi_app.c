@@ -182,7 +182,7 @@ void BLE_WIFI_AppTask(void)
     {
         /*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &ble_event, portMAX_DELAY);
-        if ( xReturn && ble_event == EVT_OK) {
+        if ( xReturn && ble_event == EVT_UART_OK) {
 		
             /* 处理蓝牙/wifi数据 */
             sendBuf = ParseProtocol(g_flexcomm3Buf);
@@ -204,7 +204,7 @@ void BLE_WIFI_AppTask(void)
             }
         }
 #ifdef BLE_VERSION
-        else if(xReturn && ble_event == EVT_TIMTOUT && BleStartFlag) { //接受蓝牙数据超时
+        else if(xReturn && ble_event == EVT_UART_TIMTOUT && BleStartFlag) { //接受蓝牙数据超时
 			g_flexcomm3StartRx = false;
 			
 			uint8_t id = 100;
@@ -251,13 +251,13 @@ void FLEXCOMM3_TimeTick(void)
 				for(uint8_t i = 0;i<g_flexcomm3RxCnt; i++){
 					DEBUG_PRINTF("%02x ",g_flexcomm3Buf[i]);
 				}
-				xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
+				xTaskNotify(BLE_WIFI_TaskHandle, EVT_UART_OK, eSetBits);
 			}
 		}
 		else if(g_flexcomm3RxTimeCnt >= 100) { //10ms未接受到数据,表示接受数据超时
 			g_flexcomm3RxTimeCnt = 0;
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_WIFI_TaskHandle, EVT_TIMTOUT, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_UART_TIMTOUT, eSetBits);
         }
     }
 }
@@ -289,11 +289,11 @@ void FLEXCOMM3_IRQHandler(void)
 		if(g_sys_para.BleWifiLedStatus != BLE_WIFI_UPDATE && g_flexcomm3Buf[g_flexcomm3RxCnt-1] == '}'){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_UART_OK, eSetBits);
 		}else if (g_sys_para.BleWifiLedStatus==BLE_WIFI_UPDATE && g_flexcomm3RxCnt >= FIRM_ONE_PACKE_LEN){
 			/* 接受完成,该标志清0*/
 			g_flexcomm3StartRx = false;
-			xTaskNotify(BLE_WIFI_TaskHandle, EVT_OK, eSetBits);
+			xTaskNotify(BLE_WIFI_TaskHandle, EVT_UART_OK, eSetBits);
 		}
     }
     __DSB();

@@ -292,7 +292,7 @@ void ADC_AppTask(void)
                 else if(AUTO_SAMPLE == g_sample_para.sampleReason)
                 {
                     /*需要通知CAT1线程,将数据自动上传服务器*/
-                    
+                    xTaskNotify(CAT1_TaskHandle, EVT_UPLOAD_SAMPLE, eSetBits);
                 }
 #endif
             }

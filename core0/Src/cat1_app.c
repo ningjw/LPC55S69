@@ -151,9 +151,43 @@ void CAT1_Init()
 
 
 /* 将数据通过NB模块上传到OneNet*/
-void CAT1_UploadData(void)
+void CAT1_UploadSampleData(void)
 {
-
+    uint8_t xReturn = pdFALSE;
+    uint32_t sid = 0;
+    uint32_t len = 0;
+    uint8_t  retry = 0;
+    
+    PWR_CAT1_ON;//开机
+    CAT1_Init();//初始化CAT1模块
+    if(g_sys_para.Cat1LinkStatus == false){
+        return;
+    }
+    
+NEXT_SID:
+    
+    memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+    len = PacketUploadSampleData(g_commTxBuf, sid);
+    USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
+    
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 10000);//等待服务器回复数据,超时时间10S
+    if(pdTRUE == xReturn){
+        if(cat1_event == EVT_UART_TIMTOUT && strstr((char *)g_Cat1RxBuffer, "OK") != NULL) {//成功接受到服务器发送的OK字符
+            sid ++;
+            if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
+                goto NEXT_SID;
+            }
+        }
+    }else if(retry < 3){//超时,且重试次数小于3
+        retry++;
+        goto NEXT_SID;
+    }
+    
+    //采样数据包发送完成后,还需要发送当前状态到服务器
+    memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+    CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
+    
+    PWR_CAT1_OFF;//关机
 }
 
 
@@ -167,9 +201,12 @@ void CAT1_AppTask(void)
 	{
 		/*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-		if ( pdTRUE == xReturn && EVT_TIMTOUT == EVT_OK) 
+		if ( pdTRUE == xReturn) 
 		{
-			
+			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
+            {
+                CAT1_UploadSampleData();
+            }
 		}
 		//清空接受到的数据
         memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -207,7 +244,7 @@ void FLEXCOMM2_TimeTick(void)
 		if(g_Cat1RxTimeCnt >= 10) { //10ms未接受到数据,表示接受数据超时
 			g_Cat1RxTimeCnt = 0;
 			g_Cat1StartRx = false;
-			xTaskNotify(CAT1_TaskHandle, EVT_TIMTOUT, eSetBits);
+			xTaskNotify(CAT1_TaskHandle, EVT_UART_TIMTOUT, eSetBits);
         }
     }
 }
