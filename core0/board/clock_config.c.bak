@@ -62,9 +62,7 @@ outputs:
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
 - {id: CTIMER3_clock.outFreq, value: 1 MHz}
 - {id: FXCOM0_clock.outFreq, value: 48 MHz}
-- {id: FXCOM1_clock.outFreq, value: 12 MHz}
 - {id: FXCOM2_clock.outFreq, value: 12 MHz}
-- {id: FXCOM4_clock.outFreq, value: 12 MHz}
 - {id: FXCOM5_clock.outFreq, value: 12 MHz}
 - {id: FXCOM6_clock.outFreq, value: 12 MHz}
 - {id: SYSTICK0_clock.outFreq, value: 1 MHz}
@@ -85,9 +83,7 @@ settings:
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL3.sel, value: SYSCON.fro_1m}
 - {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
-- {id: SYSCON.FCCLKSEL1.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL2.sel, value: ANACTRL.fro_12m_clk}
-- {id: SYSCON.FCCLKSEL4.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL5.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FCCLKSEL6.sel, value: ANACTRL.fro_12m_clk}
 - {id: SYSCON.FRGCTRL1_DIV.scale, value: '256', locked: true}
@@ -161,19 +157,9 @@ void BOARD_BootClockRUN(void)
       CLOCK_SetClkDiv(kCLOCK_DivFlexFrg0, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
     #endif
     #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
-      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
-    #else
-      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg1, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
-    #endif
-    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
       CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
     #else
       CLOCK_SetClkDiv(kCLOCK_DivFlexFrg2, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
-    #endif
-    #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
-      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
-    #else
-      CLOCK_SetClkDiv(kCLOCK_DivFlexFrg4, 256U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
     #endif
     #if FSL_CLOCK_DRIVER_VERSION >= MAKE_VERSION(2, 3, 4)
       CLOCK_SetClkDiv(kCLOCK_DivFlexFrg5, 0U, false);         /*!< Set DIV to value 0xFF and MULT to value 0U in related FLEXFRGCTRL register */
@@ -197,9 +183,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kPLL0_to_MAIN_CLK);                 /*!< Switch MAIN_CLK to PLL0 */
     CLOCK_AttachClk(kMAIN_CLK_to_ADC_CLK);                 /*!< Switch ADC_CLK to MAIN_CLK */
     CLOCK_AttachClk(kFRO_HF_DIV_to_FLEXCOMM0);                 /*!< Switch FLEXCOMM0 to FRO_HF_DIV */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM1);                 /*!< Switch FLEXCOMM1 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM2);                 /*!< Switch FLEXCOMM2 to FRO12M */
-    CLOCK_AttachClk(kFRO12M_to_FLEXCOMM4);                 /*!< Switch FLEXCOMM4 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM5);                 /*!< Switch FLEXCOMM5 to FRO12M */
     CLOCK_AttachClk(kFRO12M_to_FLEXCOMM6);                 /*!< Switch FLEXCOMM6 to FRO12M */
     CLOCK_AttachClk(kFRO1M_to_SYSTICK0);                 /*!< Switch SYSTICK0 to FRO1M */

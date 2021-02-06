@@ -427,22 +427,23 @@
                   <clock_source id="SYSCON.fro_1m.outFreq" value="1 MHz" locked="false" enabled="false"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="ASYNCADC_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="ASYNCADC_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER0_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER3_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM2_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM5_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
-                  <clock_output id="FXCOM6_clock.outFreq" value="12 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER2_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER3_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM0_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM2_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM5_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FXCOM6_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="SYSTICK0_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
-                  <clock_output id="System_clock.outFreq" value="96 MHz" locked="true" accuracy="0.001"/>
+                  <clock_output id="System_clock.outFreq" value="16 MHz" locked="false" accuracy=""/>
                   <clock_output id="UTICK_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="WDT_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                </clock_outputs>
                <clock_settings>
                   <setting id="PLL0_Mode" value="Normal" locked="false"/>
+                  <setting id="ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_12M_CFG" value="Disable" locked="false"/>
                   <setting id="ANALOG_CONTROL_FRO192M_CTRL_ENDI_FRO_96M_CFG" value="Enable" locked="false"/>
                   <setting id="ENABLE_CLKIN_ENA" value="Enabled" locked="false"/>
                   <setting id="ENABLE_SYSTEM_CLK_OUT" value="Enabled" locked="false"/>
@@ -452,19 +453,19 @@
                   <setting id="SYSCON.ADCCLKSEL.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.fro_1m" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL2.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL5.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
-                  <setting id="SYSCON.FCCLKSEL6.sel" value="ANACTRL.fro_12m_clk" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL5.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.FCCLKSEL6.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FRGCTRL1_DIV.scale" value="256" locked="true"/>
                   <setting id="SYSCON.FROHFDIV.scale" value="2" locked="false"/>
                   <setting id="SYSCON.MAINCLKSELA.sel" value="SYSCON.CLK_IN_EN" locked="false"/>
-                  <setting id="SYSCON.MAINCLKSELB.sel" value="SYSCON.PLL0_BYPASS" locked="false"/>
                   <setting id="SYSCON.PLL0CLKSEL.sel" value="SYSCON.CLK_IN_EN" locked="false"/>
                   <setting id="SYSCON.PLL0DIV.scale" value="7" locked="false"/>
-                  <setting id="SYSCON.PLL0M_MULT.scale" value="24" locked="false"/>
+                  <setting id="SYSCON.PLL0M_MULT.scale" value="18" locked="false"/>
+                  <setting id="SYSCON.PLL0_PDEC.scale" value="2" locked="false"/>
                   <setting id="SYSCON.SYSTICKCLKSEL0.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.USB0CLKDIV.scale" value="2" locked="true"/>
                   <setting id="SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG" value="Enabled" locked="false"/>

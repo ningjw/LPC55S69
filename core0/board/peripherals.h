@@ -41,9 +41,9 @@ extern "C" {
 /* Definition of peripheral ID */
 #define CTIMER0_PERIPHERAL CTIMER0
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER0_TICK_FREQ 96000000UL
+#define CTIMER0_TICK_FREQ 16000000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER0_TICK_PERIOD 10UL
+#define CTIMER0_TICK_PERIOD 63UL
 /* Definition of PWM period */
 #define CTIMER0_PWM_PERIOD 96
 /* Definition of channel 0 ID */
@@ -53,9 +53,9 @@ extern "C" {
 /* Definition of peripheral ID */
 #define CTIMER2_PERIPHERAL CTIMER2
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER2_TICK_FREQ 96000000UL
+#define CTIMER2_TICK_FREQ 16000000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER2_TICK_PERIOD 10UL
+#define CTIMER2_TICK_PERIOD 63UL
 /* Definition of PWM period */
 #define CTIMER2_PWM_PERIOD 96
 /* Definition of channel 1 ID */
@@ -65,18 +65,18 @@ extern "C" {
 /* Definition of peripheral ID */
 #define CTIMER3_PERIPHERAL CTIMER3
 /* Timer tick frequency in Hz (input frequency of the timer) */
-#define CTIMER3_TICK_FREQ 1000UL
+#define CTIMER3_TICK_FREQ 16000UL
 /* Timer tick period in ns (input period of the timer) */
-#define CTIMER3_TICK_PERIOD 1000000UL
+#define CTIMER3_TICK_PERIOD 62500UL
 /* BOARD_InitPeripherals defines for FLEXCOMM0 */
 /* Definition of peripheral ID */
 #define FLEXCOMM0_PERIPHERAL ((SPI_Type *)FLEXCOMM0)
 /* Definition of the clock source frequency */
-#define FLEXCOMM0_CLOCK_SOURCE 48000000UL
+#define FLEXCOMM0_CLOCK_SOURCE 16000000UL
 /* Definition of peripheral ID */
 #define FLEXCOMM2_PERIPHERAL ((USART_Type *)FLEXCOMM2)
 /* Definition of the clock source frequency */
-#define FLEXCOMM2_CLOCK_SOURCE 12000000UL
+#define FLEXCOMM2_CLOCK_SOURCE 16000000UL
 /* FLEXCOMM2 interrupt vector ID (number). */
 #define FLEXCOMM2_FLEXCOMM_IRQN FLEXCOMM2_IRQn
 /* FLEXCOMM2 interrupt handler identifier. */
@@ -84,7 +84,7 @@ extern "C" {
 /* Definition of peripheral ID */
 #define FLEXCOMM5_PERIPHERAL ((USART_Type *)FLEXCOMM5)
 /* Definition of the clock source frequency */
-#define FLEXCOMM5_CLOCK_SOURCE 12000000UL
+#define FLEXCOMM5_CLOCK_SOURCE 16000000UL
 /* FLEXCOMM5 interrupt vector ID (number). */
 #define FLEXCOMM5_FLEXCOMM_IRQN FLEXCOMM5_IRQn
 /* FLEXCOMM5 interrupt handler identifier. */
@@ -93,7 +93,7 @@ extern "C" {
 /* Definition of peripheral ID */
 #define FLEXCOMM6_PERIPHERAL ((SPI_Type *)FLEXCOMM6)
 /* Definition of the clock source frequency */
-#define FLEXCOMM6_CLOCK_SOURCE 12000000UL
+#define FLEXCOMM6_CLOCK_SOURCE 48000000UL
 /* Definition of peripheral ID */
 #define RTC_PERIPHERAL RTC
 /* BOARD_InitPeripherals defines for UTICK0 */
