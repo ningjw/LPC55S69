@@ -48,13 +48,14 @@
 #include "adc_drv.h"
 #include "w25q128_drv.h"
 #include "soft_iic_drv.h"
+#include "ota.h"
 
 #define VERSION_CONTROL 3
 
 #if VERSION_CONTROL == 1
 #define BLE_VERSION
 #elif VERSION_CONTROL == 2
-#define WIFI_VERSION 
+#define WIFI_VERSION
 #elif VERSION_CONTROL == 3
 #define CAT1_VERSION
 #endif
@@ -67,10 +68,13 @@
 
 //#define DEBUG_USB_AUDIO
 //#define DEBUG_PRINTF printf
-#define DEBUG_PRINTF(...)  
+#define DEBUG_PRINTF(...)
 
 #define SOFT_VERSION       "21010200"
 #define HARD_VERSION       "1.0.0"
+#define PRODUCT_ID         "388752"
+#define DEVICE_ID          "655093740"
+#define ACCESS_KEY         "QNbnj7mS4aOTcNHnQCAEPO/2Chv9yNZOqhghd1fYRkw="
 
 #define PAGE_SIZE 0x200
 #define FLEXCOMM_BUFF_LEN 1024
@@ -94,7 +98,7 @@
 #if 0
 #ifdef BLE_VERSION
     #define ADC_NUM_ONE_PACK   58
-	#define FIRM_ONE_PACKE_LEN 166 
+	#define FIRM_ONE_PACKE_LEN 166
 	#define FIRM_ONE_LEN (FIRM_ONE_PACKE_LEN - 6)
 #elif defined (WIFI_VERSION) || defined(CAT1_VERSION)
 	#define ADC_NUM_ONE_PACK   335
@@ -164,24 +168,24 @@ typedef struct{
     uint8_t  BleWifiLedStatus; //蓝牙状态
     uint8_t  sampLedStatus;    //采样状态
     bool     WorkStatus;       //用于指示当前是否正在采集.
-    
+
 	float    batVoltage;   //电池电压
     float    batTemp;      //电池温度
     float    objTemp;      //物体温度
 	float    envTemp;      //环境温度
     uint32_t batRemainPercent;//充电百分比
 	uint32_t batRegAC;        //电池管理芯片AC寄存器值
-    
+
 	uint32_t sampPacksCnt; //计数器
-    
+
 	uint32_t spdPacksByWifiCat1;     //转速信号需要分多少个包发送完成
 	uint32_t shkPacksByWifiCat1;     //震动信号需要分多少个包发送完成
     uint32_t spdPacksByBleNfc;       //转速信号需要分多少个包发送完成
 	uint32_t shkPacksByBleNfc;       //震动信号需要分多少个包发送完成
 	uint32_t tempCount;   //当前记录的温度个数
-    
+
 	uint8_t  Cat1LinkStatus;//用于指示cat1是否已经连接上服务器
-    
+
     uint32_t sampPacksByBleNfc;	 //总共采集道的数据,需要分多少个包上传
     uint32_t sampPacksByWifiCat1;//总共采集道的数据,需要分多少个包上传
     uint32_t spdStartSid;//转速信号从哪个sid开始.
@@ -194,23 +198,23 @@ typedef struct{
 	uint32_t firmCore1Update;//Core1固件更新
     uint32_t firmCore0Size;  //Core0固件总大小
 	uint32_t firmCore1Size;  //Core1固件总大小
-	
+
     uint32_t firmCrc16;      //固件校验码
     uint32_t firmPacksTotal; //固件总包数
 	uint32_t firmCoreIndex;  //判断是升级core0,还是升级core1
     uint32_t firmPacksCount; //当前接受的固件包数
     uint32_t firmCurrentAddr;//下一次数据需要保存的地址
     uint32_t firmSizeCurrent;
-    
+
     uint32_t batRemainPercentBak;//保存在flash中的电池电量百分比
     uint8_t  batAlarmValue;  //电池电量报警值
 
     uint8_t  autoPwrOffIdleTime;   //多少分钟不活动后,自动关机
     uint8_t  autoPwrOffCondition;//用于设置触发自动关机的条件
-    
+
     float    bias;       //震动传感器偏置电压
     float    refV;       //1052的参考电压值
-    
+
     uint8_t  firstPoweron;   //首次开机
     uint8_t  WifiBleInitFlag;//用于指示蓝牙/wifi模块是否已经初始化过
 	uint8_t  Cat1InitFlag   ;//用于指示cat1是否已经初始化过
@@ -239,20 +243,20 @@ typedef struct{
     float AverageOverlap;//重叠率
     int   AverageType;//重叠方式
     int   EnvFilterLow;
-    int   EnvFilterHigh;//包络滤波频段 
+    int   EnvFilterHigh;//包络滤波频段
 	int   IncludeMeasurements;//
-	
+
     float Speed;//平均转速
     float Process;//平均温度
     float ProcessMin;//最小值
     float ProcessMax;//最大值
-    
+
     char  MeasurementComment[128];
     char  DAUID[20];
-    
+
     uint32_t shkCount;   //震动信号采集到的个数
 	uint32_t spdCount;   //转速信号采集到的个数.
-    
+
     uint8_t  sampleReason;//采集方式
     uint32_t sampleInterval;//cat1版本采样周期
     uint32_t sampNumber;  //取样时间

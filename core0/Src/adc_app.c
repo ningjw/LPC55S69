@@ -230,7 +230,7 @@ void ADC_AppTask(void)
     uint32_t r_event;
     BaseType_t xReturn = pdTRUE;
 	arm_rfft_instance_q31 instance;
-#if 1
+#if 0
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
 	PWR_5V_ON;

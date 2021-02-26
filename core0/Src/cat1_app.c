@@ -35,10 +35,10 @@ uint8_t CAT1_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
 	memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
 nb_retry:
     FLEXCOMM2_SendStr(cmd);//发送AT指令
-	
+
     /*wait resp_time*/
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, time_out);
-	
+
     //接收到的数据中包含响应的数据
     if(strstr((char *)g_Cat1RxBuffer, recv_str) != NULL) {
         return true;
@@ -70,11 +70,11 @@ void CAT1_Init()
 {
 	//wait "WH-GM5"
 	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-	
+
 	while(CAT1_SendCmd("+++", "a", 1000) == false){
 		vTaskDelay(10);
 	}
-	
+
 	if(CAT1_SendCmd("a","+ok", 1000)==false)
 	{
 		DEBUG_PRINTF("********** WIFI Init error \r\n");
@@ -85,7 +85,7 @@ void CAT1_Init()
 	if(g_sys_flash_para.Cat1InitFlag != 0xAA)
 	{
 		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
-        
+
         FLEXCOMM2_SendStr("AT+SN?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
@@ -94,7 +94,7 @@ void CAT1_Init()
                 strncpy(g_sys_flash_para.SN, s, sizeof(g_sys_flash_para.SN));
             }
         }
-        
+
         FLEXCOMM2_SendStr("AT+AT+IMEI?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
@@ -103,7 +103,7 @@ void CAT1_Init()
                 strncpy(g_sys_flash_para.IMEI, s, sizeof(g_sys_flash_para.IMEI));
             }
         }
-        
+
         FLEXCOMM2_SendStr("AT+AT+ICCID?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
@@ -112,10 +112,10 @@ void CAT1_Init()
                 strncpy(g_sys_flash_para.ICCID, s, sizeof(g_sys_flash_para.ICCID));
             }
         }
-        
+
 		CAT1_SendCmd("AT+WKMOD=NET\r\n", "OK", 200);//检查网络
-		
-		CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+
+		CAT1_SendCmd("AT+SOCKAEN=OFF\r\n" ,"OK", 200);
 #if 0
         CAT1_SendCmd("AT+HEARTEN=OFF\r\n" ,"OK", 200);//恢复出厂设置
 		CAT1_SendCmd("AT+REGEN=ON\r\n" ,"OK", 200);//注册包功能
@@ -123,14 +123,21 @@ void CAT1_Init()
 		CAT1_SendCmd("AT+REGSND=LINK\r\n" ,"OK", 200);//为建立连接时发送
 #endif
 		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
-		CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
         
+        CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKB=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
+        
+        CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKC=TCP,120.197.216.227,7003\r\n" ,"OK", 1000);
+        
+		CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+
 		g_sys_flash_para.Cat1InitFlag = 0xAA;
 		Flash_SavePara();
         //AT+S会重启模块,在此处等待模块发送"WH-GM5"
 		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
 	}
-    
+
     FLEXCOMM2_SendStr("AT+CSQ\r\n");
     if(strstr((char *)g_Cat1RxBuffer,"OK") != NULL){
         char *s = substr((char *)g_Cat1RxBuffer,"+CSQ:");
@@ -157,19 +164,19 @@ void CAT1_UploadSampleData(void)
     uint32_t sid = 0;
     uint32_t len = 0;
     uint8_t  retry = 0;
-    
+
     PWR_CAT1_ON;//开机
     CAT1_Init();//初始化CAT1模块
     if(g_sys_para.Cat1LinkStatus == false){
         return;
     }
-    
+
 NEXT_SID:
-    
+
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     len = PacketUploadSampleData(g_commTxBuf, sid);
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
-    
+
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 10000);//等待服务器回复数据,超时时间10S
     if(pdTRUE == xReturn){
         if(cat1_event == EVT_UART_TIMTOUT && strstr((char *)g_Cat1RxBuffer, "OK") != NULL) {//成功接受到服务器发送的OK字符
@@ -182,11 +189,15 @@ NEXT_SID:
         retry++;
         goto NEXT_SID;
     }
-    
+
     //采样数据包发送完成后,还需要发送当前状态到服务器
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-    
+
+	OTA_ReportVersion(DEVICE_ID, SOFT_VERSION, ota_info.authorization);//上报版本号
+	if(OTA_Check(DEVICE_ID, ota_info.authorization)){
+		
+	}
     PWR_CAT1_OFF;//关机
 }
 
@@ -195,13 +206,14 @@ NEXT_SID:
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
+    strcat(ota_info.authorization,"version=2018-10-31&res=products%2F388752&et=1614346262&method=sha1&sign=UwaHN0rSXEdGWovbiwEjhUv%2BfQY%3D");
 	//CAT1_Init();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{
 		/*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-		if ( pdTRUE == xReturn) 
+		if ( pdTRUE == xReturn)
 		{
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
@@ -231,7 +243,7 @@ void FLEXCOMM2_IRQHandler(void)
 		if(g_Cat1RxCnt < sizeof(g_Cat1RxBuffer)) {
 			/* 将接受到的数据保存到数组*/
 			g_Cat1RxBuffer[g_Cat1RxCnt++] = ucTemp;
-			
+
 		}
 	}
 }
@@ -248,4 +260,3 @@ void FLEXCOMM2_TimeTick(void)
         }
     }
 }
-
