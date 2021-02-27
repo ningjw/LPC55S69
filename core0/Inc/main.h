@@ -70,11 +70,12 @@
 //#define DEBUG_PRINTF printf
 #define DEBUG_PRINTF(...)
 
-#define SOFT_VERSION       "21010200"
+#define SOFT_VERSION       "V2102271000"
 #define HARD_VERSION       "1.0.0"
 #define PRODUCT_ID         "388752"
 #define DEVICE_ID          "655093740"
 #define ACCESS_KEY         "QNbnj7mS4aOTcNHnQCAEPO/2Chv9yNZOqhghd1fYRkw="
+#define AUTHORIZATION      "version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE%3D"
 
 #define PAGE_SIZE 0x200
 #define FLEXCOMM_BUFF_LEN 1024
@@ -218,9 +219,14 @@ typedef struct{
     uint8_t  firstPoweron;   //首次开机
     uint8_t  WifiBleInitFlag;//用于指示蓝牙/wifi模块是否已经初始化过
 	uint8_t  Cat1InitFlag   ;//用于指示cat1是否已经初始化过
-    char     SN[20];
-    char     IMEI[20];
-    char     ICCID[20];
+    char     SN[24];
+    char     IMEI[24];
+    char     ICCID[24];
+    char     device_id[20];
+    char     key[40];
+    char     firmUpdateTargetV[20];//需要升级的版本
+    char     firmUpdateToken[48];//升级需要的token
+    char     firmUpdateMD5[48];//升级包MD5
 }SysFlashPara;
 
 typedef struct{
@@ -245,7 +251,7 @@ typedef struct{
     int   EnvFilterLow;
     int   EnvFilterHigh;//包络滤波频段
 	int   IncludeMeasurements;//
-
+    
     float Speed;//平均转速
     float Process;//平均温度
     float ProcessMin;//最小值

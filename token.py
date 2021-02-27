@@ -6,7 +6,7 @@ from urllib.parse import quote
 def token(id,access_key):
     version = '2018-10-31'
     res = 'products/%s' % id
-    et = str(int(time.time()) + 3600)
+    et = str(int(time.time()) + 315360000)
     method = 'sha1'
     key = base64.b64decode(access_key)
     org = et + '\n' + method + '\n' + res + '\n' + version
