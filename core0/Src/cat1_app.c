@@ -88,11 +88,11 @@ void CAT1_Init()
     PWR_CAT1_ON;
 	//wait "WH-GM5"
 	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-
+	
 	CAT1_EnterATMode();
     
     CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
-    
+    CAT1_SendCmd("AT+UARTFL\r\n", "OK", 300);
 	if(g_sys_flash_para.Cat1InitFlag != 0xAA)
 	{
 		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
@@ -133,7 +133,6 @@ void CAT1_Init()
             strtok(s,"\r\n");
             strncpy(g_sys_flash_para.ICCID, s+7, sizeof(g_sys_flash_para.ICCID));
         }
-        
         while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){
             vTaskDelay(1000);
         }
@@ -193,8 +192,34 @@ void CAT1_Init()
 //        CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
 //        CAT1_SendCmd("AT+SOCKD=TCP,120.197.216.227,7003\r\n" ,"OK", 1000);
 	}
-    
-    //重新配置SOCKA,检测升级任务
+	
+#if 0
+	//配置SOCKA,上传采样数据******************************************
+	CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+    CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
+    CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+    //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+    CAT1_EnterATMode();
+    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
+        vTaskDelay(1000);
+    }
+	
+    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+
+	char login[32] = {0};
+	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
+	CAT1_SendCmd(login, "OK", 200);
+	for(uint16_t i=0; i<512; i++){
+		g_Cat1TxBuffer[i] = i+1;
+	}
+
+	USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_Cat1TxBuffer, 512);
+	return;
+#endif
+	
+    //配置SOCKA,检测升级任务******************************************
+	CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
     CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
     CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
     //AT+S会重启模块,在此处等待模块发送"WH-GM5"
@@ -238,7 +263,9 @@ void CAT1_Init()
             if(item->valueint){
                 g_sys_flash_para.firmCore0Size = item->valueint;
                 g_sys_flash_para.firmPacksCount = g_sys_flash_para.firmCore0Size/512 + (g_sys_flash_para.firmCore0Size%512?1:0);
-            }
+				/* 按照文件大小擦除对应大小的空间 */
+				memory_erase(CORE0_DATA_ADDR, g_sys_flash_para.firmCore0Size);
+			}
             item = cJSON_GetObjectItem(pSub,"md5");
             if(item->valuestring){
                 memset(g_sys_flash_para.firmUpdateMD5, 0, sizeof(g_sys_flash_para.firmUpdateMD5));
@@ -250,10 +277,10 @@ void CAT1_Init()
     
     //获取固件
     if(g_sys_flash_para.firmCore0Size){
-        g_sys_flash_para.firmPacksCount = 0;
+		uint32_t one_packet_len = 256;
+		uint32_t current_pack = 0;
         uint32_t app_data_addr = CORE0_DATA_ADDR;
 GET_NEXT:
-        
         g_Cat1RxCnt = 0;
         memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
         memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
@@ -261,17 +288,25 @@ GET_NEXT:
                   "GET /ota/south/download/%s HTTP/1.1\r\n"
                   "Range:bytes=%d-%d\r\n"
                   "host: ota.heclouds.com\r\n\r\n"
-                  ,g_sys_flash_para.firmUpdateToken, g_sys_flash_para.firmPacksCount*512, g_sys_flash_para.firmPacksCount*512+511);
+                  ,g_sys_flash_para.firmUpdateToken, current_pack*one_packet_len, (current_pack+1)*one_packet_len-1);
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
         
-        g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * 512;//
-        g_sys_flash_para.firmPacksCount++;
+        g_sys_flash_para.firmCurrentAddr = app_data_addr+current_pack * one_packet_len;//
+        current_pack++;
         //查找第一次出现0xD 0xA 0xD 0xA的位置
-        char *p = strstr((char *)g_Cat1RxBuffer, "\r\n\r\n");
-        FLASH_SaveAppData((uint8_t *)p, g_sys_flash_para.firmCurrentAddr, 512);
+        char *data_ptr = strstr((char *)g_Cat1RxBuffer, "\r\n\r\n");
+        FLASH_SaveAppData((uint8_t *)(data_ptr+4), g_sys_flash_para.firmCurrentAddr, one_packet_len);
         //判断是否为最后一个包
-        
+		if(current_pack < g_sys_flash_para.firmPacksCount){
+			goto GET_NEXT;
+		}
+		
+		MD5_CTX md5_ctx;
+		unsigned char md5_t[16];
+		char md5_result[40] = {0};
+		MD5_Init(&md5_ctx);
+		MD5_Final(&md5_ctx, md5_t);
     }
 }
 
@@ -354,7 +389,7 @@ void FLEXCOMM2_IRQHandler(void)
 {
 	uint8_t ucTemp;
 	/*串口接收到数据*/
-    if( USART_GetStatusFlags(FLEXCOMM2_PERIPHERAL) & (kUSART_RxFifoNotEmptyFlag | kUSART_RxError) )
+    if( USART_GetStatusFlags(FLEXCOMM2_PERIPHERAL) & (kUSART_RxFifoNotEmptyFlag) )
     {
 		/*读取数据*/
         ucTemp = USART_ReadByte(FLEXCOMM2_PERIPHERAL);
@@ -364,10 +399,12 @@ void FLEXCOMM2_IRQHandler(void)
 			/* 将接受到的数据保存到数组*/
 			g_Cat1RxBuffer[g_Cat1RxCnt++] = ucTemp;
 		}else{
-            g_Cat1RxCnt = 0;
-            memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
+			g_Cat1RxCnt = 0;
         }
+	}else if(USART_GetStatusFlags(FLEXCOMM2_PERIPHERAL) & kUSART_RxError){
+		USART_ClearStatusFlags(FLEXCOMM2_PERIPHERAL, kUSART_RxError);
 	}
+	__DSB();
 }
 
 void FLEXCOMM2_TimeTick(void)

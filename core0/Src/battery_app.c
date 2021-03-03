@@ -23,7 +23,7 @@ void BAT_AppTask(void)
 	
     // Enable analog section of the chip (in case if it disabled)
     LTC2942_SetAnalog(LTC2942_AN_ENABLED);
-
+	
     // Set prescaler M value
     LTC2942_SetPrescaler(LTC2942_PSCM_64);
 

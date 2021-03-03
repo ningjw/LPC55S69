@@ -10,7 +10,7 @@ product: Peripherals v9.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 9.0.1
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 6d318e78-2ce5-461a-85f3-e18610602d0a
@@ -110,6 +110,8 @@ instance:
 - config_sets:
   - fsl_lpadc:
     - lpadcConfig:
+      - clockSource: 'AsynchronousFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
       - enableInDozeMode: 'true'
       - conversionAverageMode: 'kLPADC_ConversionAverage128'
       - offsetCalibration: 'no'
@@ -690,6 +692,34 @@ static void UTICK0_init(void) {
   /* Configuration of UTICK0 peripheral initialization */
   UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, UTICK0_Callback);
 }
+
+/***********************************************************************************************************************
+ * NVIC initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'NVIC'
+- type: 'nvic'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'nvic_57b5eef3774cc60acaede6f5b8bddc67'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'NVIC'
+- config_sets:
+  - nvic:
+    - interrupt_table:
+      - 0: []
+      - 1: []
+      - 2: []
+      - 3: []
+    - interrupts: []
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+/* Empty initialization function (commented out)
+static void NVIC_init(void) {
+} */
 
 /***********************************************************************************************************************
  * Initialization functions

@@ -31,7 +31,7 @@ void main(void)
 				sysTime.hour,sysTime.minute,sysTime.second);
     
 	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",1024,NULL, 1,&LED_TaskHandle);
+    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",512,NULL, 1,&LED_TaskHandle);
     
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
@@ -41,9 +41,9 @@ void main(void)
 	
 #ifdef CAT1_VERSION
 	/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",1024,NULL, 3,&CAT1_TaskHandle);
+    xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",1536,NULL, 3,&CAT1_TaskHandle);
 
-    /* 创建NB_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
 #endif
  

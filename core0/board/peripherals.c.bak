@@ -10,7 +10,7 @@ product: Peripherals v9.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 9.0.0
+processor_version: 9.0.1
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 6d318e78-2ce5-461a-85f3-e18610602d0a
@@ -110,6 +110,8 @@ instance:
 - config_sets:
   - fsl_lpadc:
     - lpadcConfig:
+      - clockSource: 'AsynchronousFunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
       - enableInDozeMode: 'true'
       - conversionAverageMode: 'kLPADC_ConversionAverage128'
       - offsetCalibration: 'no'
@@ -451,7 +453,7 @@ instance:
       - stopBitCount: 'kUSART_OneStopBit'
       - bitCountPerChar: 'kUSART_8BitsPerChar'
       - loopback: 'false'
-      - txWatermark: 'kUSART_TxFifo0'
+      - txWatermark: 'kUSART_TxFifo1'
       - rxWatermark: 'kUSART_RxFifo1'
       - enableRx: 'true'
       - enableTx: 'true'
@@ -466,7 +468,7 @@ const usart_config_t FLEXCOMM2_config = {
   .stopBitCount = kUSART_OneStopBit,
   .bitCountPerChar = kUSART_8BitsPerChar,
   .loopback = false,
-  .txWatermark = kUSART_TxFifo0,
+  .txWatermark = kUSART_TxFifo1,
   .rxWatermark = kUSART_RxFifo1,
   .enableRx = true,
   .enableTx = true,
@@ -613,56 +615,6 @@ static void FLEXCOMM6_init(void) {
 }
 
 /***********************************************************************************************************************
- * PINT initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'PINT'
-- type: 'pint'
-- mode: 'interrupt_mode'
-- custom_name_enabled: 'false'
-- type_id: 'pint_cf4a806bb2a6c1ffced58ae2ed7b43af'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'PINT'
-- config_sets:
-  - general:
-    - interrupt_array:
-      - 0:
-        - interrupt_id: 'INT_1'
-        - interrupt_selection: 'PINT.1'
-        - interrupt_type: 'kPINT_PinIntEnableBothEdges'
-        - callback_function: 'PINT1_CallBack'
-        - enable_callback: 'true'
-        - interrupt:
-          - IRQn: 'PIN_INT1_IRQn'
-          - enable_priority: 'false'
-          - priority: '0'
-      - 1:
-        - interrupt_id: 'INT_2'
-        - interrupt_selection: 'PINT.2'
-        - interrupt_type: 'kPINT_PinIntEnableNone'
-        - callback_function: 'PINT2_CallBack'
-        - enable_callback: 'false'
-        - interrupt:
-          - IRQn: 'PIN_INT0_IRQn'
-          - enable_priority: 'false'
-          - priority: '0'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-
-static void PINT_init(void) {
-  /* PINT initiation  */
-  PINT_Init(PINT_PERIPHERAL);
-  /* PINT PINT.1 configuration */
-  PINT_PinInterruptConfig(PINT_PERIPHERAL, PINT_INT_1, kPINT_PinIntEnableBothEdges, PINT1_CallBack);
-  /* PINT PINT.2 configuration */
-  PINT_PinInterruptConfig(PINT_PERIPHERAL, PINT_INT_2, kPINT_PinIntEnableNone, PINT2_CallBack);
-  /* Enable PINT PINT.1 callback */
-  PINT_EnableCallbackByIndex(PINT_PERIPHERAL, kPINT_PinInt1);
-}
-
-/***********************************************************************************************************************
  * RTC initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -742,6 +694,34 @@ static void UTICK0_init(void) {
 }
 
 /***********************************************************************************************************************
+ * NVIC initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'NVIC'
+- type: 'nvic'
+- mode: 'general'
+- custom_name_enabled: 'false'
+- type_id: 'nvic_57b5eef3774cc60acaede6f5b8bddc67'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'NVIC'
+- config_sets:
+  - nvic:
+    - interrupt_table:
+      - 0: []
+      - 1: []
+      - 2: []
+      - 3: []
+    - interrupts: []
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+/* Empty initialization function (commented out)
+static void NVIC_init(void) {
+} */
+
+/***********************************************************************************************************************
  * Initialization functions
  **********************************************************************************************************************/
 void BOARD_InitPeripherals(void)
@@ -759,7 +739,6 @@ void BOARD_InitPeripherals(void)
   FLEXCOMM2_init();
   FLEXCOMM5_init();
   FLEXCOMM6_init();
-  PINT_init();
   RTC_init();
   UTICK0_init();
 }

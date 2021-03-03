@@ -49,6 +49,7 @@
 #include "w25q128_drv.h"
 #include "soft_iic_drv.h"
 #include "ota.h"
+#include "md5.h"
 
 #define VERSION_CONTROL 3
 

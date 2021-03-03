@@ -39,8 +39,8 @@ host:  ota.heclouds.com
 
 
 下载固件:183.230.40.50:80
-GET /ota/south/download/ota_Ow64Oe78AoklVIlKdeuv HTTP/1.1
-Range:bytes=0-512
+GET /ota/south/download/ota_5hcX2u0t2Tkj9XlRepb8 HTTP/1.1
+Range:bytes=0-511
 host:  ota.heclouds.com
 
 

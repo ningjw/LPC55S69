@@ -154,64 +154,80 @@
           <Type>0</Type>
           <LineNumber>88</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>76230</Address>
+          <Address>76092</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
+          <Filename>.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\core0\Src/cat1_app.c\88</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>206</LineNumber>
+          <LineNumber>231</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>77468</Address>
+          <Address>77376</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
+          <Filename>.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\206</Expression>
+          <Expression>\\core0\Src/cat1_app.c\231</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>218</LineNumber>
+          <LineNumber>279</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>77694</Address>
+          <Address>77944</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
+          <Filename>.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\218</Expression>
+          <Expression>\\core0\Src/cat1_app.c\279</Expression>
         </Bp>
         <Bp>
           <Number>3</Number>
           <Type>0</Type>
-          <LineNumber>198</LineNumber>
+          <LineNumber>405</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>77350</Address>
+          <Address>86286</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
+          <Filename>.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\198</Expression>
+          <Expression>\\core0\Src/cat1_app.c\405</Expression>
+        </Bp>
+        <Bp>
+          <Number>4</Number>
+          <Type>0</Type>
+          <LineNumber>302</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>78202</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\Src\cat1_app.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\core0\Src/cat1_app.c\302</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -233,52 +249,47 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.IMEI</ItemText>
+          <ItemText>g_Cat1TxBuffer</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.ICCID</ItemText>
+          <ItemText>g_Cat1RxCnt,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Cat1TxBuffer</ItemText>
+          <ItemText>g_sys_flash_para.firmUpdateTargetV</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Cat1RxCnt,0x0A</ItemText>
+          <ItemText>g_sys_flash_para.firmUpdateToken</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.firmUpdateTargetV</ItemText>
+          <ItemText>g_Cat1TxBuffer</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.firmUpdateToken</ItemText>
+          <ItemText>g_sys_flash_para.firmCore0Size,0x10</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_Cat1TxBuffer</ItemText>
+          <ItemText>g_sys_flash_para.firmUpdateToken</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>item,0x0A</ItemText>
+          <ItemText>current_pack,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.firmCore0Size,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>g_sys_flash_para.firmUpdateToken</ItemText>
+          <ItemText>g_sys_flash_para.firmCurrentAddr</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -297,8 +308,8 @@
         </Mm>
       </MemoryWindow1>
       <ScvdPack>
-        <Filename>C:\Users\Marvin.Ning\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\EventRecorder.scvd</Filename>
-        <Type>Keil.ARM_Compiler.1.6.2</Type>
+        <Filename>C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.3</Type>
         <SubType>1</SubType>
       </ScvdPack>
       <Tracepoint>
@@ -343,6 +354,12 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
+      <SystemViewers>
+        <Entry>
+          <Name>System Viewer\USART2</Name>
+          <WinId>35905</WinId>
+        </Entry>
+      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>0</EnableFlashSeq>
