@@ -191,8 +191,8 @@ end
 function device_timer_init(dev)
     -- 添加用户自定义代码 --
     -- 例如： --
-    dev:timeout(3)
-    dev:add(10,"dev1","hello")    --每10秒下发一包数据，内容为hello
+--    dev:timeout(3)
+--    dev:add(10,"dev1","hello")    --每10秒下发一包数据，内容为hello
 end
 
 -----------------------------------------------------------------------------------------------------------
@@ -265,7 +265,8 @@ function device_data_analyze(dev)
     -- 添加用户自定义代码 --
     -- 例如： --
     local s = dev:size()    --获取上行数据长度
-    add_val(t,"ds_test",0,dev:bytes(1,s))
+
+    add_val(t, "sample", 0, dev:bytes(1,s))
 
     dev:response()
     dev:send("OK")  --发送应答

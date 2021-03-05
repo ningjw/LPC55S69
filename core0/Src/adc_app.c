@@ -95,7 +95,7 @@ void ADC_SampleStart(uint8_t reason)
     g_sample_para.shkCount = 0;
 	g_sample_para.spdCount = 0;
 	memset(ShakeADC,0,ADC_LEN);
-	memset(Temperature, 0, sizeof(ShakeADC));
+	memset(Temperature, 0, sizeof(Temperature));
 	
 	PWR_3V3A_ON;//开启ADC相关的电源
 	PWR_5V_ON;//开启5V的滤波器电源
@@ -149,8 +149,9 @@ void ADC_SampleStart(uint8_t reason)
 		ADC_InvalidCnt++;
 		if(ADC_InvalidCnt > 100) break;
     }
-	
+#ifndef CAT1_VERSION
 	start_spd_caputer();
+#endif
 	__disable_irq();//关闭中断
 	while(ADC_READY == 0){};//等待ADC_READY为高电平
 	while(1) { //wait ads1271 ready
@@ -162,7 +163,9 @@ void ADC_SampleStart(uint8_t reason)
 		}
     }
 	__enable_irq();//开启中断
+#ifndef CAT1_VERSION
 	stop_spd_caputer();
+#endif
 	if(g_sample_para.sampNumber == 0){//Android发送中断采集命令后,该值为0
 		spd_msg->len = 0;
 	}
@@ -210,7 +213,33 @@ void ADC_SampleStop(void)
     g_sample_para.Process = sum / g_sys_para.tempCount;
     g_sample_para.ProcessMax = Temperature[max_i];
     g_sample_para.ProcessMin = Temperature[min_i];
+
+#if defined(BLE_VERSION)
+    //计算通过蓝牙(NFC)发送震动信号需要多少个包
+    g_sys_para.shkPacksByBleNfc = (g_sample_para.shkCount / ADC_NUM_BLE_NFC) +  (g_sample_para.shkCount % ADC_NUM_BLE_NFC ? 1 : 0);
     
+    //计算通过蓝牙(NFC)发送转速信号需要多少个包
+    g_sys_para.spdPacksByBleNfc = (g_sample_para.spdCount / ADC_NUM_BLE_NFC) +  (g_sample_para.spdCount % ADC_NUM_BLE_NFC ? 1 : 0);
+    
+    //计算将所有数据通过通过蓝牙(NFC)发送需要多少个包
+    g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByBleNfc + g_sys_para.spdPacksByBleNfc + 3;//wifi需要加上3个采样参数包
+    
+    //转速信号从哪个sid开始发送
+    g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 3;//需要加上3个采样参数包
+#elif defined(WIFI_VERSION) || defined(CAT1_VERSION)
+    //计算通过WIFI发送震动信号需要多少个包
+    g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+    
+    //计算通过WIFI发送转速信号需要多少个包
+    g_sys_para.spdPacksByWifiCat1 = (g_sample_para.spdCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.spdCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+    
+    //计算将所有数据通过WIFI上传需要多少个包
+    g_sys_para.sampPacksByWifiCat1 = g_sys_para.shkPacksByWifiCat1 + g_sys_para.spdPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
+    
+    //转速信号从哪个sid开始发送
+    g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
+#endif
+
     /*将采样数据保存到spi flash*/
 	W25Q128_AddAdcData();
     
@@ -256,6 +285,11 @@ void ADC_AppTask(void)
 #endif
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
+	
+	//开机进行一次采样
+	if(g_sys_flash_para.Cat1InitFlag == 0xAA){
+		ADC_SampleStart(AUTO_SAMPLE);
+	}
     while(1)
     {
         /*等待ADC完成采样事件*/

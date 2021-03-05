@@ -77,8 +77,12 @@ static void InitSysPara()
         g_sys_flash_para.bias = 2.043f;        //震动传感器的偏置电压默认为2.43V
         g_sys_flash_para.refV = 3.3f;          //参考电压
         
-        g_sample_para.SampleRate = 100000;     //取样频率
-        g_sample_para.sampNumber = 3000;       //12288;    //取样点数,
+        g_sample_para.SampleRate = 2560;     //取样频率
+        g_sample_para.Lines = 1600;          //线数
+        g_sample_para.Averages = 1;
+        g_sample_para.AverageOverlap = 1;
+        g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)
+                                + 2.56 * g_sample_para.Lines * g_sample_para.AverageOverlap;
         g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.
         
         SPI_Flash_Erase_Sector(0);

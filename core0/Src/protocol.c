@@ -409,31 +409,6 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
         if(NULL == pJsonRoot) {
             return NULL;
         }
-#if defined(BLE_VERSION) || defined(CAT1_VERSION)
-        //计算通过蓝牙(NFC)发送震动信号需要多少个包
-        g_sys_para.shkPacksByBleNfc = (g_sample_para.shkCount / ADC_NUM_BLE_NFC) +  (g_sample_para.shkCount % ADC_NUM_BLE_NFC ? 1 : 0);
-        
-        //计算通过蓝牙(NFC)发送转速信号需要多少个包
-        g_sys_para.spdPacksByBleNfc = (g_sample_para.spdCount / ADC_NUM_BLE_NFC) +  (g_sample_para.spdCount % ADC_NUM_BLE_NFC ? 1 : 0);
-        
-        //计算将所有数据通过通过蓝牙(NFC)发送需要多少个包
-        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByBleNfc + g_sys_para.spdPacksByBleNfc + 3;//wifi需要加上3个采样参数包
-        
-        //转速信号从哪个sid开始发送
-        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 3;//需要加上3个采样参数包
-#elif defined(WIFI_VERSION)
-        //计算通过WIFI发送震动信号需要多少个包
-        g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
-        
-        //计算通过WIFI发送转速信号需要多少个包
-        g_sys_para.spdPacksByWifiCat1 = (g_sample_para.spdCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.spdCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
-        
-        //计算将所有数据通过WIFI上传需要多少个包
-        g_sys_para.sampPacksByBleNfc = g_sys_para.shkPacksByWifiCat1 + g_sys_para.spdPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
-        
-        //转速信号从哪个sid开始发送
-        g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
-#endif
         cJSON_AddNumberToObject(pJsonRoot, "Id",  8);
         cJSON_AddNumberToObject(pJsonRoot, "Sid", 1);
         cJSON_AddStringToObject(pJsonRoot, "F", dataTime);

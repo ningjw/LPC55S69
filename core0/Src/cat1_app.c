@@ -82,143 +82,11 @@ void CAT1_EnterATMode(void)
 }
 
 
-/* CAT1-IoT 模块初始化 */
-void CAT1_Init()
+
+
+void CAT1_CheckVersion(void)
 {
-    PWR_CAT1_ON;
-	//wait "WH-GM5"
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-	
-	CAT1_EnterATMode();
-    
-    CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
-    CAT1_SendCmd("AT+UARTFL\r\n", "OK", 300);
-	if(g_sys_flash_para.Cat1InitFlag != 0xAA)
-	{
-		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
-
-		CAT1_SendCmd("AT+WKMOD=NET\r\n", "OK", 200);//检查网络
-
-		CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
-		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.33,80\r\n" ,"OK", 1000);
-
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-        CAT1_EnterATMode();
-        
-        FLEXCOMM2_SendStr("AT+SN?\r\n");
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-        char *s = strstr((char *)g_Cat1RxBuffer,"+SN:");
-        if(s){
-            strtok(s,"\r\n");
-            strncpy(g_sys_flash_para.SN, s+4, sizeof(g_sys_flash_para.SN));
-        }
-        
-        FLEXCOMM2_SendStr("AT+IMEI?\r\n");
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-        s = strstr((char *)g_Cat1RxBuffer,"+IMEI:");
-        if(s){
-            strtok(s,"\r\n");
-            strncpy(g_sys_flash_para.IMEI, s+6, sizeof(g_sys_flash_para.IMEI));
-        }
-        
-        FLEXCOMM2_SendStr("AT+ICCID?\r\n");
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-        s = strstr((char *)g_Cat1RxBuffer,"+ICCID:");
-        if(s){
-            strtok(s,"\r\n");
-            strncpy(g_sys_flash_para.ICCID, s+7, sizeof(g_sys_flash_para.ICCID));
-        }
-        while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){
-            vTaskDelay(1000);
-        }
-        CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
-        
-        //自注册设备
-        g_Cat1RxCnt = 0;
-        memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
-        memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
-        char jsonData[128] = {0};
-        snprintf(jsonData,sizeof(jsonData),"{\"sn\":\"%s\",\"title\":\"%s\"}",g_sys_flash_para.SN,g_sys_flash_para.SN);
-        snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
-                           "POST http://api.heclouds.com/register_de?register_code=v3LzB6dSMS8xYIpm HTTP/1.1\r\n"
-                          "User-Agent: Fiddler\r\n"
-                          "Host: api.heclouds.com\r\n"
-                          "Content-Length:%d\r\n\r\n%s",strlen(jsonData),jsonData);
-        FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-        char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
-        if(json_string){
-            cJSON *pJson = cJSON_Parse(json_string);
-            if(NULL == pJson) {
-                return;
-            }
-            // get string from json
-            cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
-            if(pSub->valueint == 0){
-                pSub = cJSON_GetObjectItem(pJson, "data");
-                cJSON* item;
-                item = cJSON_GetObjectItem(pSub,"device_id");
-                if(item->valuestring){
-                    memset(g_sys_flash_para.device_id, 0, sizeof(g_sys_flash_para.device_id));
-                    strcpy(g_sys_flash_para.device_id,item->valuestring);
-                }
-                item = cJSON_GetObjectItem(pSub,"key");
-                if(item->valuestring){
-                    memset(g_sys_flash_para.key, 0, sizeof(g_sys_flash_para.key));
-                    strcpy(g_sys_flash_para.key,item->valuestring);
-                }
-            }
-            cJSON_Delete(pJson);
-        }
-        //注册设备成功, 将设备id保存到flash
-        g_sys_flash_para.Cat1InitFlag = 0xAA;
-		Flash_SavePara();
-
-        CAT1_EnterATMode();
-//        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-//		  CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
-        
-//        CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
-//        CAT1_SendCmd("AT+SOCKB=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
-        
-//        CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
-//        CAT1_SendCmd("AT+SOCKC=TCP,183.230.40.33,80\r\n" ,"OK", 1000);
-        
-//        CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
-//        CAT1_SendCmd("AT+SOCKD=TCP,120.197.216.227,7003\r\n" ,"OK", 1000);
-	}
-	
-#if 0
-	//配置SOCKA,上传采样数据******************************************
-	CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-    CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
-    CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-    //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-    CAT1_EnterATMode();
-    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
-        vTaskDelay(1000);
-    }
-	
-    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
-
-	char login[32] = {0};
-	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
-	CAT1_SendCmd(login, "OK", 200);
-	for(uint16_t i=0; i<512; i++){
-		g_Cat1TxBuffer[i] = i+1;
-	}
-
-	USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_Cat1TxBuffer, 512);
-	return;
-#endif
-	
-    //配置SOCKA,检测升级任务******************************************
+	//配置SOCKA,检测升级任务******************************************
 	CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
     CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
     CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
@@ -310,6 +178,109 @@ GET_NEXT:
     }
 }
 
+/* CAT1-IoT 模块初始化 */
+void CAT1_SelfRegister()
+{
+	if(g_sys_flash_para.Cat1InitFlag != 0xAA || strlen(g_sys_flash_para.SN) ==0 )
+	{
+		PWR_CAT1_OFF;
+		vTaskDelay(100);
+		PWR_CAT1_ON;
+		//wait "WH-GM5"
+		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+
+		CAT1_EnterATMode();
+		
+		CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
+		
+		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
+		
+		CAT1_SendCmd("AT+WKMOD=NET\r\n", "OK", 200);//检查网络
+
+		CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
+		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.33,80\r\n" ,"OK", 1000);
+
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        CAT1_EnterATMode();
+        
+        FLEXCOMM2_SendStr("AT+SN?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        char *s = strstr((char *)g_Cat1RxBuffer,"+SN:");
+        if(s){
+            strtok(s,"\r\n");
+            strncpy(g_sys_flash_para.SN, s+4, sizeof(g_sys_flash_para.SN));
+        }
+        
+        FLEXCOMM2_SendStr("AT+IMEI?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        s = strstr((char *)g_Cat1RxBuffer,"+IMEI:");
+        if(s){
+            strtok(s,"\r\n");
+            strncpy(g_sys_flash_para.IMEI, s+6, sizeof(g_sys_flash_para.IMEI));
+        }
+        
+        FLEXCOMM2_SendStr("AT+ICCID?\r\n");
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        s = strstr((char *)g_Cat1RxBuffer,"+ICCID:");
+        if(s){
+            strtok(s,"\r\n");
+            strncpy(g_sys_flash_para.ICCID, s+7, sizeof(g_sys_flash_para.ICCID));
+        }
+        while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){
+            vTaskDelay(1000);
+        }
+        CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+        
+        //自注册设备
+        g_Cat1RxCnt = 0;
+        memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
+        memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
+        char jsonData[128] = {0};
+        snprintf(jsonData,sizeof(jsonData),"{\"sn\":\"%s\",\"title\":\"%s\"}",g_sys_flash_para.SN,g_sys_flash_para.SN);
+        snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
+                           "POST http://api.heclouds.com/register_de?register_code=v3LzB6dSMS8xYIpm HTTP/1.1\r\n"
+                          "User-Agent: Fiddler\r\n"
+                          "Host: api.heclouds.com\r\n"
+                          "Content-Length:%d\r\n\r\n%s",strlen(jsonData),jsonData);
+        FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
+        if(json_string){
+            cJSON *pJson = cJSON_Parse(json_string);
+            if(NULL == pJson) {
+                return;
+            }
+            // get string from json
+            cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
+            if(pSub->valueint == 0){
+                pSub = cJSON_GetObjectItem(pJson, "data");
+                cJSON* item;
+                item = cJSON_GetObjectItem(pSub,"device_id");
+                if(item->valuestring){
+                    memset(g_sys_flash_para.device_id, 0, sizeof(g_sys_flash_para.device_id));
+                    strcpy(g_sys_flash_para.device_id,item->valuestring);
+                }
+                item = cJSON_GetObjectItem(pSub,"key");
+                if(item->valuestring){
+                    memset(g_sys_flash_para.key, 0, sizeof(g_sys_flash_para.key));
+                    strcpy(g_sys_flash_para.key,item->valuestring);
+                }
+            }
+            cJSON_Delete(pJson);
+        }
+        //注册设备成功, 将设备id保存到flash
+        g_sys_flash_para.Cat1InitFlag = 0xAA;
+		Flash_SavePara();
+
+        CAT1_EnterATMode();
+	}
+}
+
 
 /* 将数据通过NB模块上传到OneNet*/
 void CAT1_UploadSampleData(void)
@@ -319,25 +290,46 @@ void CAT1_UploadSampleData(void)
     uint32_t len = 0;
     uint8_t  retry = 0;
 
+	PWR_CAT1_OFF;
+	vTaskDelay(100);
     PWR_CAT1_ON;//开机
-    CAT1_Init();//初始化CAT1模块
-    if(g_sys_para.Cat1LinkStatus == false){
-        return;
+	//wait "WH-GM5"
+	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+	
+	CAT1_EnterATMode();
+    
+	//配置SOCKA,上传采样数据******************************************
+    
+    FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.40") == NULL)
+    {
+        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        CAT1_EnterATMode();
     }
+    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
+        vTaskDelay(1000);
+    }
+    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+	
+	char login[32] = {0};
+	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
+	CAT1_SendCmd(login, "OK", 3000);
 
 NEXT_SID:
 
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     len = PacketUploadSampleData(g_commTxBuf, sid);
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
-
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 10000);//等待服务器回复数据,超时时间10S
+    xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 10000);//等待服务器回复数据,超时时间10S
     if(pdTRUE == xReturn){
-        if(cat1_event == EVT_UART_TIMTOUT && strstr((char *)g_Cat1RxBuffer, "OK") != NULL) {//成功接受到服务器发送的OK字符
-            sid ++;
-            if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
-                goto NEXT_SID;
-            }
+        sid ++;
+        if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
+            goto NEXT_SID;
         }
     }else if(retry < 3){//超时,且重试次数小于3
         retry++;
@@ -360,7 +352,7 @@ NEXT_SID:
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
-    CAT1_Init();
+    CAT1_SelfRegister();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{
