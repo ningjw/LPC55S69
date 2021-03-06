@@ -1,0 +1,368 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "#include \"main.h\"\n#include \"fsl_device_registers.h\"\n\n#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)\n\nSysPara        g_sys_para;\nSysFlashPara   g_sys_flash_para;\nSysSamplePara  g_sample_para;\nrtc_datetime_t sysTime;\nflash_config_t flashInstance;\nuint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区\n\nstatic void InitSysPara();\n\nvoid main(void)\n{\n\tBaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */\n\tctimer_config_t config;\n\t\n\tBOARD_BootClockRUN();\n\tBOARD_InitPins();\n\tBOARD_InitPeripherals();\n\t\n\tmemory_init();\n\tSPI_Flash_Init();\n\tInitSysPara();\n\tDEBUG_PRINTF(\"app start, version = %s\\n\",SOFT_VERSION);\n\tRTC_GetDatetime(RTC, &sysTime);\n\tDEBUG_PRINTF(\"%d-%02d-%02d %02d:%02d:%02d\\r\\n\",\n\t\t\t\tsysTime.year,sysTime.month,sysTime.day,\n\t\t\t\tsysTime.hour,sysTime.minute,sysTime.second);\n    \n\t/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )LED_AppTask,\"LED_Task\",512,NULL, 1,&LED_TaskHandle);\n    \n\t/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )ADC_AppTask, \"ADC_Task\",1024,NULL, 4,&ADC_TaskHandle);\n\t\n\t/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )BAT_AppTask,\"BAT_Task\",512,NULL, 2,&BAT_TaskHandle);\n\t\n#ifdef CAT1_VERSION\n\t/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )CAT1_AppTask,\"CAT1_Task\",1536,NULL, 3,&CAT1_TaskHandle);\n\n    /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )NFC_AppTask,\"NFC_Task\",512,NULL, 3,&NFC_TaskHandle);\n#endif\n \n#if defined(BLE_VERSION) || defined(WIFI_VERSION)\n    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,\"BLE_WIFI_Task\",1024,NULL, 3,&BLE_WIFI_TaskHandle);\n\t\n\t/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )CORE1_AppTask, \"CORE1_Task\",512, NULL, 4,&CORE1_TaskHandle);\n#endif\n\t\n    vTaskStartScheduler();   /* 启动任务，开启调度 */\n    while(1);\n}\n\n\n/***************************************************************************************\n  * @brief   初始化系统变量\n  * @input   \n  * @return  \n***************************************************************************************/\nstatic void InitSysPara()\n{\n\tFlash_ReadPara();\n\tif(g_sys_flash_para.firstPoweron != 0xAA)\n    {\n        g_sys_flash_para.firstPoweron = 0xAA;\n        g_sys_flash_para.autoPwrOffCondition = 1;//默认蓝牙没有通信是开始计时\n        g_sys_flash_para.autoPwrOffIdleTime = 15;    //默认15分钟没有活动后，自动关机。\n        g_sys_flash_para.batAlarmValue = 10;   //电池电量报警值\n        g_sys_flash_para.bias = 2.043f;        //震动传感器的偏置电压默认为2.43V\n        g_sys_flash_para.refV = 3.3f;          //参考电压\n        \n        g_sample_para.SampleRate = 2560;     //取样频率\n        g_sample_para.Lines = 1600;          //线数\n        g_sample_para.Averages = 1;\n        g_sample_para.AverageOverlap = 1;\n        g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)\n                                + 2.56 * g_sample_para.Lines * g_sample_para.AverageOverlap;\n        g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.\n        \n        SPI_Flash_Erase_Sector(0);\n        Flash_SavePara();\n    }\n    g_sys_para.sysIdleCount = 0;    //\n    g_sys_para.sampLedStatus = WORK_FINE;\n    g_sys_para.batLedStatus = BAT_NORMAL;\n    g_sys_para.BleWifiLedStatus = BLE_CLOSE;\n}\n\nvoid SystemSleep(void)\n{\n\tDEBUG_PRINTF(\"enter deep sleep\\n\");\n\tPWR_3V3A_OFF;//关闭ADC采集相关的电源\n\tPWR_5V_OFF;\n\tPWR_CAT1_OFF;\n    GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT,  BOARD_LED_SYS_GREEN_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_FORMAT_PORT,  BOARD_ADC_FORMAT_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT,  BOARD_ADC_SYNC_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT,  BOARD_ADC_MODE_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_PWR_SDA_PORT,  BOARD_PWR_SDA_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_MOSI_PORT,  BOARD_FLASH_MOSI_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_SCK_PORT,  BOARD_FLASH_SCK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_SPI_SCK_PORT,  BOARD_ADC_SPI_SCK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLT_CLK_PORT,  BOARD_FLT_CLK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_CLK_PORT,  BOARD_ADC_CLK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_NFC_RSTPD_PORT,  BOARD_NFC_RSTPD_PIN, 0);\n#ifdef CAT1_VERSION\n\tPOWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);\n#else\n\tPOWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);\n#endif\n\tDEBUG_PRINTF(\"exit deep sleep\\n\");\n    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 1);\n}\n\n#ifndef CAT1_VERSION\n/***************************************************************************************\n  * @brief  BLE/wifi连接状态引脚中断回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid PINT1_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)\n{\n\t//nLink低电平表示WIFI已连接\n\tif(GPIO_PinRead(GPIO, BOARD_BT_STATUS_PORT, BOARD_BT_STATUS_PIN) == 0)\n\t{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_CONNECT;\n\t}else{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_READY;\n\t}\n}\n\n/***************************************************************************************\n  * @brief  NB-IoT网络状态引脚中断回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)\n{\n\t#ifdef CAT1_VERSION\n\tif(GPIO_PinRead(GPIO, BOARD_NB_NETSTATUS_PORT, BOARD_NB_NETSTATUS_PIN))\n\t{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_CONNECT;\n\t}else{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_READY;\n\t}\n\t#endif\n}\n#endif\n/***************************************************************************************\n  * @brief   utick0回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid UTICK0_Callback(void)\n{\n\tuint32_t static sleep_time_cnt = 0;\n\t//在采集数据时,每间隔1S获取一次温度数据\n\tif (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){\n\t\tTemperature[g_sys_para.tempCount++] = TMP101_ReadTemp();\n\t}else if(sleep_time_cnt++ > 10){\n//\t\tSystemSleep();\n\t}\n\t\n#ifndef CAT1_VERSION\n\tif(g_sys_para.sysIdleCount++ >= (g_sys_para.autoPwrOffIdleTime + 1)*60-5) { //定时时间到\n\t\tGPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机\n\t}\n#endif\n}\n\nvoid delay_us(uint32_t nus)\n{\n\tuint32_t ticks;\n\tuint32_t told,tnow,tcnt=0;\n\tuint32_t reload=SysTick->LOAD;\t\t\t\t//LOAD的值\t    \t \n\tticks=nus*1; \t\t\t\t\t\t//需要的节拍数 \n\ttold=SysTick->VAL;        \t\t\t\t//刚进入时的计数器值\n\twhile(1)\n\t{\n\t\ttnow=SysTick->VAL;\t\n\t\tif(tnow!=told)\n\t\t{\t    \n\t\t\tif(tnow<told)tcnt+=told-tnow;\t//这里注意一下SYSTICK是一个递减的计数器就可以了.\n\t\t\telse tcnt+=reload-tnow+told;\t    \n\t\t\ttold=tnow;\n\t\t\tif(tcnt>=ticks)break;\t\t\t//时间超过/等于要延迟的时间,则退出.\n\t\t}  \n\t};\n}\n\n#ifndef CAT1_VERSION\nint fputc(int ch, FILE* stream)\n{\n    while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}\n\tUSART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);\n    return ch;\n}\n#endif\n",
+			"file": "core0/Src/main.c",
+			"file_size": 8029,
+			"file_write_time": 132594709902902500,
+			"settings":
+			{
+				"buffer_size": 7561,
+				"line_ending": "Unix",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "#include \"main.h\"\n\n\n\nextern rtc_datetime_t sampTime;\n\nuint8_t s_buffer[512] = {0};\n\nAdcInfoTotal adcInfoTotal;\nAdcInfo adcInfo;\nuint32_t inFlashBuf[128] = {0};\nvoid Flash_SavePara(void)\n{\n\tmemory_erase(SYS_PARA_ADDR,PAGE_SIZE);\n\tmemory_write(SYS_PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));\n\tg_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;\n    \n    memory_erase(SAMPLE_PARA_ADDR, PAGE_SIZE);\n    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));\n}\n\nvoid Flash_ReadPara(void)\n{\n\tuint16_t i = 0;\n\tmemory_read(SYS_PARA_ADDR, (uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));\n\t\n    memory_read(SAMPLE_PARA_ADDR, (uint8_t *)&g_sample_para, sizeof(g_sample_para));\n    \n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//判断为首次上电运行\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tDEBUG_PRINTF(\"%s: First run, init adcInfoTotal**************\\r\\n\",__func__);\n\t\t//总数为初始化为0\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\t//本次 AdcInfo 结构体保存地址\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);\n\t\t//本次数据的开始地址\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t}\n\tDEBUG_PRINTF(\"%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\\r\\n\",__func__,\n\t               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);\n\t\n}\n\n\n/*******************************************************************************\n* 函数名  : Flash_WriteAdcData\n* 描述    : 将adc数据写入芯片自带flash, 方便进行fft计算\n* 输入    : \n* 返回值  :\n*******************************************************************************/\nvoid Flash_WriteAdcData(uint8_t *buff, int len)\n{\n\tmemory_erase(FFT_ADC_ADDR, len);\n\tmemory_write(FFT_ADC_ADDR,(uint8_t *)buff, len*4);\n}\n\n\n/*******************************************************************************\n* 函数名  : FLASH_SaveAppData\n* 描述    : 从指定地址开始写入指定长度的数据\n* 输入    : WriteAddr:起始地址(此地址必须为2的倍数!!)  pBuffer:数据指针  NumToWrite:\n* 返回值  :\n*******************************************************************************/\nvoid FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite)\n{\n\tuint32_t secpos=0;\n\tuint16_t secoff=0;\n\tuint16_t secremain=0;\t   \n \tuint16_t i=0;    \n\tuint8_t *FLEXSPI_BUF;\n    if(NumByteToWrite == 0) return;\n   \tFLEXSPI_BUF = s_buffer;\t     \n \tsecpos = WriteAddr/PAGE_SIZE;//扇区地址  \n\tsecoff = WriteAddr%PAGE_SIZE;//在扇区内的偏移\n\tsecremain = PAGE_SIZE-secoff;//扇区剩余空间大小\n\t\n \tif(NumByteToWrite<=secremain)\n\t\tsecremain=NumByteToWrite;//不大于4096个字节\n\t__disable_irq();//关闭中断\n    while(1) \n\t{\n\t\tmemory_read(secpos*PAGE_SIZE, (uint8_t *)FLEXSPI_BUF, PAGE_SIZE);\n\t\tmemory_erase(secpos*PAGE_SIZE, PAGE_SIZE);\n        for(i=0;i<secremain;i++)\t                    //复制\n        {\n            FLEXSPI_BUF[i+secoff]=pBuffer[i];\t  \n        }\n\t\tmemory_write(secpos*PAGE_SIZE, FLEXSPI_BUF, PAGE_SIZE);\n\t\tif(NumByteToWrite==secremain)\n\t\t\tbreak;//写入结束了\n\t\telse//写入未结束\n\t\t{\n\t\t\tsecpos++;//扇区地址增1\n\t\t\tsecoff=0;//偏移位置为0 \t \n\n\t\t   \tpBuffer+=secremain;  //指针偏移\n\t\t\tWriteAddr+=secremain;//写地址偏移\t   \n\t\t   \tNumByteToWrite-=secremain;\t\t\t\t//字节数递减\n\t\t\tif(NumByteToWrite>PAGE_SIZE)\n\t\t\t\tsecremain=PAGE_SIZE;\t           //下一页还是写不完\n\t\t\telse \n\t\t\t\tsecremain=NumByteToWrite;\t\t\t//下一页可以写完了\n\t\t}\t \n\t};\n\t__enable_irq();\n}\n\n/***************************************************************************************\n  * @brief   增加一条ADC数据\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid W25Q128_AddAdcData(void)\n{\n\tchar tempTime[20] = {0};\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//判断为首次上电运行\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tDEBUG_PRINTF(\"%s: init adcInfoTotal\\r\\n\",__func__);\n\t\t//总数为初始化为0\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\t//本次 AdcInfo 结构体保存地址\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);\n\t\t//本次数据的开始地址\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t}\n\t\n\tDEBUG_PRINTF(\"%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\\r\\n\",__func__,\n\t               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);\n\t\n\t//初始化 adcInfo 结构体 数据时间\n\tsprintf(tempTime, \"%d%02d%02d%02d%02d%02d\", \n\t\t                       sampTime.year%100, sampTime.month, sampTime.day, \n\t                           sampTime.hour, sampTime.minute, sampTime.second);\n\tmemcpy(adcInfo.AdcDataTime, tempTime, sizeof(adcInfo.AdcDataTime));\n\t\n\t//初始化 adcInfo 结构体 数据长度\n\tadcInfo.AdcDataLen = sizeof(SysSamplePara) + g_sample_para.shkCount*4 + spd_msg->len*4;\n\t//初始化 adcInfo 结构体 数据地址\n\tadcInfo.AdcDataAddr = adcInfoTotal.addrOfNewData;\n\tif((adcInfo.AdcDataAddr % 4) != 0){//判断地址是否四字节对齐\n\t\tadcInfo.AdcDataAddr = adcInfo.AdcDataAddr + (4 - (adcInfo.AdcDataAddr % 4));\n\t}\n\tif((adcInfo.AdcDataAddr + adcInfo.AdcDataLen) > SPI_FLASH_SIZE_BYTE){//判断地址是否超过flash范围\n\t\tadcInfo.AdcDataAddr = ADC_DATA_ADDR;\n\t}\n\t\n\tDEBUG_PRINTF(\"%s: AdcDataLen=%d, \\r\\n\",__func__,adcInfo.AdcDataLen);\n\t\n\t//保存 adcInfo 结构体\n\tSPI_Flash_Write((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\t//保存 SysSamplePara 结构体\n\tSPI_Flash_Write((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\tSPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\t//保存 震动数据\n\tSPI_Flash_Write((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);\n\tSPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);\n\n\t//保存 转速数据\n\tSPI_Flash_Write((uint8_t *)&spd_msg->spdData[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount*4, spd_msg->len*4);\n\t\n\t//更新 adcInfoTotal 结构体中的总采样条数\n\tadcInfoTotal.totalAdcInfo++;//调用该函数,表示需要增加一条adc采样数据\n\tif(adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){//判断出已达到最大值\n\t\tadcInfoTotal.totalAdcInfo = ADC_MAX_NUM;\n\t}\n\t//更新 adcInfoTotal 结构体中的下次采样信息保存地址\n\tadcInfoTotal.addrOfNewInfo = adcInfoTotal.addrOfNewInfo + sizeof(adcInfoTotal);\n\tif(adcInfoTotal.addrOfNewInfo >= SPI_FLASH_SIZE_BYTE){\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(AdcInfoTotal);\n\t}\n\t//更新 adcInfoTotal 结构体中的下次采样数据保存地址\n\tadcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + adcInfo.AdcDataLen;\n\tif( adcInfoTotal.addrOfNewData % 4 != 0){//判断新地址不是4字节对齐的, 需要进行4字节对齐\n\t\tadcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + (4-adcInfoTotal.addrOfNewData%4);\n\t}\n\tif (adcInfoTotal.addrOfNewData > SPI_FLASH_SIZE_BYTE){//判断出新地址超出flash范围,则从头开始记录\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t\tadcInfoTotal.freeOfKb = 0;\n\t}else{\n\t\tadcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;\n\t}\n\t\n\t//更新 adcInfoTotal 结构体\n\tSPI_Flash_Write((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(AdcInfoTotal));\n}\n\n/***************************************************************************************\n  * @brief   通过时间读取一条adc数据\n  * @input   \n  * @return  返回数据地址\n***************************************************************************************/\nchar W25Q128_ReadAdcData(char *adcDataTime)\n{\n\tuint32_t tempAddr;\n\tuint8_t  ret = false;\n\t\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//flash中还未保存有数据,直接返回\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\treturn ret;\n\t}\n\t\n\tfor(uint32_t i = 0; i<adcInfoTotal.totalAdcInfo; i++){\n\t\t//往前查找文件\n\t\ttempAddr = adcInfoTotal.addrOfNewInfo - (i+1)*sizeof(AdcInfo);\n\t\tif(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){\n\t\t\ttempAddr = ADC_DATA_ADDR - sizeof(adcInfo);\n\t\t}\n\t\t//读取数据到 adcInfo 结构体\n\t\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));\n\t\t\n\t\t//找到文件\n\t\tif( memcmp(adcDataTime, adcInfo.AdcDataTime, sizeof(adcInfo.AdcDataTime)) == 0){\n\t\t\tret = true;\n\t\t\tbreak;\n\t\t}\n\t}\n\tif ( ret == true){\n\t\t//读取 SysSamplePara 结构体数据\n\t\tSPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\t\t\n\t\t//读取 震动数据\n\t\tSPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount);\n\t\t\n\t\t//读取 转速数据\n\t\tif (spd_msg->len != 0 && spd_msg!= NULL){\n\t\t\tSPI_Flash_Read((uint8_t *)spd_msg->spdData, adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount, spd_msg->len);\n\t\t}\n\t}\n\treturn ret;\n}\n\n/***************************************************************************************\n  * @brief   获取最近几次数据采集的文件名\n  * @input   \n  * @return  返回数据地址\n***************************************************************************************/\nvoid W25Q128_ReadAdcInfo(int si, int num, char *buf)\n{\n\tuint32_t tempAddr,ei;\n\t\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//flash中还未保存有数据,直接返回\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\tadcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;\n\t\treturn;\n\t}\n\t\n\tif(si > ADC_MAX_NUM)si= ADC_MAX_NUM;\n\tif(si <= 0 ) si = 1;\n\t\n\tei = num+si;\n\tif(ei > adcInfoTotal.totalAdcInfo+1) ei=adcInfoTotal.totalAdcInfo+1;\n\t\n\tfor(uint32_t i = si; i<ei; i++){\n\t\t//往前查找文件\n\t\ttempAddr = adcInfoTotal.addrOfNewInfo - i*sizeof(AdcInfo);\n\t\tif(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){\n\t\t\ttempAddr = ADC_DATA_ADDR - sizeof(adcInfo);\n\t\t}\n\n\t\t//读取数据到 adcInfo 结构体\n\t\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));\n\t\tstrncat(buf, adcInfo.AdcDataTime, 12);\n\t\tstrcat(buf, \",\");//添加分隔符\n\t}\n\tif(strlen(buf) > 0){//去掉最后一个分隔符\n\t\tbuf[strlen(buf)-1] = 0x00;\n\t}\n}\n\n",
+			"file": "core0/Src/flash_app.c",
+			"file_size": 10557,
+			"file_write_time": 132594857054476621,
+			"settings":
+			{
+				"buffer_size": 9982,
+				"encoding": "Western (Windows 1252)",
+				"line_ending": "Unix",
+				"scratch": true
+			}
+		},
+		{
+			"file": "sample--str.lua",
+			"settings":
+			{
+				"buffer_size": 20898,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "server.lua",
+			"settings":
+			{
+				"buffer_size": 15189,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Install Package",
+				"Package Control: Install Package"
+			],
+			[
+				"Install Package Control",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69"
+	],
+	"file_history":
+	[
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/server_test.lua",
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/drivers/memory.c",
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/core1/main.c",
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/readme.txt",
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/server.lua",
+		"/C/Users/Marvin.Ning/Desktop/LPC55S69/token.py"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"to_hex",
+			"to_json",
+			"to_str",
+			"add_val",
+			"to_hex"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "C:\\Users\\Marvin.Ning\\Desktop\\LPC55S69"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "core0/Src/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7561,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3232,
+								3232
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"origin_content": "#include \"main.h\"\n#include \"fsl_device_registers.h\"\n\n#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)\n\nSysPara        g_sys_para;\nSysFlashPara   g_sys_flash_para;\nSysSamplePara  g_sample_para;\nrtc_datetime_t sysTime;\nflash_config_t flashInstance;\nuint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区\n\nstatic void InitSysPara();\n\nvoid main(void)\n{\n\tBaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */\n\tctimer_config_t config;\n\t\n\tBOARD_BootClockRUN();\n\tBOARD_InitPins();\n\tBOARD_InitPeripherals();\n\t\n\tmemory_init();\n\tSPI_Flash_Init();\n\tInitSysPara();\n\tDEBUG_PRINTF(\"app start, version = %s\\n\",SOFT_VERSION);\n\tRTC_GetDatetime(RTC, &sysTime);\n\tDEBUG_PRINTF(\"%d-%02d-%02d %02d:%02d:%02d\\r\\n\",\n\t\t\t\tsysTime.year,sysTime.month,sysTime.day,\n\t\t\t\tsysTime.hour,sysTime.minute,sysTime.second);\n    \n\t/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )LED_AppTask,\"LED_Task\",512,NULL, 1,&LED_TaskHandle);\n    \n\t/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )ADC_AppTask, \"ADC_Task\",1024,NULL, 4,&ADC_TaskHandle);\n\t\n\t/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )BAT_AppTask,\"BAT_Task\",512,NULL, 2,&BAT_TaskHandle);\n\t\n#ifdef CAT1_VERSION\n\t/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )CAT1_AppTask,\"CAT1_Task\",1536,NULL, 3,&CAT1_TaskHandle);\n\n    /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )NFC_AppTask,\"NFC_Task\",512,NULL, 3,&NFC_TaskHandle);\n#endif\n \n#if defined(BLE_VERSION) || defined(WIFI_VERSION)\n    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,\"BLE_WIFI_Task\",1024,NULL, 3,&BLE_WIFI_TaskHandle);\n\t\n\t/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ \n    xTaskCreate((TaskFunction_t )CORE1_AppTask, \"CORE1_Task\",512, NULL, 4,&CORE1_TaskHandle);\n#endif\n\t\n    vTaskStartScheduler();   /* 启动任务，开启调度 */\n    while(1);\n}\n\n\n/***************************************************************************************\n  * @brief   初始化系统变量\n  * @input   \n  * @return  \n***************************************************************************************/\nstatic void InitSysPara()\n{\n\tFlash_ReadPara();\n\tif(g_sys_flash_para.firstPoweron != 0xAA)\n    {\n        g_sys_flash_para.firstPoweron = 0xAA;\n        g_sys_flash_para.autoPwrOffCondition = 1;//默认蓝牙没有通信是开始计时\n        g_sys_flash_para.autoPwrOffIdleTime = 15;    //默认15分钟没有活动后，自动关机。\n        g_sys_flash_para.batAlarmValue = 10;   //电池电量报警值\n        g_sys_flash_para.bias = 2.043f;        //震动传感器的偏置电压默认为2.43V\n        g_sys_flash_para.refV = 3.3f;          //参考电压\n        \n        g_sample_para.SampleRate = 2560;     //取样频率\n        g_sample_para.Lines = 1600;          //线数\n        g_sample_para.Averages = 1;\n        g_sample_para.AverageOverlap = 1;\n        g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)\n                                + 2.56 * g_sample_para.Lines * g_sample_para.AverageOverlap;\n        g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.\n        \n        SPI_Flash_Erase_Sector(0);\n        Flash_SavePara();\n    }\n    g_sys_para.sysIdleCount = 0;    //\n    g_sys_para.sampLedStatus = WORK_FINE;\n    g_sys_para.batLedStatus = BAT_NORMAL;\n    g_sys_para.BleWifiLedStatus = BLE_CLOSE;\n}\n\nvoid SystemSleep(void)\n{\n\tDEBUG_PRINTF(\"enter deep sleep\\n\");\n\tPWR_3V3A_OFF;//关闭ADC采集相关的电源\n\tPWR_5V_OFF;\n\tPWR_CAT1_OFF;\n    GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT,  BOARD_LED_SYS_GREEN_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_FORMAT_PORT,  BOARD_ADC_FORMAT_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT,  BOARD_ADC_SYNC_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT,  BOARD_ADC_MODE_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_PWR_SDA_PORT,  BOARD_PWR_SDA_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_MOSI_PORT,  BOARD_FLASH_MOSI_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_SCK_PORT,  BOARD_FLASH_SCK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_SPI_SCK_PORT,  BOARD_ADC_SPI_SCK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_FLT_CLK_PORT,  BOARD_FLT_CLK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_ADC_CLK_PORT,  BOARD_ADC_CLK_PIN, 0);\n    GPIO_PinWrite(GPIO, BOARD_NFC_RSTPD_PORT,  BOARD_NFC_RSTPD_PIN, 0);\n#ifdef CAT1_VERSION\n\tPOWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);\n#else\n\tPOWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);\n#endif\n\tDEBUG_PRINTF(\"exit deep sleep\\n\");\n    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 1);\n    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 1);\n}\n\n#ifndef CAT1_VERSION\n/***************************************************************************************\n  * @brief  BLE/wifi连接状态引脚中断回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid PINT1_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)\n{\n\t//nLink低电平表示WIFI已连接\n\tif(GPIO_PinRead(GPIO, BOARD_BT_STATUS_PORT, BOARD_BT_STATUS_PIN) == 0)\n\t{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_CONNECT;\n\t}else{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_READY;\n\t}\n}\n\n/***************************************************************************************\n  * @brief  NB-IoT网络状态引脚中断回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)\n{\n\t#ifdef CAT1_VERSION\n\tif(GPIO_PinRead(GPIO, BOARD_NB_NETSTATUS_PORT, BOARD_NB_NETSTATUS_PIN))\n\t{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_CONNECT;\n\t}else{\n\t\tg_sys_para.BleWifiLedStatus = BLE_WIFI_READY;\n\t}\n\t#endif\n}\n#endif\n/***************************************************************************************\n  * @brief   utick0回调函数\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid UTICK0_Callback(void)\n{\n\tuint32_t static sleep_time_cnt = 0;\n\t//在采集数据时,每间隔1S获取一次温度数据\n\tif (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){\n\t\tTemperature[g_sys_para.tempCount++] = TMP101_ReadTemp();\n\t}else if(sleep_time_cnt++ > 10){\n//\t\tSystemSleep();\n\t}\n\t\n#ifndef CAT1_VERSION\n\tif(g_sys_para.sysIdleCount++ >= (g_sys_para.autoPwrOffIdleTime + 1)*60-5) { //定时时间到\n\t\tGPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机\n\t}\n#endif\n}\n\nvoid delay_us(uint32_t nus)\n{\n\tuint32_t ticks;\n\tuint32_t told,tnow,tcnt=0;\n\tuint32_t reload=SysTick->LOAD;\t\t\t\t//LOAD的值\t    \t \n\tticks=nus*1; \t\t\t\t\t\t//需要的节拍数 \n\ttold=SysTick->VAL;        \t\t\t\t//刚进入时的计数器值\n\twhile(1)\n\t{\n\t\ttnow=SysTick->VAL;\t\n\t\tif(tnow!=told)\n\t\t{\t    \n\t\t\tif(tnow<told)tcnt+=told-tnow;\t//这里注意一下SYSTICK是一个递减的计数器就可以了.\n\t\t\telse tcnt+=reload-tnow+told;\t    \n\t\t\ttold=tnow;\n\t\t\tif(tcnt>=ticks)break;\t\t\t//时间超过/等于要延迟的时间,则退出.\n\t\t}  \n\t};\n}\n\n#ifndef CAT1_VERSION\nint fputc(int ch, FILE* stream)\n{\n    while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}\n\tUSART_WriteByte(FLEXCOMM5_PERIPHERAL, (uint8_t)ch);\n    return ch;\n}\n#endif\n",
+							"origin_encoding": "GB2312",
+							"revert_to_scratch": true,
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "core0/Src/flash_app.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9982,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2498,
+								2498
+							]
+						],
+						"settings":
+						{
+							"in_converting": true,
+							"is_init_dirty_state": false,
+							"origin_content": "#include \"main.h\"\n\n\n\nextern rtc_datetime_t sampTime;\n\nuint8_t s_buffer[512] = {0};\n\nAdcInfoTotal adcInfoTotal;\nAdcInfo adcInfo;\nuint32_t inFlashBuf[128] = {0};\nvoid Flash_SavePara(void)\n{\n\tmemory_erase(SYS_PARA_ADDR,PAGE_SIZE);\n\tmemory_write(SYS_PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));\n\tg_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;\n    \n    memory_erase(SAMPLE_PARA_ADDR, PAGE_SIZE);\n    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));\n}\n\nvoid Flash_ReadPara(void)\n{\n\tuint16_t i = 0;\n\tmemory_read(SYS_PARA_ADDR, (uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));\n\t\n    memory_read(SAMPLE_PARA_ADDR, (uint8_t *)&g_sample_para, sizeof(g_sample_para));\n    \n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//判断为首次上电运行\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tDEBUG_PRINTF(\"%s: First run, init adcInfoTotal**************\\r\\n\",__func__);\n\t\t//总数为初始化为0\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\t//本次 AdcInfo 结构体保存地址\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);\n\t\t//本次数据的开始地址\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t}\n\tDEBUG_PRINTF(\"%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\\r\\n\",__func__,\n\t               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);\n\t\n}\n\n\n/*******************************************************************************\n* 函数名  : Flash_WriteAdcData\n* 描述    : 将adc数据写入芯片自带flash, 方便进行fft计算\n* 输入    : \n* 返回值  :\n*******************************************************************************/\nvoid Flash_WriteAdcData(uint8_t *buff, int len)\n{\n\tmemory_erase(FFT_ADC_ADDR, len);\n\tmemory_write(FFT_ADC_ADDR,(uint8_t *)buff, len*4);\n}\n\n\n/*******************************************************************************\n* 函数名  : FLASH_SaveAppData\n* 描述    : 从指定地址开始写入指定长度的数据\n* 输入    : WriteAddr:起始地址(此地址必须为2的倍数!!)  pBuffer:数据指针  NumToWrite:\n* 返回值  :\n*******************************************************************************/\nvoid FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite)\n{\n\tuint32_t secpos=0;\n\tuint16_t secoff=0;\n\tuint16_t secremain=0;\t   \n \tuint16_t i=0;    \n\tuint8_t *FLEXSPI_BUF;\n    if(NumByteToWrite == 0) return;\n   \tFLEXSPI_BUF = s_buffer;\t     \n \tsecpos = WriteAddr/PAGE_SIZE;//扇区地址  \n\tsecoff = WriteAddr%PAGE_SIZE;//在扇区内的偏移\n\tsecremain = PAGE_SIZE-secoff;//扇区剩余空间大小\n\t\n \tif(NumByteToWrite<=secremain)\n\t\tsecremain=NumByteToWrite;//不大于4096个字节\n\t__disable_irq();//关闭中断\n    while(1) \n\t{\n\t\tmemory_read(secpos*PAGE_SIZE, (uint8_t *)FLEXSPI_BUF, PAGE_SIZE);\n\t\tmemory_erase(secpos*PAGE_SIZE, PAGE_SIZE);\n        for(i=0;i<secremain;i++)\t                    //复制\n        {\n            FLEXSPI_BUF[i+secoff]=pBuffer[i];\t  \n        }\n\t\tmemory_write(secpos*PAGE_SIZE, FLEXSPI_BUF, PAGE_SIZE);\n\t\tif(NumByteToWrite==secremain)\n\t\t\tbreak;//写入结束了\n\t\telse//写入未结束\n\t\t{\n\t\t\tsecpos++;//扇区地址增1\n\t\t\tsecoff=0;//偏移位置为0 \t \n\n\t\t   \tpBuffer+=secremain;  //指针偏移\n\t\t\tWriteAddr+=secremain;//写地址偏移\t   \n\t\t   \tNumByteToWrite-=secremain;\t\t\t\t//字节数递减\n\t\t\tif(NumByteToWrite>PAGE_SIZE)\n\t\t\t\tsecremain=PAGE_SIZE;\t           //下一页还是写不完\n\t\t\telse \n\t\t\t\tsecremain=NumByteToWrite;\t\t\t//下一页可以写完了\n\t\t}\t \n\t};\n\t__enable_irq();\n}\n\n/***************************************************************************************\n  * @brief   增加一条ADC数据\n  * @input   \n  * @return  \n***************************************************************************************/\nvoid W25Q128_AddAdcData(void)\n{\n\tchar tempTime[20] = {0};\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//判断为首次上电运行\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tDEBUG_PRINTF(\"%s: init adcInfoTotal\\r\\n\",__func__);\n\t\t//总数为初始化为0\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\t//本次 AdcInfo 结构体保存地址\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(adcInfoTotal);\n\t\t//本次数据的开始地址\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t}\n\t\n\tDEBUG_PRINTF(\"%s: total=%d, addrOfNewInfo=0x%x, addrOfNewData=0x%x\\r\\n\",__func__,\n\t               adcInfoTotal.totalAdcInfo,adcInfoTotal.addrOfNewInfo,adcInfoTotal.addrOfNewData);\n\t\n\t//初始化 adcInfo 结构体 数据时间\n\tsprintf(tempTime, \"%d%02d%02d%02d%02d%02d\", \n\t\t                       sampTime.year%100, sampTime.month, sampTime.day, \n\t                           sampTime.hour, sampTime.minute, sampTime.second);\n\tmemcpy(adcInfo.AdcDataTime, tempTime, sizeof(adcInfo.AdcDataTime));\n\t\n\t//初始化 adcInfo 结构体 数据长度\n\tadcInfo.AdcDataLen = sizeof(SysSamplePara) + g_sample_para.shkCount*4 + spd_msg->len*4;\n\t//初始化 adcInfo 结构体 数据地址\n\tadcInfo.AdcDataAddr = adcInfoTotal.addrOfNewData;\n\tif((adcInfo.AdcDataAddr % 4) != 0){//判断地址是否四字节对齐\n\t\tadcInfo.AdcDataAddr = adcInfo.AdcDataAddr + (4 - (adcInfo.AdcDataAddr % 4));\n\t}\n\tif((adcInfo.AdcDataAddr + adcInfo.AdcDataLen) > SPI_FLASH_SIZE_BYTE){//判断地址是否超过flash范围\n\t\tadcInfo.AdcDataAddr = ADC_DATA_ADDR;\n\t}\n\t\n\tDEBUG_PRINTF(\"%s: AdcDataLen=%d, \\r\\n\",__func__,adcInfo.AdcDataLen);\n\t\n\t//保存 adcInfo 结构体\n\tSPI_Flash_Write((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\t//保存 SysSamplePara 结构体\n\tSPI_Flash_Write((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\tSPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, adcInfoTotal.addrOfNewInfo, sizeof(adcInfo));\n\t\n\t//保存 震动数据\n\tSPI_Flash_Write((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);\n\tSPI_Flash_Read((uint8_t *)&ShakeADC[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount*4);\n\n\t//保存 转速数据\n\tSPI_Flash_Write((uint8_t *)&spd_msg->spdData[0], adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount*4, spd_msg->len*4);\n\t\n\t//更新 adcInfoTotal 结构体中的总采样条数\n\tadcInfoTotal.totalAdcInfo++;//调用该函数,表示需要增加一条adc采样数据\n\tif(adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){//判断出已达到最大值\n\t\tadcInfoTotal.totalAdcInfo = ADC_MAX_NUM;\n\t}\n\t//更新 adcInfoTotal 结构体中的下次采样信息保存地址\n\tadcInfoTotal.addrOfNewInfo = adcInfoTotal.addrOfNewInfo + sizeof(adcInfoTotal);\n\tif(adcInfoTotal.addrOfNewInfo >= SPI_FLASH_SIZE_BYTE){\n\t\tadcInfoTotal.addrOfNewInfo = ADC_INFO_ADDR + sizeof(AdcInfoTotal);\n\t}\n\t//更新 adcInfoTotal 结构体中的下次采样数据保存地址\n\tadcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + adcInfo.AdcDataLen;\n\tif( adcInfoTotal.addrOfNewData % 4 != 0){//判断新地址不是4字节对齐的, 需要进行4字节对齐\n\t\tadcInfoTotal.addrOfNewData = adcInfoTotal.addrOfNewData + (4-adcInfoTotal.addrOfNewData%4);\n\t}\n\tif (adcInfoTotal.addrOfNewData > SPI_FLASH_SIZE_BYTE){//判断出新地址超出flash范围,则从头开始记录\n\t\tadcInfoTotal.addrOfNewData = ADC_DATA_ADDR;\n\t\tadcInfoTotal.freeOfKb = 0;\n\t}else{\n\t\tadcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;\n\t}\n\t\n\t//更新 adcInfoTotal 结构体\n\tSPI_Flash_Write((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(AdcInfoTotal));\n}\n\n/***************************************************************************************\n  * @brief   通过时间读取一条adc数据\n  * @input   \n  * @return  返回数据地址\n***************************************************************************************/\nchar W25Q128_ReadAdcData(char *adcDataTime)\n{\n\tuint32_t tempAddr;\n\tuint8_t  ret = false;\n\t\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//flash中还未保存有数据,直接返回\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\treturn ret;\n\t}\n\t\n\tfor(uint32_t i = 0; i<adcInfoTotal.totalAdcInfo; i++){\n\t\t//往前查找文件\n\t\ttempAddr = adcInfoTotal.addrOfNewInfo - (i+1)*sizeof(AdcInfo);\n\t\tif(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){\n\t\t\ttempAddr = ADC_DATA_ADDR - sizeof(adcInfo);\n\t\t}\n\t\t//读取数据到 adcInfo 结构体\n\t\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));\n\t\t\n\t\t//找到文件\n\t\tif( memcmp(adcDataTime, adcInfo.AdcDataTime, sizeof(adcInfo.AdcDataTime)) == 0){\n\t\t\tret = true;\n\t\t\tbreak;\n\t\t}\n\t}\n\tif ( ret == true){\n\t\t//读取 SysSamplePara 结构体数据\n\t\tSPI_Flash_Read((uint8_t *)&g_sample_para.DetectType, adcInfo.AdcDataAddr, sizeof(SysSamplePara));\n\t\t\n\t\t//读取 震动数据\n\t\tSPI_Flash_Read((uint8_t *)ShakeADC, adcInfo.AdcDataAddr+sizeof(SysSamplePara), g_sample_para.shkCount);\n\t\t\n\t\t//读取 转速数据\n\t\tif (spd_msg->len != 0 && spd_msg!= NULL){\n\t\t\tSPI_Flash_Read((uint8_t *)spd_msg->spdData, adcInfo.AdcDataAddr+sizeof(SysSamplePara)+g_sample_para.shkCount, spd_msg->len);\n\t\t}\n\t}\n\treturn ret;\n}\n\n/***************************************************************************************\n  * @brief   获取最近几次数据采集的文件名\n  * @input   \n  * @return  返回数据地址\n***************************************************************************************/\nvoid W25Q128_ReadAdcInfo(int si, int num, char *buf)\n{\n\tuint32_t tempAddr,ei;\n\t\n\t//前12字节保存的是 adcInfoTotal 结构体\n\tSPI_Flash_Read((uint8_t *)&adcInfoTotal.totalAdcInfo, ADC_INFO_ADDR, sizeof(adcInfoTotal));\n\t\n\t//flash中还未保存有数据,直接返回\n\tif(adcInfoTotal.totalAdcInfo == 0xFFFFFFFF || adcInfoTotal.totalAdcInfo > ADC_MAX_NUM){\n\t\tadcInfoTotal.totalAdcInfo = 0;\n\t\tadcInfoTotal.freeOfKb = (SPI_FLASH_SIZE_BYTE - adcInfoTotal.addrOfNewData)/1024;\n\t\treturn;\n\t}\n\t\n\tif(si > ADC_MAX_NUM)si= ADC_MAX_NUM;\n\tif(si <= 0 ) si = 1;\n\t\n\tei = num+si;\n\tif(ei > adcInfoTotal.totalAdcInfo+1) ei=adcInfoTotal.totalAdcInfo+1;\n\t\n\tfor(uint32_t i = si; i<ei; i++){\n\t\t//往前查找文件\n\t\ttempAddr = adcInfoTotal.addrOfNewInfo - i*sizeof(AdcInfo);\n\t\tif(tempAddr < (ADC_INFO_ADDR + sizeof(AdcInfoTotal))){\n\t\t\ttempAddr = ADC_DATA_ADDR - sizeof(adcInfo);\n\t\t}\n\n\t\t//读取数据到 adcInfo 结构体\n\t\tSPI_Flash_Read((uint8_t *)&adcInfo.AdcDataAddr, tempAddr, sizeof(adcInfo));\n\t\tstrncat(buf, adcInfo.AdcDataTime, 12);\n\t\tstrcat(buf, \",\");//添加分隔符\n\t}\n\tif(strlen(buf) > 0){//去掉最后一个分隔符\n\t\tbuf[strlen(buf)-1] = 0x00;\n\t}\n}\n\n",
+							"origin_encoding": "GB2312",
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1152.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "sample--str.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20898,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8104,
+								8111
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.sublime-syntax",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2647.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15189,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14938,
+								14938
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4915.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 333.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
