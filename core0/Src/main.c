@@ -44,7 +44,7 @@ void main(void)
     xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",1536,NULL, 3,&CAT1_TaskHandle);
 
     /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
+//    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
 #endif
  
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
@@ -77,10 +77,24 @@ static void InitSysPara()
         g_sys_flash_para.bias = 2.043f;        //震动传感器的偏置电压默认为2.43V
         g_sys_flash_para.refV = 3.3f;          //参考电压
         
-        g_sample_para.SampleRate = 2560;     //取样频率
-        g_sample_para.Lines = 1600;          //线数
         g_sample_para.Averages = 1;
-        g_sample_para.AverageOverlap = 1;
+		strcpy(g_sample_para.SpeedUnits, "RPM");
+		strcpy(g_sample_para.ProcessUnits, "C");
+		strcpy(g_sample_para.EU, "mm/s");
+		g_sample_para.Senstivity = 50;
+		g_sample_para.Zerodrift = 0;
+		g_sample_para.EUType = 4;
+		g_sample_para.WindowsType = 2;
+		g_sample_para.StartFrequency = 0;
+		g_sample_para.EndFrequency = 1000;
+		g_sample_para.SampleRate = 2560;     //取样频率
+        g_sample_para.Lines = 1600;          //线数
+		g_sample_para.Averages = 1;
+		g_sample_para.AverageOverlap = 0;
+		g_sample_para.AverageType = 0;
+		g_sample_para.EnvFilterLow = 500;
+		g_sample_para.EnvFilterHigh = 10000;
+		g_sample_para.IncludeMeasurements = 1;
         g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)
                                 + 2.56 * g_sample_para.Lines * g_sample_para.AverageOverlap;
         g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.
@@ -116,16 +130,28 @@ void SystemSleep(void)
     GPIO_PinWrite(GPIO, BOARD_FLT_CLK_PORT,  BOARD_FLT_CLK_PIN, 0);
     GPIO_PinWrite(GPIO, BOARD_ADC_CLK_PORT,  BOARD_ADC_CLK_PIN, 0);
     GPIO_PinWrite(GPIO, BOARD_NFC_RSTPD_PORT,  BOARD_NFC_RSTPD_PIN, 0);
+	
+	GPIO_PinWrite(GPIO,0,18,0);//2:NB_reload: PIO0-18
+	GPIO_PinWrite(GPIO,0,19,0);//4:PIO0_19
+	GPIO_PinWrite(GPIO,1,28,0);//6:NB_RST: PIO1_28
+	GPIO_PinWrite(GPIO,1,15,0);//8:PIO1_15
+	GPIO_PinWrite(GPIO,1,19,0);//9:NB_EN: PIO1_19
+	GPIO_PinWrite(GPIO,0,27,0);//10:NB_RXD:PIO0_27
+	GPIO_PinWrite(GPIO,0,17,0);//11:PIO0_17
+	GPIO_PinWrite(GPIO,1,27,0);//12:PIO1_27
+	GPIO_PinWrite(GPIO,0,29,0);//13:NB_ST: PIO0_29
+	GPIO_PinWrite(GPIO,0,26,0);//14:NB_TXD: PIO0_26
+	GPIO_PinWrite(GPIO,0,2,0);//15:PIO0_2
+	GPIO_PinWrite(GPIO,1,26,0);//16:PIO1_26
+	void BOARD_InitPinsInput(void);
+	BOARD_InitPinsInput();
 #ifdef CAT1_VERSION
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
 	DEBUG_PRINTF("exit deep sleep\n");
-    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 1);
-    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 1);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 1);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 1);
+	BOARD_InitPins();
 }
 
 #ifndef CAT1_VERSION
@@ -173,8 +199,8 @@ void UTICK0_Callback(void)
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
-	}else if(sleep_time_cnt++ > 10){
-//		SystemSleep();
+	}else if(sleep_time_cnt++ > 5){
+		SystemSleep();
 	}
 	
 #ifndef CAT1_VERSION

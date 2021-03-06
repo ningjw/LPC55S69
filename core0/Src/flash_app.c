@@ -15,8 +15,9 @@ void Flash_SavePara(void)
 	memory_write(SYS_PARA_ADDR,(uint8_t *)&g_sys_flash_para, sizeof(SysFlashPara));
 	g_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;
     
-    memory_erase(SAMPLE_PARA_ADDR, PAGE_SIZE);
-    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));
+    memory_erase(SAMPLE_PARA_ADDR, sizeof(g_sample_para));
+//    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));
+	LPC55S69_FlashSaveData((uint8_t *)&g_sample_para, SAMPLE_PARA_ADDR, sizeof(g_sample_para));
 }
 
 void Flash_ReadPara(void)
@@ -59,12 +60,12 @@ void Flash_WriteAdcData(uint8_t *buff, int len)
 
 
 /*******************************************************************************
-* 函数名  : FLASH_SaveAppData
+* 函数名  : LPC55S69_FlashSaveData
 * 描述    : 从指定地址开始写入指定长度的数据
 * 输入    : WriteAddr:起始地址(此地址必须为2的倍数!!)  pBuffer:数据指针  NumToWrite:
 * 返回值  :
 *******************************************************************************/
-void FLASH_SaveAppData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite)
+void LPC55S69_FlashSaveData(uint8_t* pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite)
 {
 	uint32_t secpos=0;
 	uint16_t secoff=0;

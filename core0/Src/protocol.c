@@ -1440,7 +1440,7 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 
         g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_DATA_LEN_BLE_NFC;//
         DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
-        FLASH_SaveAppData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_BLE_NFC);
+        LPC55S69_FlashSaveData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_BLE_NFC);
     }
 #elif defined(WIFI_VERSION)
     crc = CRC16(pMsg+4, FIRM_DATA_LEN_WIFI_CAT1);//自己计算出的CRC16
@@ -1452,7 +1452,7 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
 
         g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_DATA_LEN_WIFI_CAT1;//
         DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
-        FLASH_SaveAppData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_WIFI_CAT1);
+        LPC55S69_FlashSaveData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_WIFI_CAT1);
     }
 #endif
     /* 当前为最后一包,计算整个固件的crc16码 */

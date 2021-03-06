@@ -164,7 +164,7 @@ GET_NEXT:
         current_pack++;
         //查找第一次出现0xD 0xA 0xD 0xA的位置
         char *data_ptr = strstr((char *)g_Cat1RxBuffer, "\r\n\r\n");
-        FLASH_SaveAppData((uint8_t *)(data_ptr+4), g_sys_flash_para.firmCurrentAddr, one_packet_len);
+        LPC55S69_FlashSaveData((uint8_t *)(data_ptr+4), g_sys_flash_para.firmCurrentAddr, one_packet_len);
         //判断是否为最后一个包
 		if(current_pack < g_sys_flash_para.firmPacksCount){
 			goto GET_NEXT;

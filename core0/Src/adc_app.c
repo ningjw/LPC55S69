@@ -288,7 +288,7 @@ void ADC_AppTask(void)
 	
 	//开机进行一次采样
 	if(g_sys_flash_para.Cat1InitFlag == 0xAA){
-		ADC_SampleStart(AUTO_SAMPLE);
+//		ADC_SampleStart(AUTO_SAMPLE);
 	}
     while(1)
     {
