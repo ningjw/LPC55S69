@@ -28,7 +28,7 @@ Authorization:version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1
 host:ota.heclouds.com
 Content-Length:27
 
-{"s_version":"V2102270900"}
+{"s_version":"V2102271000"}
 
 
 检测任务:183.230.40.50:80
@@ -37,14 +37,48 @@ Authorization:version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1
 host:  ota.heclouds.com
 
 
+有升级任务:
+HTTP/1.1 200 
+Server: nginx
+Date: Tue, 09 Mar 2021 12:20:43 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+
+ca
+{"errno":0,"error":"succ","data":{"target":"V2102270900","token":"ota_7flMIoiZ5qWKv2aKxjoC","size":77824,"md5":"bd5874f0b03418d588ecd32b9c8a948d","signal":10,"power":50,"retry":0,"interval":0,"type":1}}
+0
+
+无升级任务
+HTTP/1.1 200 
+Server: nginx
+Date: Tue, 09 Mar 2021 12:36:19 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+
+21
+{"errno":11,"error":"not exists"}
+0
+
 
 下载固件:183.230.40.50:80
-GET /ota/south/download/ota_5hcX2u0t2Tkj9XlRepb8 HTTP/1.1
+GET /ota/south/download/ota_7flMIoiZ5qWKv2aKxjoC HTTP/1.1
 Range:bytes=0-511
 host:  ota.heclouds.com
 
 
-ca
-{"errno":0,"error":"succ","data":{"target":"V2102270900","token":"ota_dGBUcrObb5abvjtslqGy","size":77824,"md5":"bd5874f0b03418d588ecd32b9c8a948d","signal":10,"power":50,"retry":0,"interval":0,"type":1}}
-0
+
+HTTP/1.1 206 
+Server: nginx
+Date: Tue, 09 Mar 2021 12:21:09 GMT
+Content-Type: application/octet-stream;charset=UTF-8
+Content-Length: 512
+Connection: keep-alive
+Content-Disposition: attachment; filename="CORE0_V2102271000.bin"
+Content-Range: bytes 0-511/77824
+
+\00 \09\0=\05\05\05\05\0\0\0\0\0\0\0\0\0\0\0\0\0憰\05\0\0\0\0\0a?\0e?\0M\0Q\0U\0Y\0]\0a\0e\0i\0m\0q\0u\0y\0}\0?\0?\0?\0滿\0?\0?\0酧\0?\0?\0?\0?\0?\0?\0?\0?\0%?\0?\0?\0Qn\0?\0?\0?\0?\0?\0?\0?\0?\0?\0?\0?\0?\0?\0\0\0	\0\0\0\0\0\0!\0%\0)\0-\01\05\09\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0
 

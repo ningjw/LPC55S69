@@ -152,39 +152,23 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>296</LineNumber>
+          <LineNumber>0</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>71898</Address>
+          <Address>288</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\adc_app.c</Filename>
+          <Filename></Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/adc_app.c\296</Expression>
+          <Expression>0x00000120</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>360</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>74536</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\360</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>58</LineNumber>
+          <LineNumber>119</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -193,7 +177,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\main.c</Filename>
+          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -247,32 +231,22 @@
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sample_para.SampleRate,0x0A</ItemText>
+          <ItemText>haveNewVersion</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sample_para.sampNumber,0x0A</ItemText>
+          <ItemText>current_pack,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ShakeADC</ItemText>
+          <ItemText>g_sys_flash_para.firmPacksCount,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Temperature</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>g_commTxBuf</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>g_sys_para.shkPacksByWifiCat1,0x0A</ItemText>
+          <ItemText>g_sys_flash_para,0x10</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -286,7 +260,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x00088000+512</ItemText>
+          <ItemText>0x200204B5+4</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>

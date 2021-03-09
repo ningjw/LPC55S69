@@ -228,6 +228,7 @@ typedef struct{
     char     firmUpdateTargetV[20];//需要升级的版本
     char     firmUpdateToken[48];//升级需要的token
     char     firmUpdateMD5[48];//升级包MD5
+    char     reportVersion;//是否将当前版本上报服务器
 }SysFlashPara;
 
 typedef struct{

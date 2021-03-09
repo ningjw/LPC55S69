@@ -11,6 +11,9 @@ uint32_t g_Cat1RxTimeCnt = 0;
 
 uint32_t cat1_event = 0;
 
+MD5_CTX md5_ctx;
+unsigned char md5_t[16];
+char md5_result[40] = {0};
 /***************************************************************************************
   * @brief   发送一个字符串
   * @input   base:选择端口; data:将要发送的数据
@@ -86,17 +89,65 @@ void CAT1_EnterATMode(void)
 
 void CAT1_CheckVersion(void)
 {
-	//配置SOCKA,检测升级任务******************************************
-	CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-    CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
-    CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-    //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-    CAT1_EnterATMode();
+    uint8_t haveNewVersion = false;
+	uint32_t one_packet_len = 512;
+	
+	PWR_CAT1_OFF;
+	vTaskDelay(100);
+    PWR_CAT1_ON;//开机
+	//wait "WH-GM5"
+	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+	
+	CAT1_EnterATMode();
+	
+	//配置SOCKA****************************************************************
+	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.50") == NULL)
+    {
+        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        CAT1_EnterATMode();
+    }
+
     while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
         vTaskDelay(1000);
     }
     CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+
+#if 0
+    //上报版本****************************************************************
+    if(g_sys_flash_para.reportVersion = false){
+        memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
+        snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
+              "GET /ota/south/check?dev_id=%s&manuf=100&model=10001&type=2&version=V11&cdn=false HTTP/1.1\r\n",g_sys_flash_para.device_id);
+        strcat((char *)g_Cat1TxBuffer,"Authorization:version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE\%3D\r\n");
+        strcat((char *)g_Cat1TxBuffer,"Host:ota.heclouds.com\r\n"
+                                      "Content-Type:application/json\r\n"
+                                      "Content-Length:%d\r\n\r\n"
+                                      "{\"s_version\":\"%s\"}",strlen(SOFT_VERSION)+16,SOFT_VERSION);
+
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
+        if(json_string){
+            cJSON *pJson = cJSON_Parse(json_string);
+            if(NULL == pJson) {
+                return;
+            }
+            cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
+            if(pSub->valueint == 0){//版本上报成功,将状态保存flash
+                g_sys_flash_para.reportVersion = true;
+                Flash_SavePara();
+            }else{
+                //是否需要重试
+            }
+        }
+    }
+#endif
+    //检测升级任务****************************************************************
     g_Cat1RxCnt = 0;
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
     memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
@@ -115,12 +166,17 @@ void CAT1_CheckVersion(void)
         }
         cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
         if(pSub->valueint == 0){
+            
             pSub = cJSON_GetObjectItem(pJson, "data");
             cJSON* item;
             item = cJSON_GetObjectItem(pSub,"target");
             if(item->valuestring){
-                memset(g_sys_flash_para.firmUpdateTargetV, 0, sizeof(g_sys_flash_para.firmUpdateTargetV));
-                strcpy(g_sys_flash_para.firmUpdateTargetV,item->valuestring);
+				//判断版本号是否不相等
+				if(memcmp(item->valuestring,SOFT_VERSION, strlen(SOFT_VERSION))){
+					haveNewVersion = true;
+					memset(g_sys_flash_para.firmUpdateTargetV, 0, sizeof(g_sys_flash_para.firmUpdateTargetV));
+					strcpy(g_sys_flash_para.firmUpdateTargetV,item->valuestring);
+				}
             }
             item = cJSON_GetObjectItem(pSub,"token");
             if(item->valuestring){
@@ -130,7 +186,8 @@ void CAT1_CheckVersion(void)
             item = cJSON_GetObjectItem(pSub,"size");
             if(item->valueint){
                 g_sys_flash_para.firmCore0Size = item->valueint;
-                g_sys_flash_para.firmPacksCount = g_sys_flash_para.firmCore0Size/512 + (g_sys_flash_para.firmCore0Size%512?1:0);
+                g_sys_flash_para.firmPacksTotal = g_sys_flash_para.firmCore0Size/one_packet_len + 
+				                                 (g_sys_flash_para.firmCore0Size%one_packet_len?1:0);
 				/* 按照文件大小擦除对应大小的空间 */
 				memory_erase(CORE0_DATA_ADDR, g_sys_flash_para.firmCore0Size);
 			}
@@ -139,15 +196,19 @@ void CAT1_CheckVersion(void)
                 memset(g_sys_flash_para.firmUpdateMD5, 0, sizeof(g_sys_flash_para.firmUpdateMD5));
                 strcpy(g_sys_flash_para.firmUpdateMD5,item->valuestring);
             }
+        }else{
+            haveNewVersion = false;
         }
         cJSON_Delete(pJson);
     }
     
-    //获取固件
-    if(g_sys_flash_para.firmCore0Size){
-		uint32_t one_packet_len = 256;
-		uint32_t current_pack = 0;
+    //获取固件*****************************************************************************************************
+    if(haveNewVersion){
+		g_sys_flash_para.firmPacksCount = 0;
         uint32_t app_data_addr = CORE0_DATA_ADDR;
+		
+		MD5_Init(&md5_ctx);
+		
 GET_NEXT:
         g_Cat1RxCnt = 0;
         memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -155,26 +216,57 @@ GET_NEXT:
         snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
                   "GET /ota/south/download/%s HTTP/1.1\r\n"
                   "Range:bytes=%d-%d\r\n"
-                  "host: ota.heclouds.com\r\n\r\n"
-                  ,g_sys_flash_para.firmUpdateToken, current_pack*one_packet_len, (current_pack+1)*one_packet_len-1);
+                  "host: ota.heclouds.com\r\n\r\n",
+                  g_sys_flash_para.firmUpdateToken, 
+		           g_sys_flash_para.firmPacksCount*one_packet_len, 
+		          (g_sys_flash_para.firmPacksCount+1)*one_packet_len-1);
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
         
-        g_sys_flash_para.firmCurrentAddr = app_data_addr+current_pack * one_packet_len;//
-        current_pack++;
-        //查找第一次出现0xD 0xA 0xD 0xA的位置
-        char *data_ptr = strstr((char *)g_Cat1RxBuffer, "\r\n\r\n");
-        LPC55S69_FlashSaveData((uint8_t *)(data_ptr+4), g_sys_flash_para.firmCurrentAddr, one_packet_len);
-        //判断是否为最后一个包
-		if(current_pack < g_sys_flash_para.firmPacksCount){
-			goto GET_NEXT;
-		}
+        char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
+        if(data_ptr != NULL){//模块重启了
+            goto GET_NEXT;
+        }
 		
-		MD5_CTX md5_ctx;
-		unsigned char md5_t[16];
-		char md5_result[40] = {0};
-		MD5_Init(&md5_ctx);
-		MD5_Final(&md5_ctx, md5_t);
+        //查找第一次出现0xD 0xA 0xD 0xA的位置
+        data_ptr = strstr((char *)g_Cat1RxBuffer, "\r\n\r\n");
+        if(data_ptr){
+			data_ptr += 4;
+            g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * one_packet_len;//
+            g_sys_flash_para.firmPacksCount++;
+			LPC55S69_FlashSaveData((uint8_t *)(data_ptr), g_sys_flash_para.firmCurrentAddr, one_packet_len);
+        }else{
+            
+        }
+		
+        //判断是否为最后一个包
+		if(g_sys_flash_para.firmPacksCount < g_sys_flash_para.firmPacksTotal){
+			MD5_Update(&md5_ctx, (unsigned char *)data_ptr, one_packet_len);
+			goto GET_NEXT;
+		}else{
+			char md5_t1[4] = {0, 0, 0, 0};
+//			g_sys_flash_para.firmCore0Size = 0x13000;
+//			g_sys_flash_para.firmPacksCount = 0x98;
+			MD5_Update(&md5_ctx, (unsigned char *)data_ptr, g_sys_flash_para.firmCore0Size%one_packet_len);
+			MD5_Final(&md5_ctx, md5_t);
+
+			memset(md5_result, 0, sizeof(md5_result));
+			for(uint8_t i = 0; i < 16; i++)
+			{
+				if(md5_t[i] <= 0x0f)
+					sprintf(md5_t1, "0%x", md5_t[i]);
+				else
+					sprintf(md5_t1, "%x", md5_t[i]);
+				
+				strcat(md5_result, md5_t1);
+			}
+			if(strcmp(md5_result, g_sys_flash_para.firmUpdateMD5) == 0)//md5校验成功																		//MD5校验比对
+			{
+				g_sys_flash_para.firmCore0Update = true;
+				Flash_SavePara();
+				NVIC_SystemReset();
+			}
+		}
     }
 }
 
@@ -282,7 +374,7 @@ void CAT1_SelfRegister()
 }
 
 
-/* 将数据通过NB模块上传到OneNet*/
+/* 将数据通过CAT1模块上传到OneNet*/
 void CAT1_UploadSampleData(void)
 {
     uint8_t xReturn = pdFALSE;
@@ -339,11 +431,7 @@ NEXT_SID:
     //采样数据包发送完成后,还需要发送当前状态到服务器
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-
-	OTA_ReportVersion(DEVICE_ID, SOFT_VERSION, ota_info.authorization);//上报版本号
-	if(OTA_Check(DEVICE_ID, ota_info.authorization)){
-		
-	}
+	
     PWR_CAT1_OFF;//关机
 }
 
@@ -353,6 +441,7 @@ void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
     CAT1_SelfRegister();
+//	CAT1_CheckVersion();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{

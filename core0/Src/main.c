@@ -200,7 +200,7 @@ void UTICK0_Callback(void)
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
 	}else if(sleep_time_cnt++ > 5){
-		SystemSleep();
+//		SystemSleep();
 	}
 	
 #ifndef CAT1_VERSION

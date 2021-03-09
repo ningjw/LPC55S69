@@ -284,7 +284,7 @@ unsigned char OTA_Download_Range(char *token, char *md5, unsigned int size, cons
 	MD5_Init(&md5_ctx);
 
 	packet_num = size / FLASH_PAGE_SIZE + 1;
-	FLASH_Erase(write_page_start, packet_num, FLASH_PAGE_SIZE == 2048 ? 1 : 0);
+//	FLASH_Erase(write_page_start, packet_num, FLASH_PAGE_SIZE == 2048 ? 1 : 0);
 
 	while(bytes < size)
 	{
@@ -296,78 +296,29 @@ unsigned char OTA_Download_Range(char *token, char *md5, unsigned int size, cons
 												"Host:ota.heclouds.com\r\n\r\n",
 												token, bytes, bytes + bytes_range - 1);
 
-		net_device_info.cmd_ipd = NULL;
 
-		if(NET_DEVICE_SendData((unsigned char *)send_buf, strlen(send_buf)) == 0)
+//		if(NET_DEVICE_SendData((unsigned char *)send_buf, strlen(send_buf)) == 0)
 		{
 			err_cnt = 0;
 //----------------------------------------------------等待数据---------------------------------------------------------------------
 			time_out = 200;
 			while(--time_out)
 			{
-				if(net_device_info.cmd_ipd != NULL)
+//				if(net_device_info.cmd_ipd != NULL)
 					break;
 
-				RTOS_TimeDly(2);
+//				RTOS_TimeDly(2);
 			}
 
 //----------------------------------------------------跳过HTTP报文头、找到固件数据--------------------------------------------------
 			if(time_out)
 			{
-				data_ptr = strstr(net_device_info.cmd_ipd, "Range");
+//				data_ptr = strstr(net_device_info.cmd_ipd, "Range");
 				data_ptr = strstr(data_ptr, "\r\n");
 				data_ptr += 4;
 			}
-
+		}
 //----------------------------------------------------将固件数据写入缓存和闪存-----------------------------------------------------
-			if(data_ptr != NULL)
-			{
-				if(bytes < size - bytes_range)																	//判断是否为最后一包。满足则不是
-				{
-					memcpy(flash_buf + (bytes % FLASH_PAGE_SIZE), data_ptr, bytes_range);
-					MD5_Update(&md5_ctx, (unsigned char *)data_ptr, bytes_range);
-				}
-				else
-				{
-					memcpy(flash_buf + (bytes % FLASH_PAGE_SIZE), data_ptr, size - bytes);
-					MD5_Update(&md5_ctx, (unsigned char *)data_ptr, size - bytes);
-				}
-
-				RTOS_ENTER_CRITICAL();
-
-				bytes += bytes_range;
-				if((bytes % FLASH_PAGE_SIZE) == 0)																//缓存是否保存了2KB的数据了
-				{
-					Flash_Write(write_page_cnt, (unsigned short *)flash_buf, FLASH_PAGE_SIZE >> 1, 1);
-					write_page_cnt++;
-				}
-
-				if(bytes >= size)																				//最后一包数据
-					Flash_Write(write_page_cnt, (unsigned short *)flash_buf, (size % FLASH_PAGE_SIZE) >> 1, 1);
-
-				RTOS_EXIT_CRITICAL();
-
-				if(bytes >= size)
-					UsartPrintf(USART_DEBUG, "Update %d / %d   Bytes, 100%%\r\n", size, size);
-				else
-					UsartPrintf(USART_DEBUG, "Update %d / %d   Bytes, %0.2f%%\r\n", bytes, size, (float)bytes / size * 100);
-			}
-		}
-		else
-		{
-			if(++err_cnt >= 3)
-			{
-				err_cnt = 0;
-
-				NET_DEVICE_Close();
-
-				while(NET_DEVICE_Connect("TCP", OTA_IP, OTA_PORT))
-					RTOS_TimeDly(400);
-			}
-		}
-
-		RTOS_TimeDly(net_device_info.send_time + 60);															//为了通信的稳定
-	}
 
 //----------------------------------------------------MD校验比对------------------------------------------------------------------
 	memset(md5_result, 0, sizeof(md5_result));
@@ -382,16 +333,16 @@ unsigned char OTA_Download_Range(char *token, char *md5, unsigned int size, cons
 		strcat(md5_result, md5_t1);
 	}
 
-	UsartPrintf(USART_DEBUG, "Tips:	MD5: %s\r\n", md5_result);
+//	UsartPrintf(USART_DEBUG, "Tips:	MD5: %s\r\n", md5_result);
 
 	if(strcmp(md5_result, md5) == 0)																		//MD5校验对比
 	{
-		UsartPrintf(USART_DEBUG, "Tips:	MD5 Successful Matches\r\n");
+//		UsartPrintf(USART_DEBUG, "Tips:	MD5 Successful Matches\r\n");
 
 		//OTA_Jump(FLASH_GetStartAddr(write_page_start, FLASH_PAGE_SIZE == 2048 ? 1 : 0));
 
 		ota_info.ota_download_ok = 1;
-		ota_info.addr = FLASH_GetStartAddr(write_page_start, FLASH_PAGE_SIZE == 2048 ? 1 : 0);
+//		ota_info.addr = FLASH_GetStartAddr(write_page_start, FLASH_PAGE_SIZE == 2048 ? 1 : 0);
 		result = 0;
 	}
 
