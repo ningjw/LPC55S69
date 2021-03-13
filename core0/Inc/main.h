@@ -194,9 +194,14 @@ typedef struct{
     char     CSQ[8];
 }SysPara;
 
+typedef enum{
+    NO_VERSION,
+    BOOT_NEW_VERSION,
+    REPORT_VERSION,
+}update_status_t;
 
 typedef struct{
-    uint32_t firmCore0Update;//Core0固件更新
+    uint32_t firmCore0Update;//Core0固件更新,0:表示当前无更新; 1:表示已经将固件包下载并保持到flash,做好升级准备了; 2:表示需要上传版本号
 	uint32_t firmCore1Update;//Core1固件更新
     uint32_t firmCore0Size;  //Core0固件总大小
 	uint32_t firmCore1Size;  //Core1固件总大小

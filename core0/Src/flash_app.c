@@ -16,7 +16,6 @@ void Flash_SavePara(void)
 	g_sys_flash_para.batRemainPercentBak = g_sys_para.batRemainPercent;
     
     memory_erase(SAMPLE_PARA_ADDR, sizeof(g_sample_para));
-//    memory_write(SAMPLE_PARA_ADDR,(uint8_t *)&g_sample_para, sizeof(g_sample_para));
 	LPC55S69_FlashSaveData((uint8_t *)&g_sample_para, SAMPLE_PARA_ADDR, sizeof(g_sample_para));
 }
 

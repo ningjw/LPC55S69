@@ -601,7 +601,7 @@ SEND_DATA:
 static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 {
     /* 开始升级固件后, 初始化一些必要的变量*/
-    g_sys_flash_para.firmCore0Update = false;
+    g_sys_flash_para.firmCore0Update = NO_VERSION;
     g_sys_flash_para.firmPacksCount = 0;
     g_sys_flash_para.firmSizeCurrent = 0;
     g_sys_flash_para.firmCurrentAddr = CORE0_DATA_ADDR;
@@ -629,7 +629,7 @@ static char * StartUpgrade(cJSON *pJson, cJSON * pSub)
 	g_sys_flash_para.firmCoreIndex = 0;
     g_sys_flash_para.firmPacksCount = 0;
     g_sys_flash_para.firmSizeCurrent = 0;
-    g_sys_flash_para.firmCore0Update = false;
+    g_sys_flash_para.firmCore0Update = NO_VERSION;
 
     /* 按照文件大小擦除对应大小的空间 */
 	memory_erase(CORE0_DATA_ADDR, g_sys_flash_para.firmCore0Size);
@@ -1472,11 +1472,11 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
         crc = CRC16((uint8_t *)app_data_addr, g_sys_flash_para.firmCore0Size);
         DEBUG_PRINTF("\nCRC=%d",crc);
         if(crc != g_sys_flash_para.firmCrc16) {
-            g_sys_flash_para.firmCore0Update = false;
+            g_sys_flash_para.firmCore0Update = NO_VERSION;
             err_code = 2;
         } else {
             DEBUG_PRINTF("\nCRC Verify OK\n");
-            g_sys_flash_para.firmCore0Update = true;
+            g_sys_flash_para.firmCore0Update = BOOT_NEW_VERSION;
         }
     }
 

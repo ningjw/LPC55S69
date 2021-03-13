@@ -98,7 +98,7 @@ static void InitSysPara()
         g_sample_para.sampNumber = 2.56 * g_sample_para.Lines * g_sample_para.Averages * (1 - g_sample_para.AverageOverlap)
                                 + 2.56 * g_sample_para.Lines * g_sample_para.AverageOverlap;
         g_sample_para.sampleInterval = 5;      //调试时采用5分钟采样一次.
-        
+        g_sys_flash_para.reportVersion = true;
         SPI_Flash_Erase_Sector(0);
         Flash_SavePara();
     }

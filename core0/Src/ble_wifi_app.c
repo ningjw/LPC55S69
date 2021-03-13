@@ -188,7 +188,7 @@ void BLE_WIFI_AppTask(void)
             sendBuf = ParseProtocol(g_flexcomm3Buf);
 			
 			/* 是否接受完成整个数据包 */
-			if( g_sys_para.firmCore0Update == true) {
+			if( g_sys_para.firmCore0Update == BOOT_NEW_VERSION) {
 				//将参数存入Nor Flash
 				Flash_SavePara();
 				//关闭所有中断,并复位系统

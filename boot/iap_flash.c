@@ -21,10 +21,15 @@
 typedef void (*iapFun)(void);
 iapFun appMain; 
 
+typedef enum{
+    NO_VERSION,
+    BOOT_NEW_VERSION,
+    REPORT_VERSION,
+}update_status_t;
 
 //该结构体定义了升级参数
 typedef struct{
-    uint32_t  firmCore0Update;//core0固件更新
+    uint32_t  firmCore0Update;//core0固件更新,0:表示当前无更新; 1:表示已经将固件包下载并保持到flash,做好升级准备了; 2:表示需要上传版本号
 	uint32_t  firmCore1Update;//core1固件更新
     uint32_t  firmCore0Size;  //core0固件总大小
 	uint32_t  firmCore1Size;  //core1固件总大小
@@ -83,15 +88,15 @@ int main()
 	//读取升级参数
 	Flash_ReadPara();
 
-	if (g_sys_para.firmCore0Update == true){//需要更新core0系统
+	if (g_sys_para.firmCore0Update == BOOT_NEW_VERSION){//需要更新core0系统
 		memory_copy(CORE0_START_ADDR, CORE0_DATA_ADDR, g_sys_para.firmCore0Size);
-		g_sys_para.firmCore0Update = false;
+		g_sys_para.firmCore0Update = BOOT_NEW_VERSION;
 		Flash_SavePara();
 	}
 	
-	if (g_sys_para.firmCore1Update == true){//需要更新core1系统
+	if (g_sys_para.firmCore1Update == BOOT_NEW_VERSION){//需要更新core1系统
 		memory_copy(CORE1_START_ADDR, CORE1_DATA_ADDR, g_sys_para.firmCore1Size);
-		g_sys_para.firmCore1Update = false;
+		g_sys_para.firmCore1Update = BOOT_NEW_VERSION;
 		Flash_SavePara();
 	}
 	

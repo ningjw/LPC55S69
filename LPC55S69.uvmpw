@@ -9,6 +9,7 @@
 
   <project>
     <PathAndName>.\boot\flashiap1.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
