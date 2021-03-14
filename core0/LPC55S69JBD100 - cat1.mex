@@ -411,7 +411,7 @@
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER3_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER3_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM2_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM5_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
@@ -431,7 +431,7 @@
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.fro_1m" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL5.sel" value="SYSCON.FROHFDIV" locked="false"/>
@@ -577,6 +577,11 @@
                   <dependency resourceType="ClockOutput" resourceId="CTIMER3_clock" description="CTIMER3_clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="CTIMER3.ctimer_match.0" description="Match output of the match 0 channel of peripheral CTIMER3 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
+                     <feature name="routed" evaluation="equal">
+                        <data type="Boolean">true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM0.spi_miso" description="Signal SPI master data in, slave data out of the peripheral FLEXCOMM0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
@@ -798,13 +803,24 @@
                            <setting name="mode" value="kCTIMER_TimerMode"/>
                            <setting name="clockSource" value="FunctionClock"/>
                            <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="timerPrescaler" value="1000"/>
+                           <setting name="timerPrescaler" value="1000000"/>
                         </struct>
-                        <setting name="EnableTimerInInit" value="false"/>
-                        <array name="matchChannels"/>
+                        <setting name="EnableTimerInInit" value="true"/>
+                        <array name="matchChannels">
+                           <struct name="0">
+                              <setting name="matchChannelPrefixId" value="Match0"/>
+                              <setting name="matchChannel" value="kCTIMER_Match_0"/>
+                              <setting name="matchValueStr" value="1"/>
+                              <setting name="enableCounterReset" value="true"/>
+                              <setting name="enableCounterStop" value="false"/>
+                              <setting name="outControl" value="kCTIMER_Output_NoAction"/>
+                              <setting name="outPinInitValue" value="low"/>
+                              <setting name="enableInterrupt" value="true"/>
+                           </struct>
+                        </array>
                         <struct name="interruptCallbackConfig">
                            <struct name="interrupt">
-                              <setting name="IRQn" value="CTIMER1_IRQn"/>
+                              <setting name="IRQn" value="CTIMER3_IRQn"/>
                               <setting name="enable_priority" value="false"/>
                               <setting name="priority" value="0"/>
                            </struct>
@@ -1016,7 +1032,7 @@
                         <struct name="timerSettingUTICK">
                            <setting name="utick_mode_t" value="kUTICK_Repeat"/>
                            <setting name="startTimer" value="true"/>
-                           <setting name="timerValueStr" value="1000000"/>
+                           <setting name="timerValueStr" value="10000000"/>
                            <setting name="callbackEnable" value="true"/>
                            <setting name="utick_callback_t" value="UTICK0_Callback"/>
                         </struct>
@@ -1034,6 +1050,7 @@
                            <struct name="1"/>
                            <struct name="2"/>
                            <struct name="3"/>
+                           <struct name="4"/>
                         </array>
                         <array name="interrupts"/>
                      </config_set>

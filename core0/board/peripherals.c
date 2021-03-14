@@ -334,12 +334,21 @@ instance:
       - mode: 'kCTIMER_TimerMode'
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '1000'
-    - EnableTimerInInit: 'false'
-    - matchChannels: []
+      - timerPrescaler: '1000000'
+    - EnableTimerInInit: 'true'
+    - matchChannels:
+      - 0:
+        - matchChannelPrefixId: 'Match0'
+        - matchChannel: 'kCTIMER_Match_0'
+        - matchValueStr: '1'
+        - enableCounterReset: 'true'
+        - enableCounterStop: 'false'
+        - outControl: 'kCTIMER_Output_NoAction'
+        - outPinInitValue: 'low'
+        - enableInterrupt: 'true'
     - interruptCallbackConfig:
       - interrupt:
-        - IRQn: 'CTIMER1_IRQn'
+        - IRQn: 'CTIMER3_IRQn'
         - enable_priority: 'false'
         - priority: '0'
       - callback: 'kCTIMER_NoCallback'
@@ -348,12 +357,24 @@ instance:
 const ctimer_config_t CTIMER3_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
-  .prescale = 999
+  .prescale = 999999
+};
+const ctimer_match_config_t CTIMER3_Match0_config = {
+  .matchValue = 1,
+  .enableCounterReset = true,
+  .enableCounterStop = false,
+  .outControl = kCTIMER_Output_NoAction,
+  .outPinInitState = false,
+  .enableInterrupt = true
 };
 
 static void CTIMER3_init(void) {
   /* CTIMER3 peripheral initialization */
   CTIMER_Init(CTIMER3_PERIPHERAL, &CTIMER3_config);
+  /* Match channel 0 of CTIMER3 peripheral initialization */
+  CTIMER_SetupMatch(CTIMER3_PERIPHERAL, CTIMER3_MATCH0_CHANNEL, &CTIMER3_Match0_config);
+  /* Start the timer */
+  CTIMER_StartTimer(CTIMER3_PERIPHERAL);
 }
 
 /***********************************************************************************************************************
@@ -676,7 +697,7 @@ instance:
     - timerSettingUTICK:
       - utick_mode_t: 'kUTICK_Repeat'
       - startTimer: 'true'
-      - timerValueStr: '1000000'
+      - timerValueStr: '10000000'
       - callbackEnable: 'true'
       - utick_callback_t: 'UTICK0_Callback'
     - interrupt:
@@ -713,6 +734,7 @@ instance:
       - 1: []
       - 2: []
       - 3: []
+      - 4: []
     - interrupts: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */

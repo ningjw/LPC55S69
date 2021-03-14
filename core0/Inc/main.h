@@ -71,7 +71,7 @@
 //#define DEBUG_PRINTF printf
 #define DEBUG_PRINTF(...)
 
-#define SOFT_VERSION       "V2102271000"
+#define SOFT_VERSION       "V2102271643"
 #define HARD_VERSION       "1.0.0"
 #define PRODUCT_ID         "388752"
 #define DEVICE_ID          "655093740"

@@ -91,15 +91,44 @@ void CAT1_CheckVersion(void)
 {
     uint8_t haveNewVersion = false;
 	uint32_t one_packet_len = 512;
-	
+	BaseType_t xReturn = pdFALSE;
 	PWR_CAT1_OFF;
 	vTaskDelay(100);
     PWR_CAT1_ON;//开机
 	//wait "WH-GM5"
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-	
+	xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+	if(xReturn == pdFALSE)return;
 	CAT1_EnterATMode();
-	
+    
+    #if 1
+    //从ntp服务器同步时间****************************************************************
+    CAT1_SendCmd("AT+NTPEN=ON\r\n" ,"OK", 200);
+    CAT1_SendCmd("AT+CCLK\r\n" ,"OK", CAT1_WAIT_TICK);
+    char *s = strstr((char *)g_Cat1RxBuffer,"+CCLK: ");
+    if(s){
+        s = s+8;
+        char *temp_data = strtok(s,",");
+        char *temp_time = strtok(NULL,"+");
+        
+        char *year = strtok(temp_data,"/");
+        char *mon = strtok(NULL,"/");
+        char *day = strtok(NULL,"/");
+        
+        char *hour = strtok(temp_time,":");
+        char *min = strtok(NULL,":");
+        char *sec = strtok(NULL,":");
+        
+        sysTime.year = atoi(year) + 2000;
+        sysTime.month = atoi(mon);
+        sysTime.day = atoi(day);
+        sysTime.hour = atoi(hour);
+        sysTime.minute = atoi(min);
+        sysTime.second = atoi(sec);
+        /*设置日期和时间*/
+        RTC_SetDatetime(RTC, &sysTime);
+    }
+    #endif
+    
 	//配置SOCKA****************************************************************
 	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
@@ -134,7 +163,7 @@ void CAT1_CheckVersion(void)
             "{\"step\":201}",
             g_sys_flash_para.device_id,AUTHORIZATION);
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-        BaseType_t xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+        xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
         char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
         if(json_string && xReturn == pdTRUE){
             cJSON *pJson = cJSON_Parse(json_string);
@@ -162,7 +191,7 @@ void CAT1_CheckVersion(void)
           g_sys_flash_para.device_id, AUTHORIZATION,(strlen(SOFT_VERSION)+16), SOFT_VERSION);
     
     FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-    BaseType_t xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+    xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
     
     //检测升级任务****************************************************************
     g_Cat1RxCnt = 0;
@@ -289,23 +318,7 @@ GET_NEXT:
 				Flash_SavePara();
 				NVIC_SystemReset();
 			}
-            else//MD5校验不成功
-            {
-                
-            }
 		}
-    }
-    //重新配置SOCKA****************************************************************
-	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.50") == NULL)
-    {
-        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-        CAT1_EnterATMode();
     }
     PWR_CAT1_OFF;
 }
@@ -481,7 +494,7 @@ void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
     CAT1_SelfRegister();
-	CAT1_CheckVersion();
+//	CAT1_CheckVersion();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{

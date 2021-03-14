@@ -1,7 +1,7 @@
 #include "main.h"
 #include "fsl_device_registers.h"
 
-#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO32K)
+#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO1M)
 
 SysPara        g_sys_para;
 SysFlashPara   g_sys_flash_para;
@@ -146,12 +146,14 @@ void SystemSleep(void)
 	void BOARD_InitPinsInput(void);
 	BOARD_InitPinsInput();
 #ifdef CAT1_VERSION
-	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);
+	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);//配置模块通过定时器3唤醒
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
+    PWR_CAT1_ON;
 	DEBUG_PRINTF("exit deep sleep\n");
 	BOARD_InitPins();
+    PWR_CAT1_ON;
 }
 
 #ifndef CAT1_VERSION
@@ -199,7 +201,7 @@ void UTICK0_Callback(void)
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
-	}else if(sleep_time_cnt++ > 5){
+	}else if(sleep_time_cnt++ > 1){
 //		SystemSleep();
 	}
 	
@@ -208,6 +210,11 @@ void UTICK0_Callback(void)
 		GPIO_PinWrite(GPIO, BOARD_PWR_OFF_PORT, BOARD_PWR_OFF_PIN, 1);//关机
 	}
 #endif
+}
+
+void CTIMER3_IRQHandler(void)
+{
+    
 }
 
 void delay_us(uint32_t nus)
