@@ -76,8 +76,9 @@
 #define PRODUCT_ID         "388752"
 #define DEVICE_ID          "655093740"
 #define ACCESS_KEY         "QNbnj7mS4aOTcNHnQCAEPO/2Chv9yNZOqhghd1fYRkw="
-#define AUTHORIZATION      "version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE%3D"
+#define AUTHORIZATION      "version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE\%3D"
 
+#define CAT1_WAIT_TICK      10000
 #define PAGE_SIZE 0x200
 #define FLEXCOMM_BUFF_LEN 1024
 

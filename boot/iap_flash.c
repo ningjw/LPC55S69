@@ -33,7 +33,6 @@ typedef struct{
 	uint32_t  firmCore1Update;//core1固件更新
     uint32_t  firmCore0Size;  //core0固件总大小
 	uint32_t  firmCore1Size;  //core1固件总大小
-	uint32_t  firmCrc16;
 }UpdatePara_t;
 UpdatePara_t g_sys_para;
 
@@ -49,7 +48,6 @@ void Flash_SavePara(void)
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Update, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore0Size, 4);
 	memcpy(&inFlashBuf[i++],&g_sys_para.firmCore1Size, 4);
-	memcpy(&inFlashBuf[i++],&g_sys_para.firmCrc16, 4);
 
 	memory_erase(PARA_ADDR,PAGE_SIZE);
 	memory_write(PARA_ADDR,(uint8_t *)inFlashBuf, PAGE_SIZE);
@@ -64,7 +62,6 @@ void Flash_ReadPara(void)
 	memcpy(&g_sys_para.firmCore1Update,&inFlashBuf[i++],4);
 	memcpy(&g_sys_para.firmCore0Size, &inFlashBuf[i++],4);
 	memcpy(&g_sys_para.firmCore1Size, &inFlashBuf[i++],4);
-	memcpy(&g_sys_para.firmCrc16,     &inFlashBuf[i++],4);
 }
 
 int main()
@@ -87,20 +84,18 @@ int main()
 	
 	//读取升级参数
 	Flash_ReadPara();
-
-	if (g_sys_para.firmCore0Update == BOOT_NEW_VERSION){//需要更新core0系统
+#if 1
+	if (g_sys_para.firmCore0Update == 1){//需要更新core0系统
 		memory_copy(CORE0_START_ADDR, CORE0_DATA_ADDR, g_sys_para.firmCore0Size);
-		g_sys_para.firmCore0Update = BOOT_NEW_VERSION;
+		g_sys_para.firmCore0Update = 2;
 		Flash_SavePara();
 	}
-	
-	if (g_sys_para.firmCore1Update == BOOT_NEW_VERSION){//需要更新core1系统
+#endif
+	if (g_sys_para.firmCore1Update == 1){//需要更新core1系统
 		memory_copy(CORE1_START_ADDR, CORE1_DATA_ADDR, g_sys_para.firmCore1Size);
-		g_sys_para.firmCore1Update = BOOT_NEW_VERSION;
+		g_sys_para.firmCore1Update = 2;
 		Flash_SavePara();
 	}
-	
-//    printf("Jump to app\n");
 	
 	SCB->VTOR = CORE0_START_ADDR;
 	

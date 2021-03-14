@@ -185,12 +185,22 @@
           <WinNumber>1</WinNumber>
           <ItemText>s_buffer</ItemText>
         </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_sys_para,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_sys_para.firmCore0Update</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x8000</ItemText>
+          <ItemText>from+512*i</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -198,10 +208,15 @@
         <Mm>
           <WinNumber>2</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x3E00</ItemText>
+          <ItemText>0x0003D000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow2>
+      <ScvdPack>
+        <Filename>C:\Users\Marvin.Ning\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.2</Type>
+        <SubType>1</SubType>
+      </ScvdPack>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>

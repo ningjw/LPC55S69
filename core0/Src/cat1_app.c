@@ -118,43 +118,62 @@ void CAT1_CheckVersion(void)
     }
     CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
 
-
-    //上报版本****************************************************************
-    if(g_sys_flash_para.firmCore0Update == REPORT_VERSION || g_sys_flash_para.reportVersion == false){
+    //上报升级状态****************************************************************
+    if(g_sys_flash_para.firmCore0Update == REPORT_VERSION){
+        
+        //上报升级成功状态
+        g_Cat1RxCnt = 0;
+        memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
         memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
         snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
-              "GET /ota/south/check?dev_id=%s&manuf=100&model=10001&type=2&version=V11&cdn=false HTTP/1.1\r\n",g_sys_flash_para.device_id);
-        strcat((char *)g_Cat1TxBuffer,"Authorization:version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE\%3D\r\n");
-        snprintf((char *)g_Cat1TxBuffer+strlen((char *)g_Cat1TxBuffer),sizeof(g_Cat1TxBuffer),
-                                                               "Host:ota.heclouds.com\r\n"
-                                                               "Content-Type:application/json\r\n"
-                                                               "Content-Length:%d\r\n\r\n"
-                                                               "{\"s_version\":\"%s\"}",(strlen(SOFT_VERSION)+16),SOFT_VERSION);
-
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+            "POST /ota/south/device/download/ota_3lI1NIMLB6E4u260cLRd/progress?dev_id=%s HTTP/1.1\r\n"
+            "Authorization:%s\r\n"
+            "host:ota.heclouds.com\r\n"
+            "Content-Type: application/json\r\n"
+            "Content-Length:12\r\n\r\n"
+            "{\"step\":201}",
+            g_sys_flash_para.device_id,AUTHORIZATION);
+        FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
+        BaseType_t xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
         char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
-        if(json_string){
+        if(json_string && xReturn == pdTRUE){
             cJSON *pJson = cJSON_Parse(json_string);
             if(NULL == pJson) {
                 return;
             }
             cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
-            if(pSub->valueint == 0){//版本上报成功,将状态保存flash
+            if(pSub->valueint == 0){//版本上报升级状态成功
                 g_sys_flash_para.firmCore0Update = NO_VERSION;
-                g_sys_flash_para.reportVersion = true;
                 Flash_SavePara();
             }
         }
     }
-
+    //上报版本****************************************************************
+    g_Cat1RxCnt = 0;
+    memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
+    memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
+    snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
+          "POST http://ota.heclouds.com/ota/device/version?dev_id=%s HTTP/1.1\r\n"
+          "Content-Type: application/json\r\n"
+          "Authorization:%s\r\n"
+          "Host:ota.heclouds.com\r\n"
+          "Content-Length:%d\r\n\r\n"
+          "{\"s_version\":\"%s\"}",
+          g_sys_flash_para.device_id, AUTHORIZATION,(strlen(SOFT_VERSION)+16), SOFT_VERSION);
+    
+    FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
+    BaseType_t xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+    
     //检测升级任务****************************************************************
     g_Cat1RxCnt = 0;
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
     memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
     snprintf((char *)g_Cat1TxBuffer, sizeof(g_Cat1TxBuffer),
-              "GET /ota/south/check?dev_id=%s&manuf=100&model=10001&type=2&version=V11&cdn=false HTTP/1.1\r\n",g_sys_flash_para.device_id);
-    strcat((char *)g_Cat1TxBuffer,"Authorization:version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE\%3D\r\n");
-    strcat((char *)g_Cat1TxBuffer,"host: ota.heclouds.com\r\n\r\n");
+              "GET /ota/south/check?dev_id=%s&manuf=100&model=10001&type=2&version=V11&cdn=false HTTP/1.1\r\n"
+              "Authorization:%s\r\n"
+              "host: ota.heclouds.com\r\n\r\n",
+              g_sys_flash_para.device_id,AUTHORIZATION);
+    
     FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
     char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
@@ -171,8 +190,8 @@ void CAT1_CheckVersion(void)
             cJSON* item;
             item = cJSON_GetObjectItem(pSub,"target");
             if(item->valuestring){
-				//判断版本号是否不相等
-				if(strcmp(item->valuestring, SOFT_VERSION)){
+				//判断当前版本号与目标版本号
+				if(strcmp(item->valuestring, SOFT_VERSION) == 0){
 					haveNewVersion = true;//有新的版本
 					memset(g_sys_flash_para.firmUpdateTargetV, 0, sizeof(g_sys_flash_para.firmUpdateTargetV));
 					strcpy(g_sys_flash_para.firmUpdateTargetV,item->valuestring);
@@ -233,7 +252,7 @@ GET_NEXT:
 			data_ptr += 4;
             g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * one_packet_len;//
             g_sys_flash_para.firmPacksCount++;
-			LPC55S69_FlashSaveData((uint8_t *)(data_ptr), g_sys_flash_para.firmCurrentAddr, one_packet_len);
+            memory_write(g_sys_flash_para.firmCurrentAddr,(uint8_t *)(data_ptr), one_packet_len);
         }else{
             
         }
@@ -275,6 +294,18 @@ GET_NEXT:
                 
             }
 		}
+    }
+    //重新配置SOCKA****************************************************************
+	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
+    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.50") == NULL)
+    {
+        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        CAT1_EnterATMode();
     }
     PWR_CAT1_OFF;
 }
@@ -422,7 +453,7 @@ void CAT1_UploadSampleData(void)
 	CAT1_SendCmd(login, "OK", 3000);
 
 NEXT_SID:
-
+    
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     len = PacketUploadSampleData(g_commTxBuf, sid);
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
