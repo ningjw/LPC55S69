@@ -100,7 +100,6 @@ void CAT1_CheckVersion(void)
 	if(xReturn == pdFALSE)return;
 	CAT1_EnterATMode();
     
-    #if 1
     //从ntp服务器同步时间****************************************************************
     CAT1_SendCmd("AT+NTPEN=ON\r\n" ,"OK", 200);
     CAT1_SendCmd("AT+CCLK\r\n" ,"OK", CAT1_WAIT_TICK);
@@ -127,7 +126,6 @@ void CAT1_CheckVersion(void)
         /*设置日期和时间*/
         RTC_SetDatetime(RTC, &sysTime);
     }
-    #endif
     
 	//配置SOCKA****************************************************************
 	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
@@ -494,7 +492,7 @@ void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
     CAT1_SelfRegister();
-//	CAT1_CheckVersion();
+	CAT1_CheckVersion();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{

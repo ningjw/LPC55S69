@@ -62,10 +62,12 @@
 #endif
 
 
-#define EVT_UART_OK        (1 << 0) //串口接受'}'等特殊字符,判断为接受到一包完整的json数据,发送该事件
-#define EVT_UART_TIMTOUT   (1 << 1) //串口接受超时, 用于判断是否接受到一个帧数据,发送事件通知线程
-#define EVT_UPLOAD_SAMPLE  (1 << 2) //采样结束,将采样数据上传服务器,发送该事件.
-
+#define EVT_UART_OK        (1<<0) //串口接受'}'等特殊字符,判断为接受到一包完整的json数据,发送该事件
+#define EVT_UART_TIMTOUT   (1<<1) //串口接受超时, 用于判断是否接受到一个帧数据,发送事件通知线程
+#define EVT_UPLOAD_SAMPLE  (1<<2) //采样结束,将采样数据上传服务器,发送该事件.
+#define EVT_SAMPLE_FINISH  (1<<4)
+#define EVT_SAMPLE_START   (1<<5)
+#define EVT_ENTER_SLEEP    (1<<6)
 
 //#define DEBUG_USB_AUDIO
 //#define DEBUG_PRINTF printf

@@ -3,11 +3,7 @@
 
 #define ADC_READY                GPIO_PinRead(GPIO, BOARD_ADC_RDY_PORT, BOARD_ADC_RDY_PIN)
 
-#define NOTIFY_TMR1            (1<<1)
-#define NOTIFY_ADC             (1<<2)
-#define NOTIFY_ADS1271         (1<<3)
-#define NOTIFY_FINISH          (1<<4)
-#define NOTIFY_SAMPLE_FINISHED (1<<5)
+
 #define ADC_LEN      32768
 
 #define AUTO_SAMPLE 0  //周期性自动采样

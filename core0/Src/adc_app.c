@@ -244,7 +244,7 @@ void ADC_SampleStop(void)
 	W25Q128_AddAdcData();
     
     /* 触发ADC采样完成事件  */
-    xTaskNotify(ADC_TaskHandle, NOTIFY_FINISH, eSetBits);
+    xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_FINISH, eSetBits);
 }
 
 
@@ -294,44 +294,52 @@ void ADC_AppTask(void)
     {
         /*等待ADC完成采样事件*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &r_event, portMAX_DELAY);
-
-        /* 判断是否成功等待到事件 */
-        if ( pdTRUE == xReturn ) {
-            /* 完成采样事件*/
-            if(r_event & NOTIFY_FINISH) {
-				/* ---------------将震动信号转换-----------------------*/
+		
+		/* 开始采样事件*/
+		if(r_event & EVT_SAMPLE_START)
+		{
+			ADC_SampleStart(AUTO_SAMPLE);
+		}
+		/* 触发休眠*/
+		else if(r_event & EVT_ENTER_SLEEP)
+		{
+			SystemSleep();
+		}
+		/* 完成采样事件*/
+		else if(r_event & EVT_SAMPLE_FINISH) 
+		{
+			/* ---------------将震动信号转换-----------------------*/
 #if 0
-				float tempValue = 0;
-                for(uint32_t i = 0; i < g_sample_para.shkCount; i++) {
-					if((uint32_t)ShakeADC[i] < 0x800000){
-						ShakeADC[i] = ShakeADC[i] * g_sample_para.bias * 1.0f / 0x800000;
-					}else{
-						ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_sample_para.bias * 1.0f / 0x800000) - g_sample_para.bias;
-					}
-					DEBUG_PRINTF("%01.5f,",ShakeADC[i]);
-                }
-				
-				g_sys_para.shkRMS = GetRMS(ShakeADC, g_sample_para.shkCount, g_sample_para.WindowsType);
+			float tempValue = 0;
+			for(uint32_t i = 0; i < g_sample_para.shkCount; i++) {
+				if((uint32_t)ShakeADC[i] < 0x800000){
+					ShakeADC[i] = ShakeADC[i] * g_sample_para.bias * 1.0f / 0x800000;
+				}else{
+					ShakeADC[i] = ((ShakeADC[i] - 0x800000) * g_sample_para.bias * 1.0f / 0x800000) - g_sample_para.bias;
+				}
+				DEBUG_PRINTF("%01.5f,",ShakeADC[i]);
+			}
+			
+			g_sys_para.shkRMS = GetRMS(ShakeADC, g_sample_para.shkCount, g_sample_para.WindowsType);
 #endif          
-                
+			
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
-                /*通知线程采样完成, 可以获取采样数据了*/
-                xTaskNotifyGive( BLE_WIFI_TaskHandle);
+			/*通知线程采样完成, 可以获取采样数据了*/
+			xTaskNotifyGive( BLE_WIFI_TaskHandle);
 #elif defined(CAT1_VERSION)
-                if(HAND_SAMPLE == g_sample_para.sampleReason)
-                {
-                    /*通知线程采样完成, 可以通过nfc获取采样数据了*/
-                    xTaskNotifyGive(NFC_TaskHandle);
-                }
-                else if(AUTO_SAMPLE == g_sample_para.sampleReason)
-                {
-                    /*需要通知CAT1线程,将数据自动上传服务器*/
-                    xTaskNotify(CAT1_TaskHandle, EVT_UPLOAD_SAMPLE, eSetBits);
-                }
+			if(HAND_SAMPLE == g_sample_para.sampleReason)
+			{
+				/*通知线程采样完成, 可以通过nfc获取采样数据了*/
+				xTaskNotifyGive(NFC_TaskHandle);
+			}
+			else if(AUTO_SAMPLE == g_sample_para.sampleReason)
+			{
+				/*需要通知CAT1线程,将数据自动上传服务器*/
+				xTaskNotify(CAT1_TaskHandle, EVT_UPLOAD_SAMPLE, eSetBits);
+			}
 #endif
-            }
-        }
-    }
+		}
+	}
 }
 
 
