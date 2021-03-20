@@ -36,6 +36,9 @@ void FLEXCOMM2_SendStr(const char *str)
 uint8_t CAT1_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
 {
     uint8_t try_cnt = 0;
+    if(strlen(cmd) == 0){
+        return false;
+    }
 nb_retry:
     g_Cat1RxCnt = 0;
 	memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -309,7 +312,7 @@ GET_NEXT:
 				
 				strcat(md5_result, md5_t1);
 			}
-			if(strcmp(md5_result, g_sys_flash_para.firmUpdateMD5) == 0)//md5校验成功																		//MD5校验比对
+			if(strcmp(md5_result, g_sys_flash_para.firmUpdateMD5) == 0)//md5校验成功
 			{
                 PWR_CAT1_OFF;
 				g_sys_flash_para.firmCore0Update = BOOT_NEW_VERSION;
@@ -324,7 +327,7 @@ GET_NEXT:
 /* CAT1-IoT 模块初始化 */
 void CAT1_SelfRegister()
 {
-	if(g_sys_flash_para.Cat1InitFlag != 0xAA || strlen(g_sys_flash_para.SN) ==0 )
+	if(g_sys_flash_para.SelfRegisterFlag != 0xAA || strlen(g_sys_flash_para.SN) ==0 )
 	{
 		PWR_CAT1_OFF;
 		vTaskDelay(100);
@@ -417,10 +420,15 @@ void CAT1_SelfRegister()
             cJSON_Delete(pJson);
         }
         //注册设备成功, 将设备id保存到flash
-        g_sys_flash_para.Cat1InitFlag = 0xAA;
+        g_sys_flash_para.SelfRegisterFlag = 0xAA;
 		Flash_SavePara();
 
         CAT1_EnterATMode();
+        
+        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        PWR_CAT1_OFF;
 	}
 }
 
@@ -459,6 +467,7 @@ void CAT1_UploadSampleData(void)
     }
     CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
 	
+    //登录OneNet系统
 	char login[32] = {0};
 	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
 	CAT1_SendCmd(login, "OK", 3000);
@@ -481,18 +490,18 @@ NEXT_SID:
 
     //采样数据包发送完成后,还需要发送当前状态到服务器
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+    PacketBatteryInfo(g_commTxBuf);
     CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-	
     PWR_CAT1_OFF;//关机
+    xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
 }
 
 
-/* NB-IOT模块初始化函数 */
+
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
     CAT1_SelfRegister();
-	CAT1_CheckVersion();
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{
@@ -502,6 +511,7 @@ void CAT1_AppTask(void)
 		{
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
+                CAT1_CheckVersion();
                 CAT1_UploadSampleData();
             }
 		}

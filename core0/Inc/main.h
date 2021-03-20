@@ -227,7 +227,7 @@ typedef struct{
 
     uint8_t  firstPoweron;   //首次开机
     uint8_t  WifiBleInitFlag;//用于指示蓝牙/wifi模块是否已经初始化过
-	uint8_t  Cat1InitFlag   ;//用于指示cat1是否已经初始化过
+	uint8_t  SelfRegisterFlag   ;//用于指示cat1是否已经初始化过
     char     SN[24];
     char     IMEI[24];
     char     ICCID[24];

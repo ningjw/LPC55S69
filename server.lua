@@ -298,13 +298,12 @@ function device_data_analyze(dev)
     -- 添加用户自定义代码 --
     -- 例如： --
     local s = dev:size()    --获取上行数据长度
-    if dev:byte(1) == '{' and dev:byte(2) == '\"' then
-        user_add_val(t, "sample", 0, dev:bytes(1,s))
+    if dev:byte(1) == '{'  then --json格式的字符串, 直接透传保存
+        user_add_val(t, "information", 0, dev:bytes(1,s))
     else
-        add_val(t, "sample", 0, dev:bytes(1,s))
+        add_val(t, "sample", 0, dev:bytes(1,s)) --转换为16进制字符串格式, 再保存
     end
     
-
     dev:response()
     dev:send("OK")  --发送应答
     

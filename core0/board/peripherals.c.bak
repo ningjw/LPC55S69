@@ -334,7 +334,7 @@ instance:
       - mode: 'kCTIMER_TimerMode'
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '96000000'
+      - timerPrescaler: '1000000'
     - EnableTimerInInit: 'true'
     - matchChannels:
       - 0:
@@ -357,7 +357,7 @@ instance:
 const ctimer_config_t CTIMER3_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
-  .prescale = 95999999
+  .prescale = 999999
 };
 const ctimer_match_config_t CTIMER3_Match0_config = {
   .matchValue = 1,

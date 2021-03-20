@@ -1286,7 +1286,14 @@ uint32_t PacketBatteryInfo(uint8_t *txBuf)
     cJSON_AddNumberToObject(pJsonRoot, "Id", 23);
     cJSON_AddNumberToObject(pJsonRoot, "BatC", g_sys_para.batRemainPercent);
     cJSON_AddNumberToObject(pJsonRoot, "BatV", g_sys_para.batVoltage);
+    cJSON_AddNumberToObject(pJsonRoot, "Y", sysTime.year);
+    cJSON_AddNumberToObject(pJsonRoot, "Mon", sysTime.month);
+    cJSON_AddNumberToObject(pJsonRoot, "D", sysTime.day);
+    cJSON_AddNumberToObject(pJsonRoot, "H", sysTime.hour);
+    cJSON_AddNumberToObject(pJsonRoot, "Min", sysTime.minute);
+    cJSON_AddNumberToObject(pJsonRoot, "S", sysTime.second);
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
+    strcpy(txBuf,p_reply);
     cJSON_Delete(pJsonRoot);
     len = strlen(p_reply);
     if(p_reply){

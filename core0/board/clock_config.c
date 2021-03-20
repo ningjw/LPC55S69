@@ -60,7 +60,7 @@ outputs:
 - {id: CTIMER0_clock.outFreq, value: 96 MHz}
 - {id: CTIMER1_clock.outFreq, value: 96 MHz}
 - {id: CTIMER2_clock.outFreq, value: 96 MHz}
-- {id: CTIMER3_clock.outFreq, value: 1 MHz}
+- {id: CTIMER3_clock.outFreq, value: 96 MHz}
 - {id: FXCOM0_clock.outFreq, value: 48 MHz}
 - {id: FXCOM2_clock.outFreq, value: 48 MHz}
 - {id: FXCOM5_clock.outFreq, value: 48 MHz}
@@ -79,7 +79,7 @@ settings:
 - {id: SYSCON.CTIMERCLKSEL0.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.CTIMERCLKSEL1.sel, value: ANACTRL.fro_hf_clk}
 - {id: SYSCON.CTIMERCLKSEL2.sel, value: SYSCON.MAINCLKSELB}
-- {id: SYSCON.CTIMERCLKSEL3.sel, value: SYSCON.fro_1m}
+- {id: SYSCON.CTIMERCLKSEL3.sel, value: SYSCON.MAINCLKSELB}
 - {id: SYSCON.FCCLKSEL0.sel, value: SYSCON.FROHFDIV}
 - {id: SYSCON.FCCLKSEL2.sel, value: SYSCON.FROHFDIV}
 - {id: SYSCON.FCCLKSEL5.sel, value: SYSCON.FROHFDIV}
@@ -167,7 +167,7 @@ void BOARD_BootClockRUN(void)
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER0);                 /*!< Switch CTIMER0 to MAIN_CLK */
     CLOCK_AttachClk(kFRO_HF_to_CTIMER1);                 /*!< Switch CTIMER1 to FRO_HF */
     CLOCK_AttachClk(kMAIN_CLK_to_CTIMER2);                 /*!< Switch CTIMER2 to MAIN_CLK */
-    CLOCK_AttachClk(kFRO1M_to_CTIMER3);                 /*!< Switch CTIMER3 to FRO1M */
+    CLOCK_AttachClk(kMAIN_CLK_to_CTIMER3);                 /*!< Switch CTIMER3 to MAIN_CLK */
 
     ANACTRL->FRO192M_CTRL &= ~ANACTRL_FRO192M_CTRL_ENA_12MHZCLK_MASK;    /* Disable FRO 12 MHz output */
 

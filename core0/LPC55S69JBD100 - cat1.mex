@@ -411,7 +411,7 @@
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER3_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER3_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM2_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM5_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
@@ -431,7 +431,7 @@
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.fro_1m" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL5.sel" value="SYSCON.FROHFDIV" locked="false"/>
@@ -803,9 +803,9 @@
                            <setting name="mode" value="kCTIMER_TimerMode"/>
                            <setting name="clockSource" value="FunctionClock"/>
                            <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="timerPrescaler" value="1000000"/>
+                           <setting name="timerPrescaler" value="96000000"/>
                         </struct>
-                        <setting name="EnableTimerInInit" value="true"/>
+                        <setting name="EnableTimerInInit" value="false"/>
                         <array name="matchChannels">
                            <struct name="0">
                               <setting name="matchChannelPrefixId" value="Match0"/>

@@ -171,7 +171,8 @@ void ADC_SampleStart(uint8_t reason)
 	}
 	//结束采集后获取一次温度
 	Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
-	ADC_SampleStop();
+    /* 触发ADC采样完成事件  */
+    xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_FINISH, eSetBits);
 }
 
 
@@ -231,20 +232,19 @@ void ADC_SampleStop(void)
     g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
     
     //计算通过WIFI发送转速信号需要多少个包
-    g_sys_para.spdPacksByWifiCat1 = (g_sample_para.spdCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.spdCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
+    g_sys_para.spdPacksByWifiCat1 = 0;
     
     //计算将所有数据通过WIFI上传需要多少个包
-    g_sys_para.sampPacksByWifiCat1 = g_sys_para.shkPacksByWifiCat1 + g_sys_para.spdPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
+    g_sys_para.sampPacksByWifiCat1 = g_sys_para.shkPacksByWifiCat1 + 1;//wifi需要加上1个采样参数包
     
     //转速信号从哪个sid开始发送
-    g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
+//    g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
 #endif
-
+    
     /*将采样数据保存到spi flash*/
 	W25Q128_AddAdcData();
     
-    /* 触发ADC采样完成事件  */
-    xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_FINISH, eSetBits);
+    
 }
 
 
@@ -285,11 +285,9 @@ void ADC_AppTask(void)
 #endif
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
-	
-	//开机进行一次采样
-	if(g_sys_flash_para.Cat1InitFlag == 0xAA){
-//		ADC_SampleStart(AUTO_SAMPLE);
-	}
+	if(g_sys_flash_para.SelfRegisterFlag == 0xAA){//设备已经自注册成功,开机进行一次采样
+        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
+    }
     while(1)
     {
         /*等待ADC完成采样事件*/
@@ -308,6 +306,7 @@ void ADC_AppTask(void)
 		/* 完成采样事件*/
 		else if(r_event & EVT_SAMPLE_FINISH) 
 		{
+            ADC_SampleStop();
 			/* ---------------将震动信号转换-----------------------*/
 #if 0
 			float tempValue = 0;
@@ -327,16 +326,8 @@ void ADC_AppTask(void)
 			/*通知线程采样完成, 可以获取采样数据了*/
 			xTaskNotifyGive( BLE_WIFI_TaskHandle);
 #elif defined(CAT1_VERSION)
-			if(HAND_SAMPLE == g_sample_para.sampleReason)
-			{
-				/*通知线程采样完成, 可以通过nfc获取采样数据了*/
-				xTaskNotifyGive(NFC_TaskHandle);
-			}
-			else if(AUTO_SAMPLE == g_sample_para.sampleReason)
-			{
-				/*需要通知CAT1线程,将数据自动上传服务器*/
-				xTaskNotify(CAT1_TaskHandle, EVT_UPLOAD_SAMPLE, eSetBits);
-			}
+			/*需要通知CAT1线程,将数据自动上传服务器*/
+			xTaskNotify(CAT1_TaskHandle, EVT_UPLOAD_SAMPLE, eSetBits);
 #endif
 		}
 	}

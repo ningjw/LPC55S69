@@ -7,7 +7,6 @@
 
 TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
 uint8_t status = 0;
-float remain;
 lpadc_conv_result_t         mLpadcResult;
 /***********************************************************************
   * @ 函数名  ： BAT_AppTask
@@ -88,14 +87,14 @@ void BAT_AppTask(void)
 			vTaskDelay(1000);
 		}
 		
-		float voltage = mLpadcResult.convValue*g_sys_flash_para.refV / 65536;
+		g_sys_para.batVoltage = mLpadcResult.convValue * g_sys_flash_para.refV / 65536;
 		//根据电压计算电池容量
 		if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
-			remain = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
+			g_sys_para.batRemainPercent = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
 		} else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)
-			remain = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
+			g_sys_para.batRemainPercent = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
 		} else { // (3.5 - 3.68)
-			remain = 55.556f * g_sys_para.batVoltage - 194.44f;
+			g_sys_para.batRemainPercent = 55.556f * g_sys_para.batVoltage - 194.44f;
 		}
 #endif
 		if(g_sys_para.batRemainPercent <= g_sys_flash_para.batAlarmValue) { //电量低于报警值

@@ -334,8 +334,8 @@ instance:
       - mode: 'kCTIMER_TimerMode'
       - clockSource: 'FunctionClock'
       - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '1000000'
-    - EnableTimerInInit: 'true'
+      - timerPrescaler: '96000000'
+    - EnableTimerInInit: 'false'
     - matchChannels:
       - 0:
         - matchChannelPrefixId: 'Match0'
@@ -357,7 +357,7 @@ instance:
 const ctimer_config_t CTIMER3_config = {
   .mode = kCTIMER_TimerMode,
   .input = kCTIMER_Capture_0,
-  .prescale = 999999
+  .prescale = 95999999
 };
 const ctimer_match_config_t CTIMER3_Match0_config = {
   .matchValue = 1,
@@ -373,8 +373,6 @@ static void CTIMER3_init(void) {
   CTIMER_Init(CTIMER3_PERIPHERAL, &CTIMER3_config);
   /* Match channel 0 of CTIMER3 peripheral initialization */
   CTIMER_SetupMatch(CTIMER3_PERIPHERAL, CTIMER3_MATCH0_CHANNEL, &CTIMER3_Match0_config);
-  /* Start the timer */
-  CTIMER_StartTimer(CTIMER3_PERIPHERAL);
 }
 
 /***********************************************************************************************************************

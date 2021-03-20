@@ -150,10 +150,8 @@ void SystemSleep(void)
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
-    PWR_CAT1_ON;
 	DEBUG_PRINTF("exit deep sleep\n");
 	BOARD_InitPins();
-    PWR_CAT1_ON;
 }
 
 #ifndef CAT1_VERSION
@@ -197,12 +195,9 @@ void PINT2_CallBack(pint_pin_int_t pintr, uint32_t pmatch_status)
 ***************************************************************************************/
 void UTICK0_Callback(void)
 {
-	uint32_t static sleep_time_cnt = 0;
 	//在采集数据时,每间隔1S获取一次温度数据
 	if (g_sys_para.tempCount < sizeof(Temperature) && g_sys_para.WorkStatus){
 		Temperature[g_sys_para.tempCount++] = TMP101_ReadTemp();
-	}else if(sleep_time_cnt++ > 1){
-//		SystemSleep();
 	}
 	
 #ifndef CAT1_VERSION
