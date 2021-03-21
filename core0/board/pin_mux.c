@@ -147,7 +147,6 @@ BOARD_InitPins:
   - {pin_num: A7, peripheral: GPIO, signal: 'PIO0, 5', pin_signal: PIO0_5/FC4_RXD_SDA_MOSI_DATA/CTIMER3_MAT0/SCT_GPI5/FC3_RTS_SCL_SSEL1/MCLK/SECURE_GPIO0_5, identifier: PWR_CAT1,
     direction: OUTPUT, gpio_init_state: 'false', mode: inactive}
   - {pin_num: E9, peripheral: USBFSH, signal: USB_VBUS, pin_signal: PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22}
-  - {pin_num: J1, peripheral: ADC0, signal: 'CH, 0', pin_signal: PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0}
   - {pin_num: B8, peripheral: GPIO, signal: 'PIO1, 25', pin_signal: PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN, identifier: NFC_RSTPD, direction: OUTPUT,
     gpio_init_state: 'true', mode: inactive}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
@@ -236,13 +235,6 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PIO0_21 (pin A12)  */
     GPIO_PinInit(BOARD_ADC_RDY_GPIO, BOARD_ADC_RDY_PORT, BOARD_ADC_RDY_PIN, &ADC_RDY_config);
-
-    gpio_pin_config_t gpio0_pinJ1_config = {
-        .pinDirection = kGPIO_DigitalInput,
-        .outputLogic = 0U
-    };
-    /* Initialize GPIO functionality on pin PIO0_23 (pin J1)  */
-    GPIO_PinInit(GPIO, 0U, 23U, &gpio0_pinJ1_config);
 
     gpio_pin_config_t PWR_5V_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -547,29 +539,6 @@ void BOARD_InitPins(void)
                           * : Enable Digital mode.
                           * Digital input is enabled. */
                          | IOCON_PIO_DIGIMODE(PIO0_22_DIGIMODE_DIGITAL));
-
-    IOCON->PIO[0][23] = ((IOCON->PIO[0][23] &
-                          /* Mask bits to zero which are setting */
-                          (~(IOCON_PIO_FUNC_MASK | IOCON_PIO_MODE_MASK | IOCON_PIO_DIGIMODE_MASK | IOCON_PIO_ASW_MASK)))
-
-                         /* Selects pin function.
-                          * : PORT023 (pin J1) is configured as ADC0_0. */
-                         | IOCON_PIO_FUNC(PIO0_23_FUNC_ALT0)
-
-                         /* Selects function mode (on-chip pull-up/pull-down resistor control).
-                          * : Inactive.
-                          * Inactive (no pull-down/pull-up resistor enabled). */
-                         | IOCON_PIO_MODE(PIO0_23_MODE_INACTIVE)
-
-                         /* Select Digital mode.
-                          * : Disable digital mode.
-                          * Digital input set to 0. */
-                         | IOCON_PIO_DIGIMODE(PIO0_23_DIGIMODE_ANALOG)
-
-                         /* Analog switch input control.
-                          * : For all pins except PIO0_9, PIO0_11, PIO0_12, PIO0_15, PIO0_18, PIO0_31, PIO1_0 and
-                          * PIO1_9 analog switch is closed (enabled). */
-                         | IOCON_PIO_ASW(PIO0_23_ASW_VALUE1));
 
     IOCON->PIO[0][25] = ((IOCON->PIO[0][25] &
                           /* Mask bits to zero which are setting */

@@ -95,125 +95,6 @@ static void DMA0_init(void) {
 }
 
 /***********************************************************************************************************************
- * ADC0 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'ADC0'
-- type: 'lpadc'
-- mode: 'LPADC'
-- custom_name_enabled: 'false'
-- type_id: 'lpadc_37e603c0367b4bb173ded9b76a178984'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'ADC0'
-- config_sets:
-  - fsl_lpadc:
-    - lpadcConfig:
-      - clockSource: 'AsynchronousFunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - enableInDozeMode: 'true'
-      - conversionAverageMode: 'kLPADC_ConversionAverage128'
-      - offsetCalibration: 'no'
-      - autoCalibrate: 'true'
-      - enableAnalogPreliminary: 'true'
-      - powerUpDelay: '0x80'
-      - referenceVoltageSource: 'kLPADC_ReferenceVoltageAlt3'
-      - powerLevelMode: 'kLPADC_PowerLevelAlt1'
-      - triggerPriorityPolicy: 'kLPADC_TriggerPriorityPreemptImmediately'
-      - enableConvPause: 'false'
-      - convPauseDelay: '0'
-      - FIFO0Watermark: '0'
-      - FIFO1Watermark: '0'
-      - FIFO0WatermarkDMA: 'false'
-      - FIFO1WatermarkDMA: 'false'
-    - lpadcConvCommandConfig:
-      - 0:
-        - commandId: '1'
-        - chainedNextCommandNumber: '0'
-        - sampleChannelMode: 'kLPADC_SampleChannelSingleEndSideA'
-        - channelNumber: 'CH.0'
-        - enableAutoChannelIncrement: 'false'
-        - loopCount: '0'
-        - hardwareAverageMode: 'kLPADC_HardwareAverageCount1'
-        - sampleTimeMode: 'kLPADC_SampleTimeADCK3'
-        - hardwareCompareMode: 'kLPADC_HardwareCompareDisabled'
-        - hardwareCompareValueHigh: '0'
-        - hardwareCompareValueLow: '0'
-        - conversionResoultuionMode: 'kLPADC_ConversionResolutionStandard'
-        - enableWaitTrigger: 'false'
-    - lpadcConvTriggerConfig:
-      - 0:
-        - triggerId: '0'
-        - targetCommandId: '1'
-        - delayPower: '0'
-        - priority: 'false'
-        - channelAFIFOSelect: '0'
-        - channelBFIFOSelect: '0'
-        - enableHardwareTrigger: 'false'
-    - IRQ_cfg:
-      - interrupt_type: ''
-      - enable_irq: 'false'
-      - adc_interrupt:
-        - IRQn: 'ADC0_IRQn'
-        - enable_interrrupt: 'enabled'
-        - enable_priority: 'false'
-        - priority: '0'
-        - enable_custom_name: 'false'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const lpadc_config_t ADC0_config = {
-  .enableInDozeMode = true,
-  .conversionAverageMode = kLPADC_ConversionAverage128,
-  .enableAnalogPreliminary = true,
-  .powerUpDelay = 0x80UL,
-  .referenceVoltageSource = kLPADC_ReferenceVoltageAlt3,
-  .powerLevelMode = kLPADC_PowerLevelAlt1,
-  .triggerPriorityPolicy = kLPADC_TriggerPriorityPreemptImmediately,
-  .enableConvPause = false,
-  .convPauseDelay = 0UL,
-  .FIFO0Watermark = 0UL,
-  .FIFO1Watermark = 0UL
-};
-lpadc_conv_command_config_t ADC0_commandsConfig[1] = {
-  {
-    .sampleChannelMode = kLPADC_SampleChannelSingleEndSideA,
-    .channelNumber = 0U,
-    .chainedNextCommandNumber = 0,
-    .enableAutoChannelIncrement = false,
-    .loopCount = 0UL,
-    .hardwareAverageMode = kLPADC_HardwareAverageCount1,
-    .sampleTimeMode = kLPADC_SampleTimeADCK3,
-    .hardwareCompareMode = kLPADC_HardwareCompareDisabled,
-    .hardwareCompareValueHigh = 0UL,
-    .hardwareCompareValueLow = 0UL,
-    .conversionResolutionMode = kLPADC_ConversionResolutionStandard,
-    .enableWaitTrigger = false
-  }
-};
-lpadc_conv_trigger_config_t ADC0_triggersConfig[1] = {
-  {
-    .targetCommandId = 1,
-    .delayPower = 0UL,
-    .channelAFIFOSelect = 0,
-    .channelBFIFOSelect = 0,
-    .priority = 1,
-    .enableHardwareTrigger = false
-  }
-};
-
-static void ADC0_init(void) {
-  /* Initialize LPADC converter */
-  LPADC_Init(ADC0_PERIPHERAL, &ADC0_config);
-  /* Perform auto calibration */
-  LPADC_DoAutoCalibration(ADC0_PERIPHERAL);
-  /* Configure conversion command 1. */
-  LPADC_SetConvCommandConfig(ADC0_PERIPHERAL, 1, &ADC0_commandsConfig[0]);
-  /* Configure trigger 0. */
-  LPADC_SetConvTriggerConfig(ADC0_PERIPHERAL, 0, &ADC0_triggersConfig[0]);
-}
-
-/***********************************************************************************************************************
  * CTIMER0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -751,7 +632,6 @@ void BOARD_InitPeripherals(void)
 
   /* Initialize components */
   DMA0_init();
-  ADC0_init();
   CTIMER0_init();
   CTIMER2_init();
   CTIMER3_init();

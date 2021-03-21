@@ -5,6 +5,10 @@
 #define READ_CHARGE_STA    GPIO_PinRead(GPIO, BOARD_BAT_CHRG_PORT, BOARD_BAT_CHRG_PIN)
 #define READ_STDBY_STA     GPIO_PinRead(GPIO, BOARD_BAT_STDBY_PORT,BOARD_BAT_STDBY_PIN)
 
+#define DEMO_LPADC_USER_CHANNEL 13U
+#define DEMO_LPADC_USER_CMDID   1U /* CMD1 */
+#define DEMO_LPADC_VREF_SOURCE  kLPADC_ReferenceVoltageAlt2
+
 TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
 uint8_t status = 0;
 lpadc_conv_result_t         mLpadcResult;
@@ -37,6 +41,36 @@ void BAT_AppTask(void)
 		//要正常看到电池亮红灯,还需要注释掉while(1)中对电池状态的检测代码
 //		g_sys_para.batLedStatus = BAT_CHARGING;
 	}
+#else
+	lpadc_config_t mLpadcConfigStruct;
+    lpadc_conv_trigger_config_t mLpadcTriggerConfigStruct;
+    lpadc_conv_command_config_t mLpadcCommandConfigStruct;
+
+	CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 16U, true);
+    CLOCK_AttachClk(kMAIN_CLK_to_ADC_CLK);
+    /* Disable LDOGPADC power down */
+    POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
+	
+	LPADC_GetDefaultConfig(&mLpadcConfigStruct);
+    mLpadcConfigStruct.enableAnalogPreliminary = true;
+	mLpadcConfigStruct.referenceVoltageSource = DEMO_LPADC_VREF_SOURCE;
+	mLpadcConfigStruct.conversionAverageMode = kLPADC_ConversionAverage128;
+	LPADC_Init(ADC0, &mLpadcConfigStruct);
+	
+	LPADC_SetOffsetValue(ADC0, 10, 10);
+	LPADC_DoAutoCalibration(ADC0);
+	
+	/* Set conversion CMD configuration. */
+    LPADC_GetDefaultConvCommandConfig(&mLpadcCommandConfigStruct);
+    mLpadcCommandConfigStruct.channelNumber = DEMO_LPADC_USER_CHANNEL;
+    LPADC_SetConvCommandConfig(ADC0, DEMO_LPADC_USER_CMDID, &mLpadcCommandConfigStruct);
+
+    /* Set trigger configuration. */
+    LPADC_GetDefaultConvTriggerConfig(&mLpadcTriggerConfigStruct);
+    mLpadcTriggerConfigStruct.targetCommandId       = DEMO_LPADC_USER_CMDID;
+    mLpadcTriggerConfigStruct.enableHardwareTrigger = false;
+    LPADC_SetConvTriggerConfig(ADC0, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
+
 #endif
     DEBUG_PRINTF("BAT_AppTask Running\r\n");
 	
@@ -82,12 +116,11 @@ void BAT_AppTask(void)
             LTC2942_SetAC(0xFFFF);
         } else 
 #elif defined CAT1_VERSION
-		LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U对应触发0*/
+		LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U is trigger0 mask. */
 		while (!LPADC_GetConvResult(ADC0, &mLpadcResult, 0U)) {
 			vTaskDelay(1000);
 		}
-		
-		g_sys_para.batVoltage = mLpadcResult.convValue * g_sys_flash_para.refV / 65536;
+		g_sys_para.batVoltage = (67793.0 - 3.5028 * mLpadcResult.convValue) / 10000.0;
 		//根据电压计算电池容量
 		if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
 			g_sys_para.batRemainPercent = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;

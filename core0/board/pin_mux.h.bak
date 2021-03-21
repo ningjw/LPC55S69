@@ -303,6 +303,19 @@ void BOARD_InitBootPins(void);
 #define PIO1_21_MODE_PULL_UP 0x02u
 /*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
+#define PIO1_25_DIGIMODE_DIGITAL 0x01u
+/*!
+ * @brief Selects pin function.: Alternative connection 0. */
+#define PIO1_25_FUNC_ALT0 0x00u
+/*!
+ * @brief
+ * Selects function mode (on-chip pull-up/pull-down resistor control).
+ * : Inactive.
+ * Inactive (no pull-down/pull-up resistor enabled).
+ */
+#define PIO1_25_MODE_INACTIVE 0x00u
+/*!
+ * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO1_2_DIGIMODE_DIGITAL 0x01u
 /*!
  * @brief Selects pin function.: Alternative connection 0. */
@@ -609,6 +622,17 @@ void BOARD_InitBootPins(void);
 #define BOARD_PWR_CAT1_PIN 5U                   /*!<@brief PORT pin number */
 #define BOARD_PWR_CAT1_PIN_MASK (1U << 5U)      /*!<@brief PORT pin mask */
                                                 /* @} */
+
+/*! @name PIO1_25 (coord B8), NFC_RSTPD
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_NFC_RSTPD_GPIO GPIO                 /*!<@brief GPIO peripheral base pointer */
+#define BOARD_NFC_RSTPD_GPIO_PIN_MASK (1U << 25U) /*!<@brief GPIO pin mask */
+#define BOARD_NFC_RSTPD_PORT 1U                   /*!<@brief PORT peripheral base pointer */
+#define BOARD_NFC_RSTPD_PIN 25U                   /*!<@brief PORT pin number */
+#define BOARD_NFC_RSTPD_PIN_MASK (1U << 25U)      /*!<@brief PORT pin mask */
+                                                  /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

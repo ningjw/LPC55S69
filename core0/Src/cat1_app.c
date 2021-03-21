@@ -487,7 +487,7 @@ NEXT_SID:
         retry++;
         goto NEXT_SID;
     }
-
+	
     //采样数据包发送完成后,还需要发送当前状态到服务器
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     PacketBatteryInfo(g_commTxBuf);

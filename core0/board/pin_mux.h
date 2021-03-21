@@ -113,26 +113,6 @@ void BOARD_InitBootPins(void);
  * @brief Selects pin function.: Alternative connection 7. */
 #define PIO0_22_FUNC_ALT7 0x07u
 /*!
- * @brief
- * Analog switch input control.
- * : For all pins except PIO0_9, PIO0_11, PIO0_12, PIO0_15, PIO0_18, PIO0_31, PIO1_0 and PIO1_9 analog switch is
- * closed (enabled).
- */
-#define PIO0_23_ASW_VALUE1 0x01u
-/*!
- * @brief Select Digital mode.: Disable digital mode. Digital input set to 0. */
-#define PIO0_23_DIGIMODE_ANALOG 0x00u
-/*!
- * @brief Selects pin function.: Alternative connection 0. */
-#define PIO0_23_FUNC_ALT0 0x00u
-/*!
- * @brief
- * Selects function mode (on-chip pull-up/pull-down resistor control).
- * : Inactive.
- * Inactive (no pull-down/pull-up resistor enabled).
- */
-#define PIO0_23_MODE_INACTIVE 0x00u
-/*!
  * @brief Select Digital mode.: Enable Digital mode. Digital input is enabled. */
 #define PIO0_25_DIGIMODE_DIGITAL 0x01u
 /*!

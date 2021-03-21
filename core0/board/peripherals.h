@@ -11,7 +11,6 @@
  **********************************************************************************************************************/
 #include "fsl_dma.h"
 #include "fsl_common.h"
-#include "fsl_lpadc.h"
 #include "fsl_ctimer.h"
 #include "fsl_clock.h"
 #include "fsl_spi.h"
@@ -36,8 +35,6 @@ extern "C" {
   /* Channel CH0 definitions */
 /* Selected DMA channel number. */
 #define DMA0_CH0_DMA_CHANNEL 0
-/* Alias for ADC0 peripheral */
-#define ADC0_PERIPHERAL ADC0
 /* Definition of peripheral ID */
 #define CTIMER0_PERIPHERAL CTIMER0
 /* Timer tick frequency in Hz (input frequency of the timer) */
@@ -118,9 +115,6 @@ extern "C" {
  * Global variables
  **********************************************************************************************************************/
 extern dma_handle_t DMA0_CH0_Handle;
-extern const lpadc_config_t ADC0_config;
-extern lpadc_conv_command_config_t ADC0_commandsConfig[1];
-extern lpadc_conv_trigger_config_t ADC0_triggersConfig[1];
 extern const ctimer_config_t CTIMER0_config;
 extern const ctimer_config_t CTIMER2_config;
 extern const ctimer_config_t CTIMER3_config;

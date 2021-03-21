@@ -138,11 +138,6 @@
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="Peripheral" resourceId="ADC0" description="Peripheral ADC0 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
-                     <feature name="initialized" evaluation="equal">
-                        <data>true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="cm33_core1">
                         <data>true</data>
@@ -344,7 +339,6 @@
                      </pin_features>
                   </pin>
                   <pin peripheral="USBFSH" signal="USB_VBUS" pin_num="E9" pin_signal="PIO0_22/FC6_TXD_SCL_MISO_WS/UTICK_CAP1/CT_INP15/SCT0_OUT3/USB0_VBUS/SD1_D0/PLU_OUT7/SECURE_GPIO0_22"/>
-                  <pin peripheral="ADC0" signal="CH, 0" pin_num="J1" pin_signal="PIO0_23/MCLK/CTIMER1_MAT2/CTIMER3_MAT3/SCT0_OUT4/FC0_CTS_SDA_SSEL0/SD1_D1/SECURE_GPIO0_23/ADC0_0"/>
                   <pin peripheral="GPIO" signal="PIO1, 25" pin_num="B8" pin_signal="PIO1_25/FC2_TXD_SCL_MISO_WS/SCT0_OUT2/SD1_D0/UTICK_CAP0/PLU_CLKIN">
                      <pin_features>
                         <pin_feature name="identifier" value="NFC_RSTPD"/>
@@ -407,7 +401,6 @@
                   <clock_source id="SYSCON.fro_1m.outFreq" value="1 MHz" locked="false" enabled="false"/>
                </clock_sources>
                <clock_outputs>
-                  <clock_output id="ASYNCADC_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
@@ -427,10 +420,10 @@
                   <setting id="PMC_PDRUNCFG_PDEN_XTAL32K_CFG" value="Power_up" locked="false"/>
                   <setting id="RTC.RTCOSC32KSEL.sel" value="RTC.XTAL32K" locked="false"/>
                   <setting id="RTC_EN_CFG" value="Enable" locked="false"/>
-                  <setting id="SYSCON.ADCCLKSEL.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL0.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.ADCCLKDIV.scale" value="8" locked="true"/>
+                  <setting id="SYSCON.CTIMERCLKSEL0.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="SYSCON.FROHFDIV" locked="false"/>
@@ -461,16 +454,6 @@
       </dcdx>
       <periphs name="Peripherals" version="9.0" enabled="true" update_project_code="true">
          <dependencies>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="工具链/IDE工程中未找到LPADC Driver。工程不会被编译！" problem_level="2" source="Peripherals">
-               <feature name="enabled" evaluation="equal">
-                  <data type="Boolean">true</data>
-               </feature>
-            </dependency>
-            <dependency resourceType="SWComponent" resourceId="platform.drivers.lpadc" description="工具链/IDE工程不支持LPADC Driver版本。所需值: ${required_value}, 实际值: ${actual_value}. 工程可能没有被正确编译。" problem_level="1" source="Peripherals">
-               <feature name="version" evaluation="greaterOrEqual">
-                  <data type="Version">2.2.0</data>
-               </feature>
-            </dependency>
             <dependency resourceType="SWComponent" resourceId="platform.drivers.ctimer" description="工具链/IDE工程中未找到CTimer Driver。工程不会被编译！" problem_level="2" source="Peripherals">
                <feature name="enabled" evaluation="equal">
                   <data type="Boolean">true</data>
@@ -544,16 +527,6 @@
                <description></description>
                <options/>
                <dependencies>
-                  <dependency resourceType="ClockOutput" resourceId="ASYNCADC_clock" description="ASYNCADC clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="ADC0.adc_se.0A" description="Signal channel 0A of the peripheral ADC0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="ClockOutput" resourceId="CTIMER0_clock" description="CTIMER0_clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
@@ -671,70 +644,6 @@
                   </dependency>
                </dependencies>
                <instances>
-                  <instance name="ADC0" uuid="aa840913-3a09-49be-88e6-26fce2a69f55" type="lpadc" type_id="lpadc_37e603c0367b4bb173ded9b76a178984" mode="LPADC" peripheral="ADC0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="fsl_lpadc">
-                        <struct name="lpadcConfig">
-                           <setting name="clockSource" value="AsynchronousFunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="enableInDozeMode" value="true"/>
-                           <setting name="conversionAverageMode" value="kLPADC_ConversionAverage128"/>
-                           <setting name="offsetCalibration" value="no"/>
-                           <setting name="autoCalibrate" value="true"/>
-                           <setting name="enableAnalogPreliminary" value="true"/>
-                           <setting name="powerUpDelay" value="0x80"/>
-                           <setting name="referenceVoltageSource" value="kLPADC_ReferenceVoltageAlt3"/>
-                           <setting name="powerLevelMode" value="kLPADC_PowerLevelAlt1"/>
-                           <setting name="triggerPriorityPolicy" value="kLPADC_TriggerPriorityPreemptImmediately"/>
-                           <setting name="enableConvPause" value="false"/>
-                           <setting name="convPauseDelay" value="0"/>
-                           <setting name="FIFO0Watermark" value="0"/>
-                           <setting name="FIFO1Watermark" value="0"/>
-                           <setting name="FIFO0WatermarkDMA" value="false"/>
-                           <setting name="FIFO1WatermarkDMA" value="false"/>
-                        </struct>
-                        <array name="lpadcConvCommandConfig">
-                           <struct name="0">
-                              <setting name="commandId" value="1"/>
-                              <setting name="chainedNextCommandNumber" value="0"/>
-                              <setting name="sampleChannelMode" value="kLPADC_SampleChannelSingleEndSideA"/>
-                              <setting name="channelNumber" value="CH.0"/>
-                              <setting name="enableAutoChannelIncrement" value="false"/>
-                              <setting name="loopCount" value="0"/>
-                              <setting name="hardwareAverageMode" value="kLPADC_HardwareAverageCount1"/>
-                              <setting name="sampleTimeMode" value="kLPADC_SampleTimeADCK3"/>
-                              <setting name="hardwareCompareMode" value="kLPADC_HardwareCompareDisabled"/>
-                              <setting name="hardwareCompareValueHigh" value="0"/>
-                              <setting name="hardwareCompareValueLow" value="0"/>
-                              <setting name="conversionResoultuionMode" value="kLPADC_ConversionResolutionStandard"/>
-                              <setting name="enableWaitTrigger" value="false"/>
-                           </struct>
-                        </array>
-                        <array name="lpadcConvTriggerConfig">
-                           <struct name="0">
-                              <setting name="triggerId" value="0"/>
-                              <setting name="targetCommandId" value="1"/>
-                              <setting name="delayPower" value="0"/>
-                              <setting name="priority" value="false"/>
-                              <setting name="channelAFIFOSelect" value="0"/>
-                              <setting name="channelBFIFOSelect" value="0"/>
-                              <setting name="enableHardwareTrigger" value="false"/>
-                           </struct>
-                        </array>
-                        <struct name="IRQ_cfg">
-                           <set name="interrupt_type">
-                              <selected/>
-                           </set>
-                           <setting name="enable_irq" value="false"/>
-                           <struct name="adc_interrupt">
-                              <setting name="IRQn" value="ADC0_IRQn"/>
-                              <setting name="enable_interrrupt" value="enabled"/>
-                              <setting name="enable_priority" value="false"/>
-                              <setting name="priority" value="0"/>
-                              <setting name="enable_custom_name" value="false"/>
-                           </struct>
-                        </struct>
-                     </config_set>
-                  </instance>
                   <instance name="CTIMER0" uuid="11d1ed24-2ec6-4596-937d-eb44a8403920" type="ctimer" type_id="ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a" mode="PWM" peripheral="CTIMER0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="fsl_ctimer">
                         <struct name="ctimerConfig">

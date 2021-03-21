@@ -243,8 +243,6 @@ void ADC_SampleStop(void)
     
     /*将采样数据保存到spi flash*/
 	W25Q128_AddAdcData();
-    
-    
 }
 
 
@@ -286,7 +284,7 @@ void ADC_AppTask(void)
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
 	if(g_sys_flash_para.SelfRegisterFlag == 0xAA){//设备已经自注册成功,开机进行一次采样
-        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
+//        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
     }
     while(1)
     {

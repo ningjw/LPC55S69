@@ -69,7 +69,21 @@ ADC芯片工作时钟 -> TP6
 ADC_RDY         -> TP4
 ADC_SPI_CLK     -> TP5
 
-
+--------电池电压与mLpadcResult.convValue变量的曲线图-----------------------
+电池电压(V)           mLpadcResult.convValue
+4.0                   8040
+3.9                   8280
+3.8                   8500
+3.7                   8760
+3.6                   9010
+3.5                   9300
+3.4                   9570
+3.3                   9880
+3.2                   10200
+3.1                   10540
+3.0                   10900
+根据以上得出关系式为
+g_sys_para.batVoltage = (67793.0 - 3.5028 * mLpadcResult.convValue) / 10000.0;
 
 
 
