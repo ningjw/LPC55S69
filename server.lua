@@ -298,12 +298,33 @@ function device_data_analyze(dev)
     -- 添加用户自定义代码 --
     -- 例如： --
     local s = dev:size()    --获取上行数据长度
-    if dev:byte(1) == '{'  then --json格式的字符串, 直接透传保存
-        user_add_val(t, "information", 0, dev:bytes(1,s))
-    else
-        add_val(t, "sample", 0, dev:bytes(1,s)) --转换为16进制字符串格式, 再保存
+    if dev:byte(1,1) == 231 and dev:byte(2,1) == 232 then --json格式的字符串, 直接透传保存
+		numberOfAdc = 334
+		numberOfAdc = (s - 8)/3;
+		
+		adcString  = "adcStr"
+		packIndex = dev:byte(3,1) + dev:byte(4,1) * 256;
+		adcString = adcString..string.format("%d:", packIndex)
+		
+		index = 5
+		bias = 2.043
+		for i=1, numberOfAdc, 1 do
+			adcValue = dev:byte(index,1) + dev:byte(index+1,1)*256 + dev:byte(index+2,1)* 65536;
+			if adcValue < 8388608 then--0x800000 then
+				adcValue = adcValue * bias / 8388608
+			else
+				adcValue = ((adcValue - 8388608) * bias / 8388608) - bias
+			end
+			index = index +3
+			adcString = adcString..string.format("%0.4f,",adcValue)
+		end
+		
+		user_add_val(t, "adcString", 0, adcString)
+--        add_val(t, "sample", 0, dev:bytes(1,s)) --转换为16进制字符串格式, 再保存
+	else
+		user_add_val(t, "info", 0, dev:bytes(1,s))--直接透传保存
     end
-    
+	
     dev:response()
     dev:send("OK")  --发送应答
     

@@ -96,7 +96,7 @@ void SystemSleep(void)
     EnableIRQ(RTC_IRQn);
 	
 	/* Set alarm time in seconds */
-    RTC->MATCH = RTC->COUNT + g_sample_para.sampleInterval * 60;
+    RTC->MATCH = RTC->COUNT + 60 * g_sample_para.sampleInterval;
 	
 	/* Get alarm time */
 	rtc_datetime_t alarmDate;
@@ -109,10 +109,11 @@ void SystemSleep(void)
 	BOARD_BootClockFRO12M();//深度睡眠模式下,系统时钟需要切换为内部的12M时钟, 否则无法唤醒
 #ifdef CAT1_VERSION
 	//配置模块通过RTC唤醒
-	POWER_EnterDeepSleep(( kPDRUNCFG_PD_FRO32K ), 0, WAKEUP_RTC_LITE_ALARM_WAKEUP, 0x1U);
+	POWER_EnterDeepSleep(kPDRUNCFG_PD_FRO32K , 0, WAKEUP_RTC_LITE_ALARM_WAKEUP, 0x1U);
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
+//    NVIC_SystemReset();
 	BOARD_BootClockFROHF96M();
 	BOARD_InitPins();
 	DEBUG_PRINTF("exit deep sleep\n");

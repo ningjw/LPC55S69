@@ -14,6 +14,18 @@ uint32_t cat1_event = 0;
 MD5_CTX md5_ctx;
 unsigned char md5_t[16];
 char md5_result[40] = {0};
+
+void strrpl(char *s, const char *s1, const char *s2)
+{
+    char *ptr;
+    char *str = s;
+    while ((ptr = strstr(str, s1))) /* 如果在s中找到s1 */
+    {
+        memmove(ptr + strlen(s2) , ptr + strlen(s1), strlen(ptr) - strlen(s1) + 1);
+        memcpy(ptr, &s2[0], strlen(s2));
+        str = ptr + strlen(s2);
+    }
+}
 /***************************************************************************************
   * @brief   发送一个字符串
   * @input   base:选择端口; data:将要发送的数据
@@ -72,6 +84,16 @@ char* substr(char *src, char* head)
     return src+len;
 }
 
+bool CAT1_LoginOneNet(void)
+{
+    //登录OneNet系统
+	char login[32] = {0};
+	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
+	if(CAT1_SendCmd(login, "OK", 3000) == false){
+        return false;
+    }
+    return true;
+}
 
 void CAT1_EnterATMode(void)
 {
@@ -148,6 +170,14 @@ void CAT1_SyncDateTime(void)
         sysTime.second = atoi(sec);
         /*设置日期和时间*/
         RTC_SetDatetime(RTC, &sysTime);
+    }
+    
+    CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
+    s = strstr((char *)g_Cat1RxBuffer,"+CSQ: ");
+    if(s){
+        strtok(s, ",");
+        memset(g_sys_para.CSQ, 0, sizeof(g_sys_para.CSQ));
+        strcpy(g_sys_para.CSQ, s+6);
     }
 }
 
@@ -376,6 +406,14 @@ GET_NEXT:
             }
 		}
     }
+    
+    CAT1_EnterATMode();
+    char cmd[50] = {0};
+    snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
+    CAT1_SendCmd(cmd ,"OK", 1000);
+    CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+    vTaskDelay(200);
+    
     return true;
 }
 
@@ -492,7 +530,6 @@ bool CAT1_SelfRegister()
 		Flash_SavePara();
         
         CAT1_EnterATMode();
-        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
         char cmd[50] = {0};
         snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
         CAT1_SendCmd(cmd ,"OK", 1000);
@@ -511,11 +548,14 @@ bool CAT1_UploadSampleData(void)
     uint32_t sid = 0;
     uint32_t len = 0;
     uint8_t  retry = 0;
-
+    uint8_t  auto_restart_times = 0;
+    if(g_sys_flash_para.SelfRegisterFlag != 0xAA){//设备还未进行自注册
+        CAT1_SelfRegister();
+    }
     if(CAT1_PowerOn() == false){
         return false;
     }
-	
+
 	CAT1_EnterATMode();
     
     if(CAT1_CheckServerIp("183.230.40.40", 1811) == false){
@@ -530,35 +570,53 @@ bool CAT1_UploadSampleData(void)
     
     //进入透传模式
     CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
-	
-    //登录OneNet系统
-	char login[32] = {0};
-	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
-	if(CAT1_SendCmd(login, "OK", 3000) == false){
-        return false;
+
+    CAT1_LoginOneNet();
+    
+    if(auto_restart_times == 0)
+    {
+        //发送当前状态到服务器
+        memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+        PacketBatteryInfo(g_commTxBuf);
+        //OneNet平台字符串透传需要将 " 替换成 \"
+        strrpl((char*)g_commTxBuf,"\"","\\\"");
+        CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
     }
     //发送采样数据包
 NEXT_SID:
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     len = PacketUploadSampleData(g_commTxBuf, sid);
+    if(sid == 0){
+        strrpl((char*)g_commTxBuf,"\"","'");
+    }
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
-    xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 10000);//等待服务器回复数据,超时时间10S
-    if(pdTRUE == xReturn){
+    xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);//等待服务器回复数据,超时时间10S
+    if(pdTRUE == xReturn)
+    {
+        char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
+        if(data_ptr != NULL){//模块重启了,一般是电量低的情况导致
+            if(auto_restart_times++ > 3){
+                return false;
+            }
+            CAT1_EnterATMode();
+            if(CAT1_CheckConnected() == false){
+                return false;
+            }
+            CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+            goto NEXT_SID;
+        }
         sid ++;
         if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
             goto NEXT_SID;
         }
-    }else if(retry < 3){//超时,且重试次数小于3
+    }
+    else if(retry < 3)//超时,且重试次数小于3
+    {
         retry++;
         goto NEXT_SID;
     }
-	
-    //发送当前状态到服务器
-    memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
-    PacketBatteryInfo(g_commTxBuf);
-    CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-    
-    CAT1_CheckVersion();
+
+//    CAT1_CheckVersion();
     
     /* 关机*/
     PWR_CAT1_OFF;
@@ -585,7 +643,7 @@ void CAT1_AppTask(void)
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
                 CAT1_UploadSampleData();
-                CAT1_CheckVersion();
+
                 xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
             }
 		}

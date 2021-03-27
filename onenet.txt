@@ -3,6 +3,8 @@ access_key:    QNbnj7mS4aOTcNHnQCAEPO/2Chv9yNZOqhghd1fYRkw=
 产品ID:        388752
 设备注册码:    v3LzB6dSMS8xYIpm
 
+登录OneNet
+*388752#00402420101505793004#server*
 
 设备自注册:183.230.40.33:80
 POST http://api.heclouds.com/register_de?register_code=v3LzB6dSMS8xYIpm HTTP/1.1

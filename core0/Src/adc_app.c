@@ -228,6 +228,9 @@ void ADC_SampleStop(void)
     //转速信号从哪个sid开始发送
     g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 3;//需要加上3个采样参数包
 #elif defined(WIFI_VERSION) || defined(CAT1_VERSION)
+    
+    LPC55S69_BatAdcUpdate();
+    
     //计算通过WIFI发送震动信号需要多少个包
     g_sys_para.shkPacksByWifiCat1 = (g_sample_para.shkCount / ADC_NUM_WIFI_CAT1) +  (g_sample_para.shkCount % ADC_NUM_WIFI_CAT1 ? 1 : 0);
     
@@ -246,6 +249,7 @@ void ADC_SampleStop(void)
 }
 
 
+
 /***********************************************************************
   * @ 函数名  ： ADC采集任务
   * @ 功能说明：
@@ -256,9 +260,6 @@ void ADC_AppTask(void)
 {
     uint32_t r_event;
     BaseType_t xReturn = pdTRUE;
-	arm_rfft_instance_q31 instance;
-	LPC55S69_AdcInit();
-	TMP101_Init();
 #if 0
     /*以下代码打开宏后,会打开ADC电源,一直采集ADS1271数据*/
 	ADC_MODE_LOW_POWER;
@@ -285,9 +286,13 @@ void ADC_AppTask(void)
 #endif
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
-	if(g_sys_flash_para.SelfRegisterFlag == 0xAA){//设备已经自注册成功,开机进行一次采样
-        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
-    }
+    
+    LPC55S69_AdcInit();
+
+	TMP101_Init();
+	
+    xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
+    
     while(1)
     {
         /*等待ADC完成采样事件*/

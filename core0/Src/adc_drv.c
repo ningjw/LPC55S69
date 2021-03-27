@@ -101,7 +101,7 @@ void LPC55S69_AdcInit(void)
     LPADC_GetDefaultConvCommandConfig(&mLpadcCommandConfigStruct);
     mLpadcCommandConfigStruct.channelNumber = DEMO_LPADC_USER_CHANNEL;
     LPADC_SetConvCommandConfig(ADC0, DEMO_LPADC_USER_CMDID, &mLpadcCommandConfigStruct);
-
+    
     /* Set trigger configuration. */
     LPADC_GetDefaultConvTriggerConfig(&mLpadcTriggerConfigStruct);
     mLpadcTriggerConfigStruct.targetCommandId       = DEMO_LPADC_USER_CMDID;
@@ -109,12 +109,16 @@ void LPC55S69_AdcInit(void)
     LPADC_SetConvTriggerConfig(ADC0, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
 }
 
-void LPC55S69_AdcGet(void)
+void LPC55S69_BatAdcUpdate(void)
 {
+    uint8_t retry = 0;
 	LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U is trigger0 mask. */
 	
 	while (!LPADC_GetConvResult(ADC0, &mLpadcResult, 0U)) {
-		return;
+        if(retry++ > 10){
+            return;
+        }
+		vTaskDelay(1);
 	}
 	g_sys_para.batVoltage = (67793.0 - 3.5028 * mLpadcResult.convValue) / 10000.0;
 	//根据电压计算电池容量

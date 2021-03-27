@@ -1283,7 +1283,7 @@ uint32_t PacketBatteryInfo(uint8_t *txBuf)
     if(NULL == pJsonRoot) {
         return len;
     }
-	LPC55S69_AdcGet();
+    LPC55S69_BatAdcUpdate();
     cJSON_AddNumberToObject(pJsonRoot, "Id", 23);
     cJSON_AddNumberToObject(pJsonRoot, "BatC", g_sys_para.batRemainPercent);
     cJSON_AddNumberToObject(pJsonRoot, "BatV", g_sys_para.batVoltage);
@@ -1293,6 +1293,7 @@ uint32_t PacketBatteryInfo(uint8_t *txBuf)
     cJSON_AddNumberToObject(pJsonRoot, "H", sysTime.hour);
     cJSON_AddNumberToObject(pJsonRoot, "Min", sysTime.minute);
     cJSON_AddNumberToObject(pJsonRoot, "S", sysTime.second);
+    cJSON_AddStringToObject(pJsonRoot, "CSQ", g_sys_para.CSQ);
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     strcpy((char *)txBuf,p_reply);
     cJSON_Delete(pJsonRoot);
