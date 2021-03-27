@@ -53,6 +53,7 @@
 #include "md5.h"
 
 #define VERSION_CONTROL 3
+#define USE_ONENET
 
 #if VERSION_CONTROL == 1
 #define BLE_VERSION
@@ -61,7 +62,6 @@
 #elif VERSION_CONTROL == 3
 #define CAT1_VERSION
 #endif
-
 
 #define EVT_UART_OK        (1<<0) //串口接受'}'等特殊字符,判断为接受到一包完整的json数据,发送该事件
 #define EVT_UART_TIMTOUT   (1<<1) //串口接受超时, 用于判断是否接受到一个帧数据,发送事件通知线程
@@ -81,7 +81,7 @@
 #define ACCESS_KEY         "QNbnj7mS4aOTcNHnQCAEPO/2Chv9yNZOqhghd1fYRkw="
 #define AUTHORIZATION      "version=2018-10-31&res=products%2F388752&et=1929767259&method=sha1&sign=FdGIbibDkBdX6kN2MyPzkehd7iE\%3D"
 
-#define CAT1_WAIT_TICK      10000
+
 #define PAGE_SIZE 0x200
 #define FLEXCOMM_BUFF_LEN 1024
 
@@ -275,7 +275,7 @@ typedef struct{
 	uint32_t spdCount;   //转速信号采集到的个数.
 
     uint8_t  sampleReason;//采集方式
-    uint32_t sampleInterval;//cat1版本采样周期
+    uint32_t sampleInterval;//cat1版本采样周期,单位分钟
     uint32_t sampNumber;  //取样时间
     uint32_t Ltc1063Clk;  //取样时钟频率
 	float    shkRMS;      //震动信号的时域总值

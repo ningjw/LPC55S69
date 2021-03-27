@@ -33,7 +33,7 @@ void FLEXCOMM2_SendStr(const char *str)
         p_at_cfg：AT配置
 * 输出：执行结果代码
 ******************************************************************/
-uint8_t CAT1_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
+bool CAT1_SendCmd(const char *cmd, const char *recv_str, uint16_t time_out)
 {
     uint8_t try_cnt = 0;
     if(strlen(cmd) == 0){
@@ -43,7 +43,7 @@ nb_retry:
     g_Cat1RxCnt = 0;
 	memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
     FLEXCOMM2_SendStr(cmd);//发送AT指令
-
+    
     /*wait resp_time*/
     xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, time_out);
 
@@ -87,22 +87,42 @@ void CAT1_EnterATMode(void)
 	}
 }
 
-
-
-/* CAT1-IoT 从OneNet服务器上检测是否有新的固件可更新 */
-void CAT1_CheckVersion(void)
+bool CAT1_CheckServerIp(char *serverIp, uint16_t port)
 {
-    uint8_t haveNewVersion = false;
-	uint32_t one_packet_len = 512;
-	BaseType_t xReturn = pdFALSE;
-	PWR_CAT1_OFF;
-	vTaskDelay(100);
-    PWR_CAT1_ON;//开机
-	//wait "WH-GM5"
-	xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
-	if(xReturn == pdFALSE)return;
-	CAT1_EnterATMode();
-    
+    if(CAT1_SendCmd("AT+SOCKA?\r\n", serverIp, 300) == false)
+    {
+        char cmd[50] = {0};
+        
+        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        
+        snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n",serverIp,port);
+        CAT1_SendCmd(cmd ,"OK", 1000);
+        
+        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
+        if(xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK) == false){
+            return false;
+        }
+        
+        CAT1_EnterATMode();
+    }
+    return true;
+}
+
+bool CAT1_CheckConnected(void)
+{
+    uint8_t retry = 0;
+    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
+        if(retry++ > 5){
+            return false;
+        }
+        vTaskDelay(1000);
+    }
+    return true;
+}
+
+void CAT1_SyncDateTime(void)
+{
     //从ntp服务器同步时间****************************************************************
     CAT1_SendCmd("AT+NTPEN=ON\r\n" ,"OK", 200);
     CAT1_SendCmd("AT+CCLK\r\n" ,"OK", CAT1_WAIT_TICK);
@@ -129,24 +149,41 @@ void CAT1_CheckVersion(void)
         /*设置日期和时间*/
         RTC_SetDatetime(RTC, &sysTime);
     }
-    
-	//配置SOCKA****************************************************************
-	FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.50") == NULL)
-    {
-        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-        CAT1_EnterATMode();
-    }
+}
 
-    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
-        vTaskDelay(1000);
+bool CAT1_PowerOn(void)
+{
+    PWR_CAT1_OFF;
+	vTaskDelay(100);
+    PWR_CAT1_ON;//开机
+	//wait "WH-GM5"
+	if(xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK) == false){
+        return false;
     }
-    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+    return true;
+}
+
+
+/* CAT1-IoT 从OneNet服务器上检测是否有新的固件可更新 */
+bool CAT1_CheckVersion(void)
+{
+    uint8_t haveNewVersion = false;
+	uint32_t one_packet_len = 512;
+	BaseType_t xReturn = pdFALSE;
+    uint8_t retry = 0;
+
+	CAT1_EnterATMode();
+    
+    if(CAT1_CheckServerIp(UPGRADE_SERVER_IP,80) == false){
+        return false;
+    }
+    
+    if(CAT1_CheckConnected() == false){
+        return false;
+    }
+    
+    //进入透传模式
+    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
 
     //上报升级状态****************************************************************
     if(g_sys_flash_para.firmCore0Update == REPORT_VERSION){
@@ -165,11 +202,14 @@ void CAT1_CheckVersion(void)
             g_sys_flash_para.device_id,AUTHORIZATION);
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+        if(xReturn == false){
+            return false;
+        }
         char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
         if(json_string && xReturn == pdTRUE){
             cJSON *pJson = cJSON_Parse(json_string);
             if(NULL == pJson) {
-                return;
+                return false;
             }
             cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
             if(pSub->valueint == 0){//版本上报升级状态成功
@@ -193,7 +233,9 @@ void CAT1_CheckVersion(void)
     
     FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
     xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
-    
+    if(xReturn == false){
+        return false;
+    }
     //检测升级任务****************************************************************
     g_Cat1RxCnt = 0;
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -205,13 +247,16 @@ void CAT1_CheckVersion(void)
               g_sys_flash_para.device_id,AUTHORIZATION);
     
     FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+    xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+    if(xReturn == false){
+        return false;
+    }
     char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
     g_sys_flash_para.firmCore0Size = 0;
     if(json_string){
         cJSON *pJson = cJSON_Parse(json_string);
         if(NULL == pJson) {
-            return;
+            return false;
         }
         cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
         if(pSub->valueint == 0){
@@ -268,11 +313,18 @@ GET_NEXT:
 		           g_sys_flash_para.firmPacksCount*one_packet_len, 
 		          (g_sys_flash_para.firmPacksCount+1)*one_packet_len-1);
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+        
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
+        if(xReturn == false){
+            if(retry++ > 3){
+                return false;
+            }
+            goto GET_NEXT;
+        }
         
         char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
-        if(data_ptr != NULL){//模块重启了,重新获取
-            goto GET_NEXT;
+        if(data_ptr != NULL){//模块重启了,一般是电量低的情况导致
+            return false;
         }
 		
         //查找第一次出现0xD 0xA 0xD 0xA的位置
@@ -318,23 +370,29 @@ GET_NEXT:
 				g_sys_flash_para.firmCore0Update = BOOT_NEW_VERSION;
 				Flash_SavePara();
 				NVIC_SystemReset();
-			}
+			}else
+            {
+                return false;
+            }
 		}
     }
-    PWR_CAT1_OFF;
+    return true;
 }
 
 /* CAT1-IoT 模块初始化 */
-void CAT1_SelfRegister()
+bool CAT1_SelfRegister()
 {
+    BaseType_t xReturn = pdTRUE;
+    uint8_t retry = 0;
+    if(g_sys_flash_para.SelfRegisterFlag == 0xAA){
+        //系统以及自注册成功,直接返回true
+        return true;
+    }
 	if(g_sys_flash_para.SelfRegisterFlag != 0xAA || strlen(g_sys_flash_para.SN) ==0 )
 	{
-		PWR_CAT1_OFF;
-		vTaskDelay(100);
-		PWR_CAT1_ON;
-		//wait "WH-GM5"
-		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-
+        if(CAT1_PowerOn() == false){
+            return false;
+        }
 		CAT1_EnterATMode();
 		
 		CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
@@ -347,13 +405,14 @@ void CAT1_SelfRegister()
         CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
         CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
         CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
-		CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.33,80\r\n" ,"OK", 1000);
-
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-		xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-        CAT1_EnterATMode();
+		
+        CAT1_CheckServerIp(REGISTER_SERVER_IP, REGISTER_SERVER_PORT);
         
+        if(CAT1_CheckConnected() == false){
+            return false;
+        }
+        
+        //产品序列号
         FLEXCOMM2_SendStr("AT+SN?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         char *s = strstr((char *)g_Cat1RxBuffer,"+SN:");
@@ -362,6 +421,7 @@ void CAT1_SelfRegister()
             strncpy(g_sys_flash_para.SN, s+4, sizeof(g_sys_flash_para.SN));
         }
         
+        //国际移动设备识别码
         FLEXCOMM2_SendStr("AT+IMEI?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         s = strstr((char *)g_Cat1RxBuffer,"+IMEI:");
@@ -370,6 +430,7 @@ void CAT1_SelfRegister()
             strncpy(g_sys_flash_para.IMEI, s+6, sizeof(g_sys_flash_para.IMEI));
         }
         
+        //SIM卡的唯一识别号码
         FLEXCOMM2_SendStr("AT+ICCID?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         s = strstr((char *)g_Cat1RxBuffer,"+ICCID:");
@@ -378,11 +439,15 @@ void CAT1_SelfRegister()
             strncpy(g_sys_flash_para.ICCID, s+7, sizeof(g_sys_flash_para.ICCID));
         }
         while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){
+            retry++;
+            if(retry > CAT1_RETRY_TIMES){
+                return false;
+            }
             vTaskDelay(1000);
         }
         CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
         
-        //自注册设备
+        //使用模块的SN号在OneNet平台自注册
         g_Cat1RxCnt = 0;
         memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
         memset(g_Cat1TxBuffer, 0, sizeof(g_Cat1TxBuffer));
@@ -393,13 +458,14 @@ void CAT1_SelfRegister()
                           "User-Agent: Fiddler\r\n"
                           "Host: api.heclouds.com\r\n"
                           "Content-Length:%d\r\n\r\n%s",strlen(jsonData),jsonData);
+        
         FLEXCOMM2_SendStr((char *)g_Cat1TxBuffer);
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
+        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
         char *json_string = strstr((char *)g_Cat1RxBuffer,"{");
         if(json_string){
             cJSON *pJson = cJSON_Parse(json_string);
             if(NULL == pJson) {
-                return;
+                return false;
             }
             // get string from json
             cJSON * pSub = cJSON_GetObjectItem(pJson, "errno");
@@ -416,64 +482,63 @@ void CAT1_SelfRegister()
                     memset(g_sys_flash_para.key, 0, sizeof(g_sys_flash_para.key));
                     strcpy(g_sys_flash_para.key,item->valuestring);
                 }
+            }else{
+                return false;
             }
             cJSON_Delete(pJson);
         }
         //注册设备成功, 将设备id保存到flash
         g_sys_flash_para.SelfRegisterFlag = 0xAA;
 		Flash_SavePara();
-
-        CAT1_EnterATMode();
         
+        CAT1_EnterATMode();
         CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.50,80\r\n" ,"OK", 1000);
+        char cmd[50] = {0};
+        snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
+        CAT1_SendCmd(cmd ,"OK", 1000);
         CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        vTaskDelay(500);
         PWR_CAT1_OFF;
 	}
+    return true;
 }
 
 
 /* 将数据通过CAT1模块上传到OneNet*/
-void CAT1_UploadSampleData(void)
+bool CAT1_UploadSampleData(void)
 {
     uint8_t xReturn = pdFALSE;
     uint32_t sid = 0;
     uint32_t len = 0;
     uint8_t  retry = 0;
 
-	PWR_CAT1_OFF;
-	vTaskDelay(100);
-    PWR_CAT1_ON;//开机
-	//wait "WH-GM5"
-	xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
+    if(CAT1_PowerOn() == false){
+        return false;
+    }
 	
 	CAT1_EnterATMode();
     
-	//配置SOCKA,上传采样数据******************************************
+    if(CAT1_CheckServerIp("183.230.40.40", 1811) == false){
+        return false;
+    }
     
-    FLEXCOMM2_SendStr("AT+SOCKA?\r\n");
-    xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
-    if(strstr((char *)g_Cat1RxBuffer,"183.230.40.40") == NULL)
-    {
-        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKA=TCP,183.230.40.40,1811\r\n" ,"OK", 1000);
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        //AT+S会重启模块,在此处等待模块发送"WH-GM5"
-        xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-        CAT1_EnterATMode();
+    CAT1_SyncDateTime();
+    
+    if(CAT1_CheckConnected() == false){
+        return false;
     }
-    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
-        vTaskDelay(1000);
-    }
-    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
+    
+    //进入透传模式
+    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
 	
     //登录OneNet系统
 	char login[32] = {0};
 	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
-	CAT1_SendCmd(login, "OK", 3000);
-
+	if(CAT1_SendCmd(login, "OK", 3000) == false){
+        return false;
+    }
+    //发送采样数据包
 NEXT_SID:
-    
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     len = PacketUploadSampleData(g_commTxBuf, sid);
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
@@ -488,12 +553,17 @@ NEXT_SID:
         goto NEXT_SID;
     }
 	
-    //采样数据包发送完成后,还需要发送当前状态到服务器
+    //发送当前状态到服务器
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     PacketBatteryInfo(g_commTxBuf);
     CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-    PWR_CAT1_OFF;//关机
-    xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
+    
+    CAT1_CheckVersion();
+    
+    /* 关机*/
+    PWR_CAT1_OFF;
+    
+    return true;
 }
 
 
@@ -501,7 +571,10 @@ NEXT_SID:
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
-    CAT1_SelfRegister();
+    if(CAT1_SelfRegister() == false){
+         PWR_CAT1_OFF;
+        //自注册失败,系统指示灯亮红灯
+    }
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
 	while(1)
 	{
@@ -511,8 +584,9 @@ void CAT1_AppTask(void)
 		{
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
-                CAT1_CheckVersion();
                 CAT1_UploadSampleData();
+                CAT1_CheckVersion();
+                xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
             }
 		}
 		//清空接受到的数据

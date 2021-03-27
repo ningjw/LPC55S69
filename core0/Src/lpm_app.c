@@ -25,7 +25,6 @@ static void BOARD_BootClockFRO12M(void)
 
 static void BOARD_BootClockFROHF96M(void)
 {
-#ifndef SDK_SECONDARY_CORE
     /*!< Set up the clock sources */
     /*!< Configure FRO192M */
     POWER_DisablePD(kPDRUNCFG_PD_FRO192M); /*!< Ensure FRO is on  */
@@ -46,7 +45,6 @@ static void BOARD_BootClockFROHF96M(void)
 
     /*< Set SystemCoreClock variable. */
     SystemCoreClock = 96000000U;
-#endif
 }
 
 
@@ -81,6 +79,7 @@ static void BOARD_InitPinsOnSleep(void)
 	}
 }
 
+
 void SystemSleep(void)
 {
 	DEBUG_PRINTF("enter deep sleep\n");
@@ -97,7 +96,7 @@ void SystemSleep(void)
     EnableIRQ(RTC_IRQn);
 	
 	/* Set alarm time in seconds */
-    RTC->MATCH = RTC->COUNT + 10;
+    RTC->MATCH = RTC->COUNT + g_sample_para.sampleInterval * 60;
 	
 	/* Get alarm time */
 	rtc_datetime_t alarmDate;
@@ -107,22 +106,23 @@ void SystemSleep(void)
 	            alarmDate.hour,alarmDate.minute,alarmDate.second);
 	
 	BOARD_InitPinsOnSleep();
-	BOARD_BootClockFRO12M();
+	BOARD_BootClockFRO12M();//深度睡眠模式下,系统时钟需要切换为内部的12M时钟, 否则无法唤醒
 #ifdef CAT1_VERSION
-	//配置模块通过RTC
-	POWER_EnterDeepSleep(( kPDRUNCFG_PD_FRO32K ), 0, WAKEUP_CTIMER3, 0x1U);
-//	POWER_EnterDeepSleep(( kPDRUNCFG_PD_FRO32K ), 0, WAKEUP_RTC_LITE_ALARM_WAKEUP, 0x1U);
+	//配置模块通过RTC唤醒
+	POWER_EnterDeepSleep(( kPDRUNCFG_PD_FRO32K ), 0, WAKEUP_RTC_LITE_ALARM_WAKEUP, 0x1U);
 #else
 	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
 #endif
 	BOARD_BootClockFROHF96M();
 	BOARD_InitPins();
 	DEBUG_PRINTF("exit deep sleep\n");
+    //系统唤醒后需要进行一次采样
+    xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
 }
+
 
 void RTC_IRQHandler(void)
 {
-	RTC_ClearStatusFlags(RTC,RTC_CTRL_ALARM1HZ_MASK);
+	RTC_ClearStatusFlags(RTC, RTC_CTRL_ALARM1HZ_MASK);
 	DEBUG_PRINTF("RTC_IRQHandler\n");
-	
 }

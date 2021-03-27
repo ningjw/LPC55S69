@@ -260,7 +260,7 @@ void ADC_AppTask(void)
 	LPC55S69_AdcInit();
 	TMP101_Init();
 #if 0
-	/*以下为开机自检代码*/
+    /*以下代码打开宏后,会打开ADC电源,一直采集ADS1271数据*/
 	ADC_MODE_LOW_POWER;
 	PWR_5V_ON;
 	PWR_3V3A_ON;
@@ -286,10 +286,8 @@ void ADC_AppTask(void)
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
 	if(g_sys_flash_para.SelfRegisterFlag == 0xAA){//设备已经自注册成功,开机进行一次采样
-//      xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
+        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
     }
-	vTaskDelay(5000);
-	xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
     while(1)
     {
         /*等待ADC完成采样事件*/

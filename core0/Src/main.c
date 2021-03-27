@@ -1,65 +1,12 @@
 #include "main.h"
 #include "fsl_device_registers.h"
 
-#define EXCLUDE_PD (kPDRUNCFG_PD_DCDC | kPDRUNCFG_PD_FRO192M | kPDRUNCFG_PD_FRO1M)
-
 SysPara        g_sys_para;
 SysFlashPara   g_sys_flash_para;
 SysSamplePara  g_sample_para;
 rtc_datetime_t sysTime;
 flash_config_t flashInstance;
 uint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区
-
-void BOARD_InitPinsInput(void);
-static void InitSysPara();
-uint32_t version;
-void main(void)
-{
-	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
-	
-	BOARD_BootClockRUN();
-	BOARD_InitPins();
-	BOARD_InitPeripherals();
-	memory_init();
-	SPI_Flash_Init();
-	InitSysPara();
-	DEBUG_PRINTF("app start, version = %s\n",SOFT_VERSION);
-	RTC_GetDatetime(RTC, &sysTime);
-	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
-				sysTime.year,sysTime.month,sysTime.day,
-				sysTime.hour,sysTime.minute,sysTime.second);
-    
-	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",512,NULL, 1,&LED_TaskHandle);
-    
-	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
-	
-	
-	
-#ifdef CAT1_VERSION
-	/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",1536,NULL, 3,&CAT1_TaskHandle);
-
-    /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-//    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
-#endif
- 
-#if defined(BLE_VERSION) || defined(WIFI_VERSION)
-	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
-	
-    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
-	
-	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
-#endif
-	
-    vTaskStartScheduler();   /* 启动任务，开启调度 */
-    while(1);
-}
-
 
 /***************************************************************************************
   * @brief   初始化系统变量
@@ -109,6 +56,50 @@ static void InitSysPara()
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
 }
 
+void main(void)
+{
+	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+	
+	BOARD_BootClockRUN();
+	BOARD_InitPins();
+	BOARD_InitPeripherals();
+	memory_init();
+	SPI_Flash_Init();
+	InitSysPara();
+	DEBUG_PRINTF("app start, version = %s\n",SOFT_VERSION);
+	RTC_GetDatetime(RTC, &sysTime);
+	DEBUG_PRINTF("%d-%02d-%02d %02d:%02d:%02d\r\n",
+				sysTime.year,sysTime.month,sysTime.day,
+				sysTime.hour,sysTime.minute,sysTime.second);
+    
+	/* 创建LED_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )LED_AppTask,"LED_Task",512,NULL, 1,&LED_TaskHandle);
+    
+	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
+	
+#ifdef CAT1_VERSION
+	/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )CAT1_AppTask,"CAT1_Task",1536,NULL, 3,&CAT1_TaskHandle);
+
+    /* 创建NFC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+//    xTaskCreate((TaskFunction_t )NFC_AppTask,"NFC_Task",512,NULL, 3,&NFC_TaskHandle);
+#endif
+ 
+#if defined(BLE_VERSION) || defined(WIFI_VERSION)
+	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
+	
+    /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
+	
+	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )CORE1_AppTask, "CORE1_Task",512, NULL, 4,&CORE1_TaskHandle);
+#endif
+	
+    vTaskStartScheduler();   /* 启动任务，开启调度 */
+    while(1);
+}
 
 
 #ifndef CAT1_VERSION
