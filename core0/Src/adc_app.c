@@ -88,7 +88,7 @@ static float GetRMS(float data[],int len, int windowType)
 void ADC_SampleStart(uint8_t reason)
 {
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
-				g_sys_para.sampNumber,g_sample_para.SampleRate);
+				g_sample_para.sampNumber,g_sample_para.SampleRate);
     
 	g_sample_para.sampleReason = reason;
 	g_sys_para.tempCount = 0;
@@ -257,6 +257,8 @@ void ADC_AppTask(void)
     uint32_t r_event;
     BaseType_t xReturn = pdTRUE;
 	arm_rfft_instance_q31 instance;
+	LPC55S69_AdcInit();
+	TMP101_Init();
 #if 0
 	/*以下为开机自检代码*/
 	ADC_MODE_LOW_POWER;
@@ -284,8 +286,10 @@ void ADC_AppTask(void)
 	
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
 	if(g_sys_flash_para.SelfRegisterFlag == 0xAA){//设备已经自注册成功,开机进行一次采样
-//        xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
+//      xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
     }
+	vTaskDelay(5000);
+	xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
     while(1)
     {
         /*等待ADC完成采样事件*/

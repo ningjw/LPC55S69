@@ -467,9 +467,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>gpio_input.c</FileName>
+              <FileName>lpm_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\gpio_input.c</FilePath>
+              <FilePath>.\Src\lpm_app.c</FilePath>
             </File>
           </Files>
         </Group>

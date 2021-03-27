@@ -197,66 +197,6 @@ static void CTIMER2_init(void) {
 }
 
 /***********************************************************************************************************************
- * CTIMER3 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'CTIMER3'
-- type: 'ctimer'
-- mode: 'Capture_Match'
-- custom_name_enabled: 'false'
-- type_id: 'ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'CTIMER3'
-- config_sets:
-  - fsl_ctimer:
-    - ctimerConfig:
-      - mode: 'kCTIMER_TimerMode'
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-      - timerPrescaler: '96000000'
-    - EnableTimerInInit: 'false'
-    - matchChannels:
-      - 0:
-        - matchChannelPrefixId: 'Match0'
-        - matchChannel: 'kCTIMER_Match_0'
-        - matchValueStr: '1'
-        - enableCounterReset: 'true'
-        - enableCounterStop: 'false'
-        - outControl: 'kCTIMER_Output_NoAction'
-        - outPinInitValue: 'low'
-        - enableInterrupt: 'true'
-    - interruptCallbackConfig:
-      - interrupt:
-        - IRQn: 'CTIMER3_IRQn'
-        - enable_priority: 'false'
-        - priority: '0'
-      - callback: 'kCTIMER_NoCallback'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-const ctimer_config_t CTIMER3_config = {
-  .mode = kCTIMER_TimerMode,
-  .input = kCTIMER_Capture_0,
-  .prescale = 95999999
-};
-const ctimer_match_config_t CTIMER3_Match0_config = {
-  .matchValue = 1,
-  .enableCounterReset = true,
-  .enableCounterStop = false,
-  .outControl = kCTIMER_Output_NoAction,
-  .outPinInitState = false,
-  .enableInterrupt = true
-};
-
-static void CTIMER3_init(void) {
-  /* CTIMER3 peripheral initialization */
-  CTIMER_Init(CTIMER3_PERIPHERAL, &CTIMER3_config);
-  /* Match channel 0 of CTIMER3 peripheral initialization */
-  CTIMER_SetupMatch(CTIMER3_PERIPHERAL, CTIMER3_MATCH0_CHANNEL, &CTIMER3_Match0_config);
-}
-
-/***********************************************************************************************************************
  * FLEXCOMM0 initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -400,9 +340,9 @@ instance:
 - peripheral: 'FLEXCOMM5'
 - config_sets:
   - interruptsCfg:
-    - interrupts: 'kUSART_RxErrorInterruptEnable kUSART_RxLevelInterruptEnable'
+    - interrupts: ''
     - interrupt_vectors:
-      - enable_rx_tx_irq: 'true'
+      - enable_rx_tx_irq: 'false'
       - interrupt_rx_tx:
         - IRQn: 'FLEXCOMM5_IRQn'
         - enable_interrrupt: 'enabled'
@@ -421,7 +361,7 @@ instance:
       - loopback: 'false'
       - txWatermark: 'kUSART_TxFifo0'
       - rxWatermark: 'kUSART_RxFifo1'
-      - enableRx: 'true'
+      - enableRx: 'false'
       - enableTx: 'true'
       - clockPolarity: 'kUSART_RxSampleOnFallingEdge'
       - enableContinuousSCLK: 'false'
@@ -436,7 +376,7 @@ const usart_config_t FLEXCOMM5_config = {
   .loopback = false,
   .txWatermark = kUSART_TxFifo0,
   .rxWatermark = kUSART_RxFifo1,
-  .enableRx = true,
+  .enableRx = false,
   .enableTx = true,
   .clockPolarity = kUSART_RxSampleOnFallingEdge,
   .enableContinuousSCLK = false
@@ -446,9 +386,7 @@ static void FLEXCOMM5_init(void) {
   /* Reset FLEXCOMM device */
   RESET_PeripheralReset(kFC5_RST_SHIFT_RSTn);
   USART_Init(FLEXCOMM5_PERIPHERAL, &FLEXCOMM5_config, FLEXCOMM5_CLOCK_SOURCE);
-  USART_EnableInterrupts(FLEXCOMM5_PERIPHERAL, kUSART_RxErrorInterruptEnable | kUSART_RxLevelInterruptEnable);
-  /* Enable interrupt FLEXCOMM5_IRQn request in the NVIC. */
-  EnableIRQ(FLEXCOMM5_FLEXCOMM_IRQN);
+  USART_EnableInterrupts(FLEXCOMM5_PERIPHERAL, 0);
 }
 
 /***********************************************************************************************************************
@@ -556,44 +494,6 @@ static void RTC_init(void) {
 }
 
 /***********************************************************************************************************************
- * UTICK0 initialization code
- **********************************************************************************************************************/
-/* clang-format off */
-/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-instance:
-- name: 'UTICK0'
-- type: 'utick'
-- mode: 'general_config'
-- custom_name_enabled: 'false'
-- type_id: 'utick_58a3a3f691b03a130cd9419552f8327d'
-- functional_group: 'BOARD_InitPeripherals'
-- peripheral: 'UTICK0'
-- config_sets:
-  - fsl_utick:
-    - clockSettingUTICK:
-      - clockSource: 'FunctionClock'
-      - clockSourceFreq: 'BOARD_BootClockRUN'
-    - timerSettingUTICK:
-      - utick_mode_t: 'kUTICK_Repeat'
-      - startTimer: 'true'
-      - timerValueStr: '10000000'
-      - callbackEnable: 'true'
-      - utick_callback_t: 'UTICK0_Callback'
-    - interrupt:
-      - IRQn: 'UTICK0_IRQn'
-      - enable_priority: 'false'
-      - priority: '0'
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
-/* clang-format on */
-
-static void UTICK0_init(void) {
-  /* UTICK0 peripheral initialization */
-  UTICK_Init(UTICK0_PERIPHERAL);
-  /* Configuration of UTICK0 peripheral initialization */
-  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, UTICK0_Callback);
-}
-
-/***********************************************************************************************************************
  * NVIC initialization code
  **********************************************************************************************************************/
 /* clang-format off */
@@ -612,8 +512,6 @@ instance:
       - 0: []
       - 1: []
       - 2: []
-      - 3: []
-      - 4: []
     - interrupts: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
@@ -621,6 +519,43 @@ instance:
 /* Empty initialization function (commented out)
 static void NVIC_init(void) {
 } */
+
+/***********************************************************************************************************************
+ * UTICK0 initialization code
+ **********************************************************************************************************************/
+/* clang-format off */
+/* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+instance:
+- name: 'UTICK0'
+- type: 'utick'
+- mode: 'general_config'
+- custom_name_enabled: 'false'
+- type_id: 'utick_58a3a3f691b03a130cd9419552f8327d'
+- functional_group: 'BOARD_InitPeripherals'
+- peripheral: 'UTICK0'
+- config_sets:
+  - fsl_utick:
+    - clockSettingUTICK:
+      - clockSource: 'FunctionClock'
+      - clockSourceFreq: 'BOARD_BootClockRUN'
+    - timerSettingUTICK:
+      - utick_mode_t: 'kUTICK_Onetime'
+      - startTimer: 'true'
+      - timerValueStr: '1000000'
+      - callbackEnable: 'false'
+    - interrupt:
+      - IRQn: 'UTICK0_IRQn'
+      - enable_priority: 'false'
+      - priority: '0'
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
+/* clang-format on */
+
+static void UTICK0_init(void) {
+  /* UTICK0 peripheral initialization */
+  UTICK_Init(UTICK0_PERIPHERAL);
+  /* Configuration of UTICK0 peripheral initialization */
+  UTICK_SetTick(UTICK0_PERIPHERAL, UTICK0_MODE, UTICK0_TICKS, NULL);
+}
 
 /***********************************************************************************************************************
  * Initialization functions
@@ -634,7 +569,6 @@ void BOARD_InitPeripherals(void)
   DMA0_init();
   CTIMER0_init();
   CTIMER2_init();
-  CTIMER3_init();
   FLEXCOMM0_init();
   FLEXCOMM2_init();
   FLEXCOMM5_init();

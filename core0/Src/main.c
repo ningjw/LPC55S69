@@ -10,17 +10,16 @@ rtc_datetime_t sysTime;
 flash_config_t flashInstance;
 uint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区
 
+void BOARD_InitPinsInput(void);
 static void InitSysPara();
-
+uint32_t version;
 void main(void)
 {
 	BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
-	ctimer_config_t config;
 	
 	BOARD_BootClockRUN();
 	BOARD_InitPins();
 	BOARD_InitPeripherals();
-	
 	memory_init();
 	SPI_Flash_Init();
 	InitSysPara();
@@ -36,8 +35,7 @@ void main(void)
 	/* 创建ADC_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )ADC_AppTask, "ADC_Task",1024,NULL, 4,&ADC_TaskHandle);
 	
-	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
-    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
+	
 	
 #ifdef CAT1_VERSION
 	/* 创建CAT1_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
@@ -48,6 +46,9 @@ void main(void)
 #endif
  
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
+	/* 创建Battery_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
+    xTaskCreate((TaskFunction_t )BAT_AppTask,"BAT_Task",512,NULL, 2,&BAT_TaskHandle);
+	
     /* 创建BLE_Task任务 参数依次为：入口函数、名字、栈大小、函数参数、优先级、控制块 */ 
     xTaskCreate((TaskFunction_t )BLE_WIFI_AppTask,"BLE_WIFI_Task",1024,NULL, 3,&BLE_WIFI_TaskHandle);
 	
@@ -108,51 +109,7 @@ static void InitSysPara()
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
 }
 
-void SystemSleep(void)
-{
-	DEBUG_PRINTF("enter deep sleep\n");
-	PWR_3V3A_OFF;//关闭ADC采集相关的电源
-	PWR_5V_OFF;
-	PWR_CAT1_OFF;
-    GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT,  BOARD_LED_SYS_GREEN_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_ADC_FORMAT_PORT,  BOARD_ADC_FORMAT_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_ADC_SYNC_PORT,  BOARD_ADC_SYNC_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_ADC_MODE_PORT,  BOARD_ADC_MODE_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_PWR_SDA_PORT,  BOARD_PWR_SDA_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_TMP_SCL_PORT,  BOARD_TMP_SCL_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_TMP_SDA_PORT,  BOARD_TMP_SDA_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_MOSI_PORT,  BOARD_FLASH_MOSI_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_SCK_PORT,  BOARD_FLASH_SCK_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_WP_PORT,  BOARD_FLASH_WP_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_ADC_SPI_SCK_PORT,  BOARD_ADC_SPI_SCK_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_FLASH_CS_PORT,  BOARD_FLASH_CS_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_FLT_CLK_PORT,  BOARD_FLT_CLK_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_ADC_CLK_PORT,  BOARD_ADC_CLK_PIN, 0);
-    GPIO_PinWrite(GPIO, BOARD_NFC_RSTPD_PORT,  BOARD_NFC_RSTPD_PIN, 0);
-	
-	GPIO_PinWrite(GPIO,0,18,0);//2:NB_reload: PIO0-18
-	GPIO_PinWrite(GPIO,0,19,0);//4:PIO0_19
-	GPIO_PinWrite(GPIO,1,28,0);//6:NB_RST: PIO1_28
-	GPIO_PinWrite(GPIO,1,15,0);//8:PIO1_15
-	GPIO_PinWrite(GPIO,1,19,0);//9:NB_EN: PIO1_19
-	GPIO_PinWrite(GPIO,0,27,0);//10:NB_RXD:PIO0_27
-	GPIO_PinWrite(GPIO,0,17,0);//11:PIO0_17
-	GPIO_PinWrite(GPIO,1,27,0);//12:PIO1_27
-	GPIO_PinWrite(GPIO,0,29,0);//13:NB_ST: PIO0_29
-	GPIO_PinWrite(GPIO,0,26,0);//14:NB_TXD: PIO0_26
-	GPIO_PinWrite(GPIO,0,2,0);//15:PIO0_2
-	GPIO_PinWrite(GPIO,1,26,0);//16:PIO1_26
-	void BOARD_InitPinsInput(void);
-	BOARD_InitPinsInput();
-#ifdef CAT1_VERSION
-	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_CTIMER3, 1);//配置模块通过定时器3唤醒
-#else
-	POWER_EnterDeepSleep(EXCLUDE_PD, 0x7FFF, WAKEUP_FLEXCOMM3, 1);
-#endif
-	DEBUG_PRINTF("exit deep sleep\n");
-	BOARD_InitPins();
-}
+
 
 #ifndef CAT1_VERSION
 /***************************************************************************************
@@ -209,7 +166,8 @@ void UTICK0_Callback(void)
 
 void CTIMER3_IRQHandler(void)
 {
-    
+    CTIMER_ClearStatusFlags(CTIMER3, CTIMER_IR_MR0INT_MASK);
+	DEBUG_PRINTF("CTIMER3_IRQHandler\n");
 }
 
 void delay_us(uint32_t nus)
@@ -232,7 +190,7 @@ void delay_us(uint32_t nus)
 	};
 }
 
-#ifndef CAT1_VERSION
+#ifdef CAT1_VERSION
 int fputc(int ch, FILE* stream)
 {
     while (0U == (FLEXCOMM5_PERIPHERAL->STAT & USART_STAT_TXIDLE_MASK)){}

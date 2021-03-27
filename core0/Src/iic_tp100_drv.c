@@ -182,8 +182,11 @@ float TMP101_ReadTemp(void)
 }
 
 void TMP101_Init(void) 
-{
-	/* 写Configuration Register  12位温度 连续转换*/
-	TMP101_WriteReg(0x01, 0xFF);//0xFE, 非shutdown模式
+{	
+	//bit0: Shutdown Mode (SD) - 1 enable
+	//bit1: Thermostat Mode (TM) - 1 Interrupt mode
+	//bit2:Polarity (POL) - 1 Active high , State low
+	/* 写Configuration Register */
+	TMP101_WriteReg(0x01, 0xFF);
 }
 

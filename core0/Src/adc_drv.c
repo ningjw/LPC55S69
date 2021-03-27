@@ -8,6 +8,14 @@
 volatile uint32_t g_pwmPeriod   = 0U;
 volatile uint32_t g_pulsePeriod = 0U;
 
+#define DEMO_LPADC_USER_CHANNEL 13U
+#define DEMO_LPADC_USER_CMDID   1U /* CMD1 */
+#define DEMO_LPADC_VREF_SOURCE  kLPADC_ReferenceVoltageAlt2
+
+TaskHandle_t BAT_TaskHandle = NULL;  /* 电池管理任务句柄 */
+uint8_t status = 0;
+lpadc_conv_result_t         mLpadcResult;
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -66,6 +74,57 @@ uint32_t ADS1271_ReadData(void)
 {
 	SPI_ADCMasterTransfer(FLEXCOMM0_PERIPHERAL, &xfer);
 	return ((spiRxBuff[0]<<16) | (spiRxBuff[1]<<8) | spiRxBuff[2]);
+}
+
+
+void LPC55S69_AdcInit(void)
+{
+	lpadc_config_t mLpadcConfigStruct;
+    lpadc_conv_trigger_config_t mLpadcTriggerConfigStruct;
+    lpadc_conv_command_config_t mLpadcCommandConfigStruct;
+
+	CLOCK_SetClkDiv(kCLOCK_DivAdcAsyncClk, 16U, true);
+    CLOCK_AttachClk(kMAIN_CLK_to_ADC_CLK);
+    /* Disable LDOGPADC power down */
+    POWER_DisablePD(kPDRUNCFG_PD_LDOGPADC);
+	
+	LPADC_GetDefaultConfig(&mLpadcConfigStruct);
+    mLpadcConfigStruct.enableAnalogPreliminary = true;
+	mLpadcConfigStruct.referenceVoltageSource = DEMO_LPADC_VREF_SOURCE;
+	mLpadcConfigStruct.conversionAverageMode = kLPADC_ConversionAverage128;
+	LPADC_Init(ADC0, &mLpadcConfigStruct);
+	
+	LPADC_SetOffsetValue(ADC0, 10, 10);
+	LPADC_DoAutoCalibration(ADC0);
+	
+	/* Set conversion CMD configuration. */
+    LPADC_GetDefaultConvCommandConfig(&mLpadcCommandConfigStruct);
+    mLpadcCommandConfigStruct.channelNumber = DEMO_LPADC_USER_CHANNEL;
+    LPADC_SetConvCommandConfig(ADC0, DEMO_LPADC_USER_CMDID, &mLpadcCommandConfigStruct);
+
+    /* Set trigger configuration. */
+    LPADC_GetDefaultConvTriggerConfig(&mLpadcTriggerConfigStruct);
+    mLpadcTriggerConfigStruct.targetCommandId       = DEMO_LPADC_USER_CMDID;
+    mLpadcTriggerConfigStruct.enableHardwareTrigger = false;
+    LPADC_SetConvTriggerConfig(ADC0, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
+}
+
+void LPC55S69_AdcGet(void)
+{
+	LPADC_DoSoftwareTrigger(ADC0, 1U); /* 1U is trigger0 mask. */
+	
+	while (!LPADC_GetConvResult(ADC0, &mLpadcResult, 0U)) {
+		return;
+	}
+	g_sys_para.batVoltage = (67793.0 - 3.5028 * mLpadcResult.convValue) / 10000.0;
+	//根据电压计算电池容量
+	if(g_sys_para.batVoltage >= 3.73f) { //(3.73 - 4.2)
+		g_sys_para.batRemainPercent = -308.19f * g_sys_para.batVoltage * g_sys_para.batVoltage + 2607.7f * g_sys_para.batVoltage - 5417.9f;
+	} else if(g_sys_para.batVoltage >= 3.68f) { //(3.68 - 3.73)
+		g_sys_para.batRemainPercent = -1666.7f * g_sys_para.batVoltage * g_sys_para.batVoltage + 12550 * g_sys_para.batVoltage - 23603;
+	} else { // (3.5 - 3.68)
+		g_sys_para.batRemainPercent = 55.556f * g_sys_para.batVoltage - 194.44f;
+	}
 }
 
 

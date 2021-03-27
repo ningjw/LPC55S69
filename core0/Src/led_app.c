@@ -22,7 +22,6 @@ void LED_AppTask(void)
 	extern void USB_AudioInit(void);
 	USB_AudioInit();
 #endif
-	TMP101_Init();
     while(1)
     {
 		RTC_GetDatetime(RTC, &sysTime);

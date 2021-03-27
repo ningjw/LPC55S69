@@ -79,7 +79,7 @@ static char* SetTime(cJSON *pJson, cJSON * pSub)
 
     /*设置日期和时间*/
     RTC_SetDatetime(RTC, &sysTime);
-
+	
     /*制作cjson格式的回复消息*/
     cJSON *pJsonRoot = cJSON_CreateObject();
     if(NULL == pJsonRoot) return NULL;
@@ -1283,6 +1283,7 @@ uint32_t PacketBatteryInfo(uint8_t *txBuf)
     if(NULL == pJsonRoot) {
         return len;
     }
+	LPC55S69_AdcGet();
     cJSON_AddNumberToObject(pJsonRoot, "Id", 23);
     cJSON_AddNumberToObject(pJsonRoot, "BatC", g_sys_para.batRemainPercent);
     cJSON_AddNumberToObject(pJsonRoot, "BatV", g_sys_para.batVoltage);
@@ -1446,7 +1447,7 @@ uint8_t*  ParseFirmPacket(uint8_t *pMsg)
         g_sys_flash_para.firmPacksCount = pMsg[2] | (pMsg[3]<<8);
 
         g_sys_flash_para.firmCurrentAddr = app_data_addr+g_sys_flash_para.firmPacksCount * FIRM_DATA_LEN_BLE_NFC;//
-        DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_para.firmCurrentAddr);
+        DEBUG_PRINTF("\nADDR = 0x%x\n",g_sys_flash_para.firmCurrentAddr);
         LPC55S69_FlashSaveData(pMsg+4, g_sys_flash_para.firmCurrentAddr, FIRM_DATA_LEN_BLE_NFC);
     }
 #elif defined(WIFI_VERSION)

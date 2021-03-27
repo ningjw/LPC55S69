@@ -404,12 +404,11 @@
                   <clock_output id="CTIMER0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER1_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="CTIMER2_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
-                  <clock_output id="CTIMER3_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM0_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM2_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM5_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
                   <clock_output id="FXCOM6_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
-                  <clock_output id="SYSTICK0_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SYSTICK0_clock.outFreq" value="96 MHz" locked="false" accuracy=""/>
                   <clock_output id="System_clock.outFreq" value="96 MHz" locked="true" accuracy="0.001"/>
                   <clock_output id="UTICK_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
                   <clock_output id="WDT_clock.outFreq" value="1 MHz" locked="false" accuracy=""/>
@@ -423,8 +422,7 @@
                   <setting id="SYSCON.ADCCLKDIV.scale" value="8" locked="true"/>
                   <setting id="SYSCON.CTIMERCLKSEL0.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
                   <setting id="SYSCON.CTIMERCLKSEL1.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="ANACTRL.fro_hf_clk" locked="false"/>
-                  <setting id="SYSCON.CTIMERCLKSEL3.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
+                  <setting id="SYSCON.CTIMERCLKSEL2.sel" value="SYSCON.MAINCLKSELB" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL0.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL2.sel" value="SYSCON.FROHFDIV" locked="false"/>
                   <setting id="SYSCON.FCCLKSEL5.sel" value="SYSCON.FROHFDIV" locked="false"/>
@@ -436,7 +434,7 @@
                   <setting id="SYSCON.PLL0DIV.scale" value="7" locked="false"/>
                   <setting id="SYSCON.PLL0M_MULT.scale" value="24" locked="true"/>
                   <setting id="SYSCON.PLL0N_DIV.scale" value="1" locked="true"/>
-                  <setting id="SYSCON.SYSTICKCLKSEL0.sel" value="SYSCON.fro_1m" locked="false"/>
+                  <setting id="SYSCON.SYSTICKCLKSEL0.sel" value="SYSCON.SYSTICKCLKDIV0" locked="false"/>
                   <setting id="SYSCON.USB0CLKDIV.scale" value="2" locked="true"/>
                   <setting id="SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_CFG" value="Enabled" locked="false"/>
                   <setting id="UTICK_EN_CFG" value="Enable" locked="false"/>
@@ -547,16 +545,6 @@
                         <data type="Boolean">true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="ClockOutput" resourceId="CTIMER3_clock" description="CTIMER3_clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="frequency" evaluation="greaterThan">
-                        <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="CTIMER3.ctimer_match.0" description="Match output of the match 0 channel of peripheral CTIMER3 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
-                     </feature>
-                  </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM0.spi_miso" description="Signal SPI master data in, slave data out of the peripheral FLEXCOMM0 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="routed" evaluation="">
                         <data type="Boolean">true</data>
@@ -600,11 +588,6 @@
                   <dependency resourceType="ClockOutput" resourceId="FXCOM5_clock" description="FXCOM5 clock is inactive." problem_level="2" source="Peripherals:BOARD_InitPeripherals">
                      <feature name="frequency" evaluation="greaterThan">
                         <data type="Frequency" unit="Hz">0</data>
-                     </feature>
-                  </dependency>
-                  <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM5.usart_rxd" description="Signal RX of the peripheral FLEXCOMM5 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
-                     <feature name="routed" evaluation="equal">
-                        <data type="Boolean">true</data>
                      </feature>
                   </dependency>
                   <dependency resourceType="PeripheralUnifiedSignal" resourceId="FLEXCOMM5.usart_txd" description="Signal TX of the peripheral FLEXCOMM5 is not routed." problem_level="1" source="Peripherals:BOARD_InitPeripherals">
@@ -699,37 +682,6 @@
                         <struct name="interruptCallbackConfig">
                            <struct name="interrupt">
                               <setting name="IRQn" value="CTIMER1_IRQn"/>
-                              <setting name="enable_priority" value="false"/>
-                              <setting name="priority" value="0"/>
-                           </struct>
-                           <setting name="callback" value="kCTIMER_NoCallback"/>
-                        </struct>
-                     </config_set>
-                  </instance>
-                  <instance name="CTIMER3" uuid="a4c9d763-3d0e-47f6-8968-562366c3a1d5" type="ctimer" type_id="ctimer_c8b90232d8b6318ba1dac2cf08fb5f4a" mode="Capture_Match" peripheral="CTIMER3" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="fsl_ctimer">
-                        <struct name="ctimerConfig">
-                           <setting name="mode" value="kCTIMER_TimerMode"/>
-                           <setting name="clockSource" value="FunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                           <setting name="timerPrescaler" value="96000000"/>
-                        </struct>
-                        <setting name="EnableTimerInInit" value="false"/>
-                        <array name="matchChannels">
-                           <struct name="0">
-                              <setting name="matchChannelPrefixId" value="Match0"/>
-                              <setting name="matchChannel" value="kCTIMER_Match_0"/>
-                              <setting name="matchValueStr" value="1"/>
-                              <setting name="enableCounterReset" value="true"/>
-                              <setting name="enableCounterStop" value="false"/>
-                              <setting name="outControl" value="kCTIMER_Output_NoAction"/>
-                              <setting name="outPinInitValue" value="low"/>
-                              <setting name="enableInterrupt" value="true"/>
-                           </struct>
-                        </array>
-                        <struct name="interruptCallbackConfig">
-                           <struct name="interrupt">
-                              <setting name="IRQn" value="CTIMER3_IRQn"/>
                               <setting name="enable_priority" value="false"/>
                               <setting name="priority" value="0"/>
                            </struct>
@@ -845,13 +797,10 @@
                   <instance name="FLEXCOMM5" uuid="bb5d7c81-7f6c-47f3-ad40-64eedefa12e3" type="flexcomm_usart" type_id="flexcomm_usart_c0a0c6d3d3ef57701b439b00070052a8" mode="interrupts" peripheral="FLEXCOMM5" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="interruptsCfg">
                         <set name="interrupts">
-                           <selected>
-                              <id>kUSART_RxErrorInterruptEnable</id>
-                              <id>kUSART_RxLevelInterruptEnable</id>
-                           </selected>
+                           <selected/>
                         </set>
                         <struct name="interrupt_vectors">
-                           <setting name="enable_rx_tx_irq" value="true"/>
+                           <setting name="enable_rx_tx_irq" value="false"/>
                            <struct name="interrupt_rx_tx">
                               <setting name="IRQn" value="FLEXCOMM5_IRQn"/>
                               <setting name="enable_interrrupt" value="enabled"/>
@@ -873,7 +822,7 @@
                            <setting name="loopback" value="false"/>
                            <setting name="txWatermark" value="kUSART_TxFifo0"/>
                            <setting name="rxWatermark" value="kUSART_RxFifo1"/>
-                           <setting name="enableRx" value="true"/>
+                           <setting name="enableRx" value="false"/>
                            <setting name="enableTx" value="true"/>
                            <setting name="clockPolarity" value="kUSART_RxSampleOnFallingEdge"/>
                            <setting name="enableContinuousSCLK" value="false"/>
@@ -932,36 +881,33 @@
                         </struct>
                      </config_set>
                   </instance>
-                  <instance name="UTICK0" uuid="d1247a63-710e-4ca5-9cee-14720a472517" type="utick" type_id="utick_58a3a3f691b03a130cd9419552f8327d" mode="general_config" peripheral="UTICK0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
-                     <config_set name="fsl_utick">
-                        <struct name="clockSettingUTICK">
-                           <setting name="clockSource" value="FunctionClock"/>
-                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
-                        </struct>
-                        <struct name="timerSettingUTICK">
-                           <setting name="utick_mode_t" value="kUTICK_Repeat"/>
-                           <setting name="startTimer" value="true"/>
-                           <setting name="timerValueStr" value="10000000"/>
-                           <setting name="callbackEnable" value="true"/>
-                           <setting name="utick_callback_t" value="UTICK0_Callback"/>
-                        </struct>
-                        <struct name="interrupt">
-                           <setting name="IRQn" value="UTICK0_IRQn"/>
-                           <setting name="enable_priority" value="false"/>
-                           <setting name="priority" value="0"/>
-                        </struct>
-                     </config_set>
-                  </instance>
                   <instance name="NVIC" uuid="1c25e86f-39e2-4f26-9059-9373c4fe5847" type="nvic" type_id="nvic_57b5eef3774cc60acaede6f5b8bddc67" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
                      <config_set name="nvic">
                         <array name="interrupt_table">
                            <struct name="0"/>
                            <struct name="1"/>
                            <struct name="2"/>
-                           <struct name="3"/>
-                           <struct name="4"/>
                         </array>
                         <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+                  <instance name="UTICK0" uuid="24f9b0fa-503c-44e7-b6d3-419e2619c6ac" type="utick" type_id="utick_58a3a3f691b03a130cd9419552f8327d" mode="general_config" peripheral="UTICK0" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="fsl_utick">
+                        <struct name="clockSettingUTICK">
+                           <setting name="clockSource" value="FunctionClock"/>
+                           <setting name="clockSourceFreq" value="BOARD_BootClockRUN"/>
+                        </struct>
+                        <struct name="timerSettingUTICK">
+                           <setting name="utick_mode_t" value="kUTICK_Onetime"/>
+                           <setting name="startTimer" value="true"/>
+                           <setting name="timerValueStr" value="1000000"/>
+                           <setting name="callbackEnable" value="false"/>
+                        </struct>
+                        <struct name="interrupt">
+                           <setting name="IRQn" value="UTICK0_IRQn"/>
+                           <setting name="enable_priority" value="false"/>
+                           <setting name="priority" value="0"/>
+                        </struct>
                      </config_set>
                   </instance>
                </instances>

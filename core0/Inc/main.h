@@ -41,6 +41,7 @@
 #include "cat1_app.h"
 #include "core1_app.h"
 #include "nfc_app.h"
+#include "lpm_app.h"
 
 #include "battery_drv.h"
 #include "iic_tp100_drv.h"
@@ -70,8 +71,8 @@
 #define EVT_ENTER_SLEEP    (1<<6)
 
 //#define DEBUG_USB_AUDIO
-//#define DEBUG_PRINTF printf
-#define DEBUG_PRINTF(...)
+#define DEBUG_PRINTF printf
+//#define DEBUG_PRINTF(...)
 
 #define SOFT_VERSION       "V2102271643"
 #define HARD_VERSION       "1.0.0"
