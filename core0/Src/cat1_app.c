@@ -14,7 +14,7 @@ uint32_t cat1_event = 0;
 MD5_CTX md5_ctx;
 unsigned char md5_t[16];
 char md5_result[40] = {0};
-
+bool checkVersion = true;
 void strrpl(char *s, const char *s1, const char *s2)
 {
     char *ptr;
@@ -201,8 +201,6 @@ bool CAT1_CheckVersion(void)
 	uint32_t one_packet_len = 512;
 	BaseType_t xReturn = pdFALSE;
     uint8_t retry = 0;
-
-	CAT1_EnterATMode();
     
     if(CAT1_CheckServerIp(UPGRADE_SERVER_IP,80) == false){
         return false;
@@ -248,6 +246,7 @@ bool CAT1_CheckVersion(void)
             }
         }
     }
+    #if 0
     //上报版本****************************************************************
     g_Cat1RxCnt = 0;
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -266,6 +265,7 @@ bool CAT1_CheckVersion(void)
     if(xReturn == false){
         return false;
     }
+    #endif
     //检测升级任务****************************************************************
     g_Cat1RxCnt = 0;
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -296,7 +296,7 @@ bool CAT1_CheckVersion(void)
             item = cJSON_GetObjectItem(pSub,"target");
             if(item->valuestring){
 				//判断当前版本号与目标版本号
-				if(strcmp(item->valuestring, SOFT_VERSION) == 0){
+				if(strcmp(item->valuestring, SOFT_VERSION) > 0){
 					haveNewVersion = true;//有新的版本
 					memset(g_sys_flash_para.firmUpdateTargetV, 0, sizeof(g_sys_flash_para.firmUpdateTargetV));
 					strcpy(g_sys_flash_para.firmUpdateTargetV,item->valuestring);
@@ -558,6 +558,13 @@ bool CAT1_UploadSampleData(void)
 
 	CAT1_EnterATMode();
     
+    //开机后,只检测一次是否升级
+    if(checkVersion == true)
+    {
+        checkVersion = false;
+        CAT1_CheckVersion();
+    }
+    
     if(CAT1_CheckServerIp("183.230.40.40", 1811) == false){
         return false;
     }
@@ -615,8 +622,6 @@ NEXT_SID:
         retry++;
         goto NEXT_SID;
     }
-
-//    CAT1_CheckVersion();
     
     /* 关机*/
     PWR_CAT1_OFF;
