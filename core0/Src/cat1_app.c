@@ -87,7 +87,7 @@ char* substr(char *src, char* head)
 bool CAT1_LoginOneNet(void)
 {
     //登录OneNet系统
-	char login[32] = {0};
+	char login[50] = {0};
 	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
 	if(CAT1_SendCmd(login, "OK", 3000) == false){
         return false;
@@ -104,7 +104,7 @@ void CAT1_EnterATMode(void)
 	if(CAT1_SendCmd("a","+ok", 1000)==false)
 	{
 		DEBUG_PRINTF("********** WIFI Init error \r\n");
-		g_sys_para.sampLedStatus = WORK_FATAL_ERR;
+		g_sys_para.sysLedStatus = SYS_ERROR;
 		return;
 	}
 }
@@ -120,7 +120,7 @@ bool CAT1_CheckServerIp(char *serverIp, uint16_t port)
         snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n",serverIp,port);
         CAT1_SendCmd(cmd ,"OK", 1000);
         
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
+        FLEXCOMM2_SendStr("AT+S\r\n");
         //AT+S会重启模块,在此处等待模块发送"WH-GM5"
         if(xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK) == false){
             return false;
@@ -201,6 +201,8 @@ bool CAT1_CheckVersion(void)
 	uint32_t one_packet_len = 512;
 	BaseType_t xReturn = pdFALSE;
     uint8_t retry = 0;
+    
+    CAT1_EnterATMode();
     
     if(CAT1_CheckServerIp(UPGRADE_SERVER_IP,80) == false){
         return false;
@@ -326,6 +328,7 @@ bool CAT1_CheckVersion(void)
     
     //获取固件*****************************************************************************************************
     if(haveNewVersion){
+        g_sys_para.sysLedStatus = SYS_UPGRADE;
 		g_sys_flash_para.firmPacksCount = 0;
         uint32_t app_data_addr = CORE0_DATA_ADDR;
 		
@@ -347,14 +350,14 @@ GET_NEXT:
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);
         if(xReturn == false){
             if(retry++ > 3){
-                return false;
+                goto UPGRADE_ERR;
             }
             goto GET_NEXT;
         }
         
         char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
         if(data_ptr != NULL){//模块重启了,一般是电量低的情况导致
-            return false;
+            goto UPGRADE_ERR;
         }
 		
         //查找第一次出现0xD 0xA 0xD 0xA的位置
@@ -366,7 +369,7 @@ GET_NEXT:
             g_sys_flash_para.firmPacksCount++;
             memory_write(g_sys_flash_para.firmCurrentAddr,(uint8_t *)(data_ptr), one_packet_len);
         }else{
-            
+            goto UPGRADE_ERR;
         }
 		
         //判断是否为最后一个包
@@ -402,19 +405,17 @@ GET_NEXT:
 				NVIC_SystemReset();
 			}else
             {
-                return false;
+                goto UPGRADE_ERR;
             }
 		}
     }
     
-    CAT1_EnterATMode();
-    char cmd[50] = {0};
-    snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
-    CAT1_SendCmd(cmd ,"OK", 1000);
-    CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-    vTaskDelay(200);
-    
     return true;
+    
+UPGRADE_ERR:
+    g_sys_para.sysLedStatus = SYS_UPGRADE_ERR;
+    vTaskDelay(3000);
+    return false;
 }
 
 /* CAT1-IoT 模块初始化 */
@@ -549,23 +550,20 @@ bool CAT1_UploadSampleData(void)
     uint32_t len = 0;
     uint8_t  retry = 0;
     uint8_t  auto_restart_times = 0;
+    
+    g_sys_para.sysLedStatus = SYS_UPLOAD_DATA;
     if(g_sys_flash_para.SelfRegisterFlag != 0xAA){//设备还未进行自注册
         CAT1_SelfRegister();
     }
+    
     if(CAT1_PowerOn() == false){
         return false;
     }
 
 	CAT1_EnterATMode();
     
-    //开机后,只检测一次是否升级
-    if(checkVersion == true)
-    {
-        checkVersion = false;
-        CAT1_CheckVersion();
-    }
-    
-    if(CAT1_CheckServerIp("183.230.40.40", 1811) == false){
+    g_sys_para.sysLedStatus = SYS_UPLOAD_DATA;
+    if(CAT1_CheckServerIp(DATA_SERVER_IP, DATA_SERVER_PORT) == false){
         return false;
     }
     
@@ -578,49 +576,56 @@ bool CAT1_UploadSampleData(void)
     //进入透传模式
     CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
 
-    CAT1_LoginOneNet();
-    
-    if(auto_restart_times == 0)
-    {
-        //发送当前状态到服务器
-        memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
-        PacketBatteryInfo(g_commTxBuf);
-        //OneNet平台字符串透传需要将 " 替换成 \"
-        strrpl((char*)g_commTxBuf,"\"","\\\"");
-        CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
+    if(CAT1_LoginOneNet() == false){
+        return false;
     }
+
+    //发送当前状态到服务器
+    memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+    PacketSystemInfo(g_commTxBuf);
+    //OneNet平台字符串透传需要将 " 替换成 \"
+    strrpl((char*)g_commTxBuf,"\"","\\\"");
+    CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
+
     //发送采样数据包
 NEXT_SID:
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
+    memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
+    g_Cat1RxCnt = 0;
+    
     len = PacketUploadSampleData(g_commTxBuf, sid);
     if(sid == 0){
         strrpl((char*)g_commTxBuf,"\"","'");
     }
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
     xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);//等待服务器回复数据,超时时间10S
-    if(pdTRUE == xReturn)
-    {
-        char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
-        if(data_ptr != NULL){//模块重启了,一般是电量低的情况导致
-            if(auto_restart_times++ > 3){
-                return false;
-            }
-            CAT1_EnterATMode();
-            if(CAT1_CheckConnected() == false){
-                return false;
-            }
-            CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
-            goto NEXT_SID;
-        }
+
+    char *data_ptr = strstr((char *)g_Cat1RxBuffer, "OK");
+    if(data_ptr != NULL){
         sid ++;
-        if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
-            goto NEXT_SID;
+    }else{
+        if(auto_restart_times++ > 3){
+            return false;
         }
-    }
-    else if(retry < 3)//超时,且重试次数小于3
-    {
-        retry++;
+        CAT1_EnterATMode();
+        if(CAT1_CheckConnected() == false){
+            return false;
+        }
+        CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
         goto NEXT_SID;
+    }
+    if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
+        goto NEXT_SID;
+    }
+
+    //开机后,只检测一次是否升级
+    if(checkVersion == true)
+    {
+        checkVersion = false;
+        if(CAT1_CheckVersion() == false){
+            g_sys_para.sysLedStatus = SYS_UPGRADE_ERR;
+            vTaskDelay(3000);//等待LED闪烁3S
+        }
     }
     
     /* 关机*/
@@ -635,7 +640,8 @@ void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
     if(CAT1_SelfRegister() == false){
-         PWR_CAT1_OFF;
+        g_sys_para.sysLedStatus = SYS_ERROR;
+        PWR_CAT1_OFF;
         //自注册失败,系统指示灯亮红灯
     }
 	DEBUG_PRINTF("CAT1_AppTask Running\r\n");
@@ -647,8 +653,11 @@ void CAT1_AppTask(void)
 		{
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
-                CAT1_UploadSampleData();
-
+                if( CAT1_UploadSampleData()== false){
+                    g_sys_para.sysLedStatus = SYS_UPLOAD_DATA_ERR;
+                    vTaskDelay(3000);//等待指示灯闪烁3S
+                }
+                //进入低功耗模式
                 xTaskNotify(ADC_TaskHandle, EVT_ENTER_SLEEP, eSetBits);
             }
 		}

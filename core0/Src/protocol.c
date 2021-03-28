@@ -1276,7 +1276,7 @@ char *GetIdentityInfoByNfc(cJSON *pJson, cJSON * pSub)
     return p_reply;
 }
 
-uint32_t PacketBatteryInfo(uint8_t *txBuf)
+uint32_t PacketSystemInfo(uint8_t *txBuf)
 {
     uint32_t len = 0;
     cJSON *pJsonRoot = cJSON_CreateObject();
@@ -1294,6 +1294,7 @@ uint32_t PacketBatteryInfo(uint8_t *txBuf)
     cJSON_AddNumberToObject(pJsonRoot, "Min", sysTime.minute);
     cJSON_AddNumberToObject(pJsonRoot, "S", sysTime.second);
     cJSON_AddStringToObject(pJsonRoot, "CSQ", g_sys_para.CSQ);
+    cJSON_AddStringToObject(pJsonRoot, "SV", SOFT_VERSION);//Èí¼þ°æ±¾ºÅ
     char *p_reply = cJSON_PrintUnformatted(pJsonRoot);
     strcpy((char *)txBuf,p_reply);
     cJSON_Delete(pJsonRoot);

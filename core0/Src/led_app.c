@@ -1,16 +1,16 @@
 #include "main.h"
 
-#define ON  0
-#define OFF 1
+
 
 static uint32_t sys_led_cnt = 0;
 static uint32_t bat_led_cnt = 0;
-static uint32_t ble_led_cnt = 0;
+static uint32_t led_cnt = 0;
 
 TaskHandle_t LED_TaskHandle = NULL;  /* LEDÈÎÎñ¾ä±ú */
 static bool flag_led_chk;
 
-float T = 0;
+
+
 /***************************************************************************************
   * @brief
   * @input
@@ -22,31 +22,54 @@ void LED_AppTask(void)
 	extern void USB_AudioInit(void);
 	USB_AudioInit();
 #endif
+    LED_CheckSelf();
     while(1)
     {
 		RTC_GetDatetime(RTC, &sysTime);
-		T = TMP101_ReadTemp();
         if(flag_led_chk) { //µ±Ç°ledµÆÕýÔÚ×Ô¼ì
             vTaskDelay(200);
         }
         else
         {
             //ÏµÍ³×´Ì¬Ö¸Ê¾µÆ
-            switch(g_sys_para.sampLedStatus)
+            switch(g_sys_para.sysLedStatus)
             {
-            case WORK_FINE://ºìµÆÃð,ÂÌµÆÁÁ
-                GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, OFF);
-                GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, ON);
+            case SYS_IDLE://ÂÌµÆÁÁ
+                SysLedGreenOn();
                 break;
-            case WORK_ERR://ÂÌµÆÃð,ºìµÆ0.6ÃëÉÁË¸
-                GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, OFF);
-                if(sys_led_cnt++ % 3 == 0) {
-					GPIO_PortToggle(GPIO, BOARD_LED_SYS_RED_PORT,1U << BOARD_LED_SYS_RED_PIN);
+            case SYS_IN_SAMPLING://»ÆµÆÁÁ
+                SysLedYellowOn();
+                break;
+            case SYS_UPLOAD_DATA://»ÆµÆ0.2ÉÁË¸
+                if(led_cnt++ % 2 == 0) {
+                    SysLedYellowOn();
+                } else {
+                    SysLedOff();
                 }
                 break;
-            case WORK_FATAL_ERR://ÂÌµÆÃð,ºìµÆ0.2ÃëÉÁË¸
-                GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, OFF);
-				GPIO_PortToggle(GPIO, BOARD_LED_SYS_RED_PORT,1U << BOARD_LED_SYS_RED_PIN);
+            case SYS_UPLOAD_DATA_ERR://ºìµÆ0.2ÃëÉÁË¸
+                if(led_cnt++ % 2 == 0) {
+                    SysLedRedOn();
+                } else {
+                    SysLedOff();
+                }
+                break;
+            case SYS_ERROR://ÏµÍ³Î´×¢²áµ½OneNetÆ½Ì¨µÈ´íÎó
+                SysLedRedOn();
+                break;
+            case SYS_UPGRADE:
+                if(led_cnt++ % 2 == 0) {
+                    SysLedGreenOn();
+                } else {
+                    SysLedYellowOn();
+                }
+                break;
+            case SYS_UPGRADE_ERR:
+                if(led_cnt++ % 2 == 0) {
+                    SysLedYellowOn();
+                } else {
+                    SysLedRedOn();
+                }
                 break;
             default:
                 break;
@@ -90,7 +113,7 @@ void LED_AppTask(void)
                 break;
             case BLE_WIFI_READY://ºìµÆÃð,ÂÌµÆ0.6ÃëÉÁ
                 GPIO_PinWrite(GPIO, BOARD_LED_BLE_RED_PORT,  BOARD_LED_BLE_RED_PIN, OFF);
-                if(ble_led_cnt++ % 3 == 0) {
+                if(led_cnt++ % 3 == 0) {
 					GPIO_PortToggle(GPIO, BOARD_LED_BLE_GREEN_PORT, 1 << BOARD_LED_BLE_GREEN_PIN);
                 }
                 break;
@@ -101,7 +124,7 @@ void LED_AppTask(void)
             case BLE_WIFI_UPDATE://ºìÂÌµÆ½»ÌæÉÁË¸
 //				GPIO_PinWrite(BOARD_LED_BLE_RED_GPIO,  BOARD_LED_BLE_RED_PIN, OFF);
 //                BOARD_LED_BLE_GREEN_GPIO->DR ^= (1 << BOARD_LED_BLE_GREEN_PIN);
-                if(ble_led_cnt++ % 2 == 0) {
+                if(led_cnt++ % 2 == 0) {
                     GPIO_PinWrite(GPIO, BOARD_LED_BLE_RED_PORT,  BOARD_LED_BLE_RED_PIN, OFF);
                     GPIO_PinWrite(GPIO, BOARD_LED_BLE_GREEN_PORT, BOARD_LED_BLE_GREEN_PIN, ON);
                 } else {
@@ -115,7 +138,7 @@ void LED_AppTask(void)
 #endif
         }
 
-        vTaskDelay(300);
+        vTaskDelay(200);
     }
 }
 

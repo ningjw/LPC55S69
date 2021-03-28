@@ -76,7 +76,7 @@ void WIFI_Init(void)
 	if(WIFI_SendCmd("a","OK", 1000)==false)
 	{
 		DEBUG_PRINTF("********** WIFI Init error \r\n");
-		g_sys_para.sampLedStatus = WORK_FATAL_ERR;
+		g_sys_para.sysLedStatus = WORK_FATAL_ERR;
 		return;
 	}
 

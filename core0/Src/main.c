@@ -51,7 +51,7 @@ static void InitSysPara()
         Flash_SavePara();
     }
     g_sys_para.sysIdleCount = 0;    //
-    g_sys_para.sampLedStatus = WORK_FINE;
+    g_sys_para.sysLedStatus = SYS_IDLE;
     g_sys_para.batLedStatus = BAT_NORMAL;
     g_sys_para.BleWifiLedStatus = BLE_CLOSE;
 }

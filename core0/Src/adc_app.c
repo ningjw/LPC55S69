@@ -90,6 +90,11 @@ void ADC_SampleStart(uint8_t reason)
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
 				g_sample_para.sampNumber,g_sample_para.SampleRate);
     
+    //系统指示灯指示正在采样,黄灯亮
+    g_sys_para.sysLedStatus = SYS_IN_SAMPLING;
+    GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, OFF);
+    GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, OFF);
+    
 	g_sample_para.sampleReason = reason;
 	g_sys_para.tempCount = 0;
     g_sample_para.shkCount = 0;
@@ -186,7 +191,12 @@ void ADC_SampleStop(void)
 	DEBUG_PRINTF("ADC_SampleStop \r\n");
 	/* Stop get temperature*/
 	g_sys_para.WorkStatus = false;
-	
+    
+    //采样结束,恢复指示灯绿色常亮.
+	g_sys_para.sysLedStatus = SYS_IDLE;
+    GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, OFF);
+    GPIO_PinWrite(GPIO, BOARD_LED_SYS_GREEN_PORT, BOARD_LED_SYS_GREEN_PIN, ON);
+    
 	//关闭时钟输出
 #ifndef CAT1_VERSION
 	SI5351a_SetPDN(SI_CLK0_CONTROL,false);

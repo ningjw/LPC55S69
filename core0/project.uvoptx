@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>328</LineNumber>
+          <LineNumber>216</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>77508</Address>
+          <Address>76740</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,14 +163,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\328</Expression>
+          <Expression>\\core0\Src/cat1_app.c\216</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>205</LineNumber>
+          <LineNumber>283</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>76598</Address>
+          <Address>77174</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -179,14 +179,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\205</Expression>
+          <Expression>\\core0\Src/cat1_app.c\283</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>214</LineNumber>
+          <LineNumber>607</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>76644</Address>
+          <Address>80988</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -195,14 +195,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\214</Expression>
+          <Expression>\\core0\Src/cat1_app.c\607</Expression>
         </Bp>
         <Bp>
           <Number>3</Number>
           <Type>0</Type>
-          <LineNumber>270</LineNumber>
+          <LineNumber>622</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>76944</Address>
+          <Address>81078</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -211,23 +211,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\270</Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
-          <Type>0</Type>
-          <LineNumber>291</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>77162</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\Src\cat1_app.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\core0\Src/cat1_app.c\291</Expression>
+          <Expression>\\core0\Src/cat1_app.c\622</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -259,37 +243,32 @@
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_commTxBuf</ItemText>
+          <ItemText>checkVersion</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>s1</ItemText>
+          <ItemText>g_sys_para.sysLedStatus</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>s2</ItemText>
+          <ItemText>g_Cat1RxBuffer</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ptr</ItemText>
+          <ItemText>g_sys_para.sampPacksByWifiCat1,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>checkVersion</ItemText>
+          <ItemText>auto_restart_times</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>haveNewVersion</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>item-&gt;valuestring</ItemText>
+          <ItemText>sid</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

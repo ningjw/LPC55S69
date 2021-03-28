@@ -172,7 +172,7 @@ typedef struct{
 
     uint8_t  batLedStatus;     //电池状态
     uint8_t  BleWifiLedStatus; //蓝牙状态
-    uint8_t  sampLedStatus;    //采样状态
+    uint8_t  sysLedStatus;    //采样状态
     bool     WorkStatus;       //用于指示当前是否正在采集.
 
 	float    batVoltage;   //电池电压
