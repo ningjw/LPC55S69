@@ -5,6 +5,7 @@ SysPara        g_sys_para;
 SysFlashPara   g_sys_flash_para;
 SysSamplePara  g_sample_para;
 rtc_datetime_t sysTime;
+rtc_datetime_t sampTime;
 flash_config_t flashInstance;
 uint8_t g_commTxBuf[FLEXCOMM_BUFF_LEN] = {0};//ble/wifi/nfc/cat1 公用的串口发送缓冲区
 

@@ -89,7 +89,9 @@ void ADC_SampleStart(uint8_t reason)
 {
 	DEBUG_PRINTF("%s:sampNumber=%d,SampleRate=%d,\r\n",__func__,
 				g_sample_para.sampNumber,g_sample_para.SampleRate);
-    
+	
+    RTC_GetDatetime(RTC, &sampTime);
+	
     //系统指示灯指示正在采样,黄灯亮
     g_sys_para.sysLedStatus = SYS_IN_SAMPLING;
     GPIO_PinWrite(GPIO, BOARD_LED_SYS_RED_PORT,  BOARD_LED_SYS_RED_PIN, OFF);
@@ -253,9 +255,6 @@ void ADC_SampleStop(void)
     //转速信号从哪个sid开始发送
 //    g_sys_para.spdStartSid = g_sys_para.shkPacksByBleNfc + 1;//需要加上1个采样参数包
 #endif
-    
-    /*将采样数据保存到spi flash*/
-	W25Q128_AddAdcData();
 }
 
 
@@ -298,7 +297,7 @@ void ADC_AppTask(void)
     DEBUG_PRINTF("ADC_AppTask Running\r\n");
     
     LPC55S69_AdcInit();
-
+	
 	TMP101_Init();
 	
     xTaskNotify(ADC_TaskHandle, EVT_SAMPLE_START, eSetBits);
@@ -336,7 +335,7 @@ void ADC_AppTask(void)
 			
 			g_sys_para.shkRMS = GetRMS(ShakeADC, g_sample_para.shkCount, g_sample_para.WindowsType);
 #endif          
-			
+
 #if defined(BLE_VERSION) || defined(WIFI_VERSION)
 			/*通知线程采样完成, 可以获取采样数据了*/
 			xTaskNotifyGive( BLE_WIFI_TaskHandle);

@@ -53,7 +53,6 @@
 #include "md5.h"
 
 #define VERSION_CONTROL 3
-#define USE_ONENET
 
 #if VERSION_CONTROL == 1
 #define BLE_VERSION
@@ -285,6 +284,7 @@ extern SysPara        g_sys_para;
 extern SysFlashPara   g_sys_flash_para;
 extern SysSamplePara  g_sample_para;
 extern rtc_datetime_t sysTime;
+extern rtc_datetime_t sampTime;
 extern flash_config_t flashInstance;
 
 void SystemSleep();

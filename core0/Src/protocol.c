@@ -4,9 +4,6 @@ extern uint8_t s_nor_program_buffer[];
 extern AdcInfoTotal adcInfoTotal;
 extern AdcInfo adcInfo;
 
-
-rtc_datetime_t sampTime;
-
 uint16_t ble_wait_time = 8;
 
 /***************************************************************************************
@@ -395,7 +392,7 @@ static char * StartSample(cJSON *pJson, cJSON * pSub)
 #endif
     free(sendBuf);
     sendBuf = NULL;
-    sampTime = sysTime;
+	
     /*start sample*/
     ADC_SampleStart(HAND_SAMPLE);
 

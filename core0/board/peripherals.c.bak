@@ -540,7 +540,7 @@ instance:
       - clockSourceFreq: 'BOARD_BootClockRUN'
     - timerSettingUTICK:
       - utick_mode_t: 'kUTICK_Onetime'
-      - startTimer: 'false'
+      - startTimer: 'true'
       - timerValueStr: '1000000'
       - callbackEnable: 'false'
     - interrupt:

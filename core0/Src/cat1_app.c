@@ -89,65 +89,56 @@ bool CAT1_LoginOneNet(void)
     //登录OneNet系统
 	char login[50] = {0};
 	sprintf(login,"*%s#%s#server*",PRODUCT_ID,g_sys_flash_para.SN);
-	if(CAT1_SendCmd(login, "OK", 3000) == false){
-        return false;
-    }
+	FLEXCOMM2_SendStr(login);
     return true;
-}
-
-void CAT1_EnterATMode(void)
-{
-    while(CAT1_SendCmd("+++", "a", 1000) == false){
-		vTaskDelay(10);
-	}
-
-	if(CAT1_SendCmd("a","+ok", 1000)==false)
-	{
-		DEBUG_PRINTF("********** WIFI Init error \r\n");
-		g_sys_para.sysLedStatus = SYS_ERROR;
-		return;
-	}
 }
 
 bool CAT1_CheckServerIp(char *serverIp, uint16_t port)
 {
-    if(CAT1_SendCmd("AT+SOCKA?\r\n", serverIp, 300) == false)
+    if(CAT1_SendCmd(CAT1_PWD"AT+SOCKA?\r\n", serverIp, 300) == false)
     {
         char cmd[50] = {0};
         
-        CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
+        CAT1_SendCmd(CAT1_PWD"AT+SOCKAEN=ON\r\n" ,"OK", 200);
         
-        snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n",serverIp,port);
+        snprintf(cmd, 50, CAT1_PWD"AT+SOCKA=TCP,%s,%d\r\n",serverIp,port);
         CAT1_SendCmd(cmd ,"OK", 1000);
         
-        FLEXCOMM2_SendStr("AT+S\r\n");
+        FLEXCOMM2_SendStr(CAT1_PWD"AT+S\r\n");
         //AT+S会重启模块,在此处等待模块发送"WH-GM5"
         if(xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK) == false){
             return false;
         }
-        
-        CAT1_EnterATMode();
     }
     return true;
 }
 
 bool CAT1_CheckConnected(void)
 {
-    uint8_t retry = 0;
-    while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){//等待连接服务器成功
-        if(retry++ > 5){
+	uint8_t retry = 0;
+	while(LINKA_STATUS() == DISCONNECTED){
+		if(retry++ > 20){
             return false;
         }
         vTaskDelay(1000);
-    }
-    return true;
+	}
+	return true;
+}
+
+void CAT1_SetDataServer(void)
+{
+	char cmd[50] = {0};
+	snprintf(cmd, 50, CAT1_PWD"AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
+	CAT1_SendCmd(cmd ,"OK", 1000);
+	CAT1_SendCmd(CAT1_PWD"AT+S\r\n" ,"OK", 200);
+	vTaskDelay(500);
 }
 
 void CAT1_SyncDateTime(void)
 {
     //从ntp服务器同步时间****************************************************************
-    CAT1_SendCmd("AT+NTPEN=ON\r\n" ,"OK", 200);
-    CAT1_SendCmd("AT+CCLK\r\n" ,"OK", CAT1_WAIT_TICK);
+    CAT1_SendCmd(CAT1_PWD"AT+NTPEN=ON\r\n" ,"OK", 200);
+    CAT1_SendCmd(CAT1_PWD"AT+CCLK\r\n" ,"OK", CAT1_WAIT_TICK);
     char *s = strstr((char *)g_Cat1RxBuffer,"+CCLK: ");
     if(s){
         s = s+8;
@@ -172,7 +163,7 @@ void CAT1_SyncDateTime(void)
         RTC_SetDatetime(RTC, &sysTime);
     }
     
-    CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
+    CAT1_SendCmd(CAT1_PWD"AT+CSQ\r\n" ,"OK", 300);
     s = strstr((char *)g_Cat1RxBuffer,"+CSQ: ");
     if(s){
         strtok(s, ",");
@@ -202,9 +193,7 @@ bool CAT1_CheckVersion(void)
 	BaseType_t xReturn = pdFALSE;
     uint8_t retry = 0;
     
-    CAT1_EnterATMode();
-    
-    if(CAT1_CheckServerIp(UPGRADE_SERVER_IP,80) == false){
+    if(CAT1_CheckServerIp(UPGRADE_SERVER_IP, UPGRADE_SERVER_PORT) == false){
         return false;
     }
     
@@ -212,9 +201,6 @@ bool CAT1_CheckVersion(void)
         return false;
     }
     
-    //进入透传模式
-    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
-
     //上报升级状态****************************************************************
     if(g_sys_flash_para.firmCore0Update == REPORT_VERSION){
         
@@ -328,7 +314,6 @@ bool CAT1_CheckVersion(void)
     
     //获取固件*****************************************************************************************************
     if(haveNewVersion){
-        g_sys_para.sysLedStatus = SYS_UPGRADE;
 		g_sys_flash_para.firmPacksCount = 0;
         uint32_t app_data_addr = CORE0_DATA_ADDR;
 		
@@ -409,11 +394,12 @@ GET_NEXT:
             }
 		}
     }
-    
+    CAT1_SetDataServer();
     return true;
     
 UPGRADE_ERR:
     g_sys_para.sysLedStatus = SYS_UPGRADE_ERR;
+	CAT1_SetDataServer();
     vTaskDelay(3000);
     return false;
 }
@@ -432,27 +418,12 @@ bool CAT1_SelfRegister()
         if(CAT1_PowerOn() == false){
             return false;
         }
-		CAT1_EnterATMode();
-		
-		CAT1_SendCmd("AT+CSQ\r\n" ,"OK", 300);
-		
-		CAT1_SendCmd("AT+E=OFF\r\n" ,"OK", 200);
-		
-		CAT1_SendCmd("AT+WKMOD=NET\r\n", "OK", 200);//检查网络
-
-		CAT1_SendCmd("AT+SOCKAEN=ON\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKBEN=OFF\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKCEN=OFF\r\n" ,"OK", 200);
-        CAT1_SendCmd("AT+SOCKDEN=OFF\r\n" ,"OK", 200);
+		CAT1_SendCmd(CAT1_PWD"AT+E=OFF\r\n" ,"OK", 200);
 		
         CAT1_CheckServerIp(REGISTER_SERVER_IP, REGISTER_SERVER_PORT);
         
-        if(CAT1_CheckConnected() == false){
-            return false;
-        }
-        
         //产品序列号
-        FLEXCOMM2_SendStr("AT+SN?\r\n");
+        FLEXCOMM2_SendStr(CAT1_PWD"AT+SN?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         char *s = strstr((char *)g_Cat1RxBuffer,"+SN:");
         if(s){
@@ -461,7 +432,7 @@ bool CAT1_SelfRegister()
         }
         
         //国际移动设备识别码
-        FLEXCOMM2_SendStr("AT+IMEI?\r\n");
+        FLEXCOMM2_SendStr(CAT1_PWD"AT+IMEI?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         s = strstr((char *)g_Cat1RxBuffer,"+IMEI:");
         if(s){
@@ -470,22 +441,18 @@ bool CAT1_SelfRegister()
         }
         
         //SIM卡的唯一识别号码
-        FLEXCOMM2_SendStr("AT+ICCID?\r\n");
+        FLEXCOMM2_SendStr(CAT1_PWD"AT+ICCID?\r\n");
         xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, 300);
         s = strstr((char *)g_Cat1RxBuffer,"+ICCID:");
         if(s){
             strtok(s,"\r\n");
             strncpy(g_sys_flash_para.ICCID, s+7, sizeof(g_sys_flash_para.ICCID));
         }
-        while(CAT1_SendCmd("AT+SOCKALK?\r\n" ,"Connected", 1000) == false){
-            retry++;
-            if(retry > CAT1_RETRY_TIMES){
-                return false;
-            }
-            vTaskDelay(1000);
-        }
-        CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
-        
+		
+		if(CAT1_CheckConnected() == false){
+			return false;
+		}
+
         //使用模块的SN号在OneNet平台自注册
         g_Cat1RxCnt = 0;
         memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
@@ -530,12 +497,7 @@ bool CAT1_SelfRegister()
         g_sys_flash_para.SelfRegisterFlag = 0xAA;
 		Flash_SavePara();
         
-        CAT1_EnterATMode();
-        char cmd[50] = {0};
-        snprintf(cmd, 50, "AT+SOCKA=TCP,%s,%d\r\n", DATA_SERVER_IP, DATA_SERVER_PORT);
-        CAT1_SendCmd(cmd ,"OK", 1000);
-        CAT1_SendCmd("AT+S\r\n" ,"OK", 200);
-        vTaskDelay(500);
+        CAT1_SetDataServer();
         PWR_CAT1_OFF;
 	}
     return true;
@@ -559,9 +521,7 @@ bool CAT1_UploadSampleData(void)
     if(CAT1_PowerOn() == false){
         return false;
     }
-
-	CAT1_EnterATMode();
-    
+	
     g_sys_para.sysLedStatus = SYS_UPLOAD_DATA;
     if(CAT1_CheckServerIp(DATA_SERVER_IP, DATA_SERVER_PORT) == false){
         return false;
@@ -573,9 +533,6 @@ bool CAT1_UploadSampleData(void)
         return false;
     }
     
-    //进入透传模式
-    CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);
-
     if(CAT1_LoginOneNet() == false){
         return false;
     }
@@ -584,48 +541,59 @@ bool CAT1_UploadSampleData(void)
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     PacketSystemInfo(g_commTxBuf);
     //OneNet平台字符串透传需要将 " 替换成 \"
+#ifdef USE_ONENET
     strrpl((char*)g_commTxBuf,"\"","\\\"");
-    CAT1_SendCmd((char *)g_commTxBuf, "OK", 10000);
-
+#endif
+	FLEXCOMM2_SendStr((char *)g_commTxBuf);
     //发送采样数据包
+	bool isUploadFlas = true;
 NEXT_SID:
     memset(g_commTxBuf, 0, FLEXCOMM_BUFF_LEN);
     memset(g_Cat1RxBuffer, 0, sizeof(g_Cat1RxBuffer));
     g_Cat1RxCnt = 0;
     
     len = PacketUploadSampleData(g_commTxBuf, sid);
+#ifdef USE_ONENET
     if(sid == 0){
         strrpl((char*)g_commTxBuf,"\"","'");
     }
+#endif
     USART_WriteBlocking(FLEXCOMM2_PERIPHERAL, g_commTxBuf, len);
     xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, CAT1_WAIT_TICK);//等待服务器回复数据,超时时间10S
-
-    char *data_ptr = strstr((char *)g_Cat1RxBuffer, "OK");
+    char *data_ptr = strstr((char *)g_Cat1RxBuffer, "WH-GM5");
     if(data_ptr != NULL){
-        sid ++;
-    }else{
         if(auto_restart_times++ > 3){
+			isUploadFlas = false;
             return false;
         }
-        CAT1_EnterATMode();
         if(CAT1_CheckConnected() == false){
+			DEBUG_PRINTF("%d:CAT1_CheckConnected fail",__LINE__);
+			isUploadFlas = false;
             return false;
         }
-        CAT1_SendCmd("AT+ENTM\r\n" ,"OK", 200);//进入透传模式
         goto NEXT_SID;
+    }else{
+		sid ++;
     }
+	
     if(sid < g_sys_para.sampPacksByWifiCat1){//还有数据包未发完
         goto NEXT_SID;
     }
-
+	
+	//本次采样数据已经发送完成,需要检测flash中是否有数据需要上传
+	
+	
     //开机后,只检测一次是否升级
+	checkVersion = false;
     if(checkVersion == true)
     {
         checkVersion = false;
+		g_sys_para.sysLedStatus = SYS_UPGRADE;//检测升级
         if(CAT1_CheckVersion() == false){
             g_sys_para.sysLedStatus = SYS_UPGRADE_ERR;
             vTaskDelay(3000);//等待LED闪烁3S
         }
+		CAT1_CheckServerIp(DATA_SERVER_IP, DATA_SERVER_PORT);
     }
     
     /* 关机*/
@@ -639,6 +607,7 @@ NEXT_SID:
 void CAT1_AppTask(void)
 {
 	uint8_t xReturn = pdFALSE;
+	
     if(CAT1_SelfRegister() == false){
         g_sys_para.sysLedStatus = SYS_ERROR;
         PWR_CAT1_OFF;
@@ -649,12 +618,14 @@ void CAT1_AppTask(void)
 	{
 		/*wait task notify*/
         xReturn = xTaskNotifyWait(pdFALSE, ULONG_MAX, &cat1_event, portMAX_DELAY);
-		if ( pdTRUE == xReturn)
+		if ( pdTRUE == xReturn && cat1_event == EVT_UPLOAD_SAMPLE)
 		{
 			if(cat1_event == EVT_UPLOAD_SAMPLE)//采样完成,将采样数据上传
             {
                 if( CAT1_UploadSampleData()== false){
-                    g_sys_para.sysLedStatus = SYS_UPLOAD_DATA_ERR;
+					/*将采样数据保存到spi flash,等待下次传输*/
+					g_sys_para.sysLedStatus = SYS_UPLOAD_DATA_ERR;
+					W25Q128_AddAdcData();
                     vTaskDelay(3000);//等待指示灯闪烁3S
                 }
                 //进入低功耗模式

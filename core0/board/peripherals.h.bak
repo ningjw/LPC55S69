@@ -97,7 +97,7 @@ extern "C" {
 /* Timer tick period in ns (input period of the timer) */
 #define UTICK0_TICK_PERIOD 1000UL
 /* Definition of timer value in ticks */
-#define UTICK0_TICKS 0UL
+#define UTICK0_TICKS 999999UL
 /* UTICK0 interrupt vector ID (number). */
 #define UTICK0_IRQN UTICK0_IRQn
 

@@ -42,7 +42,7 @@ extern "C" {
 /* Timer tick period in ns (input period of the timer) */
 #define CTIMER0_TICK_PERIOD 10UL
 /* Definition of PWM period */
-#define CTIMER0_PWM_PERIOD 96
+#define CTIMER0_PWM_PERIOD 95
 /* Definition of channel 0 ID */
 #define CTIMER0_PWM0_CHANNEL kCTIMER_Match_0
 /* Definition of channel 0 duty */
@@ -54,7 +54,7 @@ extern "C" {
 /* Timer tick period in ns (input period of the timer) */
 #define CTIMER2_TICK_PERIOD 10UL
 /* Definition of PWM period */
-#define CTIMER2_PWM_PERIOD 96
+#define CTIMER2_PWM_PERIOD 95
 /* Definition of channel 1 ID */
 #define CTIMER2_PWM1_CHANNEL kCTIMER_Match_1
 /* Definition of channel 1 duty */

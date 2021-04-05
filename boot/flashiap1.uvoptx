@@ -213,8 +213,8 @@
         </Mm>
       </MemoryWindow2>
       <ScvdPack>
-        <Filename>C:\Users\Marvin.Ning\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\EventRecorder.scvd</Filename>
-        <Type>Keil.ARM_Compiler.1.6.2</Type>
+        <Filename>C:\Users\ningjw\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.3\EventRecorder.scvd</Filename>
+        <Type>Keil.ARM_Compiler.1.6.3</Type>
         <SubType>1</SubType>
       </ScvdPack>
       <Tracepoint>

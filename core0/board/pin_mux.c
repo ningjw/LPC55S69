@@ -11,7 +11,7 @@ product: Pins v9.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 9.0.1
+processor_version: 9.0.2
 pin_labels:
 - {pin_num: L7, pin_signal: PIO1_14/UTICK_CAP2/CTIMER1_MAT2/FC5_CTS_SDA_SSEL0/USB0_LEDN/SD1_CMD/ACMP0_D, label: LED_BAT_GREEN, identifier: LED3;LED_BAT_RED;LED_BAT_GREEN}
 - {pin_num: J7, pin_signal: PIO1_10/FC1_RXD_SDA_MOSI_DATA/CTIMER1_MAT0/SCT0_OUT3, label: PWR_3V3A, identifier: PWR_EN2;PWR_3V;PWR_ADC;PWR_3V3A}

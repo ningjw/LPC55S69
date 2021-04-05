@@ -10,7 +10,7 @@ product: Peripherals v9.0
 processor: LPC55S69
 package_id: LPC55S69JEV98
 mcu_data: ksdk2_0
-processor_version: 9.0.1
+processor_version: 9.0.2
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 6d318e78-2ce5-461a-85f3-e18610602d0a
